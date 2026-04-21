@@ -1,0 +1,70 @@
+.TH "SpaceGame/engine_utils.h" 3 "Version 0.1.0" "Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SpaceGame/engine_utils.h
+.SH SYNOPSIS
+.br
+.PP
+\fR#include 'engine_defs\&.h'\fP
+.br
+\fR#include <stdlib\&.h>\fP
+.br
+
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBENGINE_DEF_LINK_LIST_ALLOC_SIZE\fP   0xFF"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBEngineLinkedList\fP * \fBengineCreateLinkedList\fP (char *lista, char *listb, size_t arrsize, size_t typesize)"
+.br
+.ti -1c
+.RI "void \fBengineDestroyLinkedList\fP (\fBEngineLinkedList\fP *list)"
+.br
+.ti -1c
+.RI "const \fBEBOOL\fP \fBengineSetValue\fP (\fBEngineLinkedList\fP *list, int index, int value)"
+.br
+.ti -1c
+.RI "void \fBengineGetValues\fP (\fBEngineLinkedList\fP *list, char *desta, char *destb)"
+.br
+.ti -1c
+.RI "char * \fBengineReadFile\fP (const char *path)"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define ENGINE_DEF_LINK_LIST_ALLOC_SIZE   0xFF"
+
+.PP
+Definition at line \fB8\fP of file \fBengine_utils\&.h\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "\fBEngineLinkedList\fP * engineCreateLinkedList (char * lista, char * listb, size_t arrsize, size_t typesize)"
+
+.PP
+Definition at line \fB7\fP of file \fBengine_utils\&.c\fP\&.
+.SS "void engineDestroyLinkedList (\fBEngineLinkedList\fP * list)"
+
+.PP
+Definition at line \fB44\fP of file \fBengine_utils\&.c\fP\&.
+.SS "void engineGetValues (\fBEngineLinkedList\fP * list, char * desta, char * destb)"
+
+.PP
+Definition at line \fB74\fP of file \fBengine_utils\&.c\fP\&.
+.SS "char * engineReadFile (const char * path)"
+
+.PP
+Definition at line \fB83\fP of file \fBengine_utils\&.c\fP\&.
+.SS "const \fBEBOOL\fP engineSetValue (\fBEngineLinkedList\fP * list, int index, int value)"
+
+.PP
+Definition at line \fB63\fP of file \fBengine_utils\&.c\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Engine from the source code\&.

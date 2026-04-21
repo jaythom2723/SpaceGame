@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_engine__renderer_8h_source" xml:lang="en-US">
+<title>engine_renderer.h</title>
+<programlisting linenumbering="unnumbered"><anchor xml:id="_engine__renderer_8h_source_1l00001"/>00001 <emphasis role="preprocessor">#ifndef&#32;ENGINE_RENDERER_H</emphasis>
+<anchor xml:id="_engine__renderer_8h_source_1l00002"/>00002 <emphasis role="preprocessor">#define&#32;ENGINE_RENDERER_H</emphasis>
+<anchor xml:id="_engine__renderer_8h_source_1l00003"/>00003 
+<anchor xml:id="_engine__renderer_8h_source_1l00004"/>00004 <emphasis role="preprocessor">#include&#32;&quot;engine_defs.h&quot;</emphasis>
+<anchor xml:id="_engine__renderer_8h_source_1l00005"/>00005 
+<anchor xml:id="_engine__renderer_8h_source_1l00006"/>00006 <emphasis role="comment">//&#32;TODO:&#32;refactor&#32;so&#32;that&#32;this&#32;takes&#32;in&#32;an&#32;EngineEntity*&#32;instead&#32;of&#32;a&#32;key</emphasis>
+<anchor xml:id="_engine__renderer_8h_source_1l00013"/>00013 <emphasis role="keywordtype">void</emphasis>&#32;engineRenderEntity(EngineContext*&#32;ctx,&#32;EngineEntityKey&#32;key);
+<anchor xml:id="_engine__renderer_8h_source_1l00014"/>00014 
+<anchor xml:id="_engine__renderer_8h_source_1l00015"/>00015 <emphasis role="preprocessor">#endif&#32;</emphasis><emphasis role="comment">//&#32;ENGINE_RENDERER_H</emphasis>
+</programlisting></section>

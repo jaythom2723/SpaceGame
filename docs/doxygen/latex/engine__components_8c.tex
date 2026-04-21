@@ -1,0 +1,110 @@
+\doxysection{Space\+Game/\+engine\+\_\+components.c File Reference}
+\hypertarget{engine__components_8c}{}\label{engine__components_8c}\index{SpaceGame/engine\_components.c@{SpaceGame/engine\_components.c}}
+{\ttfamily \+\#include "{}engine\+\_\+components.\+h"{}}\newline
+{\ttfamily \+\#include "{}engine\+\_\+entity.\+h"{}}\newline
+{\ttfamily \+\#include $<$string.\+h$>$}\newline
+{\ttfamily \+\#include $<$assert.\+h$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{engine__components_8c_aaf7ed842f65c361c2d8996d20135201b}{\+\_\+\+\_\+engine\+\_\+\+\_\+default\+Renderer\+Component\+Func}} (\doxymbox{\hyperlink{engine__defs_8h_a6c53f0b7ec3737ab96bcfea47dd18695}{Engine\+Entity}} \texorpdfstring{$\ast$}{*}, \doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}, float)
+\item 
+void \doxymbox{\hyperlink{engine__components_8c_a506dceaeb4da220f682ac8c9dd410296}{\+\_\+\+\_\+engine\+\_\+\+\_\+default\+Tick\+Component\+Func}} (\doxymbox{\hyperlink{engine__defs_8h_a6c53f0b7ec3737ab96bcfea47dd18695}{Engine\+Entity}} \texorpdfstring{$\ast$}{*}, \doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}, float)
+\item 
+void \doxymbox{\hyperlink{engine__components_8c_ab80993a4e1d065a6e12b555ecbedcf42}{\+\_\+\+\_\+engine\+\_\+\+\_\+default\+Controller\+Component\+Func}} (\doxymbox{\hyperlink{engine__defs_8h_a6c53f0b7ec3737ab96bcfea47dd18695}{Engine\+Entity}} \texorpdfstring{$\ast$}{*}, \doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}, float)
+\item 
+void \doxymbox{\hyperlink{engine__components_8c_ab9a835e838ea4a7bd5d4610507f254ed}{engine\+Add\+Component}} (\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}ctx, \doxymbox{\hyperlink{engine__defs_8h_a4471320c0db41d630bed66ecbfff9bb9}{Engine\+Entity\+Key}} key, \doxymbox{\hyperlink{engine__defs_8h_addaf8da9d811dea07390c134ec64e60e}{Engine\+Component\+Type}} type)
+\item 
+void \doxymbox{\hyperlink{engine__components_8c_a72b83a59fda5ca9d8b12dec7bf29076a}{engine\+Set\+Component\+Callback}} (\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}ctx, \doxymbox{\hyperlink{engine__defs_8h_a4471320c0db41d630bed66ecbfff9bb9}{Engine\+Entity\+Key}} key, \doxymbox{\hyperlink{engine__defs_8h_addaf8da9d811dea07390c134ec64e60e}{Engine\+Component\+Type}} type, \doxymbox{\hyperlink{engine__defs_8h_a25cd721674b601a381fb538f63193316}{Engine\+Component\+Func}} func)
+\item 
+const \doxymbox{\hyperlink{engine__defs_8h_a4fe707fd7f0392a3c6d81cfc62f1686c}{EBOOL}} \doxymbox{\hyperlink{engine__components_8c_a9b953d599b77c05686083469e14aa362}{engine\+Remove\+Component}} (\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}ctx, \doxymbox{\hyperlink{engine__defs_8h_a4471320c0db41d630bed66ecbfff9bb9}{Engine\+Entity\+Key}} key, \doxymbox{\hyperlink{engine__defs_8h_addaf8da9d811dea07390c134ec64e60e}{Engine\+Component\+Type}} type)
+\item 
+const \doxymbox{\hyperlink{engine__defs_8h_a4fe707fd7f0392a3c6d81cfc62f1686c}{EBOOL}} \doxymbox{\hyperlink{engine__components_8c_a8b10324c2eb0287786117a22a4fe71a7}{engine\+Has\+Component}} (\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}ctx, \doxymbox{\hyperlink{engine__defs_8h_a4471320c0db41d630bed66ecbfff9bb9}{Engine\+Entity\+Key}} key, \doxymbox{\hyperlink{engine__defs_8h_addaf8da9d811dea07390c134ec64e60e}{Engine\+Component\+Type}} type)
+\item 
+void \doxymbox{\hyperlink{engine__components_8c_a89a2f174b1a8c0821b290dd4df0c973e}{engine\+Run\+Component\+Func}} (\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}ctx, \doxymbox{\hyperlink{engine__defs_8h_a6c53f0b7ec3737ab96bcfea47dd18695}{Engine\+Entity}} \texorpdfstring{$\ast$}{*}ent, \doxymbox{\hyperlink{engine__defs_8h_aa5d34c353188c6922fdb05c9cdf2f1f0}{Engine\+Component}} \texorpdfstring{$\ast$}{*}comp, float delta\+Time)
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{engine__components_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{engine__components_8c_ab80993a4e1d065a6e12b555ecbedcf42}\index{engine\_components.c@{engine\_components.c}!\_\_engine\_\_defaultControllerComponentFunc@{\_\_engine\_\_defaultControllerComponentFunc}}
+\index{\_\_engine\_\_defaultControllerComponentFunc@{\_\_engine\_\_defaultControllerComponentFunc}!engine\_components.c@{engine\_components.c}}
+\doxysubsubsection{\texorpdfstring{\_\_engine\_\_defaultControllerComponentFunc()}{\_\_engine\_\_defaultControllerComponentFunc()}}
+{\footnotesize\ttfamily \label{engine__components_8c_ab80993a4e1d065a6e12b555ecbedcf42} 
+void \+\_\+\+\_\+engine\+\_\+\+\_\+default\+Controller\+Component\+Func (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a6c53f0b7ec3737ab96bcfea47dd18695}{Engine\+Entity}} \texorpdfstring{$\ast$}{*}}]{ent}{, }\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{float}]{delta\+Time}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__component__funcs_8c_source_l00012}{12}} of file \doxymbox{\hyperlink{engine__component__funcs_8c_source}{engine\+\_\+component\+\_\+funcs.\+c}}.
+
+\Hypertarget{engine__components_8c_aaf7ed842f65c361c2d8996d20135201b}\index{engine\_components.c@{engine\_components.c}!\_\_engine\_\_defaultRendererComponentFunc@{\_\_engine\_\_defaultRendererComponentFunc}}
+\index{\_\_engine\_\_defaultRendererComponentFunc@{\_\_engine\_\_defaultRendererComponentFunc}!engine\_components.c@{engine\_components.c}}
+\doxysubsubsection{\texorpdfstring{\_\_engine\_\_defaultRendererComponentFunc()}{\_\_engine\_\_defaultRendererComponentFunc()}}
+{\footnotesize\ttfamily \label{engine__components_8c_aaf7ed842f65c361c2d8996d20135201b} 
+void \+\_\+\+\_\+engine\+\_\+\+\_\+default\+Renderer\+Component\+Func (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a6c53f0b7ec3737ab96bcfea47dd18695}{Engine\+Entity}} \texorpdfstring{$\ast$}{*}}]{ent}{, }\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{float}]{delta\+Time}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__component__funcs_8c_source_l00007}{7}} of file \doxymbox{\hyperlink{engine__component__funcs_8c_source}{engine\+\_\+component\+\_\+funcs.\+c}}.
+
+\Hypertarget{engine__components_8c_a506dceaeb4da220f682ac8c9dd410296}\index{engine\_components.c@{engine\_components.c}!\_\_engine\_\_defaultTickComponentFunc@{\_\_engine\_\_defaultTickComponentFunc}}
+\index{\_\_engine\_\_defaultTickComponentFunc@{\_\_engine\_\_defaultTickComponentFunc}!engine\_components.c@{engine\_components.c}}
+\doxysubsubsection{\texorpdfstring{\_\_engine\_\_defaultTickComponentFunc()}{\_\_engine\_\_defaultTickComponentFunc()}}
+{\footnotesize\ttfamily \label{engine__components_8c_a506dceaeb4da220f682ac8c9dd410296} 
+void \+\_\+\+\_\+engine\+\_\+\+\_\+default\+Tick\+Component\+Func (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a6c53f0b7ec3737ab96bcfea47dd18695}{Engine\+Entity}} \texorpdfstring{$\ast$}{*}}]{ent}{, }\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{float}]{delta\+Time}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__component__funcs_8c_source_l00028}{28}} of file \doxymbox{\hyperlink{engine__component__funcs_8c_source}{engine\+\_\+component\+\_\+funcs.\+c}}.
+
+\Hypertarget{engine__components_8c_ab9a835e838ea4a7bd5d4610507f254ed}\index{engine\_components.c@{engine\_components.c}!engineAddComponent@{engineAddComponent}}
+\index{engineAddComponent@{engineAddComponent}!engine\_components.c@{engine\_components.c}}
+\doxysubsubsection{\texorpdfstring{engineAddComponent()}{engineAddComponent()}}
+{\footnotesize\ttfamily \label{engine__components_8c_ab9a835e838ea4a7bd5d4610507f254ed} 
+void engine\+Add\+Component (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{\doxymbox{\hyperlink{engine__defs_8h_a4471320c0db41d630bed66ecbfff9bb9}{Engine\+Entity\+Key}}}]{key}{, }\item[{\doxymbox{\hyperlink{engine__defs_8h_addaf8da9d811dea07390c134ec64e60e}{Engine\+Component\+Type}}}]{type}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__components_8c_source_l00018}{18}} of file \doxymbox{\hyperlink{engine__components_8c_source}{engine\+\_\+components.\+c}}.
+
+\Hypertarget{engine__components_8c_a8b10324c2eb0287786117a22a4fe71a7}\index{engine\_components.c@{engine\_components.c}!engineHasComponent@{engineHasComponent}}
+\index{engineHasComponent@{engineHasComponent}!engine\_components.c@{engine\_components.c}}
+\doxysubsubsection{\texorpdfstring{engineHasComponent()}{engineHasComponent()}}
+{\footnotesize\ttfamily \label{engine__components_8c_a8b10324c2eb0287786117a22a4fe71a7} 
+const \doxymbox{\hyperlink{engine__defs_8h_a4fe707fd7f0392a3c6d81cfc62f1686c}{EBOOL}} engine\+Has\+Component (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{\doxymbox{\hyperlink{engine__defs_8h_a4471320c0db41d630bed66ecbfff9bb9}{Engine\+Entity\+Key}}}]{key}{, }\item[{\doxymbox{\hyperlink{engine__defs_8h_addaf8da9d811dea07390c134ec64e60e}{Engine\+Component\+Type}}}]{type}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__components_8c_source_l00061}{61}} of file \doxymbox{\hyperlink{engine__components_8c_source}{engine\+\_\+components.\+c}}.
+
+\Hypertarget{engine__components_8c_a9b953d599b77c05686083469e14aa362}\index{engine\_components.c@{engine\_components.c}!engineRemoveComponent@{engineRemoveComponent}}
+\index{engineRemoveComponent@{engineRemoveComponent}!engine\_components.c@{engine\_components.c}}
+\doxysubsubsection{\texorpdfstring{engineRemoveComponent()}{engineRemoveComponent()}}
+{\footnotesize\ttfamily \label{engine__components_8c_a9b953d599b77c05686083469e14aa362} 
+const \doxymbox{\hyperlink{engine__defs_8h_a4fe707fd7f0392a3c6d81cfc62f1686c}{EBOOL}} engine\+Remove\+Component (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{\doxymbox{\hyperlink{engine__defs_8h_a4471320c0db41d630bed66ecbfff9bb9}{Engine\+Entity\+Key}}}]{key}{, }\item[{\doxymbox{\hyperlink{engine__defs_8h_addaf8da9d811dea07390c134ec64e60e}{Engine\+Component\+Type}}}]{type}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__components_8c_source_l00048}{48}} of file \doxymbox{\hyperlink{engine__components_8c_source}{engine\+\_\+components.\+c}}.
+
+\Hypertarget{engine__components_8c_a89a2f174b1a8c0821b290dd4df0c973e}\index{engine\_components.c@{engine\_components.c}!engineRunComponentFunc@{engineRunComponentFunc}}
+\index{engineRunComponentFunc@{engineRunComponentFunc}!engine\_components.c@{engine\_components.c}}
+\doxysubsubsection{\texorpdfstring{engineRunComponentFunc()}{engineRunComponentFunc()}}
+{\footnotesize\ttfamily \label{engine__components_8c_a89a2f174b1a8c0821b290dd4df0c973e} 
+void engine\+Run\+Component\+Func (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{\doxymbox{\hyperlink{engine__defs_8h_a6c53f0b7ec3737ab96bcfea47dd18695}{Engine\+Entity}} \texorpdfstring{$\ast$}{*}}]{ent}{, }\item[{\doxymbox{\hyperlink{engine__defs_8h_aa5d34c353188c6922fdb05c9cdf2f1f0}{Engine\+Component}} \texorpdfstring{$\ast$}{*}}]{comp}{, }\item[{float}]{delta\+Time}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__components_8c_source_l00072}{72}} of file \doxymbox{\hyperlink{engine__components_8c_source}{engine\+\_\+components.\+c}}.
+
+\Hypertarget{engine__components_8c_a72b83a59fda5ca9d8b12dec7bf29076a}\index{engine\_components.c@{engine\_components.c}!engineSetComponentCallback@{engineSetComponentCallback}}
+\index{engineSetComponentCallback@{engineSetComponentCallback}!engine\_components.c@{engine\_components.c}}
+\doxysubsubsection{\texorpdfstring{engineSetComponentCallback()}{engineSetComponentCallback()}}
+{\footnotesize\ttfamily \label{engine__components_8c_a72b83a59fda5ca9d8b12dec7bf29076a} 
+void engine\+Set\+Component\+Callback (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{\doxymbox{\hyperlink{engine__defs_8h_a4471320c0db41d630bed66ecbfff9bb9}{Engine\+Entity\+Key}}}]{key}{, }\item[{\doxymbox{\hyperlink{engine__defs_8h_addaf8da9d811dea07390c134ec64e60e}{Engine\+Component\+Type}}}]{type}{, }\item[{\doxymbox{\hyperlink{engine__defs_8h_a25cd721674b601a381fb538f63193316}{Engine\+Component\+Func}}}]{func}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__components_8c_source_l00037}{37}} of file \doxymbox{\hyperlink{engine__components_8c_source}{engine\+\_\+components.\+c}}.
+

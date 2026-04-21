@@ -1,0 +1,159 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_engine_8c_source" xml:lang="en-US">
+<title>engine.c</title>
+<programlisting linenumbering="unnumbered"><anchor xml:id="_engine_8c_source_1l00001"/>00001 <emphasis role="preprocessor">#include&#32;&quot;engine.h&quot;</emphasis>
+<anchor xml:id="_engine_8c_source_1l00002"/>00002 
+<anchor xml:id="_engine_8c_source_1l00003"/>00003 <emphasis role="preprocessor">#include&#32;&quot;engine_shaders.h&quot;</emphasis>
+<anchor xml:id="_engine_8c_source_1l00004"/>00004 <emphasis role="preprocessor">#include&#32;&quot;engine_buffers.h&quot;</emphasis>
+<anchor xml:id="_engine_8c_source_1l00005"/>00005 <emphasis role="preprocessor">#include&#32;&quot;engine_textures.h&quot;</emphasis>
+<anchor xml:id="_engine_8c_source_1l00006"/>00006 <emphasis role="preprocessor">#include&#32;&quot;engine_utils.h&quot;</emphasis>
+<anchor xml:id="_engine_8c_source_1l00007"/>00007 
+<anchor xml:id="_engine_8c_source_1l00008"/>00008 <emphasis role="preprocessor">#include&#32;&lt;cglm/cglm.h&gt;</emphasis>
+<anchor xml:id="_engine_8c_source_1l00009"/>00009 
+<anchor xml:id="_engine_8c_source_1l00010"/>00010 <emphasis role="preprocessor">#include&#32;&lt;stdio.h&gt;</emphasis>
+<anchor xml:id="_engine_8c_source_1l00011"/>00011 <emphasis role="preprocessor">#include&#32;&lt;stdlib.h&gt;</emphasis>
+<anchor xml:id="_engine_8c_source_1l00012"/>00012 <emphasis role="preprocessor">#include&#32;&lt;string.h&gt;</emphasis>
+<anchor xml:id="_engine_8c_source_1l00013"/>00013 
+<anchor xml:id="_engine_8c_source_1l00014"/>00014 <emphasis role="keyword">static</emphasis>&#32;EngineLinkedList*&#32;keylist&#32;=&#32;NULL;
+<anchor xml:id="_engine_8c_source_1l00015"/>00015 
+<anchor xml:id="_engine_8c_source_1l00016"/>00016 <emphasis role="keywordtype">void</emphasis>&#32;framebuffer_size_callback(GLFWwindow*&#32;window,&#32;<emphasis role="keywordtype">int</emphasis>&#32;width,&#32;<emphasis role="keywordtype">int</emphasis>&#32;height)
+<anchor xml:id="_engine_8c_source_1l00017"/>00017 {
+<anchor xml:id="_engine_8c_source_1l00018"/>00018 &#32;&#32;&#32;&#32;glViewport(0,&#32;0,&#32;width,&#32;height);
+<anchor xml:id="_engine_8c_source_1l00019"/>00019 }
+<anchor xml:id="_engine_8c_source_1l00020"/>00020 
+<anchor xml:id="_engine_8c_source_1l00021"/>00021 <emphasis role="keywordtype">void</emphasis>&#32;key_callback(GLFWwindow*&#32;window,&#32;<emphasis role="keywordtype">int</emphasis>&#32;key,&#32;<emphasis role="keywordtype">int</emphasis>&#32;scancode,&#32;<emphasis role="keywordtype">int</emphasis>&#32;action,&#32;<emphasis role="keywordtype">int</emphasis>&#32;mode)
+<anchor xml:id="_engine_8c_source_1l00022"/>00022 {
+<anchor xml:id="_engine_8c_source_1l00023"/>00023 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(key&#32;&gt;=&#32;0&#32;&amp;&amp;&#32;key&#32;&lt;=&#32;ENGINE_NUM_KEYS)
+<anchor xml:id="_engine_8c_source_1l00024"/>00024 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_engine_8c_source_1l00025"/>00025 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(action&#32;==&#32;GLFW_PRESS)
+<anchor xml:id="_engine_8c_source_1l00026"/>00026 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;engineSetValue(keylist,&#32;key,&#32;ETRUE);
+<anchor xml:id="_engine_8c_source_1l00027"/>00027 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;(action&#32;==&#32;GLFW_RELEASE)
+<anchor xml:id="_engine_8c_source_1l00028"/>00028 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;engineSetValue(keylist,&#32;key,&#32;EFALSE);
+<anchor xml:id="_engine_8c_source_1l00029"/>00029 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_engine_8c_source_1l00030"/>00030 }
+<anchor xml:id="_engine_8c_source_1l00031"/>00031 
+<anchor xml:id="_engine_8c_source_1l00032"/>00032 EngineContext*&#32;engineInit(<emphasis role="keywordtype">void</emphasis>)
+<anchor xml:id="_engine_8c_source_1l00033"/>00033 {
+<anchor xml:id="_engine_8c_source_1l00034"/>00034 &#32;&#32;&#32;&#32;EngineContext*&#32;engine&#32;=&#32;malloc(<emphasis role="keyword">sizeof</emphasis>(EngineContext));
+<anchor xml:id="_engine_8c_source_1l00035"/>00035 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(engine&#32;==&#32;NULL)
+<anchor xml:id="_engine_8c_source_1l00036"/>00036 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_engine_8c_source_1l00037"/>00037 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fprintf(stderr,&#32;<emphasis role="stringliteral">&quot;Failed&#32;to&#32;initialize&#32;the&#32;engine!\n&quot;</emphasis>);
+<anchor xml:id="_engine_8c_source_1l00038"/>00038 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;NULL;
+<anchor xml:id="_engine_8c_source_1l00039"/>00039 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_engine_8c_source_1l00040"/>00040 
+<anchor xml:id="_engine_8c_source_1l00041"/>00041 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(glfwInit()&#32;!=&#32;GLFW_TRUE)
+<anchor xml:id="_engine_8c_source_1l00042"/>00042 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_engine_8c_source_1l00043"/>00043 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fprintf(stderr,&#32;<emphasis role="stringliteral">&quot;Failed&#32;to&#32;initialize&#32;GLFW!\n&quot;</emphasis>);
+<anchor xml:id="_engine_8c_source_1l00044"/>00044 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;engineClose(engine);
+<anchor xml:id="_engine_8c_source_1l00045"/>00045 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;NULL;
+<anchor xml:id="_engine_8c_source_1l00046"/>00046 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_engine_8c_source_1l00047"/>00047 
+<anchor xml:id="_engine_8c_source_1l00048"/>00048 &#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;initialize&#32;other&#32;engine-level&#32;things</emphasis>
+<anchor xml:id="_engine_8c_source_1l00049"/>00049 &#32;&#32;&#32;&#32;engine-&gt;program&#32;=&#32;0;
+<anchor xml:id="_engine_8c_source_1l00050"/>00050 &#32;&#32;&#32;&#32;memset(engine-&gt;textures,&#32;0,&#32;ENGINE_MAX_TEXTURES&#32;*&#32;<emphasis role="keyword">sizeof</emphasis>(EngineTexturePair));
+<anchor xml:id="_engine_8c_source_1l00051"/>00051 &#32;&#32;&#32;&#32;engine-&gt;ntextures&#32;=&#32;0;
+<anchor xml:id="_engine_8c_source_1l00052"/>00052 &#32;&#32;&#32;&#32;engine-&gt;nentities&#32;=&#32;0;
+<anchor xml:id="_engine_8c_source_1l00053"/>00053 
+<anchor xml:id="_engine_8c_source_1l00054"/>00054 &#32;&#32;&#32;&#32;keylist&#32;=&#32;engineCreateLinkedList(engine-&gt;keys,&#32;NULL,&#32;ENGINE_NUM_KEYS,&#32;<emphasis role="keyword">sizeof</emphasis>(EBOOL));
+<anchor xml:id="_engine_8c_source_1l00055"/>00055 &#32;&#32;&#32;&#32;assert(keylist&#32;!=&#32;NULL);
+<anchor xml:id="_engine_8c_source_1l00056"/>00056 
+<anchor xml:id="_engine_8c_source_1l00057"/>00057 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;engine;
+<anchor xml:id="_engine_8c_source_1l00058"/>00058 }
+<anchor xml:id="_engine_8c_source_1l00059"/>00059 
+<anchor xml:id="_engine_8c_source_1l00060"/>00060 EBOOL&#32;engineCreateWindow(EngineContext*&#32;ctx,&#32;<emphasis role="keyword">const</emphasis>&#32;WindowConfig&#32;config)
+<anchor xml:id="_engine_8c_source_1l00061"/>00061 {
+<anchor xml:id="_engine_8c_source_1l00062"/>00062 &#32;&#32;&#32;&#32;glfwWindowHint(GLFW_RESIZABLE,&#32;config.resizable);
+<anchor xml:id="_engine_8c_source_1l00063"/>00063 &#32;&#32;&#32;&#32;glfwWindowHint(GLFW_DOUBLEBUFFER,&#32;config.doublebuffer);
+<anchor xml:id="_engine_8c_source_1l00064"/>00064 &#32;&#32;&#32;&#32;glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR,&#32;3);
+<anchor xml:id="_engine_8c_source_1l00065"/>00065 &#32;&#32;&#32;&#32;glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR,&#32;3);
+<anchor xml:id="_engine_8c_source_1l00066"/>00066 &#32;&#32;&#32;&#32;glfwWindowHint(GLFW_OPENGL_PROFILE,&#32;GLFW_OPENGL_CORE_PROFILE);
+<anchor xml:id="_engine_8c_source_1l00067"/>00067 &#32;&#32;&#32;&#32;ctx-&gt;window&#32;=&#32;glfwCreateWindow(config.width,&#32;config.height,&#32;config.title,&#32;NULL,&#32;NULL);
+<anchor xml:id="_engine_8c_source_1l00068"/>00068 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(ctx-&gt;window&#32;==&#32;NULL)
+<anchor xml:id="_engine_8c_source_1l00069"/>00069 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_engine_8c_source_1l00070"/>00070 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">char</emphasis>*&#32;err;
+<anchor xml:id="_engine_8c_source_1l00071"/>00071 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;glfwGetError(&amp;err);
+<anchor xml:id="_engine_8c_source_1l00072"/>00072 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fprintf(stderr,&#32;<emphasis role="stringliteral">&quot;Could&#32;not&#32;create&#32;a&#32;GLFW&#32;window!\n\t%s\n&quot;</emphasis>,&#32;err);
+<anchor xml:id="_engine_8c_source_1l00073"/>00073 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;EFALSE;
+<anchor xml:id="_engine_8c_source_1l00074"/>00074 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_engine_8c_source_1l00075"/>00075 
+<anchor xml:id="_engine_8c_source_1l00076"/>00076 &#32;&#32;&#32;&#32;glfwSetFramebufferSizeCallback(ctx-&gt;window,&#32;framebuffer_size_callback);
+<anchor xml:id="_engine_8c_source_1l00077"/>00077 &#32;&#32;&#32;&#32;glfwSetKeyCallback(ctx-&gt;window,&#32;key_callback);
+<anchor xml:id="_engine_8c_source_1l00078"/>00078 
+<anchor xml:id="_engine_8c_source_1l00079"/>00079 &#32;&#32;&#32;&#32;glfwMakeContextCurrent(ctx-&gt;window);
+<anchor xml:id="_engine_8c_source_1l00080"/>00080 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)&#32;!=&#32;ETRUE)
+<anchor xml:id="_engine_8c_source_1l00081"/>00081 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_engine_8c_source_1l00082"/>00082 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fprintf(stderr,&#32;<emphasis role="stringliteral">&quot;Could&#32;not&#32;initialize&#32;GLAD!\n&quot;</emphasis>);
+<anchor xml:id="_engine_8c_source_1l00083"/>00083 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;engineClose(ctx);
+<anchor xml:id="_engine_8c_source_1l00084"/>00084 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;EFALSE;
+<anchor xml:id="_engine_8c_source_1l00085"/>00085 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_engine_8c_source_1l00086"/>00086 
+<anchor xml:id="_engine_8c_source_1l00087"/>00087 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;ETRUE;
+<anchor xml:id="_engine_8c_source_1l00088"/>00088 }
+<anchor xml:id="_engine_8c_source_1l00089"/>00089 
+<anchor xml:id="_engine_8c_source_1l00090"/>00090 <emphasis role="keywordtype">void</emphasis>&#32;engineClose(EngineContext*&#32;ctx)
+<anchor xml:id="_engine_8c_source_1l00091"/>00091 {
+<anchor xml:id="_engine_8c_source_1l00092"/>00092 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(glIsProgram(ctx-&gt;program))
+<anchor xml:id="_engine_8c_source_1l00093"/>00093 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;engineDeleteProgram(ctx);
+<anchor xml:id="_engine_8c_source_1l00094"/>00094 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(ctx-&gt;window&#32;!=&#32;NULL)
+<anchor xml:id="_engine_8c_source_1l00095"/>00095 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_engine_8c_source_1l00096"/>00096 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;glfwDestroyWindow(ctx-&gt;window);
+<anchor xml:id="_engine_8c_source_1l00097"/>00097 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;glfwTerminate();
+<anchor xml:id="_engine_8c_source_1l00098"/>00098 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_engine_8c_source_1l00099"/>00099 &#32;&#32;&#32;&#32;free(ctx);
+<anchor xml:id="_engine_8c_source_1l00100"/>00100 &#32;&#32;&#32;&#32;ctx&#32;=&#32;NULL;
+<anchor xml:id="_engine_8c_source_1l00101"/>00101 }
+<anchor xml:id="_engine_8c_source_1l00102"/>00102 
+<anchor xml:id="_engine_8c_source_1l00103"/>00103 <emphasis role="comment">//&#32;matrix&#32;linear-algebra&#32;bullshit</emphasis>
+<anchor xml:id="_engine_8c_source_1l00104"/>00104 <emphasis role="comment">//&#32;this&#32;shit&#32;is&#32;retarded,&#32;but&#32;opengl&#32;needs&#32;it&#32;for&#32;proper&#32;rendering</emphasis>
+<anchor xml:id="_engine_8c_source_1l00105"/>00105 <emphasis role="comment">//&#32;woohoo</emphasis>
+<anchor xml:id="_engine_8c_source_1l00106"/>00106 <emphasis role="keywordtype">void</emphasis>&#32;engineInitProjectionMatrix(EngineContext*&#32;ctx)
+<anchor xml:id="_engine_8c_source_1l00107"/>00107 {
+<anchor xml:id="_engine_8c_source_1l00108"/>00108 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;width,&#32;height;
+<anchor xml:id="_engine_8c_source_1l00109"/>00109 &#32;&#32;&#32;&#32;glfwGetWindowSize(ctx-&gt;window,&#32;&amp;width,&#32;&amp;height);
+<anchor xml:id="_engine_8c_source_1l00110"/>00110 &#32;&#32;&#32;&#32;
+<anchor xml:id="_engine_8c_source_1l00111"/>00111 &#32;&#32;&#32;&#32;mat4&#32;projection;
+<anchor xml:id="_engine_8c_source_1l00112"/>00112 &#32;&#32;&#32;&#32;glm_ortho(0.0f,&#32;(<emphasis role="keywordtype">float</emphasis>)width,&#32;(<emphasis role="keywordtype">float</emphasis>)height,&#32;0.0f,&#32;-1.0f,&#32;1.0f,&#32;projection);
+<anchor xml:id="_engine_8c_source_1l00113"/>00113 
+<anchor xml:id="_engine_8c_source_1l00114"/>00114 &#32;&#32;&#32;&#32;engineUseShader(ctx);
+<anchor xml:id="_engine_8c_source_1l00115"/>00115 &#32;&#32;&#32;&#32;engineSetMatrix4fv(ctx,&#32;<emphasis role="stringliteral">&quot;projection&quot;</emphasis>,&#32;projection);
+<anchor xml:id="_engine_8c_source_1l00116"/>00116 &#32;&#32;&#32;&#32;engineSetInteger(ctx,&#32;<emphasis role="stringliteral">&quot;image&quot;</emphasis>,&#32;0);
+<anchor xml:id="_engine_8c_source_1l00117"/>00117 }
+<anchor xml:id="_engine_8c_source_1l00118"/>00118 
+<anchor xml:id="_engine_8c_source_1l00119"/>00119 <emphasis role="comment">//&#32;glfw&#32;wrapper&#32;functions</emphasis>
+<anchor xml:id="_engine_8c_source_1l00120"/>00120 EBOOL&#32;engineWindowShouldClose(EngineContext*&#32;ctx)
+<anchor xml:id="_engine_8c_source_1l00121"/>00121 {
+<anchor xml:id="_engine_8c_source_1l00122"/>00122 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;glfwWindowShouldClose(ctx-&gt;window);
+<anchor xml:id="_engine_8c_source_1l00123"/>00123 }
+<anchor xml:id="_engine_8c_source_1l00124"/>00124 
+<anchor xml:id="_engine_8c_source_1l00125"/>00125 <emphasis role="keywordtype">void</emphasis>&#32;engineSetWindowClose(EngineContext*&#32;ctx,&#32;EBOOL&#32;value)
+<anchor xml:id="_engine_8c_source_1l00126"/>00126 {
+<anchor xml:id="_engine_8c_source_1l00127"/>00127 &#32;&#32;&#32;&#32;glfwSetWindowShouldClose(ctx-&gt;window,&#32;value);
+<anchor xml:id="_engine_8c_source_1l00128"/>00128 }
+<anchor xml:id="_engine_8c_source_1l00129"/>00129 
+<anchor xml:id="_engine_8c_source_1l00130"/>00130 <emphasis role="keywordtype">void</emphasis>&#32;engineWindowPollEvents(EngineContext*&#32;ctx)
+<anchor xml:id="_engine_8c_source_1l00131"/>00131 {
+<anchor xml:id="_engine_8c_source_1l00132"/>00132 &#32;&#32;&#32;&#32;glfwPollEvents();
+<anchor xml:id="_engine_8c_source_1l00133"/>00133 &#32;&#32;&#32;&#32;engineGetValues(keylist,&#32;ctx-&gt;keys,&#32;NULL);
+<anchor xml:id="_engine_8c_source_1l00134"/>00134 }
+<anchor xml:id="_engine_8c_source_1l00135"/>00135 
+<anchor xml:id="_engine_8c_source_1l00136"/>00136 <emphasis role="keywordtype">void</emphasis>&#32;engineWindowSwapBuffers(EngineContext*&#32;ctx)
+<anchor xml:id="_engine_8c_source_1l00137"/>00137 {
+<anchor xml:id="_engine_8c_source_1l00138"/>00138 &#32;&#32;&#32;&#32;glfwSwapBuffers(ctx-&gt;window);
+<anchor xml:id="_engine_8c_source_1l00139"/>00139 }
+<anchor xml:id="_engine_8c_source_1l00140"/>00140 
+<anchor xml:id="_engine_8c_source_1l00141"/>00141 <emphasis role="keywordtype">void</emphasis>&#32;engineWindowGetSize(EngineContext*&#32;ctx,&#32;<emphasis role="keywordtype">int</emphasis>*&#32;width,&#32;<emphasis role="keywordtype">int</emphasis>*&#32;height)
+<anchor xml:id="_engine_8c_source_1l00142"/>00142 {
+<anchor xml:id="_engine_8c_source_1l00143"/>00143 &#32;&#32;&#32;&#32;glfwGetWindowSize(ctx-&gt;window,&#32;width,&#32;height);
+<anchor xml:id="_engine_8c_source_1l00144"/>00144 }
+<anchor xml:id="_engine_8c_source_1l00145"/>00145 
+<anchor xml:id="_engine_8c_source_1l00146"/>00146 <emphasis role="comment">//&#32;opengl&#32;wrapper&#32;functions</emphasis>
+<anchor xml:id="_engine_8c_source_1l00147"/>00147 <emphasis role="keywordtype">void</emphasis>&#32;engineSetClearColor(<emphasis role="keywordtype">float</emphasis>&#32;r,&#32;<emphasis role="keywordtype">float</emphasis>&#32;g,&#32;<emphasis role="keywordtype">float</emphasis>&#32;b,&#32;<emphasis role="keywordtype">float</emphasis>&#32;a)
+<anchor xml:id="_engine_8c_source_1l00148"/>00148 {
+<anchor xml:id="_engine_8c_source_1l00149"/>00149 &#32;&#32;&#32;&#32;glClearColor(r,&#32;g,&#32;b,&#32;a);
+<anchor xml:id="_engine_8c_source_1l00150"/>00150 }
+<anchor xml:id="_engine_8c_source_1l00151"/>00151 
+<anchor xml:id="_engine_8c_source_1l00152"/>00152 <emphasis role="keywordtype">void</emphasis>&#32;engineClear(<emphasis role="keywordtype">void</emphasis>)
+<anchor xml:id="_engine_8c_source_1l00153"/>00153 {
+<anchor xml:id="_engine_8c_source_1l00154"/>00154 &#32;&#32;&#32;&#32;glClear(GL_COLOR_BUFFER_BIT);
+<anchor xml:id="_engine_8c_source_1l00155"/>00155 }
+</programlisting></section>

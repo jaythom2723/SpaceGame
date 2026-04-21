@@ -1,0 +1,86 @@
+\doxysection{Space\+Game/\+engine\+\_\+utils.c File Reference}
+\hypertarget{engine__utils_8c}{}\label{engine__utils_8c}\index{SpaceGame/engine\_utils.c@{SpaceGame/engine\_utils.c}}
+{\ttfamily \+\#include "{}engine\+\_\+utils.\+h"{}}\newline
+{\ttfamily \+\#include $<$stdio.\+h$>$}\newline
+{\ttfamily \+\#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \+\#include $<$string.\+h$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{engine__defs_8h_a09036c28461371d73a173aa18b119cd3}{Engine\+Linked\+List}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{engine__utils_8c_a694f0ba0e84d478e51c189a45739ac0a}{engine\+Create\+Linked\+List}} (char \texorpdfstring{$\ast$}{*}lista, char \texorpdfstring{$\ast$}{*}listb, size\+\_\+t arrsize, size\+\_\+t typesize)
+\item 
+void \doxymbox{\hyperlink{engine__utils_8c_a6e3521de92edc89a0d37c98dc138d7e6}{engine\+Destroy\+Linked\+List}} (\doxymbox{\hyperlink{engine__defs_8h_a09036c28461371d73a173aa18b119cd3}{Engine\+Linked\+List}} \texorpdfstring{$\ast$}{*}list)
+\item 
+const \doxymbox{\hyperlink{engine__defs_8h_a4fe707fd7f0392a3c6d81cfc62f1686c}{EBOOL}} \doxymbox{\hyperlink{engine__utils_8c_ab594fb68c6e2a4ec8d62d475041600fa}{\+\_\+checkisoutbounds}} (\doxymbox{\hyperlink{engine__defs_8h_a09036c28461371d73a173aa18b119cd3}{Engine\+Linked\+List}} \texorpdfstring{$\ast$}{*}list, int index)
+\item 
+const \doxymbox{\hyperlink{engine__defs_8h_a4fe707fd7f0392a3c6d81cfc62f1686c}{EBOOL}} \doxymbox{\hyperlink{engine__utils_8c_a1787bb18ad5aa2424d57eab4b0150796}{engine\+Set\+Value}} (\doxymbox{\hyperlink{engine__defs_8h_a09036c28461371d73a173aa18b119cd3}{Engine\+Linked\+List}} \texorpdfstring{$\ast$}{*}list, int index, int value)
+\item 
+void \doxymbox{\hyperlink{engine__utils_8c_a1022b44e858700e9e2642fc16c231f51}{engine\+Get\+Values}} (\doxymbox{\hyperlink{engine__defs_8h_a09036c28461371d73a173aa18b119cd3}{Engine\+Linked\+List}} \texorpdfstring{$\ast$}{*}list, char \texorpdfstring{$\ast$}{*}desta, char \texorpdfstring{$\ast$}{*}destb)
+\item 
+char \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{engine__utils_8c_abe056cc7f89bf011a17725492cf77f4c}{engine\+Read\+File}} (const char \texorpdfstring{$\ast$}{*}path)
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{engine__utils_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{engine__utils_8c_ab594fb68c6e2a4ec8d62d475041600fa}\index{engine\_utils.c@{engine\_utils.c}!\_checkisoutbounds@{\_checkisoutbounds}}
+\index{\_checkisoutbounds@{\_checkisoutbounds}!engine\_utils.c@{engine\_utils.c}}
+\doxysubsubsection{\texorpdfstring{\_checkisoutbounds()}{\_checkisoutbounds()}}
+{\footnotesize\ttfamily \label{engine__utils_8c_ab594fb68c6e2a4ec8d62d475041600fa} 
+const \doxymbox{\hyperlink{engine__defs_8h_a4fe707fd7f0392a3c6d81cfc62f1686c}{EBOOL}} \+\_\+checkisoutbounds (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a09036c28461371d73a173aa18b119cd3}{Engine\+Linked\+List}} \texorpdfstring{$\ast$}{*}}]{list}{, }\item[{int}]{index}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__utils_8c_source_l00056}{56}} of file \doxymbox{\hyperlink{engine__utils_8c_source}{engine\+\_\+utils.\+c}}.
+
+\Hypertarget{engine__utils_8c_a694f0ba0e84d478e51c189a45739ac0a}\index{engine\_utils.c@{engine\_utils.c}!engineCreateLinkedList@{engineCreateLinkedList}}
+\index{engineCreateLinkedList@{engineCreateLinkedList}!engine\_utils.c@{engine\_utils.c}}
+\doxysubsubsection{\texorpdfstring{engineCreateLinkedList()}{engineCreateLinkedList()}}
+{\footnotesize\ttfamily \label{engine__utils_8c_a694f0ba0e84d478e51c189a45739ac0a} 
+\doxymbox{\hyperlink{engine__defs_8h_a09036c28461371d73a173aa18b119cd3}{Engine\+Linked\+List}} \texorpdfstring{$\ast$}{*} engine\+Create\+Linked\+List (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{lista}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{listb}{, }\item[{size\+\_\+t}]{arrsize}{, }\item[{size\+\_\+t}]{typesize}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__utils_8c_source_l00007}{7}} of file \doxymbox{\hyperlink{engine__utils_8c_source}{engine\+\_\+utils.\+c}}.
+
+\Hypertarget{engine__utils_8c_a6e3521de92edc89a0d37c98dc138d7e6}\index{engine\_utils.c@{engine\_utils.c}!engineDestroyLinkedList@{engineDestroyLinkedList}}
+\index{engineDestroyLinkedList@{engineDestroyLinkedList}!engine\_utils.c@{engine\_utils.c}}
+\doxysubsubsection{\texorpdfstring{engineDestroyLinkedList()}{engineDestroyLinkedList()}}
+{\footnotesize\ttfamily \label{engine__utils_8c_a6e3521de92edc89a0d37c98dc138d7e6} 
+void engine\+Destroy\+Linked\+List (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a09036c28461371d73a173aa18b119cd3}{Engine\+Linked\+List}} \texorpdfstring{$\ast$}{*}}]{list}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__utils_8c_source_l00044}{44}} of file \doxymbox{\hyperlink{engine__utils_8c_source}{engine\+\_\+utils.\+c}}.
+
+\Hypertarget{engine__utils_8c_a1022b44e858700e9e2642fc16c231f51}\index{engine\_utils.c@{engine\_utils.c}!engineGetValues@{engineGetValues}}
+\index{engineGetValues@{engineGetValues}!engine\_utils.c@{engine\_utils.c}}
+\doxysubsubsection{\texorpdfstring{engineGetValues()}{engineGetValues()}}
+{\footnotesize\ttfamily \label{engine__utils_8c_a1022b44e858700e9e2642fc16c231f51} 
+void engine\+Get\+Values (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a09036c28461371d73a173aa18b119cd3}{Engine\+Linked\+List}} \texorpdfstring{$\ast$}{*}}]{list}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{desta}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{destb}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__utils_8c_source_l00074}{74}} of file \doxymbox{\hyperlink{engine__utils_8c_source}{engine\+\_\+utils.\+c}}.
+
+\Hypertarget{engine__utils_8c_abe056cc7f89bf011a17725492cf77f4c}\index{engine\_utils.c@{engine\_utils.c}!engineReadFile@{engineReadFile}}
+\index{engineReadFile@{engineReadFile}!engine\_utils.c@{engine\_utils.c}}
+\doxysubsubsection{\texorpdfstring{engineReadFile()}{engineReadFile()}}
+{\footnotesize\ttfamily \label{engine__utils_8c_abe056cc7f89bf011a17725492cf77f4c} 
+char \texorpdfstring{$\ast$}{*} engine\+Read\+File (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{path}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__utils_8c_source_l00083}{83}} of file \doxymbox{\hyperlink{engine__utils_8c_source}{engine\+\_\+utils.\+c}}.
+
+\Hypertarget{engine__utils_8c_a1787bb18ad5aa2424d57eab4b0150796}\index{engine\_utils.c@{engine\_utils.c}!engineSetValue@{engineSetValue}}
+\index{engineSetValue@{engineSetValue}!engine\_utils.c@{engine\_utils.c}}
+\doxysubsubsection{\texorpdfstring{engineSetValue()}{engineSetValue()}}
+{\footnotesize\ttfamily \label{engine__utils_8c_a1787bb18ad5aa2424d57eab4b0150796} 
+const \doxymbox{\hyperlink{engine__defs_8h_a4fe707fd7f0392a3c6d81cfc62f1686c}{EBOOL}} engine\+Set\+Value (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a09036c28461371d73a173aa18b119cd3}{Engine\+Linked\+List}} \texorpdfstring{$\ast$}{*}}]{list}{, }\item[{int}]{index}{, }\item[{int}]{value}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__utils_8c_source_l00063}{63}} of file \doxymbox{\hyperlink{engine__utils_8c_source}{engine\+\_\+utils.\+c}}.
+

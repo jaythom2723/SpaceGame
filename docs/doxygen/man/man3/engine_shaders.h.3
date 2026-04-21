@@ -1,0 +1,134 @@
+.TH "SpaceGame/engine_shaders.h" 3 "Version 0.1.0" "Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SpaceGame/engine_shaders.h
+.SH SYNOPSIS
+.br
+.PP
+\fR#include <cglm/cglm\&.h>\fP
+.br
+\fR#include 'engine_defs\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBEngineShader\fP \fBengineCreateShader\fP (int shaderType)"
+.br
+.ti -1c
+.RI "const \fBEBOOL\fP \fBengineCompileShader\fP (\fBEngineShader\fP *shader, const char *path)"
+.br
+.ti -1c
+.RI "void \fBengineDeleteShader\fP (\fBEngineShader\fP *shader)"
+.br
+.ti -1c
+.RI "void \fBengineCreateProgram\fP (\fBEngineContext\fP *ctx)"
+.br
+.ti -1c
+.RI "const \fBEBOOL\fP \fBengineAttachAndLink\fP (\fBEngineContext\fP *ctx, \fBEngineShader\fP *vertex, \fBEngineShader\fP *fragment, \fBEngineShader\fP *geometry)"
+.br
+.ti -1c
+.RI "void \fBengineDeleteProgram\fP (\fBEngineContext\fP *ctx)"
+.br
+.ti -1c
+.RI "void \fBengineUseShader\fP (\fBEngineContext\fP *ctx)"
+.br
+.ti -1c
+.RI "void \fBengineSetFloat\fP (\fBEngineContext\fP *ctx, const char *name, float value)"
+.br
+.ti -1c
+.RI "void \fBengineSetInteger\fP (\fBEngineContext\fP *ctx, const char *name, int value)"
+.br
+.ti -1c
+.RI "void \fBengineSetVector2f\fP (\fBEngineContext\fP *ctx, const char *name, float x, float y)"
+.br
+.ti -1c
+.RI "void \fBengineSetVector2fv\fP (\fBEngineContext\fP *ctx, const char *name, vec2 value)"
+.br
+.ti -1c
+.RI "void \fBengineSetVector3f\fP (\fBEngineContext\fP *ctx, const char *name, float x, float y, float z)"
+.br
+.ti -1c
+.RI "void \fBengineSetVector3fv\fP (\fBEngineContext\fP *ctx, const char *name, vec3 value)"
+.br
+.ti -1c
+.RI "void \fBengineSetVector4f\fP (\fBEngineContext\fP *ctx, const char *name, float x, float y, float z, float w)"
+.br
+.ti -1c
+.RI "void \fBengineSetVector4fv\fP (\fBEngineContext\fP *ctx, const char *name, vec4 value)"
+.br
+.ti -1c
+.RI "void \fBengineSetMatrix4fv\fP (\fBEngineContext\fP *ctx, const char *name, mat4 value)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "const \fBEBOOL\fP engineAttachAndLink (\fBEngineContext\fP * ctx, \fBEngineShader\fP * vertex, \fBEngineShader\fP * fragment, \fBEngineShader\fP * geometry)"
+
+.PP
+Definition at line \fB46\fP of file \fBengine_shaders\&.c\fP\&.
+.SS "const \fBEBOOL\fP engineCompileShader (\fBEngineShader\fP * shader, const char * path)"
+
+.PP
+Definition at line \fB15\fP of file \fBengine_shaders\&.c\fP\&.
+.SS "void engineCreateProgram (\fBEngineContext\fP * ctx)"
+
+.PP
+Definition at line \fB41\fP of file \fBengine_shaders\&.c\fP\&.
+.SS "\fBEngineShader\fP engineCreateShader (int shaderType)"
+
+.PP
+Definition at line \fB10\fP of file \fBengine_shaders\&.c\fP\&.
+.SS "void engineDeleteProgram (\fBEngineContext\fP * ctx)"
+
+.PP
+Definition at line \fB78\fP of file \fBengine_shaders\&.c\fP\&.
+.SS "void engineDeleteShader (\fBEngineShader\fP * shader)"
+
+.PP
+Definition at line \fB36\fP of file \fBengine_shaders\&.c\fP\&.
+.SS "void engineSetFloat (\fBEngineContext\fP * ctx, const char * name, float value)"
+
+.PP
+Definition at line \fB88\fP of file \fBengine_shaders\&.c\fP\&.
+.SS "void engineSetInteger (\fBEngineContext\fP * ctx, const char * name, int value)"
+
+.PP
+Definition at line \fB102\fP of file \fBengine_shaders\&.c\fP\&.
+.SS "void engineSetMatrix4fv (\fBEngineContext\fP * ctx, const char * name, mat4 value)"
+
+.PP
+Definition at line \fB200\fP of file \fBengine_shaders\&.c\fP\&.
+.SS "void engineSetVector2f (\fBEngineContext\fP * ctx, const char * name, float x, float y)"
+
+.PP
+Definition at line \fB116\fP of file \fBengine_shaders\&.c\fP\&.
+.SS "void engineSetVector2fv (\fBEngineContext\fP * ctx, const char * name, vec2 value)"
+
+.PP
+Definition at line \fB130\fP of file \fBengine_shaders\&.c\fP\&.
+.SS "void engineSetVector3f (\fBEngineContext\fP * ctx, const char * name, float x, float y, float z)"
+
+.PP
+Definition at line \fB144\fP of file \fBengine_shaders\&.c\fP\&.
+.SS "void engineSetVector3fv (\fBEngineContext\fP * ctx, const char * name, vec3 value)"
+
+.PP
+Definition at line \fB158\fP of file \fBengine_shaders\&.c\fP\&.
+.SS "void engineSetVector4f (\fBEngineContext\fP * ctx, const char * name, float x, float y, float z, float w)"
+
+.PP
+Definition at line \fB172\fP of file \fBengine_shaders\&.c\fP\&.
+.SS "void engineSetVector4fv (\fBEngineContext\fP * ctx, const char * name, vec4 value)"
+
+.PP
+Definition at line \fB186\fP of file \fBengine_shaders\&.c\fP\&.
+.SS "void engineUseShader (\fBEngineContext\fP * ctx)"
+
+.PP
+Definition at line \fB83\fP of file \fBengine_shaders\&.c\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Engine from the source code\&.

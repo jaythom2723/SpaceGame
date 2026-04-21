@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_structlinklist" xml:lang="en-US">
+<title>linklist Struct Reference</title>
+<indexterm><primary>linklist</primary></indexterm>
+<para>
+
+<para>A standard link list data structure. </para>
+ 
+</para>
+<para>
+<computeroutput>#include &lt;engine_defs.h&gt;</computeroutput>
+</para>
+<simplesect>
+    <title>Data Fields    </title>
+        <itemizedlist>
+            <listitem><para>char * <link linkend="_structlinklist_1a716c8ac9aea80a0165dd58045b106e38">lista</link></para>
+</listitem>
+            <listitem><para>char * <link linkend="_structlinklist_1a5ca621c4ac65382cf6cee22a6fa9f54a">listb</link></para>
+</listitem>
+            <listitem><para>size_t <link linkend="_structlinklist_1aae15b6d77b58dbd6f21861d1320ec961">typesize</link></para>
+</listitem>
+            <listitem><para>size_t <link linkend="_structlinklist_1ac2c93a22dd9699e34c0f6b3e9b34fb41">arrsize</link></para>
+</listitem>
+            <listitem><para>EBOOL <link linkend="_structlinklist_1a384b507941cdab4b3f34797ec27944e4">aalloc</link></para>
+</listitem>
+            <listitem><para>EBOOL <link linkend="_structlinklist_1a16e4752e7ee97f015d9379bfc630512c">balloc</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>A standard link list data structure. </para>
+<para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00111">111</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<section>
+<title>Field Documentation</title>
+<anchor xml:id="_structlinklist_1a384b507941cdab4b3f34797ec27944e4"/><section>
+    <title>aalloc</title>
+<indexterm><primary>aalloc</primary><secondary>linklist</secondary></indexterm>
+<indexterm><primary>linklist</primary><secondary>aalloc</secondary></indexterm>
+<para><computeroutput>EBOOL aalloc</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00118">118</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_structlinklist_1ac2c93a22dd9699e34c0f6b3e9b34fb41"/><section>
+    <title>arrsize</title>
+<indexterm><primary>arrsize</primary><secondary>linklist</secondary></indexterm>
+<indexterm><primary>linklist</primary><secondary>arrsize</secondary></indexterm>
+<para><computeroutput>size_t arrsize</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00116">116</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_structlinklist_1a16e4752e7ee97f015d9379bfc630512c"/><section>
+    <title>balloc</title>
+<indexterm><primary>balloc</primary><secondary>linklist</secondary></indexterm>
+<indexterm><primary>linklist</primary><secondary>balloc</secondary></indexterm>
+<para><computeroutput>EBOOL balloc</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00119">119</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_structlinklist_1a716c8ac9aea80a0165dd58045b106e38"/><section>
+    <title>lista</title>
+<indexterm><primary>lista</primary><secondary>linklist</secondary></indexterm>
+<indexterm><primary>linklist</primary><secondary>lista</secondary></indexterm>
+<para><computeroutput>char* lista</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00112">112</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_structlinklist_1a5ca621c4ac65382cf6cee22a6fa9f54a"/><section>
+    <title>listb</title>
+<indexterm><primary>listb</primary><secondary>linklist</secondary></indexterm>
+<indexterm><primary>linklist</primary><secondary>listb</secondary></indexterm>
+<para><computeroutput>char* listb</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00113">113</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_structlinklist_1aae15b6d77b58dbd6f21861d1320ec961"/><section>
+    <title>typesize</title>
+<indexterm><primary>typesize</primary><secondary>linklist</secondary></indexterm>
+<indexterm><primary>linklist</primary><secondary>typesize</secondary></indexterm>
+<para><computeroutput>size_t typesize</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00115">115</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<para>
+The documentation for this struct was generated from the following file:</para>
+engine_defs.h</section>
+</section>

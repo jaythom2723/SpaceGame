@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_engine_8c" xml:lang="en-US">
+<title>SpaceGame/engine.c File Reference</title>
+<indexterm><primary>SpaceGame/engine.c</primary></indexterm>
+<programlisting linenumbering="unnumbered">#include &quot;engine.h&quot;<?linebreak?>#include &quot;engine_shaders.h&quot;<?linebreak?>#include &quot;engine_buffers.h&quot;<?linebreak?>#include &quot;engine_textures.h&quot;<?linebreak?>#include &quot;engine_utils.h&quot;<?linebreak?>#include &lt;cglm/cglm.h&gt;<?linebreak?>#include &lt;stdio.h&gt;<?linebreak?>#include &lt;stdlib.h&gt;<?linebreak?>#include &lt;string.h&gt;<?linebreak?></programlisting><simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>void <link linkend="_engine_8c_1a5180f7bf2b71421af837035824a8c8ac">framebuffer_size_callback</link> (GLFWwindow *window, int width, int height)</para>
+</listitem>
+            <listitem><para>void <link linkend="_engine_8c_1aa48aaf412b9e33386433680c25b3883c">key_callback</link> (GLFWwindow *window, int key, int scancode, int action, int mode)</para>
+</listitem>
+            <listitem><para><link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * <link linkend="_engine_8c_1a09c0d9b8e4a13eb3d83a856646bf4184">engineInit</link> (void)</para>
+</listitem>
+            <listitem><para><link linkend="_engine__defs_8h_1a4fe707fd7f0392a3c6d81cfc62f1686c">EBOOL</link> <link linkend="_engine_8c_1a7c6ebbb861e928c523dba3910f94f85c">engineCreateWindow</link> (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *ctx, const <link linkend="_engine__defs_8h_1ace08f4d3a2b304b58e1719b16ba36a16">WindowConfig</link> config)</para>
+</listitem>
+            <listitem><para>void <link linkend="_engine_8c_1a8805b88be9ba3bc656cc58621794f340">engineClose</link> (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *ctx)</para>
+</listitem>
+            <listitem><para>void <link linkend="_engine_8c_1a76c6c27d6a38810d8dbeb12992a54eb3">engineInitProjectionMatrix</link> (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *ctx)</para>
+</listitem>
+            <listitem><para><link linkend="_engine__defs_8h_1a4fe707fd7f0392a3c6d81cfc62f1686c">EBOOL</link> <link linkend="_engine_8c_1a4659b11ca96f5e32882b376b59abdb2c">engineWindowShouldClose</link> (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *ctx)</para>
+</listitem>
+            <listitem><para>void <link linkend="_engine_8c_1abbb8cbacbec6636ad820ca444ec8dd95">engineSetWindowClose</link> (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *ctx, <link linkend="_engine__defs_8h_1a4fe707fd7f0392a3c6d81cfc62f1686c">EBOOL</link> value)</para>
+</listitem>
+            <listitem><para>void <link linkend="_engine_8c_1ad79160fed6518596986caaa89995fe5e">engineWindowPollEvents</link> (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *ctx)</para>
+</listitem>
+            <listitem><para>void <link linkend="_engine_8c_1aeac24cd237463c0df0047bdf459f5199">engineWindowSwapBuffers</link> (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *ctx)</para>
+</listitem>
+            <listitem><para>void <link linkend="_engine_8c_1a39bdaedc61a1cfbedcb007c0474c1f1f">engineWindowGetSize</link> (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *ctx, int *width, int *height)</para>
+</listitem>
+            <listitem><para>void <link linkend="_engine_8c_1a03f11de433503a7c34298fb1f6217fcf">engineSetClearColor</link> (float r, float g, float b, float a)</para>
+</listitem>
+            <listitem><para>void <link linkend="_engine_8c_1a21719fba0d02fdd08bf59fc1b4d4a1d3">engineClear</link> (void)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_engine_8c_1a21719fba0d02fdd08bf59fc1b4d4a1d3"/><section>
+    <title>engineClear()</title>
+<indexterm><primary>engineClear</primary><secondary>engine.c</secondary></indexterm>
+<indexterm><primary>engine.c</primary><secondary>engineClear</secondary></indexterm>
+<para><computeroutput>void engineClear (void )</computeroutput></para><para>
+Definition at line <link linkend="_engine_8c_source_1l00149">149</link> of file <link linkend="_engine_8c_source">engine.c</link>.</para>
+</section>
+<anchor xml:id="_engine_8c_1a8805b88be9ba3bc656cc58621794f340"/><section>
+    <title>engineClose()</title>
+<indexterm><primary>engineClose</primary><secondary>engine.c</secondary></indexterm>
+<indexterm><primary>engine.c</primary><secondary>engineClose</secondary></indexterm>
+<para><computeroutput>void engineClose (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx)</computeroutput></para><para>
+Definition at line <link linkend="_engine_8c_source_1l00090">90</link> of file <link linkend="_engine_8c_source">engine.c</link>.</para>
+</section>
+<anchor xml:id="_engine_8c_1a7c6ebbb861e928c523dba3910f94f85c"/><section>
+    <title>engineCreateWindow()</title>
+<indexterm><primary>engineCreateWindow</primary><secondary>engine.c</secondary></indexterm>
+<indexterm><primary>engine.c</primary><secondary>engineCreateWindow</secondary></indexterm>
+<para><computeroutput><link linkend="_engine__defs_8h_1a4fe707fd7f0392a3c6d81cfc62f1686c">EBOOL</link> engineCreateWindow (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx, const <link linkend="_engine__defs_8h_1ace08f4d3a2b304b58e1719b16ba36a16">WindowConfig</link> config)</computeroutput></para><para>
+Definition at line <link linkend="_engine_8c_source_1l00060">60</link> of file <link linkend="_engine_8c_source">engine.c</link>.</para>
+</section>
+<anchor xml:id="_engine_8c_1a09c0d9b8e4a13eb3d83a856646bf4184"/><section>
+    <title>engineInit()</title>
+<indexterm><primary>engineInit</primary><secondary>engine.c</secondary></indexterm>
+<indexterm><primary>engine.c</primary><secondary>engineInit</secondary></indexterm>
+<para><computeroutput><link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * engineInit (void )</computeroutput></para><para>
+Definition at line <link linkend="_engine_8c_source_1l00032">32</link> of file <link linkend="_engine_8c_source">engine.c</link>.</para>
+</section>
+<anchor xml:id="_engine_8c_1a76c6c27d6a38810d8dbeb12992a54eb3"/><section>
+    <title>engineInitProjectionMatrix()</title>
+<indexterm><primary>engineInitProjectionMatrix</primary><secondary>engine.c</secondary></indexterm>
+<indexterm><primary>engine.c</primary><secondary>engineInitProjectionMatrix</secondary></indexterm>
+<para><computeroutput>void engineInitProjectionMatrix (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx)</computeroutput></para><para>
+Definition at line <link linkend="_engine_8c_source_1l00103">103</link> of file <link linkend="_engine_8c_source">engine.c</link>.</para>
+</section>
+<anchor xml:id="_engine_8c_1a03f11de433503a7c34298fb1f6217fcf"/><section>
+    <title>engineSetClearColor()</title>
+<indexterm><primary>engineSetClearColor</primary><secondary>engine.c</secondary></indexterm>
+<indexterm><primary>engine.c</primary><secondary>engineSetClearColor</secondary></indexterm>
+<para><computeroutput>void engineSetClearColor (float r, float g, float b, float a)</computeroutput></para><para>
+Definition at line <link linkend="_engine_8c_source_1l00144">144</link> of file <link linkend="_engine_8c_source">engine.c</link>.</para>
+</section>
+<anchor xml:id="_engine_8c_1abbb8cbacbec6636ad820ca444ec8dd95"/><section>
+    <title>engineSetWindowClose()</title>
+<indexterm><primary>engineSetWindowClose</primary><secondary>engine.c</secondary></indexterm>
+<indexterm><primary>engine.c</primary><secondary>engineSetWindowClose</secondary></indexterm>
+<para><computeroutput>void engineSetWindowClose (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx, <link linkend="_engine__defs_8h_1a4fe707fd7f0392a3c6d81cfc62f1686c">EBOOL</link> value)</computeroutput></para><para>
+Definition at line <link linkend="_engine_8c_source_1l00122">122</link> of file <link linkend="_engine_8c_source">engine.c</link>.</para>
+</section>
+<anchor xml:id="_engine_8c_1a39bdaedc61a1cfbedcb007c0474c1f1f"/><section>
+    <title>engineWindowGetSize()</title>
+<indexterm><primary>engineWindowGetSize</primary><secondary>engine.c</secondary></indexterm>
+<indexterm><primary>engine.c</primary><secondary>engineWindowGetSize</secondary></indexterm>
+<para><computeroutput>void engineWindowGetSize (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx, int * width, int * height)</computeroutput></para><para>
+Definition at line <link linkend="_engine_8c_source_1l00138">138</link> of file <link linkend="_engine_8c_source">engine.c</link>.</para>
+</section>
+<anchor xml:id="_engine_8c_1ad79160fed6518596986caaa89995fe5e"/><section>
+    <title>engineWindowPollEvents()</title>
+<indexterm><primary>engineWindowPollEvents</primary><secondary>engine.c</secondary></indexterm>
+<indexterm><primary>engine.c</primary><secondary>engineWindowPollEvents</secondary></indexterm>
+<para><computeroutput>void engineWindowPollEvents (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx)</computeroutput></para><para>
+Definition at line <link linkend="_engine_8c_source_1l00127">127</link> of file <link linkend="_engine_8c_source">engine.c</link>.</para>
+</section>
+<anchor xml:id="_engine_8c_1a4659b11ca96f5e32882b376b59abdb2c"/><section>
+    <title>engineWindowShouldClose()</title>
+<indexterm><primary>engineWindowShouldClose</primary><secondary>engine.c</secondary></indexterm>
+<indexterm><primary>engine.c</primary><secondary>engineWindowShouldClose</secondary></indexterm>
+<para><computeroutput><link linkend="_engine__defs_8h_1a4fe707fd7f0392a3c6d81cfc62f1686c">EBOOL</link> engineWindowShouldClose (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx)</computeroutput></para><para>
+Definition at line <link linkend="_engine_8c_source_1l00117">117</link> of file <link linkend="_engine_8c_source">engine.c</link>.</para>
+</section>
+<anchor xml:id="_engine_8c_1aeac24cd237463c0df0047bdf459f5199"/><section>
+    <title>engineWindowSwapBuffers()</title>
+<indexterm><primary>engineWindowSwapBuffers</primary><secondary>engine.c</secondary></indexterm>
+<indexterm><primary>engine.c</primary><secondary>engineWindowSwapBuffers</secondary></indexterm>
+<para><computeroutput>void engineWindowSwapBuffers (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx)</computeroutput></para><para>
+Definition at line <link linkend="_engine_8c_source_1l00133">133</link> of file <link linkend="_engine_8c_source">engine.c</link>.</para>
+</section>
+<anchor xml:id="_engine_8c_1a5180f7bf2b71421af837035824a8c8ac"/><section>
+    <title>framebuffer_size_callback()</title>
+<indexterm><primary>framebuffer_size_callback</primary><secondary>engine.c</secondary></indexterm>
+<indexterm><primary>engine.c</primary><secondary>framebuffer_size_callback</secondary></indexterm>
+<para><computeroutput>void framebuffer_size_callback (GLFWwindow * window, int width, int height)</computeroutput></para><para>
+Definition at line <link linkend="_engine_8c_source_1l00016">16</link> of file <link linkend="_engine_8c_source">engine.c</link>.</para>
+</section>
+<anchor xml:id="_engine_8c_1aa48aaf412b9e33386433680c25b3883c"/><section>
+    <title>key_callback()</title>
+<indexterm><primary>key_callback</primary><secondary>engine.c</secondary></indexterm>
+<indexterm><primary>engine.c</primary><secondary>key_callback</secondary></indexterm>
+<para><computeroutput>void key_callback (GLFWwindow * window, int key, int scancode, int action, int mode)</computeroutput></para><para>
+Definition at line <link linkend="_engine_8c_source_1l00021">21</link> of file <link linkend="_engine_8c_source">engine.c</link>.</para>
+</section>
+</section>
+</section>

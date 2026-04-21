@@ -1,0 +1,86 @@
+\doxysection{Space\+Game/\+engine\+\_\+entity.c File Reference}
+\hypertarget{engine__entity_8c}{}\label{engine__entity_8c}\index{SpaceGame/engine\_entity.c@{SpaceGame/engine\_entity.c}}
+{\ttfamily \+\#include "{}engine\+\_\+entity.\+h"{}}\newline
+{\ttfamily \+\#include "{}engine\+\_\+components.\+h"{}}\newline
+{\ttfamily \+\#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \+\#include $<$string.\+h$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+const \doxymbox{\hyperlink{engine__defs_8h_a4fe707fd7f0392a3c6d81cfc62f1686c}{EBOOL}} \doxymbox{\hyperlink{engine__entity_8c_ad4e07e2847c44dd22a5cb64411bfefa4}{engine\+Create\+Entity}} (\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}ctx, vec2 pos, vec2 size, const \doxymbox{\hyperlink{engine__defs_8h_a4471320c0db41d630bed66ecbfff9bb9}{Engine\+Entity\+Key}} key, const \doxymbox{\hyperlink{engine__defs_8h_a0a29a026b82481d6384d6880a2b6b071}{Engine\+Texture\+Key}} texkey)
+\item 
+void \doxymbox{\hyperlink{engine__entity_8c_aa89fb9bc57d6c8b13ffd27ecc7719f2b}{engine\+Destroy\+All\+Entities}} (\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}ctx)
+\item 
+void \doxymbox{\hyperlink{engine__entity_8c_a78ecfdab06a416fc4dd7f3b472f39d97}{engine\+Destroy\+Entity}} (\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}ctx, \doxymbox{\hyperlink{engine__defs_8h_a4471320c0db41d630bed66ecbfff9bb9}{Engine\+Entity\+Key}} key)
+\item 
+\doxymbox{\hyperlink{engine__defs_8h_a6c53f0b7ec3737ab96bcfea47dd18695}{Engine\+Entity}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{engine__entity_8c_a0e89c1ee1567ce508a24c2d3143b2c23}{engine\+Get\+Entity}} (\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}ctx, \doxymbox{\hyperlink{engine__defs_8h_a4471320c0db41d630bed66ecbfff9bb9}{Engine\+Entity\+Key}} key)
+\item 
+void \doxymbox{\hyperlink{engine__entity_8c_a56c022fa95d201dea95966432db663f3}{engine\+Init\+Entity\+Component\+List}} (\doxymbox{\hyperlink{engine__defs_8h_a6c53f0b7ec3737ab96bcfea47dd18695}{Engine\+Entity}} \texorpdfstring{$\ast$}{*}ent)
+\item 
+void \doxymbox{\hyperlink{engine__entity_8c_ae484ed871cbb72035f2575eb9f4f0c1c}{engine\+Process\+Entities}} (\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}ctx, float delta\+Time)
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{engine__entity_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{engine__entity_8c_ad4e07e2847c44dd22a5cb64411bfefa4}\index{engine\_entity.c@{engine\_entity.c}!engineCreateEntity@{engineCreateEntity}}
+\index{engineCreateEntity@{engineCreateEntity}!engine\_entity.c@{engine\_entity.c}}
+\doxysubsubsection{\texorpdfstring{engineCreateEntity()}{engineCreateEntity()}}
+{\footnotesize\ttfamily \label{engine__entity_8c_ad4e07e2847c44dd22a5cb64411bfefa4} 
+const \doxymbox{\hyperlink{engine__defs_8h_a4fe707fd7f0392a3c6d81cfc62f1686c}{EBOOL}} engine\+Create\+Entity (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{vec2}]{pos}{, }\item[{vec2}]{size}{, }\item[{const \doxymbox{\hyperlink{engine__defs_8h_a4471320c0db41d630bed66ecbfff9bb9}{Engine\+Entity\+Key}}}]{key}{, }\item[{const \doxymbox{\hyperlink{engine__defs_8h_a0a29a026b82481d6384d6880a2b6b071}{Engine\+Texture\+Key}}}]{texkey}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__entity_8c_source_l00008}{8}} of file \doxymbox{\hyperlink{engine__entity_8c_source}{engine\+\_\+entity.\+c}}.
+
+\Hypertarget{engine__entity_8c_aa89fb9bc57d6c8b13ffd27ecc7719f2b}\index{engine\_entity.c@{engine\_entity.c}!engineDestroyAllEntities@{engineDestroyAllEntities}}
+\index{engineDestroyAllEntities@{engineDestroyAllEntities}!engine\_entity.c@{engine\_entity.c}}
+\doxysubsubsection{\texorpdfstring{engineDestroyAllEntities()}{engineDestroyAllEntities()}}
+{\footnotesize\ttfamily \label{engine__entity_8c_aa89fb9bc57d6c8b13ffd27ecc7719f2b} 
+void engine\+Destroy\+All\+Entities (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__entity_8c_source_l00027}{27}} of file \doxymbox{\hyperlink{engine__entity_8c_source}{engine\+\_\+entity.\+c}}.
+
+\Hypertarget{engine__entity_8c_a78ecfdab06a416fc4dd7f3b472f39d97}\index{engine\_entity.c@{engine\_entity.c}!engineDestroyEntity@{engineDestroyEntity}}
+\index{engineDestroyEntity@{engineDestroyEntity}!engine\_entity.c@{engine\_entity.c}}
+\doxysubsubsection{\texorpdfstring{engineDestroyEntity()}{engineDestroyEntity()}}
+{\footnotesize\ttfamily \label{engine__entity_8c_a78ecfdab06a416fc4dd7f3b472f39d97} 
+void engine\+Destroy\+Entity (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{\doxymbox{\hyperlink{engine__defs_8h_a4471320c0db41d630bed66ecbfff9bb9}{Engine\+Entity\+Key}}}]{key}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__entity_8c_source_l00045}{45}} of file \doxymbox{\hyperlink{engine__entity_8c_source}{engine\+\_\+entity.\+c}}.
+
+\Hypertarget{engine__entity_8c_a0e89c1ee1567ce508a24c2d3143b2c23}\index{engine\_entity.c@{engine\_entity.c}!engineGetEntity@{engineGetEntity}}
+\index{engineGetEntity@{engineGetEntity}!engine\_entity.c@{engine\_entity.c}}
+\doxysubsubsection{\texorpdfstring{engineGetEntity()}{engineGetEntity()}}
+{\footnotesize\ttfamily \label{engine__entity_8c_a0e89c1ee1567ce508a24c2d3143b2c23} 
+\doxymbox{\hyperlink{engine__defs_8h_a6c53f0b7ec3737ab96bcfea47dd18695}{Engine\+Entity}} \texorpdfstring{$\ast$}{*} engine\+Get\+Entity (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{\doxymbox{\hyperlink{engine__defs_8h_a4471320c0db41d630bed66ecbfff9bb9}{Engine\+Entity\+Key}}}]{key}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__entity_8c_source_l00059}{59}} of file \doxymbox{\hyperlink{engine__entity_8c_source}{engine\+\_\+entity.\+c}}.
+
+\Hypertarget{engine__entity_8c_a56c022fa95d201dea95966432db663f3}\index{engine\_entity.c@{engine\_entity.c}!engineInitEntityComponentList@{engineInitEntityComponentList}}
+\index{engineInitEntityComponentList@{engineInitEntityComponentList}!engine\_entity.c@{engine\_entity.c}}
+\doxysubsubsection{\texorpdfstring{engineInitEntityComponentList()}{engineInitEntityComponentList()}}
+{\footnotesize\ttfamily \label{engine__entity_8c_a56c022fa95d201dea95966432db663f3} 
+void engine\+Init\+Entity\+Component\+List (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a6c53f0b7ec3737ab96bcfea47dd18695}{Engine\+Entity}} \texorpdfstring{$\ast$}{*}}]{ent}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__entity_8c_source_l00072}{72}} of file \doxymbox{\hyperlink{engine__entity_8c_source}{engine\+\_\+entity.\+c}}.
+
+\Hypertarget{engine__entity_8c_ae484ed871cbb72035f2575eb9f4f0c1c}\index{engine\_entity.c@{engine\_entity.c}!engineProcessEntities@{engineProcessEntities}}
+\index{engineProcessEntities@{engineProcessEntities}!engine\_entity.c@{engine\_entity.c}}
+\doxysubsubsection{\texorpdfstring{engineProcessEntities()}{engineProcessEntities()}}
+{\footnotesize\ttfamily \label{engine__entity_8c_ae484ed871cbb72035f2575eb9f4f0c1c} 
+void engine\+Process\+Entities (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{float}]{delta\+Time}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__entity_8c_source_l00088}{88}} of file \doxymbox{\hyperlink{engine__entity_8c_source}{engine\+\_\+entity.\+c}}.
+

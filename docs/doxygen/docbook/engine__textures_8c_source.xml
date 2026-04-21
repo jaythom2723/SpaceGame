@@ -1,0 +1,196 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_engine__textures_8c_source" xml:lang="en-US">
+<title>engine_textures.c</title>
+<programlisting linenumbering="unnumbered"><anchor xml:id="_engine__textures_8c_source_1l00001"/>00001 <emphasis role="preprocessor">#include&#32;&quot;engine_textures.h&quot;</emphasis>
+<anchor xml:id="_engine__textures_8c_source_1l00002"/>00002 
+<anchor xml:id="_engine__textures_8c_source_1l00003"/>00003 <emphasis role="preprocessor">#include&#32;&lt;stdio.h&gt;</emphasis>
+<anchor xml:id="_engine__textures_8c_source_1l00004"/>00004 <emphasis role="preprocessor">#include&#32;&lt;stdlib.h&gt;</emphasis>
+<anchor xml:id="_engine__textures_8c_source_1l00005"/>00005 <emphasis role="preprocessor">#include&#32;&lt;string.h&gt;</emphasis>
+<anchor xml:id="_engine__textures_8c_source_1l00006"/>00006 
+<anchor xml:id="_engine__textures_8c_source_1l00007"/>00007 <emphasis role="preprocessor">#include&#32;&lt;glad/glad.h&gt;</emphasis>
+<anchor xml:id="_engine__textures_8c_source_1l00008"/>00008 
+<anchor xml:id="_engine__textures_8c_source_1l00009"/>00009 <emphasis role="preprocessor">#define&#32;STB_IMAGE_IMPLEMENTATION</emphasis>
+<anchor xml:id="_engine__textures_8c_source_1l00010"/>00010 <emphasis role="preprocessor">#include&#32;&lt;stb_image/stb_image.h&gt;</emphasis>
+<anchor xml:id="_engine__textures_8c_source_1l00011"/>00011 
+<anchor xml:id="_engine__textures_8c_source_1l00012"/>00012 <emphasis role="keyword">static</emphasis>&#32;EngineTexturePair*&#32;ptr&#32;=&#32;NULL;
+<anchor xml:id="_engine__textures_8c_source_1l00013"/>00013 <emphasis role="keyword">static</emphasis>&#32;EngineTexturePair*&#32;lastElem&#32;=&#32;NULL;
+<anchor xml:id="_engine__textures_8c_source_1l00014"/>00014 <emphasis role="keyword">static</emphasis>&#32;EngineTexturePair*&#32;end&#32;=&#32;NULL;
+<anchor xml:id="_engine__textures_8c_source_1l00015"/>00015 
+<anchor xml:id="_engine__textures_8c_source_1l00016"/>00016 <emphasis role="keyword">static</emphasis>&#32;EngineTexturePair*&#32;_engineGetTexturePair(EngineContext*&#32;ctx,&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;key,&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>*&#32;index);
+<anchor xml:id="_engine__textures_8c_source_1l00017"/>00017 <emphasis role="keyword">static</emphasis>&#32;EngineTexturePair*&#32;_engineGetTexturePairIndex(EngineContext*&#32;ctx,&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;index);
+<anchor xml:id="_engine__textures_8c_source_1l00018"/>00018 
+<anchor xml:id="_engine__textures_8c_source_1l00019"/>00019 <emphasis role="keyword">const</emphasis>&#32;EBOOL&#32;engineCreateTexture(EngineContext*&#32;ctx,&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;key)
+<anchor xml:id="_engine__textures_8c_source_1l00020"/>00020 {
+<anchor xml:id="_engine__textures_8c_source_1l00021"/>00021 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(ptr&#32;==&#32;NULL)
+<anchor xml:id="_engine__textures_8c_source_1l00022"/>00022 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_engine__textures_8c_source_1l00023"/>00023 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ptr&#32;=&#32;ctx-&gt;textures;
+<anchor xml:id="_engine__textures_8c_source_1l00024"/>00024 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lastElem&#32;=&#32;ctx-&gt;textures;
+<anchor xml:id="_engine__textures_8c_source_1l00025"/>00025 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;end&#32;=&#32;ctx-&gt;textures&#32;+&#32;ENGINE_MAX_TEXTURES;
+<anchor xml:id="_engine__textures_8c_source_1l00026"/>00026 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_engine__textures_8c_source_1l00027"/>00027 
+<anchor xml:id="_engine__textures_8c_source_1l00028"/>00028 &#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;do&#32;nothing&#32;if&#32;we&apos;re&#32;at&#32;the&#32;max&#32;amount&#32;of&#32;textures</emphasis>
+<anchor xml:id="_engine__textures_8c_source_1l00029"/>00029 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(ptr&#32;&gt;=&#32;end)
+<anchor xml:id="_engine__textures_8c_source_1l00030"/>00030 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;EFALSE;
+<anchor xml:id="_engine__textures_8c_source_1l00031"/>00031 
+<anchor xml:id="_engine__textures_8c_source_1l00032"/>00032 &#32;&#32;&#32;&#32;EngineTexture*&#32;texture&#32;=&#32;malloc(<emphasis role="keyword">sizeof</emphasis>(EngineTexture));
+<anchor xml:id="_engine__textures_8c_source_1l00033"/>00033 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(texture&#32;==&#32;NULL)
+<anchor xml:id="_engine__textures_8c_source_1l00034"/>00034 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_engine__textures_8c_source_1l00035"/>00035 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fprintf(stderr,&#32;<emphasis role="stringliteral">&quot;Could&#32;not&#32;allocate&#32;enough&#32;memory&#32;for&#32;a&#32;texture!\n&quot;</emphasis>);
+<anchor xml:id="_engine__textures_8c_source_1l00036"/>00036 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;EFALSE;
+<anchor xml:id="_engine__textures_8c_source_1l00037"/>00037 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_engine__textures_8c_source_1l00038"/>00038 
+<anchor xml:id="_engine__textures_8c_source_1l00039"/>00039 &#32;&#32;&#32;&#32;glGenTextures(1,&#32;&amp;texture-&gt;id);
+<anchor xml:id="_engine__textures_8c_source_1l00040"/>00040 
+<anchor xml:id="_engine__textures_8c_source_1l00041"/>00041 &#32;&#32;&#32;&#32;EngineTexturePair&#32;pair&#32;=&#32;{
+<anchor xml:id="_engine__textures_8c_source_1l00042"/>00042 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.key&#32;=&#32;key,
+<anchor xml:id="_engine__textures_8c_source_1l00043"/>00043 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.value&#32;=&#32;texture
+<anchor xml:id="_engine__textures_8c_source_1l00044"/>00044 &#32;&#32;&#32;&#32;};
+<anchor xml:id="_engine__textures_8c_source_1l00045"/>00045 
+<anchor xml:id="_engine__textures_8c_source_1l00046"/>00046 &#32;&#32;&#32;&#32;(*ptr)&#32;=&#32;pair;
+<anchor xml:id="_engine__textures_8c_source_1l00047"/>00047 &#32;&#32;&#32;&#32;ctx-&gt;ntextures++;
+<anchor xml:id="_engine__textures_8c_source_1l00048"/>00048 
+<anchor xml:id="_engine__textures_8c_source_1l00049"/>00049 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(ptr&#32;!=&#32;lastElem)
+<anchor xml:id="_engine__textures_8c_source_1l00050"/>00050 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_engine__textures_8c_source_1l00051"/>00051 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ptr&#32;=&#32;lastElem;
+<anchor xml:id="_engine__textures_8c_source_1l00052"/>00052 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_engine__textures_8c_source_1l00053"/>00053 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_engine__textures_8c_source_1l00054"/>00054 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_engine__textures_8c_source_1l00055"/>00055 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ptr++;
+<anchor xml:id="_engine__textures_8c_source_1l00056"/>00056 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lastElem++;
+<anchor xml:id="_engine__textures_8c_source_1l00057"/>00057 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_engine__textures_8c_source_1l00058"/>00058 
+<anchor xml:id="_engine__textures_8c_source_1l00059"/>00059 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;ETRUE;
+<anchor xml:id="_engine__textures_8c_source_1l00060"/>00060 }
+<anchor xml:id="_engine__textures_8c_source_1l00061"/>00061 
+<anchor xml:id="_engine__textures_8c_source_1l00062"/>00062 <emphasis role="keyword">const</emphasis>&#32;EBOOL&#32;engineGenerateTexture(EngineContext*&#32;ctx,&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;key,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>*&#32;path,&#32;<emphasis role="keyword">const</emphasis>&#32;EBOOL&#32;alpha)
+<anchor xml:id="_engine__textures_8c_source_1l00063"/>00063 {
+<anchor xml:id="_engine__textures_8c_source_1l00064"/>00064 &#32;&#32;&#32;&#32;EngineTexturePair*&#32;pair&#32;=&#32;NULL;
+<anchor xml:id="_engine__textures_8c_source_1l00065"/>00065 
+<anchor xml:id="_engine__textures_8c_source_1l00066"/>00066 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;(int)(ptr&#32;-&#32;ctx-&gt;textures);&#32;i++)
+<anchor xml:id="_engine__textures_8c_source_1l00067"/>00067 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_engine__textures_8c_source_1l00068"/>00068 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(ctx-&gt;textures[i].key&#32;!=&#32;key)
+<anchor xml:id="_engine__textures_8c_source_1l00069"/>00069 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+<anchor xml:id="_engine__textures_8c_source_1l00070"/>00070 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pair&#32;=&#32;&amp;ctx-&gt;textures[i];
+<anchor xml:id="_engine__textures_8c_source_1l00071"/>00071 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_engine__textures_8c_source_1l00072"/>00072 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_engine__textures_8c_source_1l00073"/>00073 
+<anchor xml:id="_engine__textures_8c_source_1l00074"/>00074 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(pair&#32;==&#32;NULL)
+<anchor xml:id="_engine__textures_8c_source_1l00075"/>00075 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;EFALSE;
+<anchor xml:id="_engine__textures_8c_source_1l00076"/>00076 
+<anchor xml:id="_engine__textures_8c_source_1l00077"/>00077 &#32;&#32;&#32;&#32;pair-&gt;value-&gt;width&#32;=&#32;0;
+<anchor xml:id="_engine__textures_8c_source_1l00078"/>00078 &#32;&#32;&#32;&#32;pair-&gt;value-&gt;height&#32;=&#32;0;
+<anchor xml:id="_engine__textures_8c_source_1l00079"/>00079 &#32;&#32;&#32;&#32;pair-&gt;value-&gt;internalformat&#32;=&#32;GL_RGB;
+<anchor xml:id="_engine__textures_8c_source_1l00080"/>00080 &#32;&#32;&#32;&#32;pair-&gt;value-&gt;imageformat&#32;=&#32;GL_RGB;
+<anchor xml:id="_engine__textures_8c_source_1l00081"/>00081 &#32;&#32;&#32;&#32;pair-&gt;value-&gt;wraps&#32;=&#32;GL_REPEAT;
+<anchor xml:id="_engine__textures_8c_source_1l00082"/>00082 &#32;&#32;&#32;&#32;pair-&gt;value-&gt;wrapt&#32;=&#32;GL_REPEAT;
+<anchor xml:id="_engine__textures_8c_source_1l00083"/>00083 &#32;&#32;&#32;&#32;pair-&gt;value-&gt;filtermax&#32;=&#32;GL_LINEAR;
+<anchor xml:id="_engine__textures_8c_source_1l00084"/>00084 &#32;&#32;&#32;&#32;pair-&gt;value-&gt;filtermin&#32;=&#32;GL_LINEAR;
+<anchor xml:id="_engine__textures_8c_source_1l00085"/>00085 
+<anchor xml:id="_engine__textures_8c_source_1l00086"/>00086 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(alpha)
+<anchor xml:id="_engine__textures_8c_source_1l00087"/>00087 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_engine__textures_8c_source_1l00088"/>00088 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pair-&gt;value-&gt;internalformat&#32;=&#32;GL_RGBA;
+<anchor xml:id="_engine__textures_8c_source_1l00089"/>00089 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pair-&gt;value-&gt;imageformat&#32;=&#32;GL_RGBA;
+<anchor xml:id="_engine__textures_8c_source_1l00090"/>00090 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_engine__textures_8c_source_1l00091"/>00091 
+<anchor xml:id="_engine__textures_8c_source_1l00092"/>00092 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;width,&#32;height,&#32;nrChannels;
+<anchor xml:id="_engine__textures_8c_source_1l00093"/>00093 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>*&#32;data&#32;=&#32;stbi_load(path,&#32;&amp;width,&#32;&amp;height,&#32;&amp;nrChannels,&#32;0);
+<anchor xml:id="_engine__textures_8c_source_1l00094"/>00094 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(data&#32;==&#32;NULL)
+<anchor xml:id="_engine__textures_8c_source_1l00095"/>00095 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_engine__textures_8c_source_1l00096"/>00096 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fprintf(stderr,&#32;<emphasis role="stringliteral">&quot;Could&#32;not&#32;find&#32;texture&#32;file!\n&quot;</emphasis>);
+<anchor xml:id="_engine__textures_8c_source_1l00097"/>00097 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;EFALSE;
+<anchor xml:id="_engine__textures_8c_source_1l00098"/>00098 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_engine__textures_8c_source_1l00099"/>00099 
+<anchor xml:id="_engine__textures_8c_source_1l00100"/>00100 &#32;&#32;&#32;&#32;glBindTexture(GL_TEXTURE_2D,&#32;pair-&gt;value-&gt;id);
+<anchor xml:id="_engine__textures_8c_source_1l00101"/>00101 &#32;&#32;&#32;&#32;glTexImage2D(GL_TEXTURE_2D,&#32;0,&#32;pair-&gt;value-&gt;internalformat,&#32;width,&#32;height,&#32;0,&#32;pair-&gt;value-&gt;imageformat,&#32;GL_UNSIGNED_BYTE,&#32;data);
+<anchor xml:id="_engine__textures_8c_source_1l00102"/>00102 
+<anchor xml:id="_engine__textures_8c_source_1l00103"/>00103 &#32;&#32;&#32;&#32;glTexParameteri(GL_TEXTURE_2D,&#32;GL_TEXTURE_WRAP_S,&#32;pair-&gt;value-&gt;wraps);
+<anchor xml:id="_engine__textures_8c_source_1l00104"/>00104 &#32;&#32;&#32;&#32;glTexParameteri(GL_TEXTURE_2D,&#32;GL_TEXTURE_WRAP_T,&#32;pair-&gt;value-&gt;wrapt);
+<anchor xml:id="_engine__textures_8c_source_1l00105"/>00105 &#32;&#32;&#32;&#32;glTexParameteri(GL_TEXTURE_2D,&#32;GL_TEXTURE_MIN_FILTER,&#32;pair-&gt;value-&gt;filtermin);
+<anchor xml:id="_engine__textures_8c_source_1l00106"/>00106 &#32;&#32;&#32;&#32;glTexParameteri(GL_TEXTURE_2D,&#32;GL_TEXTURE_MAG_FILTER,&#32;pair-&gt;value-&gt;filtermax);
+<anchor xml:id="_engine__textures_8c_source_1l00107"/>00107 
+<anchor xml:id="_engine__textures_8c_source_1l00108"/>00108 &#32;&#32;&#32;&#32;glBindTexture(GL_TEXTURE_2D,&#32;0);
+<anchor xml:id="_engine__textures_8c_source_1l00109"/>00109 
+<anchor xml:id="_engine__textures_8c_source_1l00110"/>00110 &#32;&#32;&#32;&#32;stbi_image_free(data);
+<anchor xml:id="_engine__textures_8c_source_1l00111"/>00111 &#32;&#32;&#32;&#32;
+<anchor xml:id="_engine__textures_8c_source_1l00112"/>00112 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;ETRUE;
+<anchor xml:id="_engine__textures_8c_source_1l00113"/>00113 }
+<anchor xml:id="_engine__textures_8c_source_1l00114"/>00114 
+<anchor xml:id="_engine__textures_8c_source_1l00115"/>00115 <emphasis role="keywordtype">void</emphasis>&#32;engineGenTextureCheckMissing(EngineContext*&#32;ctx,&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;key,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>*&#32;path,&#32;<emphasis role="keyword">const</emphasis>&#32;EBOOL&#32;alpha)
+<anchor xml:id="_engine__textures_8c_source_1l00116"/>00116 {
+<anchor xml:id="_engine__textures_8c_source_1l00117"/>00117 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(engineCreateTexture(ctx,&#32;key)&#32;!=&#32;EFALSE)
+<anchor xml:id="_engine__textures_8c_source_1l00118"/>00118 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(engineGenerateTexture(ctx,&#32;key,&#32;path,&#32;alpha)&#32;==&#32;EFALSE)
+<anchor xml:id="_engine__textures_8c_source_1l00119"/>00119 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;engineGenerateTexture(ctx,&#32;ENGINE_MISSING_TEXTURE_KEY,&#32;<emphasis role="stringliteral">&quot;Textures/_missing_texture.png&quot;</emphasis>,&#32;EFALSE);
+<anchor xml:id="_engine__textures_8c_source_1l00120"/>00120 }
+<anchor xml:id="_engine__textures_8c_source_1l00121"/>00121 
+<anchor xml:id="_engine__textures_8c_source_1l00122"/>00122 <emphasis role="keywordtype">void</emphasis>&#32;engineBindTexture(EngineContext*&#32;ctx,&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;key)
+<anchor xml:id="_engine__textures_8c_source_1l00123"/>00123 {
+<anchor xml:id="_engine__textures_8c_source_1l00124"/>00124 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;index;
+<anchor xml:id="_engine__textures_8c_source_1l00125"/>00125 &#32;&#32;&#32;&#32;EngineTexturePair*&#32;pair&#32;=&#32;_engineGetTexturePair(ctx,&#32;key,&#32;&amp;index);
+<anchor xml:id="_engine__textures_8c_source_1l00126"/>00126 &#32;&#32;&#32;&#32;assert(pair&#32;!=&#32;NULL);
+<anchor xml:id="_engine__textures_8c_source_1l00127"/>00127 &#32;&#32;&#32;&#32;assert(pair-&gt;value&#32;!=&#32;NULL);
+<anchor xml:id="_engine__textures_8c_source_1l00128"/>00128 &#32;&#32;&#32;&#32;assert(glIsTexture(pair-&gt;value-&gt;id)&#32;!=&#32;0);
+<anchor xml:id="_engine__textures_8c_source_1l00129"/>00129 &#32;&#32;&#32;&#32;glBindTexture(GL_TEXTURE_2D,&#32;pair-&gt;value-&gt;id);
+<anchor xml:id="_engine__textures_8c_source_1l00130"/>00130 }
+<anchor xml:id="_engine__textures_8c_source_1l00131"/>00131 
+<anchor xml:id="_engine__textures_8c_source_1l00132"/>00132 <emphasis role="keywordtype">void</emphasis>&#32;engineDestroyAllTextures(EngineContext*&#32;ctx)
+<anchor xml:id="_engine__textures_8c_source_1l00133"/>00133 {
+<anchor xml:id="_engine__textures_8c_source_1l00134"/>00134 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;(int)(ptr&#32;-&#32;ctx-&gt;textures);&#32;i++)
+<anchor xml:id="_engine__textures_8c_source_1l00135"/>00135 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_engine__textures_8c_source_1l00136"/>00136 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;EngineTexturePair*&#32;pair&#32;=&#32;_engineGetTexturePairIndex(ctx,&#32;i);
+<anchor xml:id="_engine__textures_8c_source_1l00137"/>00137 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(pair-&gt;value&#32;==&#32;NULL)
+<anchor xml:id="_engine__textures_8c_source_1l00138"/>00138 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+<anchor xml:id="_engine__textures_8c_source_1l00139"/>00139 
+<anchor xml:id="_engine__textures_8c_source_1l00140"/>00140 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;glDeleteTextures(1,&#32;&amp;pair-&gt;value-&gt;id);
+<anchor xml:id="_engine__textures_8c_source_1l00141"/>00141 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;free(pair-&gt;value);
+<anchor xml:id="_engine__textures_8c_source_1l00142"/>00142 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pair-&gt;value&#32;=&#32;NULL;
+<anchor xml:id="_engine__textures_8c_source_1l00143"/>00143 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pair-&gt;key&#32;=&#32;0;
+<anchor xml:id="_engine__textures_8c_source_1l00144"/>00144 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_engine__textures_8c_source_1l00145"/>00145 
+<anchor xml:id="_engine__textures_8c_source_1l00146"/>00146 &#32;&#32;&#32;&#32;ptr&#32;=&#32;ctx-&gt;textures;
+<anchor xml:id="_engine__textures_8c_source_1l00147"/>00147 &#32;&#32;&#32;&#32;lastElem&#32;=&#32;ctx-&gt;textures;
+<anchor xml:id="_engine__textures_8c_source_1l00148"/>00148 &#32;&#32;&#32;&#32;ctx-&gt;ntextures&#32;=&#32;0;
+<anchor xml:id="_engine__textures_8c_source_1l00149"/>00149 }
+<anchor xml:id="_engine__textures_8c_source_1l00150"/>00150 
+<anchor xml:id="_engine__textures_8c_source_1l00151"/>00151 <emphasis role="keywordtype">void</emphasis>&#32;engineDestroyTexture(EngineContext*&#32;ctx,&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;key)
+<anchor xml:id="_engine__textures_8c_source_1l00152"/>00152 {
+<anchor xml:id="_engine__textures_8c_source_1l00153"/>00153 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;index;
+<anchor xml:id="_engine__textures_8c_source_1l00154"/>00154 &#32;&#32;&#32;&#32;EngineTexturePair*&#32;pair&#32;=&#32;_engineGetTexturePair(ctx,&#32;key,&#32;&amp;index);
+<anchor xml:id="_engine__textures_8c_source_1l00155"/>00155 
+<anchor xml:id="_engine__textures_8c_source_1l00156"/>00156 &#32;&#32;&#32;&#32;glDeleteTextures(1,&#32;&amp;pair-&gt;value-&gt;id);
+<anchor xml:id="_engine__textures_8c_source_1l00157"/>00157 &#32;&#32;&#32;&#32;free(pair-&gt;value);
+<anchor xml:id="_engine__textures_8c_source_1l00158"/>00158 &#32;&#32;&#32;&#32;pair-&gt;value&#32;=&#32;NULL;
+<anchor xml:id="_engine__textures_8c_source_1l00159"/>00159 &#32;&#32;&#32;&#32;pair-&gt;key&#32;=&#32;0;
+<anchor xml:id="_engine__textures_8c_source_1l00160"/>00160 
+<anchor xml:id="_engine__textures_8c_source_1l00161"/>00161 &#32;&#32;&#32;&#32;ctx-&gt;ntextures--;
+<anchor xml:id="_engine__textures_8c_source_1l00162"/>00162 
+<anchor xml:id="_engine__textures_8c_source_1l00163"/>00163 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;((EngineTexturePair*)(ctx-&gt;textures&#32;+&#32;index)&#32;==&#32;lastElem)
+<anchor xml:id="_engine__textures_8c_source_1l00164"/>00164 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_engine__textures_8c_source_1l00165"/>00165 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lastElem--;
+<anchor xml:id="_engine__textures_8c_source_1l00166"/>00166 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ptr--;
+<anchor xml:id="_engine__textures_8c_source_1l00167"/>00167 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_engine__textures_8c_source_1l00168"/>00168 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_engine__textures_8c_source_1l00169"/>00169 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_engine__textures_8c_source_1l00170"/>00170 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ptr&#32;=&#32;(EngineTexturePair*)(ctx-&gt;textures&#32;+&#32;index);
+<anchor xml:id="_engine__textures_8c_source_1l00171"/>00171 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_engine__textures_8c_source_1l00172"/>00172 }
+<anchor xml:id="_engine__textures_8c_source_1l00173"/>00173 
+<anchor xml:id="_engine__textures_8c_source_1l00174"/>00174 <emphasis role="comment">//&#32;internal&#32;functions</emphasis>
+<anchor xml:id="_engine__textures_8c_source_1l00175"/>00175 EngineTexturePair*&#32;_engineGetTexturePair(EngineContext*&#32;ctx,&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;key,&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>*&#32;index)
+<anchor xml:id="_engine__textures_8c_source_1l00176"/>00176 {
+<anchor xml:id="_engine__textures_8c_source_1l00177"/>00177 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;(int)(ptr&#32;-&#32;ctx-&gt;textures);&#32;i++)
+<anchor xml:id="_engine__textures_8c_source_1l00178"/>00178 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_engine__textures_8c_source_1l00179"/>00179 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(ctx-&gt;textures[i].key&#32;==&#32;key)
+<anchor xml:id="_engine__textures_8c_source_1l00180"/>00180 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_engine__textures_8c_source_1l00181"/>00181 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;(*index)&#32;=&#32;i;
+<anchor xml:id="_engine__textures_8c_source_1l00182"/>00182 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;&amp;ctx-&gt;textures[i];
+<anchor xml:id="_engine__textures_8c_source_1l00183"/>00183 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_engine__textures_8c_source_1l00184"/>00184 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_engine__textures_8c_source_1l00185"/>00185 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;NULL;
+<anchor xml:id="_engine__textures_8c_source_1l00186"/>00186 }
+<anchor xml:id="_engine__textures_8c_source_1l00187"/>00187 
+<anchor xml:id="_engine__textures_8c_source_1l00188"/>00188 EngineTexturePair*&#32;_engineGetTexturePairIndex(EngineContext*&#32;ctx,&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;index)
+<anchor xml:id="_engine__textures_8c_source_1l00189"/>00189 {
+<anchor xml:id="_engine__textures_8c_source_1l00190"/>00190 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;&amp;ctx-&gt;textures[index];
+<anchor xml:id="_engine__textures_8c_source_1l00191"/>00191 }
+<anchor xml:id="_engine__textures_8c_source_1l00192"/>00192 
+</programlisting></section>

@@ -1,0 +1,27 @@
+\doxysection{engine\+\_\+utils.\+h}
+\hypertarget{engine__utils_8h_source}{}\label{engine__utils_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{engine__utils_8h_source_l00001}00001\ \textcolor{preprocessor}{\#ifndef\ ENGINE\_UTILS\_H}}
+\DoxyCodeLine{\Hypertarget{engine__utils_8h_source_l00002}00002\ \textcolor{preprocessor}{\#define\ ENGINE\_UTILS\_H}}
+\DoxyCodeLine{\Hypertarget{engine__utils_8h_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{engine__utils_8h_source_l00004}00004\ \textcolor{preprocessor}{\#include\ "{}engine\_defs.h"{}}}
+\DoxyCodeLine{\Hypertarget{engine__utils_8h_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{engine__utils_8h_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{\Hypertarget{engine__utils_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{engine__utils_8h_source_l00008}00008\ \textcolor{preprocessor}{\#define\ ENGINE\_DEF\_LINK\_LIST\_ALLOC\_SIZE\ 0xFF}}
+\DoxyCodeLine{\Hypertarget{engine__utils_8h_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{engine__utils_8h_source_l00020}00020\ EngineLinkedList*\ engineCreateLinkedList(\textcolor{keywordtype}{char}*\ lista,\ \textcolor{keywordtype}{char}*\ listb,\ \textcolor{keywordtype}{size\_t}\ arrsize,\ \textcolor{keywordtype}{size\_t}\ typesize);}
+\DoxyCodeLine{\Hypertarget{engine__utils_8h_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{engine__utils_8h_source_l00027}00027\ \textcolor{keywordtype}{void}\ engineDestroyLinkedList(EngineLinkedList*\ list);}
+\DoxyCodeLine{\Hypertarget{engine__utils_8h_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{engine__utils_8h_source_l00029}00029\ \textcolor{comment}{//\ TODO:\ come\ up\ with\ better\ names\ for\ lines\ 13-\/14}}
+\DoxyCodeLine{\Hypertarget{engine__utils_8h_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{engine__utils_8h_source_l00040}00040\ \textcolor{keyword}{const}\ EBOOL\ engineSetValue(EngineLinkedList*\ list,\ \textcolor{keywordtype}{int}\ index,\ \textcolor{keywordtype}{int}\ value);}
+\DoxyCodeLine{\Hypertarget{engine__utils_8h_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{engine__utils_8h_source_l00049}00049\ \textcolor{keywordtype}{void}\ engineGetValues(EngineLinkedList*\ list,\ \textcolor{keywordtype}{char}*\ desta,\ \textcolor{keywordtype}{char}*\ destb);}
+\DoxyCodeLine{\Hypertarget{engine__utils_8h_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{engine__utils_8h_source_l00058}00058\ \textcolor{keywordtype}{char}*\ engineReadFile(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ path);}
+\DoxyCodeLine{\Hypertarget{engine__utils_8h_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{engine__utils_8h_source_l00060}00060\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ENGINE\_H}}
+
+\end{DoxyCode}

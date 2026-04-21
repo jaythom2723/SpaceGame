@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_structengine__texture__pair" xml:lang="en-US">
+<title>engine_texture_pair Struct Reference</title>
+<indexterm><primary>engine_texture_pair</primary></indexterm>
+<para>
+
+<para>Used to make a pseudo-dictionary for the engine. </para>
+ 
+</para>
+<para>
+<computeroutput>#include &lt;engine_defs.h&gt;</computeroutput>
+</para>
+<simplesect>
+    <title>Data Fields    </title>
+        <itemizedlist>
+            <listitem><para>EngineTextureKey <link linkend="_structengine__texture__pair_1a9aee8bf729cfb250ee52cabdb0b35be6">key</link></para>
+</listitem>
+            <listitem><para>EngineTexture * <link linkend="_structengine__texture__pair_1a398421b81a806cbbfd962554d6bbd921">value</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>Used to make a pseudo-dictionary for the engine. </para>
+<para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00083">83</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<section>
+<title>Field Documentation</title>
+<anchor xml:id="_structengine__texture__pair_1a9aee8bf729cfb250ee52cabdb0b35be6"/><section>
+    <title>key</title>
+<indexterm><primary>key</primary><secondary>engine_texture_pair</secondary></indexterm>
+<indexterm><primary>engine_texture_pair</primary><secondary>key</secondary></indexterm>
+<para><computeroutput>EngineTextureKey key</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00084">84</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_structengine__texture__pair_1a398421b81a806cbbfd962554d6bbd921"/><section>
+    <title>value</title>
+<indexterm><primary>value</primary><secondary>engine_texture_pair</secondary></indexterm>
+<indexterm><primary>engine_texture_pair</primary><secondary>value</secondary></indexterm>
+<para><computeroutput>EngineTexture* value</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00085">85</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<para>
+The documentation for this struct was generated from the following file:</para>
+engine_defs.h</section>
+</section>

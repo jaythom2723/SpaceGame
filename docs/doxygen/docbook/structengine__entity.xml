@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_structengine__entity" xml:lang="en-US">
+<title>engine_entity Struct Reference</title>
+<indexterm><primary>engine_entity</primary></indexterm>
+<para>
+
+<para>An entity, contains position, size, texture, and component data. </para>
+ 
+</para>
+<para>
+<computeroutput>#include &lt;engine_defs.h&gt;</computeroutput>
+</para>
+<simplesect>
+    <title>Data Fields    </title>
+        <itemizedlist>
+            <listitem><para>float <link linkend="_structengine__entity_1ad0da36b2558901e21e7a30f6c227a45e">x</link></para>
+</listitem>
+            <listitem><para>float <link linkend="_structengine__entity_1aa4f0d3eebc3c443f9be81bf48561a217">y</link></para>
+</listitem>
+            <listitem><para>float <link linkend="_structengine__entity_1ae426f00e82704fa09578f5446e22d915">width</link></para>
+</listitem>
+            <listitem><para>float <link linkend="_structengine__entity_1a48083b65ac9a863566dc3e3fff09a5b4">height</link></para>
+</listitem>
+            <listitem><para>EngineEntityKey <link linkend="_structengine__entity_1a53441510bcb5689f45f1b64e511f41d9">key</link></para>
+</listitem>
+            <listitem><para>EngineTextureKey <link linkend="_structengine__entity_1a566488cb493dafca69619d551a94f32a">texkey</link></para>
+</listitem>
+            <listitem><para>EngineComponent * <link linkend="_structengine__entity_1a6030d74561841335eee8810692e7f977">components</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>An entity, contains position, size, texture, and component data. </para>
+<para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00091">91</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<section>
+<title>Field Documentation</title>
+<anchor xml:id="_structengine__entity_1a6030d74561841335eee8810692e7f977"/><section>
+    <title>components</title>
+<indexterm><primary>components</primary><secondary>engine_entity</secondary></indexterm>
+<indexterm><primary>engine_entity</primary><secondary>components</secondary></indexterm>
+<para><computeroutput>EngineComponent* components</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00096">96</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_structengine__entity_1a48083b65ac9a863566dc3e3fff09a5b4"/><section>
+    <title>height</title>
+<indexterm><primary>height</primary><secondary>engine_entity</secondary></indexterm>
+<indexterm><primary>engine_entity</primary><secondary>height</secondary></indexterm>
+<para><computeroutput>float height</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00093">93</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_structengine__entity_1a53441510bcb5689f45f1b64e511f41d9"/><section>
+    <title>key</title>
+<indexterm><primary>key</primary><secondary>engine_entity</secondary></indexterm>
+<indexterm><primary>engine_entity</primary><secondary>key</secondary></indexterm>
+<para><computeroutput>EngineEntityKey key</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00094">94</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_structengine__entity_1a566488cb493dafca69619d551a94f32a"/><section>
+    <title>texkey</title>
+<indexterm><primary>texkey</primary><secondary>engine_entity</secondary></indexterm>
+<indexterm><primary>engine_entity</primary><secondary>texkey</secondary></indexterm>
+<para><computeroutput>EngineTextureKey texkey</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00095">95</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_structengine__entity_1ae426f00e82704fa09578f5446e22d915"/><section>
+    <title>width</title>
+<indexterm><primary>width</primary><secondary>engine_entity</secondary></indexterm>
+<indexterm><primary>engine_entity</primary><secondary>width</secondary></indexterm>
+<para><computeroutput>float width</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00093">93</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_structengine__entity_1ad0da36b2558901e21e7a30f6c227a45e"/><section>
+    <title>x</title>
+<indexterm><primary>x</primary><secondary>engine_entity</secondary></indexterm>
+<indexterm><primary>engine_entity</primary><secondary>x</secondary></indexterm>
+<para><computeroutput>float x</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00092">92</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_structengine__entity_1aa4f0d3eebc3c443f9be81bf48561a217"/><section>
+    <title>y</title>
+<indexterm><primary>y</primary><secondary>engine_entity</secondary></indexterm>
+<indexterm><primary>engine_entity</primary><secondary>y</secondary></indexterm>
+<para><computeroutput>float y</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00092">92</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<para>
+The documentation for this struct was generated from the following file:</para>
+engine_defs.h</section>
+</section>

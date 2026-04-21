@@ -1,0 +1,382 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.16.1" xml:lang="en-US">
+  <compounddef id="engine__components_8c" kind="file" language="C++">
+    <compoundname>engine_components.c</compoundname>
+    <includes refid="engine__components_8h" local="yes">engine_components.h</includes>
+    <includes refid="engine__entity_8h" local="yes">engine_entity.h</includes>
+    <includes local="no">string.h</includes>
+    <includes local="no">assert.h</includes>
+    <incdepgraph>
+      <node id="1">
+        <label>engine_components.c</label>
+        <link refid="engine__components_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>engine_components.h</label>
+        <link refid="engine__components_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>engine_defs.h</label>
+        <link refid="engine__defs_8h_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>engine_entity.h</label>
+        <link refid="engine__entity_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>GLFW/glfw3.h</label>
+      </node>
+      <node id="9">
+        <label>assert.h</label>
+      </node>
+      <node id="7">
+        <label>cglm/cglm.h</label>
+      </node>
+      <node id="4">
+        <label>glad/glad.h</label>
+      </node>
+      <node id="8">
+        <label>string.h</label>
+      </node>
+    </incdepgraph>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="engine__components_8c_1a6950d687470719a221c89800bb6387b7" prot="public" static="yes" mutable="no">
+        <type>EngineComponentFunc</type>
+        <definition>EngineComponentFunc defaultfuncs[ENGINE_MAX_COMPONENTS]</definition>
+        <argsstring>[ENGINE_MAX_COMPONENTS]</argsstring>
+        <name>defaultfuncs</name>
+        <initializer>                                        = {
+    &amp;__engine__defaultRendererComponentFunc,
+    &amp;__engine__defaultTickComponentFunc,
+    &amp; __engine__defaultControllerComponentFunc,
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_components.c" line="12" column="28" bodyfile="engine_components.c" bodystart="12" bodyend="16"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="engine__components_8c_1aaf7ed842f65c361c2d8996d20135201b" prot="public" static="no" extern="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void __engine__defaultRendererComponentFunc</definition>
+        <argsstring>(EngineEntity *, EngineContext *, float)</argsstring>
+        <name>__engine__defaultRendererComponentFunc</name>
+        <param>
+          <type>EngineEntity *</type>
+          <declname>ent</declname>
+        </param>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>deltaTime</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_components.c" line="8" column="13" bodyfile="engine_component_funcs.c" bodystart="7" bodyend="10" declfile="engine_components.c" declline="8" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="function" id="engine__components_8c_1a506dceaeb4da220f682ac8c9dd410296" prot="public" static="no" extern="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void __engine__defaultTickComponentFunc</definition>
+        <argsstring>(EngineEntity *, EngineContext *, float)</argsstring>
+        <name>__engine__defaultTickComponentFunc</name>
+        <param>
+          <type>EngineEntity *</type>
+          <declname>ent</declname>
+        </param>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>deltaTime</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_components.c" line="9" column="13" bodyfile="engine_component_funcs.c" bodystart="28" bodyend="36" declfile="engine_components.c" declline="9" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="function" id="engine__components_8c_1ab80993a4e1d065a6e12b555ecbedcf42" prot="public" static="no" extern="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void __engine__defaultControllerComponentFunc</definition>
+        <argsstring>(EngineEntity *, EngineContext *, float)</argsstring>
+        <name>__engine__defaultControllerComponentFunc</name>
+        <param>
+          <type>EngineEntity *</type>
+          <declname>ent</declname>
+        </param>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>deltaTime</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_components.c" line="10" column="13" bodyfile="engine_component_funcs.c" bodystart="12" bodyend="26" declfile="engine_components.c" declline="10" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="function" id="engine__components_8c_1ab9a835e838ea4a7bd5d4610507f254ed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void engineAddComponent</definition>
+        <argsstring>(EngineContext *ctx, EngineEntityKey key, EngineComponentType type)</argsstring>
+        <name>engineAddComponent</name>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>EngineEntityKey</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>EngineComponentType</type>
+          <declname>type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_components.c" line="18" column="6" bodyfile="engine_components.c" bodystart="18" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="engine__components_8c_1a72b83a59fda5ca9d8b12dec7bf29076a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void engineSetComponentCallback</definition>
+        <argsstring>(EngineContext *ctx, EngineEntityKey key, EngineComponentType type, EngineComponentFunc func)</argsstring>
+        <name>engineSetComponentCallback</name>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>EngineEntityKey</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>EngineComponentType</type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>EngineComponentFunc</type>
+          <declname>func</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_components.c" line="37" column="6" bodyfile="engine_components.c" bodystart="37" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="function" id="engine__components_8c_1a9b953d599b77c05686083469e14aa362" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const EBOOL</type>
+        <definition>const EBOOL engineRemoveComponent</definition>
+        <argsstring>(EngineContext *ctx, EngineEntityKey key, EngineComponentType type)</argsstring>
+        <name>engineRemoveComponent</name>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>EngineEntityKey</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>EngineComponentType</type>
+          <declname>type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_components.c" line="48" column="13" bodyfile="engine_components.c" bodystart="48" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="engine__components_8c_1a8b10324c2eb0287786117a22a4fe71a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const EBOOL</type>
+        <definition>const EBOOL engineHasComponent</definition>
+        <argsstring>(EngineContext *ctx, EngineEntityKey key, EngineComponentType type)</argsstring>
+        <name>engineHasComponent</name>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>EngineEntityKey</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>EngineComponentType</type>
+          <declname>type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_components.c" line="61" column="13" bodyfile="engine_components.c" bodystart="61" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="function" id="engine__components_8c_1a89a2f174b1a8c0821b290dd4df0c973e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void engineRunComponentFunc</definition>
+        <argsstring>(EngineContext *ctx, EngineEntity *ent, EngineComponent *comp, float deltaTime)</argsstring>
+        <name>engineRunComponentFunc</name>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>EngineEntity *</type>
+          <declname>ent</declname>
+        </param>
+        <param>
+          <type>EngineComponent *</type>
+          <declname>comp</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>deltaTime</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_components.c" line="72" column="6" bodyfile="engine_components.c" bodystart="72" bodyend="84"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;engine_components.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;engine_entity.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;assert.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>__engine__defaultRendererComponentFunc(EngineEntity*,<sp/>EngineContext*,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>__engine__defaultTickComponentFunc(EngineEntity*,<sp/>EngineContext*,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>__engine__defaultControllerComponentFunc(EngineEntity*,<sp/>EngineContext*,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>EngineComponentFunc<sp/>defaultfuncs[ENGINE_MAX_COMPONENTS]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/>&amp;__engine__defaultRendererComponentFunc,</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/>&amp;__engine__defaultTickComponentFunc,</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/>&amp;<sp/>__engine__defaultControllerComponentFunc,</highlight></codeline>
+<codeline lineno="16"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>engineAddComponent(EngineContext*<sp/>ctx,<sp/>EngineEntityKey<sp/>key,<sp/>EngineComponentType<sp/>type)</highlight></codeline>
+<codeline lineno="19"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/>EngineEntity*<sp/>ent<sp/>=<sp/>engineGetEntity(ctx,<sp/>key);</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/>assert(ent<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ent-&gt;components<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>engineInitEntityComponentList(ent);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ent-&gt;components<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;<sp/></highlight><highlight class="comment">//<sp/>if<sp/>ent-&gt;components<sp/>continues<sp/>to<sp/>be<sp/>NULL,<sp/>just<sp/>return</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/>EngineComponent<sp/>comp<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.id<sp/>=<sp/>((int)(ent-&gt;components<sp/>+<sp/>type)<sp/>%<sp/>100),</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.type<sp/>=<sp/>type,</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.func<sp/>=<sp/>NULL</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/>memcpy(ent-&gt;components<sp/>+<sp/>type,<sp/>&amp;comp,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(EngineComponent));</highlight></codeline>
+<codeline lineno="35"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>engineSetComponentCallback(EngineContext*<sp/>ctx,<sp/>EngineEntityKey<sp/>key,<sp/>EngineComponentType<sp/>type,<sp/>EngineComponentFunc<sp/>func)</highlight></codeline>
+<codeline lineno="38"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/>EngineEntity*<sp/>ent<sp/>=<sp/>engineGetEntity(ctx,<sp/>key);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>assert(ent<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ent-&gt;components<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/>(ent-&gt;components<sp/>+<sp/>type)-&gt;func<sp/>=<sp/>func;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>EBOOL<sp/>engineRemoveComponent(EngineContext*<sp/>ctx,<sp/>EngineEntityKey<sp/>key,<sp/>EngineComponentType<sp/>type)</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>EngineEntity*<sp/>ent<sp/>=<sp/>engineGetEntity(ctx,<sp/>key);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/>assert(ent<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ent-&gt;components<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>EFALSE;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>*(ent-&gt;components<sp/>+<sp/>type)<sp/>=<sp/>(EngineComponent){<sp/>0<sp/>};</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ETRUE;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>EBOOL<sp/>engineHasComponent(EngineContext*<sp/>ctx,<sp/>EngineEntityKey<sp/>key,<sp/>EngineComponentType<sp/>type)</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/>EngineEntity*<sp/>ent<sp/>=<sp/>engineGetEntity(ctx,<sp/>key);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>assert(ent<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ent-&gt;components<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>EFALSE;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(ent-&gt;components<sp/>+<sp/>type)-&gt;id<sp/>!=<sp/>0;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>engineRunComponentFunc(EngineContext*<sp/>ctx,<sp/>EngineEntity*<sp/>ent,<sp/>EngineComponent*<sp/>comp,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>deltaTime)</highlight></codeline>
+<codeline lineno="73"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ent-&gt;components<sp/>==<sp/>NULL<sp/>||<sp/>comp<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(comp-&gt;func<sp/>!=<sp/>NULL)</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(*comp-&gt;func)(ent,<sp/>ctx,<sp/>deltaTime);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/>(*defaultfuncs[comp-&gt;type])(ent,<sp/>ctx,<sp/>deltaTime);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="engine_components.c"/>
+  </compounddef>
+</doxygen>

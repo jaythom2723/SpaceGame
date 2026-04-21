@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_engine__renderer_8h" xml:lang="en-US">
+<title>SpaceGame/engine_renderer.h File Reference</title>
+<indexterm><primary>SpaceGame/engine_renderer.h</primary></indexterm>
+<programlisting linenumbering="unnumbered">#include &quot;engine_defs.h&quot;<?linebreak?></programlisting><simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>void <link linkend="_engine__renderer_8h_1a65b56465738a5f22dbc6b86f773cc5be">engineRenderEntity</link> (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *ctx, <link linkend="_engine__defs_8h_1a4471320c0db41d630bed66ecbfff9bb9">EngineEntityKey</link> key)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_engine__renderer_8h_1a65b56465738a5f22dbc6b86f773cc5be"/><section>
+    <title>engineRenderEntity()</title>
+<indexterm><primary>engineRenderEntity</primary><secondary>engine_renderer.h</secondary></indexterm>
+<indexterm><primary>engine_renderer.h</primary><secondary>engineRenderEntity</secondary></indexterm>
+<para><computeroutput>void engineRenderEntity (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx, <link linkend="_engine__defs_8h_1a4471320c0db41d630bed66ecbfff9bb9">EngineEntityKey</link> key)</computeroutput></para><para>
+Definition at line <link linkend="_engine__renderer_8c_source_1l00019">19</link> of file <link linkend="_engine__renderer_8c_source">engine_renderer.c</link>.</para>
+</section>
+</section>
+</section>

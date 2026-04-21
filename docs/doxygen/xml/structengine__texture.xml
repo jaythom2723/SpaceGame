@@ -1,0 +1,152 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.16.1" xml:lang="en-US">
+  <compounddef id="structengine__texture" kind="struct" language="C++" prot="public">
+    <compoundname>engine_texture</compoundname>
+    <includes refid="engine__defs_8h" local="no">engine_defs.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structengine__texture_1ab7ce6f462afaf105224b0ca772a33c43" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int id</definition>
+        <argsstring></argsstring>
+        <name>id</name>
+        <qualifiedname>engine_texture::id</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="72" column="14" bodyfile="engine_defs.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structengine__texture_1aca34d28e3d8bcbcadb8edb4e3af24f8c" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int width</definition>
+        <argsstring></argsstring>
+        <name>width</name>
+        <qualifiedname>engine_texture::width</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="73" column="14" bodyfile="engine_defs.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structengine__texture_1ab2e78c61905b4419fcc7b4cfc500fe85" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int height</definition>
+        <argsstring></argsstring>
+        <name>height</name>
+        <qualifiedname>engine_texture::height</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="73" column="20" bodyfile="engine_defs.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structengine__texture_1a66b85a21c0d3547030ce4e41988b8595" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int internalformat</definition>
+        <argsstring></argsstring>
+        <name>internalformat</name>
+        <qualifiedname>engine_texture::internalformat</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="74" column="14" bodyfile="engine_defs.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structengine__texture_1aa0ad368bb9b12af5f43c8e7b107516b3" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int imageformat</definition>
+        <argsstring></argsstring>
+        <name>imageformat</name>
+        <qualifiedname>engine_texture::imageformat</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="75" column="14" bodyfile="engine_defs.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structengine__texture_1a929dcd7d419d99a9b8a62938b0aa17ad" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int wraps</definition>
+        <argsstring></argsstring>
+        <name>wraps</name>
+        <qualifiedname>engine_texture::wraps</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="76" column="14" bodyfile="engine_defs.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structengine__texture_1ad91f36fe2372d41e7e8f0a7660d4b826" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int wrapt</definition>
+        <argsstring></argsstring>
+        <name>wrapt</name>
+        <qualifiedname>engine_texture::wrapt</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="76" column="20" bodyfile="engine_defs.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structengine__texture_1acb5aa67692e5d863d4fa11b5ce1df356" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int filtermax</definition>
+        <argsstring></argsstring>
+        <name>filtermax</name>
+        <qualifiedname>engine_texture::filtermax</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="77" column="14" bodyfile="engine_defs.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structengine__texture_1a7e97601d7dde76271cac53cdd6049e8f" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int filtermin</definition>
+        <argsstring></argsstring>
+        <name>filtermin</name>
+        <qualifiedname>engine_texture::filtermin</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="77" column="24" bodyfile="engine_defs.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>A texture handle that contains all necessary texture information. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="engine_defs.h" line="71" column="1" bodyfile="engine_defs.h" bodystart="71" bodyend="78"/>
+    <listofallmembers>
+      <member refid="structengine__texture_1acb5aa67692e5d863d4fa11b5ce1df356" prot="public" virt="non-virtual"><scope>engine_texture</scope><name>filtermax</name></member>
+      <member refid="structengine__texture_1a7e97601d7dde76271cac53cdd6049e8f" prot="public" virt="non-virtual"><scope>engine_texture</scope><name>filtermin</name></member>
+      <member refid="structengine__texture_1ab2e78c61905b4419fcc7b4cfc500fe85" prot="public" virt="non-virtual"><scope>engine_texture</scope><name>height</name></member>
+      <member refid="structengine__texture_1ab7ce6f462afaf105224b0ca772a33c43" prot="public" virt="non-virtual"><scope>engine_texture</scope><name>id</name></member>
+      <member refid="structengine__texture_1aa0ad368bb9b12af5f43c8e7b107516b3" prot="public" virt="non-virtual"><scope>engine_texture</scope><name>imageformat</name></member>
+      <member refid="structengine__texture_1a66b85a21c0d3547030ce4e41988b8595" prot="public" virt="non-virtual"><scope>engine_texture</scope><name>internalformat</name></member>
+      <member refid="structengine__texture_1aca34d28e3d8bcbcadb8edb4e3af24f8c" prot="public" virt="non-virtual"><scope>engine_texture</scope><name>width</name></member>
+      <member refid="structengine__texture_1a929dcd7d419d99a9b8a62938b0aa17ad" prot="public" virt="non-virtual"><scope>engine_texture</scope><name>wraps</name></member>
+      <member refid="structengine__texture_1ad91f36fe2372d41e7e8f0a7660d4b826" prot="public" virt="non-virtual"><scope>engine_texture</scope><name>wrapt</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

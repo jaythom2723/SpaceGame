@@ -1,0 +1,175 @@
+\doxysection{Space\+Game/\+engine.c File Reference}
+\hypertarget{engine_8c}{}\label{engine_8c}\index{SpaceGame/engine.c@{SpaceGame/engine.c}}
+{\ttfamily \+\#include "{}engine.\+h"{}}\newline
+{\ttfamily \+\#include "{}engine\+\_\+shaders.\+h"{}}\newline
+{\ttfamily \+\#include "{}engine\+\_\+buffers.\+h"{}}\newline
+{\ttfamily \+\#include "{}engine\+\_\+textures.\+h"{}}\newline
+{\ttfamily \+\#include "{}engine\+\_\+utils.\+h"{}}\newline
+{\ttfamily \+\#include $<$cglm/\+cglm.\+h$>$}\newline
+{\ttfamily \+\#include $<$stdio.\+h$>$}\newline
+{\ttfamily \+\#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \+\#include $<$string.\+h$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{engine_8c_a5180f7bf2b71421af837035824a8c8ac}{framebuffer\+\_\+size\+\_\+callback}} (GLFWwindow \texorpdfstring{$\ast$}{*}window, int width, int height)
+\item 
+void \doxymbox{\hyperlink{engine_8c_aa48aaf412b9e33386433680c25b3883c}{key\+\_\+callback}} (GLFWwindow \texorpdfstring{$\ast$}{*}window, int key, int scancode, int action, int mode)
+\item 
+\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{engine_8c_a09c0d9b8e4a13eb3d83a856646bf4184}{engine\+Init}} (void)
+\item 
+\doxymbox{\hyperlink{engine__defs_8h_a4fe707fd7f0392a3c6d81cfc62f1686c}{EBOOL}} \doxymbox{\hyperlink{engine_8c_a7c6ebbb861e928c523dba3910f94f85c}{engine\+Create\+Window}} (\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}ctx, const \doxymbox{\hyperlink{engine__defs_8h_ace08f4d3a2b304b58e1719b16ba36a16}{Window\+Config}} config)
+\item 
+void \doxymbox{\hyperlink{engine_8c_a8805b88be9ba3bc656cc58621794f340}{engine\+Close}} (\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}ctx)
+\item 
+void \doxymbox{\hyperlink{engine_8c_a76c6c27d6a38810d8dbeb12992a54eb3}{engine\+Init\+Projection\+Matrix}} (\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}ctx)
+\item 
+\doxymbox{\hyperlink{engine__defs_8h_a4fe707fd7f0392a3c6d81cfc62f1686c}{EBOOL}} \doxymbox{\hyperlink{engine_8c_a4659b11ca96f5e32882b376b59abdb2c}{engine\+Window\+Should\+Close}} (\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}ctx)
+\item 
+void \doxymbox{\hyperlink{engine_8c_abbb8cbacbec6636ad820ca444ec8dd95}{engine\+Set\+Window\+Close}} (\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}ctx, \doxymbox{\hyperlink{engine__defs_8h_a4fe707fd7f0392a3c6d81cfc62f1686c}{EBOOL}} value)
+\item 
+void \doxymbox{\hyperlink{engine_8c_ad79160fed6518596986caaa89995fe5e}{engine\+Window\+Poll\+Events}} (\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}ctx)
+\item 
+void \doxymbox{\hyperlink{engine_8c_aeac24cd237463c0df0047bdf459f5199}{engine\+Window\+Swap\+Buffers}} (\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}ctx)
+\item 
+void \doxymbox{\hyperlink{engine_8c_a39bdaedc61a1cfbedcb007c0474c1f1f}{engine\+Window\+Get\+Size}} (\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}ctx, int \texorpdfstring{$\ast$}{*}width, int \texorpdfstring{$\ast$}{*}height)
+\item 
+void \doxymbox{\hyperlink{engine_8c_a03f11de433503a7c34298fb1f6217fcf}{engine\+Set\+Clear\+Color}} (float r, float g, float b, float a)
+\item 
+void \doxymbox{\hyperlink{engine_8c_a21719fba0d02fdd08bf59fc1b4d4a1d3}{engine\+Clear}} (void)
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{engine_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{engine_8c_a21719fba0d02fdd08bf59fc1b4d4a1d3}\index{engine.c@{engine.c}!engineClear@{engineClear}}
+\index{engineClear@{engineClear}!engine.c@{engine.c}}
+\doxysubsubsection{\texorpdfstring{engineClear()}{engineClear()}}
+{\footnotesize\ttfamily \label{engine_8c_a21719fba0d02fdd08bf59fc1b4d4a1d3} 
+void engine\+Clear (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine_8c_source_l00149}{149}} of file \doxymbox{\hyperlink{engine_8c_source}{engine.\+c}}.
+
+\Hypertarget{engine_8c_a8805b88be9ba3bc656cc58621794f340}\index{engine.c@{engine.c}!engineClose@{engineClose}}
+\index{engineClose@{engineClose}!engine.c@{engine.c}}
+\doxysubsubsection{\texorpdfstring{engineClose()}{engineClose()}}
+{\footnotesize\ttfamily \label{engine_8c_a8805b88be9ba3bc656cc58621794f340} 
+void engine\+Close (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine_8c_source_l00090}{90}} of file \doxymbox{\hyperlink{engine_8c_source}{engine.\+c}}.
+
+\Hypertarget{engine_8c_a7c6ebbb861e928c523dba3910f94f85c}\index{engine.c@{engine.c}!engineCreateWindow@{engineCreateWindow}}
+\index{engineCreateWindow@{engineCreateWindow}!engine.c@{engine.c}}
+\doxysubsubsection{\texorpdfstring{engineCreateWindow()}{engineCreateWindow()}}
+{\footnotesize\ttfamily \label{engine_8c_a7c6ebbb861e928c523dba3910f94f85c} 
+\doxymbox{\hyperlink{engine__defs_8h_a4fe707fd7f0392a3c6d81cfc62f1686c}{EBOOL}} engine\+Create\+Window (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{const \doxymbox{\hyperlink{engine__defs_8h_ace08f4d3a2b304b58e1719b16ba36a16}{Window\+Config}}}]{config}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine_8c_source_l00060}{60}} of file \doxymbox{\hyperlink{engine_8c_source}{engine.\+c}}.
+
+\Hypertarget{engine_8c_a09c0d9b8e4a13eb3d83a856646bf4184}\index{engine.c@{engine.c}!engineInit@{engineInit}}
+\index{engineInit@{engineInit}!engine.c@{engine.c}}
+\doxysubsubsection{\texorpdfstring{engineInit()}{engineInit()}}
+{\footnotesize\ttfamily \label{engine_8c_a09c0d9b8e4a13eb3d83a856646bf4184} 
+\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*} engine\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine_8c_source_l00032}{32}} of file \doxymbox{\hyperlink{engine_8c_source}{engine.\+c}}.
+
+\Hypertarget{engine_8c_a76c6c27d6a38810d8dbeb12992a54eb3}\index{engine.c@{engine.c}!engineInitProjectionMatrix@{engineInitProjectionMatrix}}
+\index{engineInitProjectionMatrix@{engineInitProjectionMatrix}!engine.c@{engine.c}}
+\doxysubsubsection{\texorpdfstring{engineInitProjectionMatrix()}{engineInitProjectionMatrix()}}
+{\footnotesize\ttfamily \label{engine_8c_a76c6c27d6a38810d8dbeb12992a54eb3} 
+void engine\+Init\+Projection\+Matrix (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine_8c_source_l00103}{103}} of file \doxymbox{\hyperlink{engine_8c_source}{engine.\+c}}.
+
+\Hypertarget{engine_8c_a03f11de433503a7c34298fb1f6217fcf}\index{engine.c@{engine.c}!engineSetClearColor@{engineSetClearColor}}
+\index{engineSetClearColor@{engineSetClearColor}!engine.c@{engine.c}}
+\doxysubsubsection{\texorpdfstring{engineSetClearColor()}{engineSetClearColor()}}
+{\footnotesize\ttfamily \label{engine_8c_a03f11de433503a7c34298fb1f6217fcf} 
+void engine\+Set\+Clear\+Color (\begin{DoxyParamCaption}\item[{float}]{r}{, }\item[{float}]{g}{, }\item[{float}]{b}{, }\item[{float}]{a}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine_8c_source_l00144}{144}} of file \doxymbox{\hyperlink{engine_8c_source}{engine.\+c}}.
+
+\Hypertarget{engine_8c_abbb8cbacbec6636ad820ca444ec8dd95}\index{engine.c@{engine.c}!engineSetWindowClose@{engineSetWindowClose}}
+\index{engineSetWindowClose@{engineSetWindowClose}!engine.c@{engine.c}}
+\doxysubsubsection{\texorpdfstring{engineSetWindowClose()}{engineSetWindowClose()}}
+{\footnotesize\ttfamily \label{engine_8c_abbb8cbacbec6636ad820ca444ec8dd95} 
+void engine\+Set\+Window\+Close (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{\doxymbox{\hyperlink{engine__defs_8h_a4fe707fd7f0392a3c6d81cfc62f1686c}{EBOOL}}}]{value}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine_8c_source_l00122}{122}} of file \doxymbox{\hyperlink{engine_8c_source}{engine.\+c}}.
+
+\Hypertarget{engine_8c_a39bdaedc61a1cfbedcb007c0474c1f1f}\index{engine.c@{engine.c}!engineWindowGetSize@{engineWindowGetSize}}
+\index{engineWindowGetSize@{engineWindowGetSize}!engine.c@{engine.c}}
+\doxysubsubsection{\texorpdfstring{engineWindowGetSize()}{engineWindowGetSize()}}
+{\footnotesize\ttfamily \label{engine_8c_a39bdaedc61a1cfbedcb007c0474c1f1f} 
+void engine\+Window\+Get\+Size (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{width}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{height}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine_8c_source_l00138}{138}} of file \doxymbox{\hyperlink{engine_8c_source}{engine.\+c}}.
+
+\Hypertarget{engine_8c_ad79160fed6518596986caaa89995fe5e}\index{engine.c@{engine.c}!engineWindowPollEvents@{engineWindowPollEvents}}
+\index{engineWindowPollEvents@{engineWindowPollEvents}!engine.c@{engine.c}}
+\doxysubsubsection{\texorpdfstring{engineWindowPollEvents()}{engineWindowPollEvents()}}
+{\footnotesize\ttfamily \label{engine_8c_ad79160fed6518596986caaa89995fe5e} 
+void engine\+Window\+Poll\+Events (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine_8c_source_l00127}{127}} of file \doxymbox{\hyperlink{engine_8c_source}{engine.\+c}}.
+
+\Hypertarget{engine_8c_a4659b11ca96f5e32882b376b59abdb2c}\index{engine.c@{engine.c}!engineWindowShouldClose@{engineWindowShouldClose}}
+\index{engineWindowShouldClose@{engineWindowShouldClose}!engine.c@{engine.c}}
+\doxysubsubsection{\texorpdfstring{engineWindowShouldClose()}{engineWindowShouldClose()}}
+{\footnotesize\ttfamily \label{engine_8c_a4659b11ca96f5e32882b376b59abdb2c} 
+\doxymbox{\hyperlink{engine__defs_8h_a4fe707fd7f0392a3c6d81cfc62f1686c}{EBOOL}} engine\+Window\+Should\+Close (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine_8c_source_l00117}{117}} of file \doxymbox{\hyperlink{engine_8c_source}{engine.\+c}}.
+
+\Hypertarget{engine_8c_aeac24cd237463c0df0047bdf459f5199}\index{engine.c@{engine.c}!engineWindowSwapBuffers@{engineWindowSwapBuffers}}
+\index{engineWindowSwapBuffers@{engineWindowSwapBuffers}!engine.c@{engine.c}}
+\doxysubsubsection{\texorpdfstring{engineWindowSwapBuffers()}{engineWindowSwapBuffers()}}
+{\footnotesize\ttfamily \label{engine_8c_aeac24cd237463c0df0047bdf459f5199} 
+void engine\+Window\+Swap\+Buffers (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine_8c_source_l00133}{133}} of file \doxymbox{\hyperlink{engine_8c_source}{engine.\+c}}.
+
+\Hypertarget{engine_8c_a5180f7bf2b71421af837035824a8c8ac}\index{engine.c@{engine.c}!framebuffer\_size\_callback@{framebuffer\_size\_callback}}
+\index{framebuffer\_size\_callback@{framebuffer\_size\_callback}!engine.c@{engine.c}}
+\doxysubsubsection{\texorpdfstring{framebuffer\_size\_callback()}{framebuffer\_size\_callback()}}
+{\footnotesize\ttfamily \label{engine_8c_a5180f7bf2b71421af837035824a8c8ac} 
+void framebuffer\+\_\+size\+\_\+callback (\begin{DoxyParamCaption}\item[{GLFWwindow \texorpdfstring{$\ast$}{*}}]{window}{, }\item[{int}]{width}{, }\item[{int}]{height}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine_8c_source_l00016}{16}} of file \doxymbox{\hyperlink{engine_8c_source}{engine.\+c}}.
+
+\Hypertarget{engine_8c_aa48aaf412b9e33386433680c25b3883c}\index{engine.c@{engine.c}!key\_callback@{key\_callback}}
+\index{key\_callback@{key\_callback}!engine.c@{engine.c}}
+\doxysubsubsection{\texorpdfstring{key\_callback()}{key\_callback()}}
+{\footnotesize\ttfamily \label{engine_8c_aa48aaf412b9e33386433680c25b3883c} 
+void key\+\_\+callback (\begin{DoxyParamCaption}\item[{GLFWwindow \texorpdfstring{$\ast$}{*}}]{window}{, }\item[{int}]{key}{, }\item[{int}]{scancode}{, }\item[{int}]{action}{, }\item[{int}]{mode}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine_8c_source_l00021}{21}} of file \doxymbox{\hyperlink{engine_8c_source}{engine.\+c}}.
+

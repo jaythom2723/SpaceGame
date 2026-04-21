@@ -1,0 +1,111 @@
+\doxysection{engine\+\_\+entity.\+c}
+\hypertarget{engine__entity_8c_source}{}\label{engine__entity_8c_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}engine\_entity.h"{}}}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00003}00003\ \textcolor{preprocessor}{\#include\ "{}engine\_components.h"{}}}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00008}00008\ \textcolor{keyword}{const}\ EBOOL\ engineCreateEntity(EngineContext*\ ctx,\ vec2\ pos,\ vec2\ size,\ \textcolor{keyword}{const}\ EngineEntityKey\ key,\ \textcolor{keyword}{const}\ EngineTextureKey\ texkey)}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00009}00009\ \{}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00010}00010\ \ \ \ \ EngineEntity\ tmp\ =\ \{}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00011}00011\ \ \ \ \ \ \ \ \ .x\ =\ pos[0],}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00012}00012\ \ \ \ \ \ \ \ \ .y\ =\ pos[1],}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00013}00013\ \ \ \ \ \ \ \ \ .width\ =\ size[0],}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00014}00014\ \ \ \ \ \ \ \ \ .height\ =\ size[1],}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00015}00015\ \ \ \ \ \ \ \ \ .texkey\ =\ texkey,}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00016}00016\ \ \ \ \ \ \ \ \ .key\ =\ key,}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00017}00017\ \ \ \ \ \ \ \ \ .components\ =\ NULL}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00018}00018\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00020}00020\ \ \ \ \ memcpy(ctx-\/>entities\ +\ ctx-\/>nentities,\ \&tmp,\ \textcolor{keyword}{sizeof}(EngineEntity));}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00022}00022\ \ \ \ \ ctx-\/>nentities++;}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00024}00024\ \ \ \ \ \textcolor{keywordflow}{return}\ ETRUE;}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00025}00025\ \}}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00027}00027\ \textcolor{keywordtype}{void}\ engineDestroyAllEntities(EngineContext*\ ctx)}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00028}00028\ \{}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00029}00029\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ i\ =\ 0;\ i\ <\ ctx-\/>nentities;\ i++)}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00030}00030\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00031}00031\ \ \ \ \ \ \ \ \ EngineEntity*\ cur\ =\ \&ctx-\/>entities[i];}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00033}00033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cur-\/>components\ !=\ NULL)}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00034}00034\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ free(cur-\/>components);}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ cur-\/>components\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00037}00037\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00039}00039\ \ \ \ \ \ \ \ \ (*cur)\ =\ (EngineEntity)\{\ 0\ \};}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00040}00040\ \ \ \ \ \ \ \ \ cur\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00041}00041\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00042}00042\ \ \ \ \ ctx-\/>nentities\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00043}00043\ \}}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00045}00045\ \textcolor{keywordtype}{void}\ engineDestroyEntity(EngineContext*\ ctx,\ EngineEntityKey\ key)}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00046}00046\ \{}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00047}00047\ \ \ \ \ EngineEntity*\ ent\ =\ engineGetEntity(ctx,\ key);}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00049}00049\ \ \ \ \ \textcolor{keywordflow}{if}\ (ent-\/>components\ !=\ NULL)}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00050}00050\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00051}00051\ \ \ \ \ \ \ \ \ free(ent-\/>components);}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00052}00052\ \ \ \ \ \ \ \ \ ent-\/>components\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00053}00053\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00055}00055\ \ \ \ \ (*ent)\ =\ (EngineEntity)\{\ 0\ \};}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00056}00056\ \ \ \ \ ent\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00057}00057\ \}}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00059}00059\ EngineEntity*\ engineGetEntity(EngineContext*\ ctx,\ EngineEntityKey\ key)}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00060}00060\ \{}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00061}00061\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ i\ =\ 0;\ i\ <\ ctx-\/>nentities;\ i++)}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00062}00062\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00063}00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ctx-\/>entities[i].key\ !=\ key)}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00066}00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \&ctx-\/>entities[i];}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00067}00067\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00069}00069\ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00070}00070\ \}}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00072}00072\ \textcolor{keywordtype}{void}\ engineInitEntityComponentList(EngineEntity*\ ent)}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00073}00073\ \{}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00074}00074\ \ \ \ \ ent-\/>components\ =\ malloc(ENGINE\_MAX\_COMPONENTS\ *\ \textcolor{keyword}{sizeof}(EngineComponent));}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00075}00075\ \ \ \ \ \textcolor{keywordflow}{if}\ (ent-\/>components\ ==\ NULL)}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00076}00076\ \ \ \ \ \ \ \ \ exit(-\/10);}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00078}00078\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ ENGINE\_MAX\_COMPONENTS;\ i++)}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00079}00079\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00080}00080\ \ \ \ \ \ \ \ \ ent-\/>components[i]\ =\ (EngineComponent)\{}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .id\ =\ 0,}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .func\ =\ NULL,}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .type\ =\ i}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00085}00085\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00086}00086\ \}}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00088}00088\ \textcolor{keywordtype}{void}\ engineProcessEntities(EngineContext*\ ctx,\ \textcolor{keywordtype}{float}\ deltaTime)}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00089}00089\ \{}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00090}00090\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ i\ =\ 0;\ i\ <\ ctx-\/>nentities;\ i++)}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00091}00091\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00092}00092\ \ \ \ \ \ \ \ \ EngineEntity*\ cur\ =\ \&ctx-\/>entities[i];}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00093}00093\ \ \ \ \ \ \ \ \ assert(cur\ !=\ NULL);}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00095}00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cur-\/>components\ ==\ NULL)}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00098}00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ ENGINE\_MAX\_COMPONENTS;\ j++)}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00099}00099\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cur-\/>components[j].id\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ engineRunComponentFunc(ctx,\ cur,\ (cur-\/>components\ +\ j),\ deltaTime);}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00104}00104\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00105}00105\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{engine__entity_8c_source_l00106}00106\ \}}
+
+\end{DoxyCode}

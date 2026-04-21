@@ -1,0 +1,216 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_engine__shaders_8c_source" xml:lang="en-US">
+<title>engine_shaders.c</title>
+<programlisting linenumbering="unnumbered"><anchor xml:id="_engine__shaders_8c_source_1l00001"/>00001 <emphasis role="preprocessor">#include&#32;&quot;engine_shaders.h&quot;</emphasis>
+<anchor xml:id="_engine__shaders_8c_source_1l00002"/>00002 <emphasis role="preprocessor">#include&#32;&quot;engine_utils.h&quot;</emphasis>
+<anchor xml:id="_engine__shaders_8c_source_1l00003"/>00003 
+<anchor xml:id="_engine__shaders_8c_source_1l00004"/>00004 <emphasis role="preprocessor">#include&#32;&lt;glad/glad.h&gt;</emphasis>
+<anchor xml:id="_engine__shaders_8c_source_1l00005"/>00005 
+<anchor xml:id="_engine__shaders_8c_source_1l00006"/>00006 <emphasis role="preprocessor">#include&#32;&lt;stdio.h&gt;</emphasis>
+<anchor xml:id="_engine__shaders_8c_source_1l00007"/>00007 <emphasis role="preprocessor">#include&#32;&lt;string.h&gt;</emphasis>
+<anchor xml:id="_engine__shaders_8c_source_1l00008"/>00008 <emphasis role="preprocessor">#include&#32;&lt;stdarg.h&gt;</emphasis>
+<anchor xml:id="_engine__shaders_8c_source_1l00009"/>00009 
+<anchor xml:id="_engine__shaders_8c_source_1l00010"/>00010 EngineShader&#32;engineCreateShader(<emphasis role="keywordtype">int</emphasis>&#32;shaderType)
+<anchor xml:id="_engine__shaders_8c_source_1l00011"/>00011 {
+<anchor xml:id="_engine__shaders_8c_source_1l00012"/>00012 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;glCreateShader((GLenum)shaderType);
+<anchor xml:id="_engine__shaders_8c_source_1l00013"/>00013 }
+<anchor xml:id="_engine__shaders_8c_source_1l00014"/>00014 
+<anchor xml:id="_engine__shaders_8c_source_1l00015"/>00015 <emphasis role="keyword">const</emphasis>&#32;EBOOL&#32;engineCompileShader(EngineShader*&#32;shader,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>*&#32;path)
+<anchor xml:id="_engine__shaders_8c_source_1l00016"/>00016 {
+<anchor xml:id="_engine__shaders_8c_source_1l00017"/>00017 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">char</emphasis>*&#32;source&#32;=&#32;engineReadFile(path);
+<anchor xml:id="_engine__shaders_8c_source_1l00018"/>00018 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;success;
+<anchor xml:id="_engine__shaders_8c_source_1l00019"/>00019 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;infoLog[512];
+<anchor xml:id="_engine__shaders_8c_source_1l00020"/>00020 
+<anchor xml:id="_engine__shaders_8c_source_1l00021"/>00021 &#32;&#32;&#32;&#32;glShaderSource(*shader,&#32;1,&#32;&amp;source,&#32;NULL);
+<anchor xml:id="_engine__shaders_8c_source_1l00022"/>00022 &#32;&#32;&#32;&#32;glCompileShader(*shader);
+<anchor xml:id="_engine__shaders_8c_source_1l00023"/>00023 &#32;&#32;&#32;&#32;glGetShaderiv(*shader,&#32;GL_COMPILE_STATUS,&#32;&amp;success);
+<anchor xml:id="_engine__shaders_8c_source_1l00024"/>00024 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(!success)
+<anchor xml:id="_engine__shaders_8c_source_1l00025"/>00025 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_engine__shaders_8c_source_1l00026"/>00026 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;glGetShaderInfoLog(*shader,&#32;512,&#32;NULL,&#32;infoLog);
+<anchor xml:id="_engine__shaders_8c_source_1l00027"/>00027 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fprintf(stderr,&#32;<emphasis role="stringliteral">&quot;%s\n&quot;</emphasis>,&#32;infoLog);
+<anchor xml:id="_engine__shaders_8c_source_1l00028"/>00028 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;free(source);
+<anchor xml:id="_engine__shaders_8c_source_1l00029"/>00029 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;EFALSE;
+<anchor xml:id="_engine__shaders_8c_source_1l00030"/>00030 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_engine__shaders_8c_source_1l00031"/>00031 
+<anchor xml:id="_engine__shaders_8c_source_1l00032"/>00032 &#32;&#32;&#32;&#32;free(source);
+<anchor xml:id="_engine__shaders_8c_source_1l00033"/>00033 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;ETRUE;
+<anchor xml:id="_engine__shaders_8c_source_1l00034"/>00034 }
+<anchor xml:id="_engine__shaders_8c_source_1l00035"/>00035 
+<anchor xml:id="_engine__shaders_8c_source_1l00036"/>00036 <emphasis role="keywordtype">void</emphasis>&#32;engineDeleteShader(EngineShader*&#32;shader)
+<anchor xml:id="_engine__shaders_8c_source_1l00037"/>00037 {
+<anchor xml:id="_engine__shaders_8c_source_1l00038"/>00038 &#32;&#32;&#32;&#32;glDeleteShader(*shader);
+<anchor xml:id="_engine__shaders_8c_source_1l00039"/>00039 }
+<anchor xml:id="_engine__shaders_8c_source_1l00040"/>00040 
+<anchor xml:id="_engine__shaders_8c_source_1l00041"/>00041 <emphasis role="keywordtype">void</emphasis>&#32;engineCreateProgram(EngineContext*&#32;ctx)
+<anchor xml:id="_engine__shaders_8c_source_1l00042"/>00042 {
+<anchor xml:id="_engine__shaders_8c_source_1l00043"/>00043 &#32;&#32;&#32;&#32;ctx-&gt;program&#32;=&#32;glCreateProgram();
+<anchor xml:id="_engine__shaders_8c_source_1l00044"/>00044 }
+<anchor xml:id="_engine__shaders_8c_source_1l00045"/>00045 
+<anchor xml:id="_engine__shaders_8c_source_1l00046"/>00046 <emphasis role="keyword">const</emphasis>&#32;EBOOL&#32;engineAttachAndLink(EngineContext*&#32;ctx,&#32;EngineShader*&#32;vertex,&#32;EngineShader*&#32;fragment,&#32;EngineShader*&#32;geometry)
+<anchor xml:id="_engine__shaders_8c_source_1l00047"/>00047 {
+<anchor xml:id="_engine__shaders_8c_source_1l00048"/>00048 &#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;attach&#32;shaders</emphasis>
+<anchor xml:id="_engine__shaders_8c_source_1l00049"/>00049 &#32;&#32;&#32;&#32;glAttachShader(ctx-&gt;program,&#32;*vertex);
+<anchor xml:id="_engine__shaders_8c_source_1l00050"/>00050 &#32;&#32;&#32;&#32;glAttachShader(ctx-&gt;program,&#32;*fragment);
+<anchor xml:id="_engine__shaders_8c_source_1l00051"/>00051 
+<anchor xml:id="_engine__shaders_8c_source_1l00052"/>00052 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(geometry&#32;!=&#32;NULL)
+<anchor xml:id="_engine__shaders_8c_source_1l00053"/>00053 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;glAttachShader(ctx-&gt;program,&#32;*geometry);
+<anchor xml:id="_engine__shaders_8c_source_1l00054"/>00054 
+<anchor xml:id="_engine__shaders_8c_source_1l00055"/>00055 &#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;link&#32;program</emphasis>
+<anchor xml:id="_engine__shaders_8c_source_1l00056"/>00056 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;success;
+<anchor xml:id="_engine__shaders_8c_source_1l00057"/>00057 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;infoLog[512];
+<anchor xml:id="_engine__shaders_8c_source_1l00058"/>00058 &#32;&#32;&#32;&#32;glLinkProgram(ctx-&gt;program);
+<anchor xml:id="_engine__shaders_8c_source_1l00059"/>00059 &#32;&#32;&#32;&#32;glGetProgramiv(ctx-&gt;program,&#32;GL_LINK_STATUS,&#32;&amp;success);
+<anchor xml:id="_engine__shaders_8c_source_1l00060"/>00060 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(!success)
+<anchor xml:id="_engine__shaders_8c_source_1l00061"/>00061 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_engine__shaders_8c_source_1l00062"/>00062 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;glGetProgramInfoLog(ctx-&gt;program,&#32;512,&#32;NULL,&#32;infoLog);
+<anchor xml:id="_engine__shaders_8c_source_1l00063"/>00063 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fprintf(stderr,&#32;<emphasis role="stringliteral">&quot;%s\n&quot;</emphasis>,&#32;infoLog);
+<anchor xml:id="_engine__shaders_8c_source_1l00064"/>00064 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;EFALSE;
+<anchor xml:id="_engine__shaders_8c_source_1l00065"/>00065 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_engine__shaders_8c_source_1l00066"/>00066 
+<anchor xml:id="_engine__shaders_8c_source_1l00067"/>00067 &#32;&#32;&#32;&#32;glDeleteShader(*vertex);
+<anchor xml:id="_engine__shaders_8c_source_1l00068"/>00068 &#32;&#32;&#32;&#32;glDeleteShader(*fragment);
+<anchor xml:id="_engine__shaders_8c_source_1l00069"/>00069 
+<anchor xml:id="_engine__shaders_8c_source_1l00070"/>00070 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(geometry&#32;!=&#32;NULL)
+<anchor xml:id="_engine__shaders_8c_source_1l00071"/>00071 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;glDeleteShader(*geometry);
+<anchor xml:id="_engine__shaders_8c_source_1l00072"/>00072 
+<anchor xml:id="_engine__shaders_8c_source_1l00073"/>00073 &#32;&#32;&#32;&#32;glUseProgram(ctx-&gt;program);
+<anchor xml:id="_engine__shaders_8c_source_1l00074"/>00074 
+<anchor xml:id="_engine__shaders_8c_source_1l00075"/>00075 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;ETRUE;
+<anchor xml:id="_engine__shaders_8c_source_1l00076"/>00076 }
+<anchor xml:id="_engine__shaders_8c_source_1l00077"/>00077 
+<anchor xml:id="_engine__shaders_8c_source_1l00078"/>00078 <emphasis role="keywordtype">void</emphasis>&#32;engineDeleteProgram(EngineContext*&#32;ctx)
+<anchor xml:id="_engine__shaders_8c_source_1l00079"/>00079 {
+<anchor xml:id="_engine__shaders_8c_source_1l00080"/>00080 &#32;&#32;&#32;&#32;glDeleteProgram(ctx-&gt;program);
+<anchor xml:id="_engine__shaders_8c_source_1l00081"/>00081 }
+<anchor xml:id="_engine__shaders_8c_source_1l00082"/>00082 
+<anchor xml:id="_engine__shaders_8c_source_1l00083"/>00083 <emphasis role="keywordtype">void</emphasis>&#32;engineUseShader(EngineContext*&#32;ctx)
+<anchor xml:id="_engine__shaders_8c_source_1l00084"/>00084 {
+<anchor xml:id="_engine__shaders_8c_source_1l00085"/>00085 &#32;&#32;&#32;&#32;glUseProgram(ctx-&gt;program);
+<anchor xml:id="_engine__shaders_8c_source_1l00086"/>00086 }
+<anchor xml:id="_engine__shaders_8c_source_1l00087"/>00087 
+<anchor xml:id="_engine__shaders_8c_source_1l00088"/>00088 <emphasis role="keywordtype">void</emphasis>&#32;engineSetFloat(EngineContext*&#32;ctx,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>*&#32;name,&#32;<emphasis role="keywordtype">float</emphasis>&#32;value)
+<anchor xml:id="_engine__shaders_8c_source_1l00089"/>00089 {
+<anchor xml:id="_engine__shaders_8c_source_1l00090"/>00090 &#32;&#32;&#32;&#32;engineUseShader(ctx);
+<anchor xml:id="_engine__shaders_8c_source_1l00091"/>00091 
+<anchor xml:id="_engine__shaders_8c_source_1l00092"/>00092 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;loc&#32;=&#32;glGetUniformLocation(ctx-&gt;program,&#32;name);
+<anchor xml:id="_engine__shaders_8c_source_1l00093"/>00093 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(loc&#32;==&#32;-1)
+<anchor xml:id="_engine__shaders_8c_source_1l00094"/>00094 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_engine__shaders_8c_source_1l00095"/>00095 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fprintf(stderr,&#32;<emphasis role="stringliteral">&quot;Unknown&#32;&apos;%s&apos;&#32;not&#32;found!\n&quot;</emphasis>,&#32;name);
+<anchor xml:id="_engine__shaders_8c_source_1l00096"/>00096 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>;
+<anchor xml:id="_engine__shaders_8c_source_1l00097"/>00097 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_engine__shaders_8c_source_1l00098"/>00098 
+<anchor xml:id="_engine__shaders_8c_source_1l00099"/>00099 &#32;&#32;&#32;&#32;glUniform1f(loc,&#32;value);
+<anchor xml:id="_engine__shaders_8c_source_1l00100"/>00100 }
+<anchor xml:id="_engine__shaders_8c_source_1l00101"/>00101 
+<anchor xml:id="_engine__shaders_8c_source_1l00102"/>00102 <emphasis role="keywordtype">void</emphasis>&#32;engineSetInteger(EngineContext*&#32;ctx,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>*&#32;name,&#32;<emphasis role="keywordtype">int</emphasis>&#32;value)
+<anchor xml:id="_engine__shaders_8c_source_1l00103"/>00103 {
+<anchor xml:id="_engine__shaders_8c_source_1l00104"/>00104 &#32;&#32;&#32;&#32;engineUseShader(ctx);
+<anchor xml:id="_engine__shaders_8c_source_1l00105"/>00105 
+<anchor xml:id="_engine__shaders_8c_source_1l00106"/>00106 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;loc&#32;=&#32;glGetUniformLocation(ctx-&gt;program,&#32;name);
+<anchor xml:id="_engine__shaders_8c_source_1l00107"/>00107 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(loc&#32;==&#32;-1)
+<anchor xml:id="_engine__shaders_8c_source_1l00108"/>00108 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_engine__shaders_8c_source_1l00109"/>00109 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fprintf(stderr,&#32;<emphasis role="stringliteral">&quot;Unknown&#32;&apos;%s&apos;&#32;not&#32;found!\n&quot;</emphasis>,&#32;name);
+<anchor xml:id="_engine__shaders_8c_source_1l00110"/>00110 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>;
+<anchor xml:id="_engine__shaders_8c_source_1l00111"/>00111 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_engine__shaders_8c_source_1l00112"/>00112 
+<anchor xml:id="_engine__shaders_8c_source_1l00113"/>00113 &#32;&#32;&#32;&#32;glUniform1i(loc,&#32;value);
+<anchor xml:id="_engine__shaders_8c_source_1l00114"/>00114 }
+<anchor xml:id="_engine__shaders_8c_source_1l00115"/>00115 
+<anchor xml:id="_engine__shaders_8c_source_1l00116"/>00116 <emphasis role="keywordtype">void</emphasis>&#32;engineSetVector2f(EngineContext*&#32;ctx,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>*&#32;name,&#32;<emphasis role="keywordtype">float</emphasis>&#32;x,&#32;<emphasis role="keywordtype">float</emphasis>&#32;y)
+<anchor xml:id="_engine__shaders_8c_source_1l00117"/>00117 {
+<anchor xml:id="_engine__shaders_8c_source_1l00118"/>00118 &#32;&#32;&#32;&#32;engineUseShader(ctx);
+<anchor xml:id="_engine__shaders_8c_source_1l00119"/>00119 
+<anchor xml:id="_engine__shaders_8c_source_1l00120"/>00120 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;loc&#32;=&#32;glGetUniformLocation(ctx-&gt;program,&#32;name);
+<anchor xml:id="_engine__shaders_8c_source_1l00121"/>00121 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(loc&#32;==&#32;-1)
+<anchor xml:id="_engine__shaders_8c_source_1l00122"/>00122 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_engine__shaders_8c_source_1l00123"/>00123 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fprintf(stderr,&#32;<emphasis role="stringliteral">&quot;Unknown&#32;&apos;%s&apos;&#32;not&#32;found!\n&quot;</emphasis>,&#32;name);
+<anchor xml:id="_engine__shaders_8c_source_1l00124"/>00124 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>;
+<anchor xml:id="_engine__shaders_8c_source_1l00125"/>00125 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_engine__shaders_8c_source_1l00126"/>00126 
+<anchor xml:id="_engine__shaders_8c_source_1l00127"/>00127 &#32;&#32;&#32;&#32;glUniform2f(loc,&#32;x,&#32;y);
+<anchor xml:id="_engine__shaders_8c_source_1l00128"/>00128 }
+<anchor xml:id="_engine__shaders_8c_source_1l00129"/>00129 
+<anchor xml:id="_engine__shaders_8c_source_1l00130"/>00130 <emphasis role="keywordtype">void</emphasis>&#32;engineSetVector2fv(EngineContext*&#32;ctx,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>*&#32;name,&#32;vec2&#32;value)
+<anchor xml:id="_engine__shaders_8c_source_1l00131"/>00131 {
+<anchor xml:id="_engine__shaders_8c_source_1l00132"/>00132 &#32;&#32;&#32;&#32;engineUseShader(ctx);
+<anchor xml:id="_engine__shaders_8c_source_1l00133"/>00133 
+<anchor xml:id="_engine__shaders_8c_source_1l00134"/>00134 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;loc&#32;=&#32;glGetUniformLocation(ctx-&gt;program,&#32;name);
+<anchor xml:id="_engine__shaders_8c_source_1l00135"/>00135 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(loc&#32;==&#32;-1)
+<anchor xml:id="_engine__shaders_8c_source_1l00136"/>00136 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_engine__shaders_8c_source_1l00137"/>00137 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fprintf(stderr,&#32;<emphasis role="stringliteral">&quot;Unknown&#32;&apos;%s&apos;&#32;not&#32;found!\n&quot;</emphasis>,&#32;name);
+<anchor xml:id="_engine__shaders_8c_source_1l00138"/>00138 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>;
+<anchor xml:id="_engine__shaders_8c_source_1l00139"/>00139 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_engine__shaders_8c_source_1l00140"/>00140 
+<anchor xml:id="_engine__shaders_8c_source_1l00141"/>00141 &#32;&#32;&#32;&#32;glUniform2fv(loc,&#32;1,&#32;value);
+<anchor xml:id="_engine__shaders_8c_source_1l00142"/>00142 }
+<anchor xml:id="_engine__shaders_8c_source_1l00143"/>00143 
+<anchor xml:id="_engine__shaders_8c_source_1l00144"/>00144 <emphasis role="keywordtype">void</emphasis>&#32;engineSetVector3f(EngineContext*&#32;ctx,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>*&#32;name,&#32;<emphasis role="keywordtype">float</emphasis>&#32;x,&#32;<emphasis role="keywordtype">float</emphasis>&#32;y,&#32;<emphasis role="keywordtype">float</emphasis>&#32;z)
+<anchor xml:id="_engine__shaders_8c_source_1l00145"/>00145 {
+<anchor xml:id="_engine__shaders_8c_source_1l00146"/>00146 &#32;&#32;&#32;&#32;engineUseShader(ctx);
+<anchor xml:id="_engine__shaders_8c_source_1l00147"/>00147 
+<anchor xml:id="_engine__shaders_8c_source_1l00148"/>00148 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;loc&#32;=&#32;glGetUniformLocation(ctx-&gt;program,&#32;name);
+<anchor xml:id="_engine__shaders_8c_source_1l00149"/>00149 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(loc&#32;==&#32;-1)
+<anchor xml:id="_engine__shaders_8c_source_1l00150"/>00150 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_engine__shaders_8c_source_1l00151"/>00151 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fprintf(stderr,&#32;<emphasis role="stringliteral">&quot;Unknown&#32;&apos;%s&apos;&#32;not&#32;found!\n&quot;</emphasis>,&#32;name);
+<anchor xml:id="_engine__shaders_8c_source_1l00152"/>00152 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>;
+<anchor xml:id="_engine__shaders_8c_source_1l00153"/>00153 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_engine__shaders_8c_source_1l00154"/>00154 
+<anchor xml:id="_engine__shaders_8c_source_1l00155"/>00155 &#32;&#32;&#32;&#32;glUniform3f(loc,&#32;x,&#32;y,&#32;z);
+<anchor xml:id="_engine__shaders_8c_source_1l00156"/>00156 }
+<anchor xml:id="_engine__shaders_8c_source_1l00157"/>00157 
+<anchor xml:id="_engine__shaders_8c_source_1l00158"/>00158 <emphasis role="keywordtype">void</emphasis>&#32;engineSetVector3fv(EngineContext*&#32;ctx,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>*&#32;name,&#32;vec3&#32;value)
+<anchor xml:id="_engine__shaders_8c_source_1l00159"/>00159 {
+<anchor xml:id="_engine__shaders_8c_source_1l00160"/>00160 &#32;&#32;&#32;&#32;engineUseShader(ctx);
+<anchor xml:id="_engine__shaders_8c_source_1l00161"/>00161 
+<anchor xml:id="_engine__shaders_8c_source_1l00162"/>00162 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;loc&#32;=&#32;glGetUniformLocation(ctx-&gt;program,&#32;name);
+<anchor xml:id="_engine__shaders_8c_source_1l00163"/>00163 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(loc&#32;==&#32;-1)
+<anchor xml:id="_engine__shaders_8c_source_1l00164"/>00164 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_engine__shaders_8c_source_1l00165"/>00165 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fprintf(stderr,&#32;<emphasis role="stringliteral">&quot;Unknown&#32;&apos;%s&apos;&#32;not&#32;found!\n&quot;</emphasis>,&#32;name);
+<anchor xml:id="_engine__shaders_8c_source_1l00166"/>00166 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>;
+<anchor xml:id="_engine__shaders_8c_source_1l00167"/>00167 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_engine__shaders_8c_source_1l00168"/>00168 
+<anchor xml:id="_engine__shaders_8c_source_1l00169"/>00169 &#32;&#32;&#32;&#32;glUniform3fv(loc,&#32;1,&#32;value);
+<anchor xml:id="_engine__shaders_8c_source_1l00170"/>00170 }
+<anchor xml:id="_engine__shaders_8c_source_1l00171"/>00171 
+<anchor xml:id="_engine__shaders_8c_source_1l00172"/>00172 <emphasis role="keywordtype">void</emphasis>&#32;engineSetVector4f(EngineContext*&#32;ctx,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>*&#32;name,&#32;<emphasis role="keywordtype">float</emphasis>&#32;x,&#32;<emphasis role="keywordtype">float</emphasis>&#32;y,&#32;<emphasis role="keywordtype">float</emphasis>&#32;z,&#32;<emphasis role="keywordtype">float</emphasis>&#32;w)
+<anchor xml:id="_engine__shaders_8c_source_1l00173"/>00173 {
+<anchor xml:id="_engine__shaders_8c_source_1l00174"/>00174 &#32;&#32;&#32;&#32;engineUseShader(ctx);
+<anchor xml:id="_engine__shaders_8c_source_1l00175"/>00175 
+<anchor xml:id="_engine__shaders_8c_source_1l00176"/>00176 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;loc&#32;=&#32;glGetUniformLocation(ctx-&gt;program,&#32;name);
+<anchor xml:id="_engine__shaders_8c_source_1l00177"/>00177 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(loc&#32;==&#32;-1)
+<anchor xml:id="_engine__shaders_8c_source_1l00178"/>00178 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_engine__shaders_8c_source_1l00179"/>00179 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fprintf(stderr,&#32;<emphasis role="stringliteral">&quot;Unknown&#32;&apos;%s&apos;&#32;not&#32;found!\n&quot;</emphasis>,&#32;name);
+<anchor xml:id="_engine__shaders_8c_source_1l00180"/>00180 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>;
+<anchor xml:id="_engine__shaders_8c_source_1l00181"/>00181 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_engine__shaders_8c_source_1l00182"/>00182 
+<anchor xml:id="_engine__shaders_8c_source_1l00183"/>00183 &#32;&#32;&#32;&#32;glUniform4f(loc,&#32;x,&#32;y,&#32;z,&#32;w);
+<anchor xml:id="_engine__shaders_8c_source_1l00184"/>00184 }
+<anchor xml:id="_engine__shaders_8c_source_1l00185"/>00185 
+<anchor xml:id="_engine__shaders_8c_source_1l00186"/>00186 <emphasis role="keywordtype">void</emphasis>&#32;engineSetVector4fv(EngineContext*&#32;ctx,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>*&#32;name,&#32;vec4&#32;value)
+<anchor xml:id="_engine__shaders_8c_source_1l00187"/>00187 {
+<anchor xml:id="_engine__shaders_8c_source_1l00188"/>00188 &#32;&#32;&#32;&#32;engineUseShader(ctx);
+<anchor xml:id="_engine__shaders_8c_source_1l00189"/>00189 
+<anchor xml:id="_engine__shaders_8c_source_1l00190"/>00190 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;loc&#32;=&#32;glGetUniformLocation(ctx-&gt;program,&#32;name);
+<anchor xml:id="_engine__shaders_8c_source_1l00191"/>00191 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(loc&#32;==&#32;-1)
+<anchor xml:id="_engine__shaders_8c_source_1l00192"/>00192 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_engine__shaders_8c_source_1l00193"/>00193 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fprintf(stderr,&#32;<emphasis role="stringliteral">&quot;Unknown&#32;&apos;%s&apos;&#32;not&#32;found!\n&quot;</emphasis>,&#32;name);
+<anchor xml:id="_engine__shaders_8c_source_1l00194"/>00194 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>;
+<anchor xml:id="_engine__shaders_8c_source_1l00195"/>00195 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_engine__shaders_8c_source_1l00196"/>00196 
+<anchor xml:id="_engine__shaders_8c_source_1l00197"/>00197 &#32;&#32;&#32;&#32;glUniform4fv(loc,&#32;1,&#32;value);
+<anchor xml:id="_engine__shaders_8c_source_1l00198"/>00198 }
+<anchor xml:id="_engine__shaders_8c_source_1l00199"/>00199 
+<anchor xml:id="_engine__shaders_8c_source_1l00200"/>00200 <emphasis role="keywordtype">void</emphasis>&#32;engineSetMatrix4fv(EngineContext*&#32;ctx,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>*&#32;name,&#32;mat4&#32;value)
+<anchor xml:id="_engine__shaders_8c_source_1l00201"/>00201 {
+<anchor xml:id="_engine__shaders_8c_source_1l00202"/>00202 &#32;&#32;&#32;&#32;engineUseShader(ctx);
+<anchor xml:id="_engine__shaders_8c_source_1l00203"/>00203 
+<anchor xml:id="_engine__shaders_8c_source_1l00204"/>00204 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;loc&#32;=&#32;glGetUniformLocation(ctx-&gt;program,&#32;name);
+<anchor xml:id="_engine__shaders_8c_source_1l00205"/>00205 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(loc&#32;==&#32;-1)
+<anchor xml:id="_engine__shaders_8c_source_1l00206"/>00206 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_engine__shaders_8c_source_1l00207"/>00207 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fprintf(stderr,&#32;<emphasis role="stringliteral">&quot;Unknown&#32;&apos;%s&apos;&#32;not&#32;found!\n&quot;</emphasis>,&#32;name);
+<anchor xml:id="_engine__shaders_8c_source_1l00208"/>00208 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>;
+<anchor xml:id="_engine__shaders_8c_source_1l00209"/>00209 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_engine__shaders_8c_source_1l00210"/>00210 
+<anchor xml:id="_engine__shaders_8c_source_1l00211"/>00211 &#32;&#32;&#32;&#32;glUniformMatrix4fv(loc,&#32;1,&#32;GL_FALSE,&#32;(<emphasis role="keywordtype">float</emphasis>*)value);
+<anchor xml:id="_engine__shaders_8c_source_1l00212"/>00212 }
+</programlisting></section>

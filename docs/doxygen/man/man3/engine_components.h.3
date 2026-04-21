@@ -1,0 +1,55 @@
+.TH "SpaceGame/engine_components.h" 3 "Version 0.1.0" "Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SpaceGame/engine_components.h
+.SH SYNOPSIS
+.br
+.PP
+\fR#include 'engine_defs\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBengineAddComponent\fP (\fBEngineContext\fP *ctx, \fBEngineEntityKey\fP key, \fBEngineComponentType\fP type)"
+.br
+.ti -1c
+.RI "void \fBengineSetComponentCallback\fP (\fBEngineContext\fP *ctx, \fBEngineEntityKey\fP key, \fBEngineComponentType\fP type, \fBEngineComponentFunc\fP func)"
+.br
+.ti -1c
+.RI "const \fBEBOOL\fP \fBengineRemoveComponent\fP (\fBEngineContext\fP *ctx, \fBEngineEntityKey\fP key, \fBEngineComponentType\fP type)"
+.br
+.ti -1c
+.RI "const \fBEBOOL\fP \fBengineHasComponent\fP (\fBEngineContext\fP *ctx, \fBEngineEntityKey\fP key, \fBEngineComponentType\fP type)"
+.br
+.ti -1c
+.RI "void \fBengineRunComponentFunc\fP (\fBEngineContext\fP *ctx, \fBEngineEntity\fP *key, \fBEngineComponent\fP *comp, float deltaTime)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "void engineAddComponent (\fBEngineContext\fP * ctx, \fBEngineEntityKey\fP key, \fBEngineComponentType\fP type)"
+
+.PP
+Definition at line \fB18\fP of file \fBengine_components\&.c\fP\&.
+.SS "const \fBEBOOL\fP engineHasComponent (\fBEngineContext\fP * ctx, \fBEngineEntityKey\fP key, \fBEngineComponentType\fP type)"
+
+.PP
+Definition at line \fB61\fP of file \fBengine_components\&.c\fP\&.
+.SS "const \fBEBOOL\fP engineRemoveComponent (\fBEngineContext\fP * ctx, \fBEngineEntityKey\fP key, \fBEngineComponentType\fP type)"
+
+.PP
+Definition at line \fB48\fP of file \fBengine_components\&.c\fP\&.
+.SS "void engineRunComponentFunc (\fBEngineContext\fP * ctx, \fBEngineEntity\fP * key, \fBEngineComponent\fP * comp, float deltaTime)"
+
+.PP
+Definition at line \fB72\fP of file \fBengine_components\&.c\fP\&.
+.SS "void engineSetComponentCallback (\fBEngineContext\fP * ctx, \fBEngineEntityKey\fP key, \fBEngineComponentType\fP type, \fBEngineComponentFunc\fP func)"
+
+.PP
+Definition at line \fB37\fP of file \fBengine_components\&.c\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Engine from the source code\&.

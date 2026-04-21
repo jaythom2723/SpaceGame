@@ -1,0 +1,127 @@
+.TH "SpaceGame/engine.c" 3 "Version 0.1.0" "Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SpaceGame/engine.c
+.SH SYNOPSIS
+.br
+.PP
+\fR#include 'engine\&.h'\fP
+.br
+\fR#include 'engine_shaders\&.h'\fP
+.br
+\fR#include 'engine_buffers\&.h'\fP
+.br
+\fR#include 'engine_textures\&.h'\fP
+.br
+\fR#include 'engine_utils\&.h'\fP
+.br
+\fR#include <cglm/cglm\&.h>\fP
+.br
+\fR#include <stdio\&.h>\fP
+.br
+\fR#include <stdlib\&.h>\fP
+.br
+\fR#include <string\&.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBframebuffer_size_callback\fP (GLFWwindow *window, int width, int height)"
+.br
+.ti -1c
+.RI "void \fBkey_callback\fP (GLFWwindow *window, int key, int scancode, int action, int mode)"
+.br
+.ti -1c
+.RI "\fBEngineContext\fP * \fBengineInit\fP (void)"
+.br
+.ti -1c
+.RI "\fBEBOOL\fP \fBengineCreateWindow\fP (\fBEngineContext\fP *ctx, const \fBWindowConfig\fP config)"
+.br
+.ti -1c
+.RI "void \fBengineClose\fP (\fBEngineContext\fP *ctx)"
+.br
+.ti -1c
+.RI "void \fBengineInitProjectionMatrix\fP (\fBEngineContext\fP *ctx)"
+.br
+.ti -1c
+.RI "\fBEBOOL\fP \fBengineWindowShouldClose\fP (\fBEngineContext\fP *ctx)"
+.br
+.ti -1c
+.RI "void \fBengineSetWindowClose\fP (\fBEngineContext\fP *ctx, \fBEBOOL\fP value)"
+.br
+.ti -1c
+.RI "void \fBengineWindowPollEvents\fP (\fBEngineContext\fP *ctx)"
+.br
+.ti -1c
+.RI "void \fBengineWindowSwapBuffers\fP (\fBEngineContext\fP *ctx)"
+.br
+.ti -1c
+.RI "void \fBengineWindowGetSize\fP (\fBEngineContext\fP *ctx, int *width, int *height)"
+.br
+.ti -1c
+.RI "void \fBengineSetClearColor\fP (float r, float g, float b, float a)"
+.br
+.ti -1c
+.RI "void \fBengineClear\fP (void)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "void engineClear (void )"
+
+.PP
+Definition at line \fB149\fP of file \fBengine\&.c\fP\&.
+.SS "void engineClose (\fBEngineContext\fP * ctx)"
+
+.PP
+Definition at line \fB90\fP of file \fBengine\&.c\fP\&.
+.SS "\fBEBOOL\fP engineCreateWindow (\fBEngineContext\fP * ctx, const \fBWindowConfig\fP config)"
+
+.PP
+Definition at line \fB60\fP of file \fBengine\&.c\fP\&.
+.SS "\fBEngineContext\fP * engineInit (void )"
+
+.PP
+Definition at line \fB32\fP of file \fBengine\&.c\fP\&.
+.SS "void engineInitProjectionMatrix (\fBEngineContext\fP * ctx)"
+
+.PP
+Definition at line \fB103\fP of file \fBengine\&.c\fP\&.
+.SS "void engineSetClearColor (float r, float g, float b, float a)"
+
+.PP
+Definition at line \fB144\fP of file \fBengine\&.c\fP\&.
+.SS "void engineSetWindowClose (\fBEngineContext\fP * ctx, \fBEBOOL\fP value)"
+
+.PP
+Definition at line \fB122\fP of file \fBengine\&.c\fP\&.
+.SS "void engineWindowGetSize (\fBEngineContext\fP * ctx, int * width, int * height)"
+
+.PP
+Definition at line \fB138\fP of file \fBengine\&.c\fP\&.
+.SS "void engineWindowPollEvents (\fBEngineContext\fP * ctx)"
+
+.PP
+Definition at line \fB127\fP of file \fBengine\&.c\fP\&.
+.SS "\fBEBOOL\fP engineWindowShouldClose (\fBEngineContext\fP * ctx)"
+
+.PP
+Definition at line \fB117\fP of file \fBengine\&.c\fP\&.
+.SS "void engineWindowSwapBuffers (\fBEngineContext\fP * ctx)"
+
+.PP
+Definition at line \fB133\fP of file \fBengine\&.c\fP\&.
+.SS "void framebuffer_size_callback (GLFWwindow * window, int width, int height)"
+
+.PP
+Definition at line \fB16\fP of file \fBengine\&.c\fP\&.
+.SS "void key_callback (GLFWwindow * window, int key, int scancode, int action, int mode)"
+
+.PP
+Definition at line \fB21\fP of file \fBengine\&.c\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Engine from the source code\&.

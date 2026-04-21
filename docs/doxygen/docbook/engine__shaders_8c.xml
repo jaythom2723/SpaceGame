@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_engine__shaders_8c" xml:lang="en-US">
+<title>SpaceGame/engine_shaders.c File Reference</title>
+<indexterm><primary>SpaceGame/engine_shaders.c</primary></indexterm>
+<programlisting linenumbering="unnumbered">#include &quot;engine_shaders.h&quot;<?linebreak?>#include &quot;engine_utils.h&quot;<?linebreak?>#include &lt;glad/glad.h&gt;<?linebreak?>#include &lt;stdio.h&gt;<?linebreak?>#include &lt;string.h&gt;<?linebreak?>#include &lt;stdarg.h&gt;<?linebreak?></programlisting><simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_engine__defs_8h_1ad5bbadc2683f69c3cc216f456e83aef5">EngineShader</link> <link linkend="_engine__shaders_8c_1adff8ca4d27a6f6d827fea8b9e0c49df2">engineCreateShader</link> (int shaderType)</para>
+</listitem>
+            <listitem><para>const <link linkend="_engine__defs_8h_1a4fe707fd7f0392a3c6d81cfc62f1686c">EBOOL</link> <link linkend="_engine__shaders_8c_1ae17ed877f9f71bd0bbb56f214f7239d3">engineCompileShader</link> (<link linkend="_engine__defs_8h_1ad5bbadc2683f69c3cc216f456e83aef5">EngineShader</link> *shader, const char *path)</para>
+</listitem>
+            <listitem><para>void <link linkend="_engine__shaders_8c_1ad71f97ffc978ee71368a9e3ecb26185c">engineDeleteShader</link> (<link linkend="_engine__defs_8h_1ad5bbadc2683f69c3cc216f456e83aef5">EngineShader</link> *shader)</para>
+</listitem>
+            <listitem><para>void <link linkend="_engine__shaders_8c_1a0b6859bf015168ca8e949b8d0bc2708c">engineCreateProgram</link> (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *ctx)</para>
+</listitem>
+            <listitem><para>const <link linkend="_engine__defs_8h_1a4fe707fd7f0392a3c6d81cfc62f1686c">EBOOL</link> <link linkend="_engine__shaders_8c_1a2088abecec475be10aa0507d3effa383">engineAttachAndLink</link> (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *ctx, <link linkend="_engine__defs_8h_1ad5bbadc2683f69c3cc216f456e83aef5">EngineShader</link> *vertex, <link linkend="_engine__defs_8h_1ad5bbadc2683f69c3cc216f456e83aef5">EngineShader</link> *fragment, <link linkend="_engine__defs_8h_1ad5bbadc2683f69c3cc216f456e83aef5">EngineShader</link> *geometry)</para>
+</listitem>
+            <listitem><para>void <link linkend="_engine__shaders_8c_1a746376652a77c48b6bf8071772a637c8">engineDeleteProgram</link> (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *ctx)</para>
+</listitem>
+            <listitem><para>void <link linkend="_engine__shaders_8c_1a0d859349671a331bc021366a737b55be">engineUseShader</link> (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *ctx)</para>
+</listitem>
+            <listitem><para>void <link linkend="_engine__shaders_8c_1a4baf6602a1647c43e29a870d6e9a84d7">engineSetFloat</link> (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *ctx, const char *name, float value)</para>
+</listitem>
+            <listitem><para>void <link linkend="_engine__shaders_8c_1aca0cfd6bf973e8149c0190c6797ea746">engineSetInteger</link> (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *ctx, const char *name, int value)</para>
+</listitem>
+            <listitem><para>void <link linkend="_engine__shaders_8c_1a4c48075d10a5c0cffcabf0a608ee5fb7">engineSetVector2f</link> (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *ctx, const char *name, float x, float y)</para>
+</listitem>
+            <listitem><para>void <link linkend="_engine__shaders_8c_1aba8fe2caae9fa0ab1830697c8d707cff">engineSetVector2fv</link> (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *ctx, const char *name, vec2 value)</para>
+</listitem>
+            <listitem><para>void <link linkend="_engine__shaders_8c_1ad9fb34cc6295035dfec904fc1b5937ee">engineSetVector3f</link> (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *ctx, const char *name, float x, float y, float z)</para>
+</listitem>
+            <listitem><para>void <link linkend="_engine__shaders_8c_1ad6359b9918d07efb420b89fce41324b0">engineSetVector3fv</link> (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *ctx, const char *name, vec3 value)</para>
+</listitem>
+            <listitem><para>void <link linkend="_engine__shaders_8c_1aa9590463a18a2d0505cc75b3c2dd8d2a">engineSetVector4f</link> (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *ctx, const char *name, float x, float y, float z, float w)</para>
+</listitem>
+            <listitem><para>void <link linkend="_engine__shaders_8c_1ac85a90fa9e9aaee455fd56c09eea2a69">engineSetVector4fv</link> (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *ctx, const char *name, vec4 value)</para>
+</listitem>
+            <listitem><para>void <link linkend="_engine__shaders_8c_1a727dc6fafecf285e9c1a1e6c16539352">engineSetMatrix4fv</link> (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *ctx, const char *name, mat4 value)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_engine__shaders_8c_1a2088abecec475be10aa0507d3effa383"/><section>
+    <title>engineAttachAndLink()</title>
+<indexterm><primary>engineAttachAndLink</primary><secondary>engine_shaders.c</secondary></indexterm>
+<indexterm><primary>engine_shaders.c</primary><secondary>engineAttachAndLink</secondary></indexterm>
+<para><computeroutput>const <link linkend="_engine__defs_8h_1a4fe707fd7f0392a3c6d81cfc62f1686c">EBOOL</link> engineAttachAndLink (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx, <link linkend="_engine__defs_8h_1ad5bbadc2683f69c3cc216f456e83aef5">EngineShader</link> * vertex, <link linkend="_engine__defs_8h_1ad5bbadc2683f69c3cc216f456e83aef5">EngineShader</link> * fragment, <link linkend="_engine__defs_8h_1ad5bbadc2683f69c3cc216f456e83aef5">EngineShader</link> * geometry)</computeroutput></para><para>
+Definition at line <link linkend="_engine__shaders_8c_source_1l00046">46</link> of file <link linkend="_engine__shaders_8c_source">engine_shaders.c</link>.</para>
+</section>
+<anchor xml:id="_engine__shaders_8c_1ae17ed877f9f71bd0bbb56f214f7239d3"/><section>
+    <title>engineCompileShader()</title>
+<indexterm><primary>engineCompileShader</primary><secondary>engine_shaders.c</secondary></indexterm>
+<indexterm><primary>engine_shaders.c</primary><secondary>engineCompileShader</secondary></indexterm>
+<para><computeroutput>const <link linkend="_engine__defs_8h_1a4fe707fd7f0392a3c6d81cfc62f1686c">EBOOL</link> engineCompileShader (<link linkend="_engine__defs_8h_1ad5bbadc2683f69c3cc216f456e83aef5">EngineShader</link> * shader, const char * path)</computeroutput></para><para>
+Definition at line <link linkend="_engine__shaders_8c_source_1l00015">15</link> of file <link linkend="_engine__shaders_8c_source">engine_shaders.c</link>.</para>
+</section>
+<anchor xml:id="_engine__shaders_8c_1a0b6859bf015168ca8e949b8d0bc2708c"/><section>
+    <title>engineCreateProgram()</title>
+<indexterm><primary>engineCreateProgram</primary><secondary>engine_shaders.c</secondary></indexterm>
+<indexterm><primary>engine_shaders.c</primary><secondary>engineCreateProgram</secondary></indexterm>
+<para><computeroutput>void engineCreateProgram (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx)</computeroutput></para><para>
+Definition at line <link linkend="_engine__shaders_8c_source_1l00041">41</link> of file <link linkend="_engine__shaders_8c_source">engine_shaders.c</link>.</para>
+</section>
+<anchor xml:id="_engine__shaders_8c_1adff8ca4d27a6f6d827fea8b9e0c49df2"/><section>
+    <title>engineCreateShader()</title>
+<indexterm><primary>engineCreateShader</primary><secondary>engine_shaders.c</secondary></indexterm>
+<indexterm><primary>engine_shaders.c</primary><secondary>engineCreateShader</secondary></indexterm>
+<para><computeroutput><link linkend="_engine__defs_8h_1ad5bbadc2683f69c3cc216f456e83aef5">EngineShader</link> engineCreateShader (int shaderType)</computeroutput></para><para>
+Definition at line <link linkend="_engine__shaders_8c_source_1l00010">10</link> of file <link linkend="_engine__shaders_8c_source">engine_shaders.c</link>.</para>
+</section>
+<anchor xml:id="_engine__shaders_8c_1a746376652a77c48b6bf8071772a637c8"/><section>
+    <title>engineDeleteProgram()</title>
+<indexterm><primary>engineDeleteProgram</primary><secondary>engine_shaders.c</secondary></indexterm>
+<indexterm><primary>engine_shaders.c</primary><secondary>engineDeleteProgram</secondary></indexterm>
+<para><computeroutput>void engineDeleteProgram (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx)</computeroutput></para><para>
+Definition at line <link linkend="_engine__shaders_8c_source_1l00078">78</link> of file <link linkend="_engine__shaders_8c_source">engine_shaders.c</link>.</para>
+</section>
+<anchor xml:id="_engine__shaders_8c_1ad71f97ffc978ee71368a9e3ecb26185c"/><section>
+    <title>engineDeleteShader()</title>
+<indexterm><primary>engineDeleteShader</primary><secondary>engine_shaders.c</secondary></indexterm>
+<indexterm><primary>engine_shaders.c</primary><secondary>engineDeleteShader</secondary></indexterm>
+<para><computeroutput>void engineDeleteShader (<link linkend="_engine__defs_8h_1ad5bbadc2683f69c3cc216f456e83aef5">EngineShader</link> * shader)</computeroutput></para><para>
+Definition at line <link linkend="_engine__shaders_8c_source_1l00036">36</link> of file <link linkend="_engine__shaders_8c_source">engine_shaders.c</link>.</para>
+</section>
+<anchor xml:id="_engine__shaders_8c_1a4baf6602a1647c43e29a870d6e9a84d7"/><section>
+    <title>engineSetFloat()</title>
+<indexterm><primary>engineSetFloat</primary><secondary>engine_shaders.c</secondary></indexterm>
+<indexterm><primary>engine_shaders.c</primary><secondary>engineSetFloat</secondary></indexterm>
+<para><computeroutput>void engineSetFloat (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx, const char * name, float value)</computeroutput></para><para>
+Definition at line <link linkend="_engine__shaders_8c_source_1l00088">88</link> of file <link linkend="_engine__shaders_8c_source">engine_shaders.c</link>.</para>
+</section>
+<anchor xml:id="_engine__shaders_8c_1aca0cfd6bf973e8149c0190c6797ea746"/><section>
+    <title>engineSetInteger()</title>
+<indexterm><primary>engineSetInteger</primary><secondary>engine_shaders.c</secondary></indexterm>
+<indexterm><primary>engine_shaders.c</primary><secondary>engineSetInteger</secondary></indexterm>
+<para><computeroutput>void engineSetInteger (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx, const char * name, int value)</computeroutput></para><para>
+Definition at line <link linkend="_engine__shaders_8c_source_1l00102">102</link> of file <link linkend="_engine__shaders_8c_source">engine_shaders.c</link>.</para>
+</section>
+<anchor xml:id="_engine__shaders_8c_1a727dc6fafecf285e9c1a1e6c16539352"/><section>
+    <title>engineSetMatrix4fv()</title>
+<indexterm><primary>engineSetMatrix4fv</primary><secondary>engine_shaders.c</secondary></indexterm>
+<indexterm><primary>engine_shaders.c</primary><secondary>engineSetMatrix4fv</secondary></indexterm>
+<para><computeroutput>void engineSetMatrix4fv (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx, const char * name, mat4 value)</computeroutput></para><para>
+Definition at line <link linkend="_engine__shaders_8c_source_1l00200">200</link> of file <link linkend="_engine__shaders_8c_source">engine_shaders.c</link>.</para>
+</section>
+<anchor xml:id="_engine__shaders_8c_1a4c48075d10a5c0cffcabf0a608ee5fb7"/><section>
+    <title>engineSetVector2f()</title>
+<indexterm><primary>engineSetVector2f</primary><secondary>engine_shaders.c</secondary></indexterm>
+<indexterm><primary>engine_shaders.c</primary><secondary>engineSetVector2f</secondary></indexterm>
+<para><computeroutput>void engineSetVector2f (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx, const char * name, float x, float y)</computeroutput></para><para>
+Definition at line <link linkend="_engine__shaders_8c_source_1l00116">116</link> of file <link linkend="_engine__shaders_8c_source">engine_shaders.c</link>.</para>
+</section>
+<anchor xml:id="_engine__shaders_8c_1aba8fe2caae9fa0ab1830697c8d707cff"/><section>
+    <title>engineSetVector2fv()</title>
+<indexterm><primary>engineSetVector2fv</primary><secondary>engine_shaders.c</secondary></indexterm>
+<indexterm><primary>engine_shaders.c</primary><secondary>engineSetVector2fv</secondary></indexterm>
+<para><computeroutput>void engineSetVector2fv (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx, const char * name, vec2 value)</computeroutput></para><para>
+Definition at line <link linkend="_engine__shaders_8c_source_1l00130">130</link> of file <link linkend="_engine__shaders_8c_source">engine_shaders.c</link>.</para>
+</section>
+<anchor xml:id="_engine__shaders_8c_1ad9fb34cc6295035dfec904fc1b5937ee"/><section>
+    <title>engineSetVector3f()</title>
+<indexterm><primary>engineSetVector3f</primary><secondary>engine_shaders.c</secondary></indexterm>
+<indexterm><primary>engine_shaders.c</primary><secondary>engineSetVector3f</secondary></indexterm>
+<para><computeroutput>void engineSetVector3f (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx, const char * name, float x, float y, float z)</computeroutput></para><para>
+Definition at line <link linkend="_engine__shaders_8c_source_1l00144">144</link> of file <link linkend="_engine__shaders_8c_source">engine_shaders.c</link>.</para>
+</section>
+<anchor xml:id="_engine__shaders_8c_1ad6359b9918d07efb420b89fce41324b0"/><section>
+    <title>engineSetVector3fv()</title>
+<indexterm><primary>engineSetVector3fv</primary><secondary>engine_shaders.c</secondary></indexterm>
+<indexterm><primary>engine_shaders.c</primary><secondary>engineSetVector3fv</secondary></indexterm>
+<para><computeroutput>void engineSetVector3fv (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx, const char * name, vec3 value)</computeroutput></para><para>
+Definition at line <link linkend="_engine__shaders_8c_source_1l00158">158</link> of file <link linkend="_engine__shaders_8c_source">engine_shaders.c</link>.</para>
+</section>
+<anchor xml:id="_engine__shaders_8c_1aa9590463a18a2d0505cc75b3c2dd8d2a"/><section>
+    <title>engineSetVector4f()</title>
+<indexterm><primary>engineSetVector4f</primary><secondary>engine_shaders.c</secondary></indexterm>
+<indexterm><primary>engine_shaders.c</primary><secondary>engineSetVector4f</secondary></indexterm>
+<para><computeroutput>void engineSetVector4f (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx, const char * name, float x, float y, float z, float w)</computeroutput></para><para>
+Definition at line <link linkend="_engine__shaders_8c_source_1l00172">172</link> of file <link linkend="_engine__shaders_8c_source">engine_shaders.c</link>.</para>
+</section>
+<anchor xml:id="_engine__shaders_8c_1ac85a90fa9e9aaee455fd56c09eea2a69"/><section>
+    <title>engineSetVector4fv()</title>
+<indexterm><primary>engineSetVector4fv</primary><secondary>engine_shaders.c</secondary></indexterm>
+<indexterm><primary>engine_shaders.c</primary><secondary>engineSetVector4fv</secondary></indexterm>
+<para><computeroutput>void engineSetVector4fv (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx, const char * name, vec4 value)</computeroutput></para><para>
+Definition at line <link linkend="_engine__shaders_8c_source_1l00186">186</link> of file <link linkend="_engine__shaders_8c_source">engine_shaders.c</link>.</para>
+</section>
+<anchor xml:id="_engine__shaders_8c_1a0d859349671a331bc021366a737b55be"/><section>
+    <title>engineUseShader()</title>
+<indexterm><primary>engineUseShader</primary><secondary>engine_shaders.c</secondary></indexterm>
+<indexterm><primary>engine_shaders.c</primary><secondary>engineUseShader</secondary></indexterm>
+<para><computeroutput>void engineUseShader (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx)</computeroutput></para><para>
+Definition at line <link linkend="_engine__shaders_8c_source_1l00083">83</link> of file <link linkend="_engine__shaders_8c_source">engine_shaders.c</link>.</para>
+</section>
+</section>
+</section>

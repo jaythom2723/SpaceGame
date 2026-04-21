@@ -1,0 +1,489 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.16.1" xml:lang="en-US">
+  <compounddef id="engine__shaders_8h" kind="file" language="C++">
+    <compoundname>engine_shaders.h</compoundname>
+    <includes local="no">cglm/cglm.h</includes>
+    <includes refid="engine__defs_8h" local="yes">engine_defs.h</includes>
+    <includedby refid="engine_8c" local="yes">engine.c</includedby>
+    <includedby refid="engine__renderer_8c" local="yes">engine_renderer.c</includedby>
+    <includedby refid="engine__shaders_8c" local="yes">engine_shaders.c</includedby>
+    <includedby refid="game_8c" local="yes">game.c</includedby>
+    <incdepgraph>
+      <node id="3">
+        <label>engine_defs.h</label>
+        <link refid="engine__defs_8h_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>engine_shaders.h</label>
+        <link refid="engine__shaders_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>GLFW/glfw3.h</label>
+      </node>
+      <node id="2">
+        <label>cglm/cglm.h</label>
+      </node>
+      <node id="4">
+        <label>glad/glad.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>engine.c</label>
+        <link refid="engine_8c_source"/>
+      </node>
+      <node id="3">
+        <label>engine_renderer.c</label>
+        <link refid="engine__renderer_8c_source"/>
+      </node>
+      <node id="4">
+        <label>engine_shaders.c</label>
+        <link refid="engine__shaders_8c_source"/>
+      </node>
+      <node id="1">
+        <label>engine_shaders.h</label>
+        <link refid="engine__shaders_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>game.c</label>
+        <link refid="game_8c_source"/>
+      </node>
+    </invincdepgraph>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="engine__shaders_8h_1adff8ca4d27a6f6d827fea8b9e0c49df2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>EngineShader</type>
+        <definition>EngineShader engineCreateShader</definition>
+        <argsstring>(int shaderType)</argsstring>
+        <name>engineCreateShader</name>
+        <param>
+          <type>int</type>
+          <declname>shaderType</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_shaders.h" line="8" column="14" bodyfile="engine_shaders.c" bodystart="10" bodyend="13" declfile="engine_shaders.h" declline="8" declcolumn="14"/>
+      </memberdef>
+      <memberdef kind="function" id="engine__shaders_8h_1ae17ed877f9f71bd0bbb56f214f7239d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const EBOOL</type>
+        <definition>const EBOOL engineCompileShader</definition>
+        <argsstring>(EngineShader *shader, const char *path)</argsstring>
+        <name>engineCompileShader</name>
+        <param>
+          <type>EngineShader *</type>
+          <declname>shader</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>path</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_shaders.h" line="9" column="13" bodyfile="engine_shaders.c" bodystart="15" bodyend="34" declfile="engine_shaders.h" declline="9" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="function" id="engine__shaders_8h_1ad71f97ffc978ee71368a9e3ecb26185c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void engineDeleteShader</definition>
+        <argsstring>(EngineShader *shader)</argsstring>
+        <name>engineDeleteShader</name>
+        <param>
+          <type>EngineShader *</type>
+          <declname>shader</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_shaders.h" line="10" column="6" bodyfile="engine_shaders.c" bodystart="36" bodyend="39" declfile="engine_shaders.h" declline="10" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="engine__shaders_8h_1a0b6859bf015168ca8e949b8d0bc2708c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void engineCreateProgram</definition>
+        <argsstring>(EngineContext *ctx)</argsstring>
+        <name>engineCreateProgram</name>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_shaders.h" line="12" column="6" bodyfile="engine_shaders.c" bodystart="41" bodyend="44" declfile="engine_shaders.h" declline="12" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="engine__shaders_8h_1a2088abecec475be10aa0507d3effa383" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const EBOOL</type>
+        <definition>const EBOOL engineAttachAndLink</definition>
+        <argsstring>(EngineContext *ctx, EngineShader *vertex, EngineShader *fragment, EngineShader *geometry)</argsstring>
+        <name>engineAttachAndLink</name>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>EngineShader *</type>
+          <declname>vertex</declname>
+        </param>
+        <param>
+          <type>EngineShader *</type>
+          <declname>fragment</declname>
+        </param>
+        <param>
+          <type>EngineShader *</type>
+          <declname>geometry</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_shaders.h" line="13" column="13" bodyfile="engine_shaders.c" bodystart="46" bodyend="76" declfile="engine_shaders.h" declline="13" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="function" id="engine__shaders_8h_1a746376652a77c48b6bf8071772a637c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void engineDeleteProgram</definition>
+        <argsstring>(EngineContext *ctx)</argsstring>
+        <name>engineDeleteProgram</name>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_shaders.h" line="14" column="6" bodyfile="engine_shaders.c" bodystart="78" bodyend="81" declfile="engine_shaders.h" declline="14" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="engine__shaders_8h_1a0d859349671a331bc021366a737b55be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void engineUseShader</definition>
+        <argsstring>(EngineContext *ctx)</argsstring>
+        <name>engineUseShader</name>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_shaders.h" line="16" column="6" bodyfile="engine_shaders.c" bodystart="83" bodyend="86" declfile="engine_shaders.h" declline="16" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="engine__shaders_8h_1a4baf6602a1647c43e29a870d6e9a84d7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void engineSetFloat</definition>
+        <argsstring>(EngineContext *ctx, const char *name, float value)</argsstring>
+        <name>engineSetFloat</name>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_shaders.h" line="17" column="6" bodyfile="engine_shaders.c" bodystart="88" bodyend="100" declfile="engine_shaders.h" declline="17" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="engine__shaders_8h_1aca0cfd6bf973e8149c0190c6797ea746" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void engineSetInteger</definition>
+        <argsstring>(EngineContext *ctx, const char *name, int value)</argsstring>
+        <name>engineSetInteger</name>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_shaders.h" line="18" column="6" bodyfile="engine_shaders.c" bodystart="102" bodyend="114" declfile="engine_shaders.h" declline="18" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="engine__shaders_8h_1a4c48075d10a5c0cffcabf0a608ee5fb7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void engineSetVector2f</definition>
+        <argsstring>(EngineContext *ctx, const char *name, float x, float y)</argsstring>
+        <name>engineSetVector2f</name>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_shaders.h" line="19" column="6" bodyfile="engine_shaders.c" bodystart="116" bodyend="128" declfile="engine_shaders.h" declline="19" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="engine__shaders_8h_1aba8fe2caae9fa0ab1830697c8d707cff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void engineSetVector2fv</definition>
+        <argsstring>(EngineContext *ctx, const char *name, vec2 value)</argsstring>
+        <name>engineSetVector2fv</name>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>vec2</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_shaders.h" line="20" column="6" bodyfile="engine_shaders.c" bodystart="130" bodyend="142" declfile="engine_shaders.h" declline="20" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="engine__shaders_8h_1ad9fb34cc6295035dfec904fc1b5937ee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void engineSetVector3f</definition>
+        <argsstring>(EngineContext *ctx, const char *name, float x, float y, float z)</argsstring>
+        <name>engineSetVector3f</name>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_shaders.h" line="21" column="6" bodyfile="engine_shaders.c" bodystart="144" bodyend="156" declfile="engine_shaders.h" declline="21" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="engine__shaders_8h_1ad6359b9918d07efb420b89fce41324b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void engineSetVector3fv</definition>
+        <argsstring>(EngineContext *ctx, const char *name, vec3 value)</argsstring>
+        <name>engineSetVector3fv</name>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>vec3</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_shaders.h" line="22" column="6" bodyfile="engine_shaders.c" bodystart="158" bodyend="170" declfile="engine_shaders.h" declline="22" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="engine__shaders_8h_1aa9590463a18a2d0505cc75b3c2dd8d2a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void engineSetVector4f</definition>
+        <argsstring>(EngineContext *ctx, const char *name, float x, float y, float z, float w)</argsstring>
+        <name>engineSetVector4f</name>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>z</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>w</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_shaders.h" line="23" column="6" bodyfile="engine_shaders.c" bodystart="172" bodyend="184" declfile="engine_shaders.h" declline="23" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="engine__shaders_8h_1ac85a90fa9e9aaee455fd56c09eea2a69" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void engineSetVector4fv</definition>
+        <argsstring>(EngineContext *ctx, const char *name, vec4 value)</argsstring>
+        <name>engineSetVector4fv</name>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>vec4</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_shaders.h" line="24" column="6" bodyfile="engine_shaders.c" bodystart="186" bodyend="198" declfile="engine_shaders.h" declline="24" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="engine__shaders_8h_1a727dc6fafecf285e9c1a1e6c16539352" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void engineSetMatrix4fv</definition>
+        <argsstring>(EngineContext *ctx, const char *name, mat4 value)</argsstring>
+        <name>engineSetMatrix4fv</name>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>mat4</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_shaders.h" line="25" column="6" bodyfile="engine_shaders.c" bodystart="200" bodyend="212" declfile="engine_shaders.h" declline="25" declcolumn="6"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>SHADER_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SHADER_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cglm/cglm.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;engine_defs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal">EngineShader<sp/>engineCreateShader(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>shaderType);</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>EBOOL<sp/>engineCompileShader(EngineShader*<sp/>shader,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>path);</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>engineDeleteShader(EngineShader*<sp/>shader);</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>engineCreateProgram(EngineContext*<sp/>ctx);</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>EBOOL<sp/>engineAttachAndLink(EngineContext*<sp/>ctx,<sp/>EngineShader*<sp/>vertex,<sp/>EngineShader*<sp/>fragment,<sp/>EngineShader*<sp/>geometry);</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>engineDeleteProgram(EngineContext*<sp/>ctx);</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>engineUseShader(EngineContext*<sp/>ctx);</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>engineSetFloat(EngineContext*<sp/>ctx,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>name,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>value);</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>engineSetInteger(EngineContext*<sp/>ctx,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>name,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>value);</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>engineSetVector2f(EngineContext*<sp/>ctx,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>name,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>y);</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>engineSetVector2fv(EngineContext*<sp/>ctx,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>name,<sp/>vec2<sp/>value);</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>engineSetVector3f(EngineContext*<sp/>ctx,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>name,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>y,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>z);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>engineSetVector3fv(EngineContext*<sp/>ctx,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>name,<sp/>vec3<sp/>value);</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>engineSetVector4f(EngineContext*<sp/>ctx,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>name,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>y,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>z,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>w);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>engineSetVector4fv(EngineContext*<sp/>ctx,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>name,<sp/>vec4<sp/>value);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>engineSetMatrix4fv(EngineContext*<sp/>ctx,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>name,<sp/>mat4<sp/>value);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">//<sp/>SHADER_H</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="engine_shaders.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,202 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.16.1" xml:lang="en-US">
+  <compounddef id="engine__renderer_8c" kind="file" language="C++">
+    <compoundname>engine_renderer.c</compoundname>
+    <includes refid="engine__renderer_8h" local="yes">engine_renderer.h</includes>
+    <includes refid="engine__buffers_8h" local="yes">engine_buffers.h</includes>
+    <includes refid="engine__shaders_8h" local="yes">engine_shaders.h</includes>
+    <includes refid="engine__textures_8h" local="yes">engine_textures.h</includes>
+    <includes refid="engine__entity_8h" local="yes">engine_entity.h</includes>
+    <includes local="no">cglm/cglm.h</includes>
+    <incdepgraph>
+      <node id="6">
+        <label>engine_buffers.h</label>
+        <link refid="engine__buffers_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>engine_defs.h</label>
+        <link refid="engine__defs_8h_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>engine_entity.h</label>
+        <link refid="engine__entity_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>engine_renderer.c</label>
+        <link refid="engine__renderer_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>engine_renderer.h</label>
+        <link refid="engine__renderer_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>engine_shaders.h</label>
+        <link refid="engine__shaders_8h_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>engine_textures.h</label>
+        <link refid="engine__textures_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>GLFW/glfw3.h</label>
+      </node>
+      <node id="9">
+        <label>cglm/cglm.h</label>
+      </node>
+      <node id="4">
+        <label>glad/glad.h</label>
+      </node>
+      <node id="7">
+        <label>stdlib.h</label>
+      </node>
+    </incdepgraph>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="engine__renderer_8c_1a445f2f7ef02e21f24eea5c870b8301aa" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void getModelMatrix</definition>
+        <argsstring>(vec2 pos, vec2 size, float rotation, mat4 model)</argsstring>
+        <name>getModelMatrix</name>
+        <param>
+          <type>vec2</type>
+          <declname>pos</declname>
+        </param>
+        <param>
+          <type>vec2</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>rotation</declname>
+        </param>
+        <param>
+          <type>mat4</type>
+          <declname>model</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_renderer.c" line="10" column="20" bodyfile="engine_renderer.c" bodystart="10" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="function" id="engine__renderer_8c_1a65b56465738a5f22dbc6b86f773cc5be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void engineRenderEntity</definition>
+        <argsstring>(EngineContext *ctx, EngineEntityKey key)</argsstring>
+        <name>engineRenderEntity</name>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>EngineEntityKey</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+<para>render a single entity to the window. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The context </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>key</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A valid entity key with the renderer component </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_renderer.c" line="19" column="6" bodyfile="engine_renderer.c" bodystart="19" bodyend="38"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;engine_renderer.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;engine_buffers.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;engine_shaders.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;engine_textures.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;engine_entity.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cglm/cglm.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>getModelMatrix(vec2<sp/>pos,<sp/>vec2<sp/>size,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>rotation,<sp/>mat4<sp/>model)</highlight></codeline>
+<codeline lineno="11"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/>glm_translate(model,<sp/>(vec3)<sp/>{<sp/>pos[0],<sp/>pos[1],<sp/>0.0f<sp/>});<sp/></highlight><highlight class="comment">//<sp/>move<sp/>to<sp/>world<sp/>position</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/>glm_translate(model,<sp/>(vec3)<sp/>{<sp/>0.5f<sp/>*<sp/>size[0],<sp/>0.5f<sp/>*<sp/>size[1],<sp/>0.0f<sp/>});<sp/></highlight><highlight class="comment">//<sp/>move<sp/>origin<sp/>to<sp/>center<sp/>of<sp/>quad</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/>glm_rotate(model,<sp/>glm_rad(rotation),<sp/>(vec3)<sp/>{<sp/>0.0f,<sp/>0.0f,<sp/>1.0f<sp/>});<sp/></highlight><highlight class="comment">//<sp/>rotate<sp/>over<sp/>z-axis</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/>glm_translate(model,<sp/>(vec3)<sp/>{<sp/>-0.5f<sp/>*<sp/>size[0],<sp/>-0.5f<sp/>*<sp/>size[1],<sp/>0.0f<sp/>});<sp/></highlight><highlight class="comment">//<sp/>reset<sp/>origin</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>glm_scale(model,<sp/>(vec3)<sp/>{<sp/>size[0],<sp/>size[1],<sp/>1.0f<sp/>});<sp/></highlight><highlight class="comment">//<sp/>scale<sp/>up<sp/>to<sp/>width,height</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>engineRenderEntity(EngineContext*<sp/>ctx,<sp/>EngineEntityKey<sp/>key)</highlight></codeline>
+<codeline lineno="20"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/>mat4<sp/>model;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>EngineEntity*<sp/>ent<sp/>=<sp/>engineGetEntity(ctx,<sp/>key);</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/>assert(ent<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>glm_mat4_identity(model);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/>engineUseShader(ctx);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/>getModelMatrix((vec2)<sp/>{<sp/>ent-&gt;x,<sp/>ent-&gt;y<sp/>},<sp/>(vec2)<sp/>{<sp/>ent-&gt;width,<sp/>ent-&gt;height<sp/>},<sp/>0.0f,<sp/>model);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>engineSetMatrix4fv(ctx,<sp/></highlight><highlight class="stringliteral">&quot;model&quot;</highlight><highlight class="normal">,<sp/>model);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/>glActiveTexture(GL_TEXTURE0);</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/>engineBindTexture(ctx,<sp/>ent-&gt;texkey);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/>assert(glIsVertexArray(ctx-&gt;vao)<sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/>engineBindVAO(ctx-&gt;vao);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>glDrawArrays(GL_TRIANGLES,<sp/>0,<sp/>6);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/>engineBindVAO(0);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="engine_renderer.c"/>
+  </compounddef>
+</doxygen>

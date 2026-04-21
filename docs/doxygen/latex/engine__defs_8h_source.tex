@@ -1,0 +1,117 @@
+\doxysection{engine\+\_\+defs.\+h}
+\hypertarget{engine__defs_8h_source}{}\label{engine__defs_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00001}00001\ \textcolor{preprocessor}{\#ifndef\ ENGINE\_DEFS\_H}}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00002}00002\ \textcolor{preprocessor}{\#define\ ENGINE\_DEFS\_H}}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <glad/glad.h>}}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <GLFW/glfw3.h>}}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00007}00007\ \textcolor{preprocessor}{\#define\ ENGINE\_MAX\_TEXTURES\ \ \ \ \ 1024}}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00008}00008\ \textcolor{preprocessor}{\#define\ ENGINE\_MAX\_ENTITIES\ \ \ \ \ 0xFFFF}}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00009}00009\ \textcolor{preprocessor}{\#define\ ENGINE\_MAX\_COMPONENTS\ \ \ 0x10}}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00010}00010\ \textcolor{preprocessor}{\#define\ ENGINE\_NUM\_KEYS\ \ \ \ \ \ \ \ \ 1024}}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00012}00012\ \textcolor{preprocessor}{\#define\ ENGINE\_MISSING\_TEXTURE\_KEY\ ENGINE\_MAX\_TEXTURES-\/1}}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00014}00014\ \textcolor{preprocessor}{\#define\ MAKE\_ENT\_PAIR(k,pos,sz,tk)\ deprecated\ DO\ NOT\ USE.}}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00016}00016\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ EBOOL;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00017}00017\ \textcolor{preprocessor}{\#define\ ETRUE\ 1}}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00018}00018\ \textcolor{preprocessor}{\#define\ EFALSE\ 0}}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00020}00020\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ EngineShader;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00021}00021\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ EngineProgram;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00023}00023\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ EngineTextureKey;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00024}00024\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ EngineEntityKey;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00026}00026\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ EngineComponentID;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00028}00028\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ gamestate\ GameState;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00030}00030\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structengine__context}{engine\_context}}\ EngineContext;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00031}00031\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structengine__component}{engine\_component}}\ EngineComponent;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00032}00032\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structengine__entity}{engine\_entity}}\ EngineEntity;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00034}00034\ \textcolor{keyword}{typedef}\ void\ (*EngineComponentFunc)(EngineEntity*,EngineContext*,float);}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00036}00036\ \textcolor{preprocessor}{\#define\ EKEY\_ESCAPE\ \ \ \ \ GLFW\_KEY\_ESCAPE}}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00037}00037\ \textcolor{preprocessor}{\#define\ EKEY\_W\ \ \ \ \ \ \ \ \ \ GLFW\_KEY\_W}}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00038}00038\ \textcolor{preprocessor}{\#define\ EKEY\_S\ \ \ \ \ \ \ \ \ \ GLFW\_KEY\_S}}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00039}00039\ \textcolor{preprocessor}{\#define\ EKEY\_A\ \ \ \ \ \ \ \ \ \ GLFW\_KEY\_A}}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00040}00040\ \textcolor{preprocessor}{\#define\ EKEY\_D\ \ \ \ \ \ \ \ \ \ GLFW\_KEY\_D}}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00041}00041\ \textcolor{preprocessor}{\#define\ EKEY\_UP\ \ \ \ \ \ \ \ \ GLFW\_KEY\_UP}}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00042}00042\ \textcolor{preprocessor}{\#define\ EKEY\_DOWN\ \ \ \ \ \ \ GLFW\_KEY\_DOWN}}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00043}00043\ \textcolor{preprocessor}{\#define\ EKEY\_RIGHT\ \ \ \ \ \ GLFW\_KEY\_RIGHT}}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00044}00044\ \textcolor{preprocessor}{\#define\ EKEY\_LEFT\ \ \ \ \ \ \ GLFW\_KEY\_LEFT}}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00046}00046\ \textcolor{comment}{//\ offsets\ the\ component\ ptr\ by\ the\ values\ assigned\ by\ the\ compiler}}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00053}00053\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ component\_type\ \{}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00054}00054\ \ \ \ \ ENGINE\_COMPONENT\_RENDERER,\ \ \ \ \ \ \textcolor{comment}{//\ 0}}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00055}00055\ \ \ \ \ ENGINE\_COMPONENT\_TICK,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 1}}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00056}00056\ \ \ \ \ ENGINE\_COMPONENT\_CONTROLLER,\ \ \ \ \textcolor{comment}{//\ ...}}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00057}00057\ \}\ EngineComponentType;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00062}\doxymbox{\hyperlink{structwindow__config}{00062}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structwindow__config}{window\_config}}\ \{}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00063}00063\ \ \ \ \ \textcolor{keywordtype}{char}*\ title;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00064}00064\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ width,\ height;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00065}00065\ \ \ \ \ EBOOL\ resizable,\ doublebuffer;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00066}00066\ \}\ WindowConfig;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00071}\doxymbox{\hyperlink{structengine__texture}{00071}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structengine__texture}{engine\_texture}}\ \{}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00072}00072\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ id;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00073}00073\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ width,\ height;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00074}00074\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ internalformat;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00075}00075\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ imageformat;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00076}00076\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ wraps,\ wrapt;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00077}00077\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ filtermax,\ filtermin;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00078}00078\ \}\ EngineTexture;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00083}\doxymbox{\hyperlink{structengine__texture__pair}{00083}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structengine__texture__pair}{engine\_texture\_pair}}\ \{}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00084}00084\ \ \ \ \ EngineTextureKey\ key;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00085}00085\ \ \ \ \ EngineTexture*\ value;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00086}00086\ \}\ EngineTexturePair;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00091}\doxymbox{\hyperlink{structengine__entity}{00091}}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structengine__entity}{engine\_entity}}\ \{}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00092}00092\ \ \ \ \ \textcolor{keywordtype}{float}\ x,\ y;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00093}00093\ \ \ \ \ \textcolor{keywordtype}{float}\ width,\ height;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00094}00094\ \ \ \ \ EngineEntityKey\ key;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00095}00095\ \ \ \ \ EngineTextureKey\ texkey;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00096}00096\ \ \ \ \ EngineComponent*\ components;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00097}00097\ \};}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00102}\doxymbox{\hyperlink{structengine__component}{00102}}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structengine__component}{engine\_component}}\ \{}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00103}00103\ \ \ \ \ EngineComponentID\ id;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00104}00104\ \ \ \ \ EngineComponentType\ type;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00105}00105\ \ \ \ \ EngineComponentFunc\ func;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00106}00106\ \};}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00111}\doxymbox{\hyperlink{structlinklist}{00111}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structlinklist}{linklist}}\ \{}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00112}00112\ \ \ \ \ \textcolor{keywordtype}{char}*\ lista;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00113}00113\ \ \ \ \ \textcolor{keywordtype}{char}*\ listb;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00114}00114\ }
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00115}00115\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ typesize;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00116}00116\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ arrsize;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00117}00117\ }
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00118}00118\ \ \ \ \ EBOOL\ aalloc;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00119}00119\ \ \ \ \ EBOOL\ balloc;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00120}00120\ \}\ EngineLinkedList;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00121}00121\ }
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00125}\doxymbox{\hyperlink{structengine__context}{00125}}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structengine__context}{engine\_context}}\ \{}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00126}00126\ \ \ \ \ GLFWwindow*\ window;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00127}00127\ }
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00128}00128\ \ \ \ \ EngineTexturePair\ textures[ENGINE\_MAX\_TEXTURES];}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00129}00129\ \ \ \ \ EngineEntity\ entities[ENGINE\_MAX\_ENTITIES];}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00130}00130\ \ \ \ \ EBOOL\ keys[ENGINE\_NUM\_KEYS];}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00131}00131\ }
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00132}00132\ \ \ \ \ EngineProgram\ program;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00133}00133\ }
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00134}00134\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ vao;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00135}00135\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ ntextures,\ nentities;}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00136}00136\ \};}
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00137}00137\ }
+\DoxyCodeLine{\Hypertarget{engine__defs_8h_source_l00138}00138\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ENGINE\_DEFS\_H}}
+
+\end{DoxyCode}

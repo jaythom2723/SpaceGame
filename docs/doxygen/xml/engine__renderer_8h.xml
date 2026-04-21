@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.16.1" xml:lang="en-US">
+  <compounddef id="engine__renderer_8h" kind="file" language="C++">
+    <compoundname>engine_renderer.h</compoundname>
+    <includes refid="engine__defs_8h" local="yes">engine_defs.h</includes>
+    <includedby refid="engine__component__funcs_8c" local="yes">engine_component_funcs.c</includedby>
+    <includedby refid="engine__renderer_8c" local="yes">engine_renderer.c</includedby>
+    <includedby refid="game_8c" local="yes">game.c</includedby>
+    <incdepgraph>
+      <node id="2">
+        <label>engine_defs.h</label>
+        <link refid="engine__defs_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>engine_renderer.h</label>
+        <link refid="engine__renderer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>GLFW/glfw3.h</label>
+      </node>
+      <node id="3">
+        <label>glad/glad.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>engine_component_funcs.c</label>
+        <link refid="engine__component__funcs_8c_source"/>
+      </node>
+      <node id="3">
+        <label>engine_renderer.c</label>
+        <link refid="engine__renderer_8c_source"/>
+      </node>
+      <node id="1">
+        <label>engine_renderer.h</label>
+        <link refid="engine__renderer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>game.c</label>
+        <link refid="game_8c_source"/>
+      </node>
+    </invincdepgraph>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="engine__renderer_8h_1a65b56465738a5f22dbc6b86f773cc5be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void engineRenderEntity</definition>
+        <argsstring>(EngineContext *ctx, EngineEntityKey key)</argsstring>
+        <name>engineRenderEntity</name>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>EngineEntityKey</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+<para>render a single entity to the window. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The context </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>key</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A valid entity key with the renderer component </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_renderer.h" line="13" column="6" bodyfile="engine_renderer.c" bodystart="19" bodyend="38" declfile="engine_renderer.h" declline="13" declcolumn="6"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>ENGINE_RENDERER_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ENGINE_RENDERER_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;engine_defs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">//<sp/>TODO:<sp/>refactor<sp/>so<sp/>that<sp/>this<sp/>takes<sp/>in<sp/>an<sp/>EngineEntity*<sp/>instead<sp/>of<sp/>a<sp/>key</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>engineRenderEntity(EngineContext*<sp/>ctx,<sp/>EngineEntityKey<sp/>key);</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">//<sp/>ENGINE_RENDERER_H</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="engine_renderer.h"/>
+  </compounddef>
+</doxygen>

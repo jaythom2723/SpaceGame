@@ -1,0 +1,66 @@
+.TH "SpaceGame/engine_buffers.c" 3 "Version 0.1.0" "Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SpaceGame/engine_buffers.c
+.SH SYNOPSIS
+.br
+.PP
+\fR#include 'engine_buffers\&.h'\fP
+.br
+\fR#include <glad/glad\&.h>\fP
+.br
+\fR#include <stdarg\&.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBengineCreateVAO\fP (unsigned int *vao)"
+.br
+.ti -1c
+.RI "void \fBengineCreateVBO\fP (unsigned int *vbo)"
+.br
+.ti -1c
+.RI "void \fBengineDeleteVAO\fP (unsigned int *vao)"
+.br
+.ti -1c
+.RI "void \fBengineDeleteVBO\fP (unsigned int *vbo)"
+.br
+.ti -1c
+.RI "void \fBengineInitVBOVAOPair\fP (\fBEngineContext\fP *ctx, size_t vertBytes, float *\fBvertices\fP)"
+.br
+.ti -1c
+.RI "void \fBengineBindVAO\fP (unsigned int vao)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "void engineBindVAO (unsigned int vao)"
+
+.PP
+Definition at line \fB58\fP of file \fBengine_buffers\&.c\fP\&.
+.SS "void engineCreateVAO (unsigned int * vao)"
+
+.PP
+Definition at line \fB17\fP of file \fBengine_buffers\&.c\fP\&.
+.SS "void engineCreateVBO (unsigned int * vbo)"
+
+.PP
+Definition at line \fB22\fP of file \fBengine_buffers\&.c\fP\&.
+.SS "void engineDeleteVAO (unsigned int * vao)"
+
+.PP
+Definition at line \fB27\fP of file \fBengine_buffers\&.c\fP\&.
+.SS "void engineDeleteVBO (unsigned int * vbo)"
+
+.PP
+Definition at line \fB33\fP of file \fBengine_buffers\&.c\fP\&.
+.SS "void engineInitVBOVAOPair (\fBEngineContext\fP * ctx, size_t vertBytes, float * vertices)"
+
+.PP
+Definition at line \fB39\fP of file \fBengine_buffers\&.c\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Engine from the source code\&.

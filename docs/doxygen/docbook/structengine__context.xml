@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_structengine__context" xml:lang="en-US">
+<title>engine_context Struct Reference</title>
+<indexterm><primary>engine_context</primary></indexterm>
+<para>
+
+<para>The engine itself, nothing can function without this being initialized! </para>
+ 
+</para>
+<para>
+<computeroutput>#include &lt;engine_defs.h&gt;</computeroutput>
+</para>
+<simplesect>
+    <title>Data Fields    </title>
+        <itemizedlist>
+            <listitem><para>GLFWwindow * <link linkend="_structengine__context_1a80de27bd7dc4e2b2ad3d5895b97a70f0">window</link></para>
+</listitem>
+            <listitem><para>EngineTexturePair <link linkend="_structengine__context_1a7c97b3627dcbbdb79d9272f6f7006cbb">textures</link> [ENGINE_MAX_TEXTURES]</para>
+</listitem>
+            <listitem><para>EngineEntity <link linkend="_structengine__context_1a86b86cb368e95cfdfa80fc423972b50c">entities</link> [ENGINE_MAX_ENTITIES]</para>
+</listitem>
+            <listitem><para>EBOOL <link linkend="_structengine__context_1af51d2cd04b7f1f01d9c5b62f3f70e98d">keys</link> [ENGINE_NUM_KEYS]</para>
+</listitem>
+            <listitem><para>EngineProgram <link linkend="_structengine__context_1a39cd3fdd6f4ed8c61ab51e8db52044a9">program</link></para>
+</listitem>
+            <listitem><para>unsigned int <link linkend="_structengine__context_1a66af7003e38e6bc4336b96bbda1fe29a">vao</link></para>
+</listitem>
+            <listitem><para>unsigned int <link linkend="_structengine__context_1a3832d3906a9d9d6b26256fa302a67b2f">ntextures</link></para>
+</listitem>
+            <listitem><para>unsigned int <link linkend="_structengine__context_1a09e1c512ef421db69ab67653d987666b">nentities</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>The engine itself, nothing can function without this being initialized! </para>
+<para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00125">125</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<section>
+<title>Field Documentation</title>
+<anchor xml:id="_structengine__context_1a86b86cb368e95cfdfa80fc423972b50c"/><section>
+    <title>entities</title>
+<indexterm><primary>entities</primary><secondary>engine_context</secondary></indexterm>
+<indexterm><primary>engine_context</primary><secondary>entities</secondary></indexterm>
+<para><computeroutput>EngineEntity entities[ENGINE_MAX_ENTITIES]</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00129">129</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_structengine__context_1af51d2cd04b7f1f01d9c5b62f3f70e98d"/><section>
+    <title>keys</title>
+<indexterm><primary>keys</primary><secondary>engine_context</secondary></indexterm>
+<indexterm><primary>engine_context</primary><secondary>keys</secondary></indexterm>
+<para><computeroutput>EBOOL keys[ENGINE_NUM_KEYS]</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00130">130</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_structengine__context_1a09e1c512ef421db69ab67653d987666b"/><section>
+    <title>nentities</title>
+<indexterm><primary>nentities</primary><secondary>engine_context</secondary></indexterm>
+<indexterm><primary>engine_context</primary><secondary>nentities</secondary></indexterm>
+<para><computeroutput>unsigned int nentities</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00135">135</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_structengine__context_1a3832d3906a9d9d6b26256fa302a67b2f"/><section>
+    <title>ntextures</title>
+<indexterm><primary>ntextures</primary><secondary>engine_context</secondary></indexterm>
+<indexterm><primary>engine_context</primary><secondary>ntextures</secondary></indexterm>
+<para><computeroutput>unsigned int ntextures</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00135">135</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_structengine__context_1a39cd3fdd6f4ed8c61ab51e8db52044a9"/><section>
+    <title>program</title>
+<indexterm><primary>program</primary><secondary>engine_context</secondary></indexterm>
+<indexterm><primary>engine_context</primary><secondary>program</secondary></indexterm>
+<para><computeroutput>EngineProgram program</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00132">132</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_structengine__context_1a7c97b3627dcbbdb79d9272f6f7006cbb"/><section>
+    <title>textures</title>
+<indexterm><primary>textures</primary><secondary>engine_context</secondary></indexterm>
+<indexterm><primary>engine_context</primary><secondary>textures</secondary></indexterm>
+<para><computeroutput>EngineTexturePair textures[ENGINE_MAX_TEXTURES]</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00128">128</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_structengine__context_1a66af7003e38e6bc4336b96bbda1fe29a"/><section>
+    <title>vao</title>
+<indexterm><primary>vao</primary><secondary>engine_context</secondary></indexterm>
+<indexterm><primary>engine_context</primary><secondary>vao</secondary></indexterm>
+<para><computeroutput>unsigned int vao</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00134">134</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_structengine__context_1a80de27bd7dc4e2b2ad3d5895b97a70f0"/><section>
+    <title>window</title>
+<indexterm><primary>window</primary><secondary>engine_context</secondary></indexterm>
+<indexterm><primary>engine_context</primary><secondary>window</secondary></indexterm>
+<para><computeroutput>GLFWwindow* window</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00126">126</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<para>
+The documentation for this struct was generated from the following file:</para>
+engine_defs.h</section>
+</section>

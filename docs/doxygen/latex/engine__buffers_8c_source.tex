@@ -1,0 +1,66 @@
+\doxysection{engine\+\_\+buffers.\+c}
+\hypertarget{engine__buffers_8c_source}{}\label{engine__buffers_8c_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}engine\_buffers.h"{}}}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <glad/glad.h>}}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <stdarg.h>}}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00007}00007\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ engineInitVertexAttribArrays(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00008}00008\ \{}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00009}00009\ \ \ \ \ glVertexAttribPointer(0,\ 2,\ GL\_FLOAT,\ GL\_FALSE,\ 7\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{float}),\ (\textcolor{keywordtype}{void}*)0);}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00010}00010\ \ \ \ \ glVertexAttribPointer(1,\ 3,\ GL\_FLOAT,\ GL\_FALSE,\ 7\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{float}),\ (\textcolor{keywordtype}{void}*)(2\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{float})));}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00011}00011\ \ \ \ \ glVertexAttribPointer(2,\ 2,\ GL\_FLOAT,\ GL\_FALSE,\ 7\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{float}),\ (\textcolor{keywordtype}{void}*)(5\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{float})));}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00012}00012\ \ \ \ \ glEnableVertexAttribArray(0);}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00013}00013\ \ \ \ \ glEnableVertexAttribArray(1);}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00014}00014\ \ \ \ \ glEnableVertexAttribArray(2);}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00015}00015\ \}}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00017}00017\ \textcolor{keywordtype}{void}\ engineCreateVAO(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}*\ vao)}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00018}00018\ \{}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00019}00019\ \ \ \ \ glGenVertexArrays(1,\ vao);}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00020}00020\ \}}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00022}00022\ \textcolor{keywordtype}{void}\ engineCreateVBO(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}*\ vbo)}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00023}00023\ \{}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00024}00024\ \ \ \ \ glGenBuffers(1,\ vbo);}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00025}00025\ \}}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00027}00027\ \textcolor{keywordtype}{void}\ engineDeleteVAO(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}*\ vao)}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00028}00028\ \{}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00029}00029\ \ \ \ \ glBindVertexArray(0);}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00030}00030\ \ \ \ \ glDeleteVertexArrays(1,\ vao);}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00031}00031\ \}}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00033}00033\ \textcolor{keywordtype}{void}\ engineDeleteVBO(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}*\ vbo)}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00034}00034\ \{}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00035}00035\ \ \ \ \ glBindBuffer(GL\_ARRAY\_BUFFER,\ 0);}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00036}00036\ \ \ \ \ glDeleteVertexArrays(1,\ vbo);}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00037}00037\ \}}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00039}00039\ \textcolor{keywordtype}{void}\ engineInitVBOVAOPair(EngineContext*\ ctx,\ \textcolor{keywordtype}{size\_t}\ vertBytes,\ \textcolor{keywordtype}{float}*\ vertices)}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00040}00040\ \{}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00041}00041\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ vbo;}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00043}00043\ \ \ \ \ engineCreateVAO(\&ctx-\/>vao);}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00044}00044\ \ \ \ \ engineCreateVBO(\&vbo);}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00046}00046\ \ \ \ \ glBindBuffer(GL\_ARRAY\_BUFFER,\ vbo);}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00047}00047\ \ \ \ \ engineBindVAO(ctx-\/>vao);}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00049}00049\ \ \ \ \ glBufferData(GL\_ARRAY\_BUFFER,\ vertBytes,\ vertices,\ GL\_STATIC\_DRAW);}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00051}00051\ \ \ \ \ engineInitVertexAttribArrays();}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00053}00053\ \ \ \ \ engineBindVAO(0);}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00054}00054\ \ \ \ \ glBindBuffer(GL\_ARRAY\_BUFFER,\ 0);}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00055}00055\ \ \ \ \ glDeleteBuffers(1,\ \&vbo);}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00056}00056\ \}}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00058}00058\ \textcolor{keywordtype}{void}\ engineBindVAO(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ vao)}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00059}00059\ \{}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00060}00060\ \ \ \ \ glBindVertexArray(vao);}
+\DoxyCodeLine{\Hypertarget{engine__buffers_8c_source_l00061}00061\ \}}
+
+\end{DoxyCode}

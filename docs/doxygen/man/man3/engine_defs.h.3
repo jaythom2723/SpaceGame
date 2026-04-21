@@ -1,0 +1,301 @@
+.TH "SpaceGame/engine_defs.h" 3 "Version 0.1.0" "Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SpaceGame/engine_defs.h
+.SH SYNOPSIS
+.br
+.PP
+\fR#include <glad/glad\&.h>\fP
+.br
+\fR#include <GLFW/glfw3\&.h>\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBwindow_config\fP"
+.br
+.ti -1c
+.RI "struct \fBengine_texture\fP"
+.br
+.ti -1c
+.RI "struct \fBengine_texture_pair\fP"
+.br
+.ti -1c
+.RI "struct \fBengine_entity\fP"
+.br
+.ti -1c
+.RI "struct \fBengine_component\fP"
+.br
+.ti -1c
+.RI "struct \fBlinklist\fP"
+.br
+.ti -1c
+.RI "struct \fBengine_context\fP"
+.br
+.in -1c
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBENGINE_MAX_TEXTURES\fP   1024"
+.br
+.ti -1c
+.RI "#define \fBENGINE_MAX_ENTITIES\fP   0xFFFF"
+.br
+.ti -1c
+.RI "#define \fBENGINE_MAX_COMPONENTS\fP   0x10"
+.br
+.ti -1c
+.RI "#define \fBENGINE_NUM_KEYS\fP   1024"
+.br
+.ti -1c
+.RI "#define \fBENGINE_MISSING_TEXTURE_KEY\fP   \fBENGINE_MAX_TEXTURES\fP\-1"
+.br
+.ti -1c
+.RI "#define \fBMAKE_ENT_PAIR\fP(k,  pos,  sz,  tk)"
+.br
+.ti -1c
+.RI "#define \fBETRUE\fP   1"
+.br
+.ti -1c
+.RI "#define \fBEFALSE\fP   0"
+.br
+.ti -1c
+.RI "#define \fBEKEY_ESCAPE\fP   GLFW_KEY_ESCAPE"
+.br
+.ti -1c
+.RI "#define \fBEKEY_W\fP   GLFW_KEY_W"
+.br
+.ti -1c
+.RI "#define \fBEKEY_S\fP   GLFW_KEY_S"
+.br
+.ti -1c
+.RI "#define \fBEKEY_A\fP   GLFW_KEY_A"
+.br
+.ti -1c
+.RI "#define \fBEKEY_D\fP   GLFW_KEY_D"
+.br
+.ti -1c
+.RI "#define \fBEKEY_UP\fP   GLFW_KEY_UP"
+.br
+.ti -1c
+.RI "#define \fBEKEY_DOWN\fP   GLFW_KEY_DOWN"
+.br
+.ti -1c
+.RI "#define \fBEKEY_RIGHT\fP   GLFW_KEY_RIGHT"
+.br
+.ti -1c
+.RI "#define \fBEKEY_LEFT\fP   GLFW_KEY_LEFT"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef unsigned char \fBEBOOL\fP"
+.br
+.ti -1c
+.RI "typedef unsigned int \fBEngineShader\fP"
+.br
+.ti -1c
+.RI "typedef unsigned int \fBEngineProgram\fP"
+.br
+.ti -1c
+.RI "typedef unsigned int \fBEngineTextureKey\fP"
+.br
+.ti -1c
+.RI "typedef unsigned int \fBEngineEntityKey\fP"
+.br
+.ti -1c
+.RI "typedef unsigned int \fBEngineComponentID\fP"
+.br
+.ti -1c
+.RI "typedef enum gamestate \fBGameState\fP"
+.br
+.ti -1c
+.RI "typedef struct \fBengine_context\fP \fBEngineContext\fP"
+.br
+.ti -1c
+.RI "typedef struct \fBengine_component\fP \fBEngineComponent\fP"
+.br
+.ti -1c
+.RI "typedef struct \fBengine_entity\fP \fBEngineEntity\fP"
+.br
+.ti -1c
+.RI "typedef void(* \fBEngineComponentFunc\fP) (\fBEngineEntity\fP *, \fBEngineContext\fP *, float)"
+.br
+.ti -1c
+.RI "typedef enum \fBcomponent_type\fP \fBEngineComponentType\fP"
+.br
+.ti -1c
+.RI "typedef struct \fBwindow_config\fP \fBWindowConfig\fP"
+.br
+.ti -1c
+.RI "typedef struct \fBengine_texture\fP \fBEngineTexture\fP"
+.br
+.ti -1c
+.RI "typedef struct \fBengine_texture_pair\fP \fBEngineTexturePair\fP"
+.br
+.ti -1c
+.RI "typedef struct \fBlinklist\fP \fBEngineLinkedList\fP"
+.br
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBcomponent_type\fP { \fBENGINE_COMPONENT_RENDERER\fP, \fBENGINE_COMPONENT_TICK\fP, \fBENGINE_COMPONENT_CONTROLLER\fP }"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define EFALSE   0"
+
+.PP
+Definition at line \fB18\fP of file \fBengine_defs\&.h\fP\&.
+.SS "#define EKEY_A   GLFW_KEY_A"
+
+.PP
+Definition at line \fB39\fP of file \fBengine_defs\&.h\fP\&.
+.SS "#define EKEY_D   GLFW_KEY_D"
+
+.PP
+Definition at line \fB40\fP of file \fBengine_defs\&.h\fP\&.
+.SS "#define EKEY_DOWN   GLFW_KEY_DOWN"
+
+.PP
+Definition at line \fB42\fP of file \fBengine_defs\&.h\fP\&.
+.SS "#define EKEY_ESCAPE   GLFW_KEY_ESCAPE"
+
+.PP
+Definition at line \fB36\fP of file \fBengine_defs\&.h\fP\&.
+.SS "#define EKEY_LEFT   GLFW_KEY_LEFT"
+
+.PP
+Definition at line \fB44\fP of file \fBengine_defs\&.h\fP\&.
+.SS "#define EKEY_RIGHT   GLFW_KEY_RIGHT"
+
+.PP
+Definition at line \fB43\fP of file \fBengine_defs\&.h\fP\&.
+.SS "#define EKEY_S   GLFW_KEY_S"
+
+.PP
+Definition at line \fB38\fP of file \fBengine_defs\&.h\fP\&.
+.SS "#define EKEY_UP   GLFW_KEY_UP"
+
+.PP
+Definition at line \fB41\fP of file \fBengine_defs\&.h\fP\&.
+.SS "#define EKEY_W   GLFW_KEY_W"
+
+.PP
+Definition at line \fB37\fP of file \fBengine_defs\&.h\fP\&.
+.SS "#define ENGINE_MAX_COMPONENTS   0x10"
+
+.PP
+Definition at line \fB9\fP of file \fBengine_defs\&.h\fP\&.
+.SS "#define ENGINE_MAX_ENTITIES   0xFFFF"
+
+.PP
+Definition at line \fB8\fP of file \fBengine_defs\&.h\fP\&.
+.SS "#define ENGINE_MAX_TEXTURES   1024"
+
+.PP
+Definition at line \fB7\fP of file \fBengine_defs\&.h\fP\&.
+.SS "#define ENGINE_MISSING_TEXTURE_KEY   \fBENGINE_MAX_TEXTURES\fP\-1"
+
+.PP
+Definition at line \fB12\fP of file \fBengine_defs\&.h\fP\&.
+.SS "#define ENGINE_NUM_KEYS   1024"
+
+.PP
+Definition at line \fB10\fP of file \fBengine_defs\&.h\fP\&.
+.SS "#define ETRUE   1"
+
+.PP
+Definition at line \fB17\fP of file \fBengine_defs\&.h\fP\&.
+.SS "#define MAKE_ENT_PAIR( k,  pos,  sz,  tk)"
+\fBValue:\fP
+.nf
+deprecated DO NOT USE\&.
+.PP
+.fi
+
+.PP
+Definition at line \fB14\fP of file \fBengine_defs\&.h\fP\&.
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef unsigned char \fBEBOOL\fP"
+
+.PP
+Definition at line \fB16\fP of file \fBengine_defs\&.h\fP\&.
+.SS "typedef struct \fBengine_component\fP \fBEngineComponent\fP"
+
+.PP
+Definition at line \fB31\fP of file \fBengine_defs\&.h\fP\&.
+.SS "typedef void(* EngineComponentFunc) (\fBEngineEntity\fP *, \fBEngineContext\fP *, float)"
+
+.PP
+Definition at line \fB34\fP of file \fBengine_defs\&.h\fP\&.
+.SS "typedef unsigned int \fBEngineComponentID\fP"
+
+.PP
+Definition at line \fB26\fP of file \fBengine_defs\&.h\fP\&.
+.SS "typedef enum \fBcomponent_type\fP \fBEngineComponentType\fP"
+
+.SS "typedef struct \fBengine_context\fP \fBEngineContext\fP"
+
+.PP
+Definition at line \fB30\fP of file \fBengine_defs\&.h\fP\&.
+.SS "typedef struct \fBengine_entity\fP \fBEngineEntity\fP"
+
+.PP
+Definition at line \fB32\fP of file \fBengine_defs\&.h\fP\&.
+.SS "typedef unsigned int \fBEngineEntityKey\fP"
+
+.PP
+Definition at line \fB24\fP of file \fBengine_defs\&.h\fP\&.
+.SS "typedef struct \fBlinklist\fP \fBEngineLinkedList\fP"
+
+.SS "typedef unsigned int \fBEngineProgram\fP"
+
+.PP
+Definition at line \fB21\fP of file \fBengine_defs\&.h\fP\&.
+.SS "typedef unsigned int \fBEngineShader\fP"
+
+.PP
+Definition at line \fB20\fP of file \fBengine_defs\&.h\fP\&.
+.SS "typedef struct \fBengine_texture\fP \fBEngineTexture\fP"
+
+.SS "typedef unsigned int \fBEngineTextureKey\fP"
+
+.PP
+Definition at line \fB23\fP of file \fBengine_defs\&.h\fP\&.
+.SS "typedef struct \fBengine_texture_pair\fP \fBEngineTexturePair\fP"
+
+.SS "typedef enum gamestate \fBGameState\fP"
+
+.PP
+Definition at line \fB28\fP of file \fBengine_defs\&.h\fP\&.
+.SS "typedef struct \fBwindow_config\fP \fBWindowConfig\fP"
+
+.SH "Enumeration Type Documentation"
+.PP 
+.SS "enum \fBcomponent_type\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIENGINE_COMPONENT_RENDERER \fP
+.TP
+\f(BIENGINE_COMPONENT_TICK \fP
+.TP
+\f(BIENGINE_COMPONENT_CONTROLLER \fP
+.PP
+Definition at line \fB47\fP of file \fBengine_defs\&.h\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Engine from the source code\&.

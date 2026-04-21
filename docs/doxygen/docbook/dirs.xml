@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_dirs" xml:lang="en-US">
+<title>Directories</title>
+
+<para>SpaceGame </para>
+
+<para>engine.c </para>
+
+<para>engine.h </para>
+
+<para>engine_buffers.c </para>
+
+<para>engine_buffers.h </para>
+
+<para>engine_component_funcs.c </para>
+
+<para>engine_components.c </para>
+
+<para>engine_components.h </para>
+
+<para>engine_defs.h </para>
+
+<para>engine_entity.c </para>
+
+<para>engine_entity.h </para>
+
+<para>engine_renderer.c </para>
+
+<para>engine_renderer.h </para>
+
+<para>engine_shaders.c </para>
+
+<para>engine_shaders.h </para>
+
+<para>engine_textures.c </para>
+
+<para>engine_textures.h </para>
+
+<para>engine_utils.c </para>
+
+<para>engine_utils.h </para>
+
+<para>game.c </para>
+
+<para>glad.c </para>
+</section>

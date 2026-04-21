@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_structengine__component" xml:lang="en-US">
+<title>engine_component Struct Reference</title>
+<indexterm><primary>engine_component</primary></indexterm>
+<para>
+
+<para>A component used for the functionality of entities. </para>
+ 
+</para>
+<para>
+<computeroutput>#include &lt;engine_defs.h&gt;</computeroutput>
+</para>
+<simplesect>
+    <title>Data Fields    </title>
+        <itemizedlist>
+            <listitem><para>EngineComponentID <link linkend="_structengine__component_1af2c3dd551fefa0ebc1b2b500163c909e">id</link></para>
+</listitem>
+            <listitem><para>EngineComponentType <link linkend="_structengine__component_1ab86acc4a82254a171ccd754c2eeceb66">type</link></para>
+</listitem>
+            <listitem><para>EngineComponentFunc <link linkend="_structengine__component_1a43889ec0ffc5ef90aef568fc40f872da">func</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>A component used for the functionality of entities. </para>
+<para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00102">102</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<section>
+<title>Field Documentation</title>
+<anchor xml:id="_structengine__component_1a43889ec0ffc5ef90aef568fc40f872da"/><section>
+    <title>func</title>
+<indexterm><primary>func</primary><secondary>engine_component</secondary></indexterm>
+<indexterm><primary>engine_component</primary><secondary>func</secondary></indexterm>
+<para><computeroutput>EngineComponentFunc func</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00105">105</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_structengine__component_1af2c3dd551fefa0ebc1b2b500163c909e"/><section>
+    <title>id</title>
+<indexterm><primary>id</primary><secondary>engine_component</secondary></indexterm>
+<indexterm><primary>engine_component</primary><secondary>id</secondary></indexterm>
+<para><computeroutput>EngineComponentID id</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00103">103</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_structengine__component_1ab86acc4a82254a171ccd754c2eeceb66"/><section>
+    <title>type</title>
+<indexterm><primary>type</primary><secondary>engine_component</secondary></indexterm>
+<indexterm><primary>engine_component</primary><secondary>type</secondary></indexterm>
+<para><computeroutput>EngineComponentType type</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00104">104</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<para>
+The documentation for this struct was generated from the following file:</para>
+engine_defs.h</section>
+</section>

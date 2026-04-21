@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_engine__defs_8h_source" xml:lang="en-US">
+<title>engine_defs.h</title>
+<programlisting linenumbering="unnumbered"><anchor xml:id="_engine__defs_8h_source_1l00001"/>00001 <emphasis role="preprocessor">#ifndef&#32;ENGINE_DEFS_H</emphasis>
+<anchor xml:id="_engine__defs_8h_source_1l00002"/>00002 <emphasis role="preprocessor">#define&#32;ENGINE_DEFS_H</emphasis>
+<anchor xml:id="_engine__defs_8h_source_1l00003"/>00003 
+<anchor xml:id="_engine__defs_8h_source_1l00004"/>00004 <emphasis role="preprocessor">#include&#32;&lt;glad/glad.h&gt;</emphasis>
+<anchor xml:id="_engine__defs_8h_source_1l00005"/>00005 <emphasis role="preprocessor">#include&#32;&lt;GLFW/glfw3.h&gt;</emphasis>
+<anchor xml:id="_engine__defs_8h_source_1l00006"/>00006 
+<anchor xml:id="_engine__defs_8h_source_1l00007"/>00007 <emphasis role="preprocessor">#define&#32;ENGINE_MAX_TEXTURES&#32;&#32;&#32;&#32;&#32;1024</emphasis>
+<anchor xml:id="_engine__defs_8h_source_1l00008"/>00008 <emphasis role="preprocessor">#define&#32;ENGINE_MAX_ENTITIES&#32;&#32;&#32;&#32;&#32;0xFFFF</emphasis>
+<anchor xml:id="_engine__defs_8h_source_1l00009"/>00009 <emphasis role="preprocessor">#define&#32;ENGINE_MAX_COMPONENTS&#32;&#32;&#32;0x10</emphasis>
+<anchor xml:id="_engine__defs_8h_source_1l00010"/>00010 <emphasis role="preprocessor">#define&#32;ENGINE_NUM_KEYS&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;1024</emphasis>
+<anchor xml:id="_engine__defs_8h_source_1l00011"/>00011 
+<anchor xml:id="_engine__defs_8h_source_1l00012"/>00012 <emphasis role="preprocessor">#define&#32;ENGINE_MISSING_TEXTURE_KEY&#32;ENGINE_MAX_TEXTURES-1</emphasis>
+<anchor xml:id="_engine__defs_8h_source_1l00013"/>00013 
+<anchor xml:id="_engine__defs_8h_source_1l00014"/>00014 <emphasis role="preprocessor">#define&#32;MAKE_ENT_PAIR(k,pos,sz,tk)&#32;deprecated&#32;DO&#32;NOT&#32;USE.</emphasis>
+<anchor xml:id="_engine__defs_8h_source_1l00015"/>00015 
+<anchor xml:id="_engine__defs_8h_source_1l00016"/>00016 <emphasis role="keyword">typedef</emphasis>&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;EBOOL;
+<anchor xml:id="_engine__defs_8h_source_1l00017"/>00017 <emphasis role="preprocessor">#define&#32;ETRUE&#32;1</emphasis>
+<anchor xml:id="_engine__defs_8h_source_1l00018"/>00018 <emphasis role="preprocessor">#define&#32;EFALSE&#32;0</emphasis>
+<anchor xml:id="_engine__defs_8h_source_1l00019"/>00019 
+<anchor xml:id="_engine__defs_8h_source_1l00020"/>00020 <emphasis role="keyword">typedef</emphasis>&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;EngineShader;
+<anchor xml:id="_engine__defs_8h_source_1l00021"/>00021 <emphasis role="keyword">typedef</emphasis>&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;EngineProgram;
+<anchor xml:id="_engine__defs_8h_source_1l00022"/>00022 
+<anchor xml:id="_engine__defs_8h_source_1l00023"/>00023 <emphasis role="keyword">typedef</emphasis>&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;EngineTextureKey;
+<anchor xml:id="_engine__defs_8h_source_1l00024"/>00024 <emphasis role="keyword">typedef</emphasis>&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;EngineEntityKey;
+<anchor xml:id="_engine__defs_8h_source_1l00025"/>00025 
+<anchor xml:id="_engine__defs_8h_source_1l00026"/>00026 <emphasis role="keyword">typedef</emphasis>&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;EngineComponentID;
+<anchor xml:id="_engine__defs_8h_source_1l00027"/>00027 
+<anchor xml:id="_engine__defs_8h_source_1l00028"/>00028 <emphasis role="keyword">typedef</emphasis>&#32;<emphasis role="keyword">enum</emphasis>&#32;gamestate&#32;GameState;
+<anchor xml:id="_engine__defs_8h_source_1l00029"/>00029 
+<anchor xml:id="_engine__defs_8h_source_1l00030"/>00030 <emphasis role="keyword">typedef</emphasis>&#32;<emphasis role="keyword">struct&#32;</emphasis><link linkend="_structengine__context">engine_context</link>&#32;EngineContext;
+<anchor xml:id="_engine__defs_8h_source_1l00031"/>00031 <emphasis role="keyword">typedef</emphasis>&#32;<emphasis role="keyword">struct&#32;</emphasis><link linkend="_structengine__component">engine_component</link>&#32;EngineComponent;
+<anchor xml:id="_engine__defs_8h_source_1l00032"/>00032 <emphasis role="keyword">typedef</emphasis>&#32;<emphasis role="keyword">struct&#32;</emphasis><link linkend="_structengine__entity">engine_entity</link>&#32;EngineEntity;
+<anchor xml:id="_engine__defs_8h_source_1l00033"/>00033 
+<anchor xml:id="_engine__defs_8h_source_1l00034"/>00034 <emphasis role="keyword">typedef</emphasis>&#32;void&#32;(*EngineComponentFunc)(EngineEntity*,EngineContext*,float);
+<anchor xml:id="_engine__defs_8h_source_1l00035"/>00035 
+<anchor xml:id="_engine__defs_8h_source_1l00036"/>00036 <emphasis role="preprocessor">#define&#32;EKEY_ESCAPE&#32;&#32;&#32;&#32;&#32;GLFW_KEY_ESCAPE</emphasis>
+<anchor xml:id="_engine__defs_8h_source_1l00037"/>00037 <emphasis role="preprocessor">#define&#32;EKEY_W&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;GLFW_KEY_W</emphasis>
+<anchor xml:id="_engine__defs_8h_source_1l00038"/>00038 <emphasis role="preprocessor">#define&#32;EKEY_S&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;GLFW_KEY_S</emphasis>
+<anchor xml:id="_engine__defs_8h_source_1l00039"/>00039 <emphasis role="preprocessor">#define&#32;EKEY_A&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;GLFW_KEY_A</emphasis>
+<anchor xml:id="_engine__defs_8h_source_1l00040"/>00040 <emphasis role="preprocessor">#define&#32;EKEY_D&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;GLFW_KEY_D</emphasis>
+<anchor xml:id="_engine__defs_8h_source_1l00041"/>00041 <emphasis role="preprocessor">#define&#32;EKEY_UP&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;GLFW_KEY_UP</emphasis>
+<anchor xml:id="_engine__defs_8h_source_1l00042"/>00042 <emphasis role="preprocessor">#define&#32;EKEY_DOWN&#32;&#32;&#32;&#32;&#32;&#32;&#32;GLFW_KEY_DOWN</emphasis>
+<anchor xml:id="_engine__defs_8h_source_1l00043"/>00043 <emphasis role="preprocessor">#define&#32;EKEY_RIGHT&#32;&#32;&#32;&#32;&#32;&#32;GLFW_KEY_RIGHT</emphasis>
+<anchor xml:id="_engine__defs_8h_source_1l00044"/>00044 <emphasis role="preprocessor">#define&#32;EKEY_LEFT&#32;&#32;&#32;&#32;&#32;&#32;&#32;GLFW_KEY_LEFT</emphasis>
+<anchor xml:id="_engine__defs_8h_source_1l00045"/>00045 
+<anchor xml:id="_engine__defs_8h_source_1l00046"/>00046 <emphasis role="comment">//&#32;offsets&#32;the&#32;component&#32;ptr&#32;by&#32;the&#32;values&#32;assigned&#32;by&#32;the&#32;compiler</emphasis>
+<anchor xml:id="_engine__defs_8h_source_1l00047"/>00047 
+<anchor xml:id="_engine__defs_8h_source_1l00053"/>00053 <emphasis role="keyword">typedef</emphasis>&#32;<emphasis role="keyword">enum</emphasis>&#32;component_type&#32;{
+<anchor xml:id="_engine__defs_8h_source_1l00054"/>00054 &#32;&#32;&#32;&#32;ENGINE_COMPONENT_RENDERER,&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;0</emphasis>
+<anchor xml:id="_engine__defs_8h_source_1l00055"/>00055 &#32;&#32;&#32;&#32;ENGINE_COMPONENT_TICK,&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;1</emphasis>
+<anchor xml:id="_engine__defs_8h_source_1l00056"/>00056 &#32;&#32;&#32;&#32;ENGINE_COMPONENT_CONTROLLER,&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;...</emphasis>
+<anchor xml:id="_engine__defs_8h_source_1l00057"/>00057 }&#32;EngineComponentType;
+<anchor xml:id="_engine__defs_8h_source_1l00058"/>00058 
+<anchor xml:id="_engine__defs_8h_source_1l00062"/><link linkend="_structwindow__config">00062</link> <emphasis role="keyword">typedef</emphasis>&#32;<emphasis role="keyword">struct&#32;</emphasis><link linkend="_structwindow__config">window_config</link>&#32;{
+<anchor xml:id="_engine__defs_8h_source_1l00063"/>00063 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">char</emphasis>*&#32;title;
+<anchor xml:id="_engine__defs_8h_source_1l00064"/>00064 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;width,&#32;height;
+<anchor xml:id="_engine__defs_8h_source_1l00065"/>00065 &#32;&#32;&#32;&#32;EBOOL&#32;resizable,&#32;doublebuffer;
+<anchor xml:id="_engine__defs_8h_source_1l00066"/>00066 }&#32;WindowConfig;
+<anchor xml:id="_engine__defs_8h_source_1l00067"/>00067 
+<anchor xml:id="_engine__defs_8h_source_1l00071"/><link linkend="_structengine__texture">00071</link> <emphasis role="keyword">typedef</emphasis>&#32;<emphasis role="keyword">struct&#32;</emphasis><link linkend="_structengine__texture">engine_texture</link>&#32;{
+<anchor xml:id="_engine__defs_8h_source_1l00072"/>00072 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;id;
+<anchor xml:id="_engine__defs_8h_source_1l00073"/>00073 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;width,&#32;height;
+<anchor xml:id="_engine__defs_8h_source_1l00074"/>00074 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;internalformat;
+<anchor xml:id="_engine__defs_8h_source_1l00075"/>00075 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;imageformat;
+<anchor xml:id="_engine__defs_8h_source_1l00076"/>00076 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;wraps,&#32;wrapt;
+<anchor xml:id="_engine__defs_8h_source_1l00077"/>00077 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;filtermax,&#32;filtermin;
+<anchor xml:id="_engine__defs_8h_source_1l00078"/>00078 }&#32;EngineTexture;
+<anchor xml:id="_engine__defs_8h_source_1l00079"/>00079 
+<anchor xml:id="_engine__defs_8h_source_1l00083"/><link linkend="_structengine__texture__pair">00083</link> <emphasis role="keyword">typedef</emphasis>&#32;<emphasis role="keyword">struct&#32;</emphasis><link linkend="_structengine__texture__pair">engine_texture_pair</link>&#32;{
+<anchor xml:id="_engine__defs_8h_source_1l00084"/>00084 &#32;&#32;&#32;&#32;EngineTextureKey&#32;key;
+<anchor xml:id="_engine__defs_8h_source_1l00085"/>00085 &#32;&#32;&#32;&#32;EngineTexture*&#32;value;
+<anchor xml:id="_engine__defs_8h_source_1l00086"/>00086 }&#32;EngineTexturePair;
+<anchor xml:id="_engine__defs_8h_source_1l00087"/>00087 
+<anchor xml:id="_engine__defs_8h_source_1l00091"/><link linkend="_structengine__entity">00091</link> <emphasis role="keyword">struct&#32;</emphasis><link linkend="_structengine__entity">engine_entity</link>&#32;{
+<anchor xml:id="_engine__defs_8h_source_1l00092"/>00092 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">float</emphasis>&#32;x,&#32;y;
+<anchor xml:id="_engine__defs_8h_source_1l00093"/>00093 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">float</emphasis>&#32;width,&#32;height;
+<anchor xml:id="_engine__defs_8h_source_1l00094"/>00094 &#32;&#32;&#32;&#32;EngineEntityKey&#32;key;
+<anchor xml:id="_engine__defs_8h_source_1l00095"/>00095 &#32;&#32;&#32;&#32;EngineTextureKey&#32;texkey;
+<anchor xml:id="_engine__defs_8h_source_1l00096"/>00096 &#32;&#32;&#32;&#32;EngineComponent*&#32;components;
+<anchor xml:id="_engine__defs_8h_source_1l00097"/>00097 };
+<anchor xml:id="_engine__defs_8h_source_1l00098"/>00098 
+<anchor xml:id="_engine__defs_8h_source_1l00102"/><link linkend="_structengine__component">00102</link> <emphasis role="keyword">struct&#32;</emphasis><link linkend="_structengine__component">engine_component</link>&#32;{
+<anchor xml:id="_engine__defs_8h_source_1l00103"/>00103 &#32;&#32;&#32;&#32;EngineComponentID&#32;id;
+<anchor xml:id="_engine__defs_8h_source_1l00104"/>00104 &#32;&#32;&#32;&#32;EngineComponentType&#32;type;
+<anchor xml:id="_engine__defs_8h_source_1l00105"/>00105 &#32;&#32;&#32;&#32;EngineComponentFunc&#32;func;
+<anchor xml:id="_engine__defs_8h_source_1l00106"/>00106 };
+<anchor xml:id="_engine__defs_8h_source_1l00107"/>00107 
+<anchor xml:id="_engine__defs_8h_source_1l00111"/><link linkend="_structlinklist">00111</link> <emphasis role="keyword">typedef</emphasis>&#32;<emphasis role="keyword">struct&#32;</emphasis><link linkend="_structlinklist">linklist</link>&#32;{
+<anchor xml:id="_engine__defs_8h_source_1l00112"/>00112 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">char</emphasis>*&#32;lista;
+<anchor xml:id="_engine__defs_8h_source_1l00113"/>00113 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">char</emphasis>*&#32;listb;
+<anchor xml:id="_engine__defs_8h_source_1l00114"/>00114 
+<anchor xml:id="_engine__defs_8h_source_1l00115"/>00115 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">size_t</emphasis>&#32;typesize;
+<anchor xml:id="_engine__defs_8h_source_1l00116"/>00116 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">size_t</emphasis>&#32;arrsize;
+<anchor xml:id="_engine__defs_8h_source_1l00117"/>00117 
+<anchor xml:id="_engine__defs_8h_source_1l00118"/>00118 &#32;&#32;&#32;&#32;EBOOL&#32;aalloc;
+<anchor xml:id="_engine__defs_8h_source_1l00119"/>00119 &#32;&#32;&#32;&#32;EBOOL&#32;balloc;
+<anchor xml:id="_engine__defs_8h_source_1l00120"/>00120 }&#32;EngineLinkedList;
+<anchor xml:id="_engine__defs_8h_source_1l00121"/>00121 
+<anchor xml:id="_engine__defs_8h_source_1l00125"/><link linkend="_structengine__context">00125</link> <emphasis role="keyword">struct&#32;</emphasis><link linkend="_structengine__context">engine_context</link>&#32;{
+<anchor xml:id="_engine__defs_8h_source_1l00126"/>00126 &#32;&#32;&#32;&#32;GLFWwindow*&#32;window;
+<anchor xml:id="_engine__defs_8h_source_1l00127"/>00127 
+<anchor xml:id="_engine__defs_8h_source_1l00128"/>00128 &#32;&#32;&#32;&#32;EngineTexturePair&#32;textures[ENGINE_MAX_TEXTURES];
+<anchor xml:id="_engine__defs_8h_source_1l00129"/>00129 &#32;&#32;&#32;&#32;EngineEntity&#32;entities[ENGINE_MAX_ENTITIES];
+<anchor xml:id="_engine__defs_8h_source_1l00130"/>00130 &#32;&#32;&#32;&#32;EBOOL&#32;keys[ENGINE_NUM_KEYS];
+<anchor xml:id="_engine__defs_8h_source_1l00131"/>00131 
+<anchor xml:id="_engine__defs_8h_source_1l00132"/>00132 &#32;&#32;&#32;&#32;EngineProgram&#32;program;
+<anchor xml:id="_engine__defs_8h_source_1l00133"/>00133 
+<anchor xml:id="_engine__defs_8h_source_1l00134"/>00134 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;vao;
+<anchor xml:id="_engine__defs_8h_source_1l00135"/>00135 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;ntextures,&#32;nentities;
+<anchor xml:id="_engine__defs_8h_source_1l00136"/>00136 };
+<anchor xml:id="_engine__defs_8h_source_1l00137"/>00137 
+<anchor xml:id="_engine__defs_8h_source_1l00138"/>00138 <emphasis role="preprocessor">#endif&#32;</emphasis><emphasis role="comment">//&#32;ENGINE_DEFS_H</emphasis>
+</programlisting></section>

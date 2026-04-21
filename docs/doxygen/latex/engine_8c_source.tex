@@ -1,0 +1,160 @@
+\doxysection{engine.\+c}
+\hypertarget{engine_8c_source}{}\label{engine_8c_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}engine.h"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00003}00003\ \textcolor{preprocessor}{\#include\ "{}engine\_shaders.h"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00004}00004\ \textcolor{preprocessor}{\#include\ "{}engine\_buffers.h"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}engine\_textures.h"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00006}00006\ \textcolor{preprocessor}{\#include\ "{}engine\_utils.h"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <cglm/cglm.h>}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00014}00014\ \textcolor{keyword}{static}\ EngineLinkedList*\ keylist\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00016}00016\ \textcolor{keywordtype}{void}\ framebuffer\_size\_callback(GLFWwindow*\ window,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height)}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00017}00017\ \{}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00018}00018\ \ \ \ \ glViewport(0,\ 0,\ width,\ height);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00019}00019\ \}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00021}00021\ \textcolor{keywordtype}{void}\ key\_callback(GLFWwindow*\ window,\ \textcolor{keywordtype}{int}\ key,\ \textcolor{keywordtype}{int}\ scancode,\ \textcolor{keywordtype}{int}\ action,\ \textcolor{keywordtype}{int}\ mode)}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00022}00022\ \{}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00023}00023\ \ \ \ \ \textcolor{keywordflow}{if}\ (key\ >=\ 0\ \&\&\ key\ <=\ ENGINE\_NUM\_KEYS)}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00024}00024\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00025}00025\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (action\ ==\ GLFW\_PRESS)}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ engineSetValue(keylist,\ key,\ ETRUE);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00027}00027\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (action\ ==\ GLFW\_RELEASE)}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ engineSetValue(keylist,\ key,\ EFALSE);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00029}00029\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00030}00030\ \}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00032}00032\ EngineContext*\ engineInit(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00033}00033\ \{}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00034}00034\ \ \ \ \ EngineContext*\ engine\ =\ malloc(\textcolor{keyword}{sizeof}(EngineContext));}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00035}00035\ \ \ \ \ \textcolor{keywordflow}{if}\ (engine\ ==\ NULL)}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00036}00036\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00037}00037\ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Failed\ to\ initialize\ the\ engine!\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00038}00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00039}00039\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00041}00041\ \ \ \ \ \textcolor{keywordflow}{if}\ (glfwInit()\ !=\ GLFW\_TRUE)}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00042}00042\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00043}00043\ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Failed\ to\ initialize\ GLFW!\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00044}00044\ \ \ \ \ \ \ \ \ engineClose(engine);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00045}00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00046}00046\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00048}00048\ \ \ \ \ \textcolor{comment}{//\ initialize\ other\ engine-\/level\ things}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00049}00049\ \ \ \ \ engine-\/>program\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00050}00050\ \ \ \ \ memset(engine-\/>textures,\ 0,\ ENGINE\_MAX\_TEXTURES\ *\ \textcolor{keyword}{sizeof}(EngineTexturePair));}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00051}00051\ \ \ \ \ engine-\/>ntextures\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00052}00052\ \ \ \ \ engine-\/>nentities\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00054}00054\ \ \ \ \ keylist\ =\ engineCreateLinkedList(engine-\/>keys,\ NULL,\ ENGINE\_NUM\_KEYS,\ \textcolor{keyword}{sizeof}(EBOOL));}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00055}00055\ \ \ \ \ assert(keylist\ !=\ NULL);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00057}00057\ \ \ \ \ \textcolor{keywordflow}{return}\ engine;}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00058}00058\ \}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00060}00060\ EBOOL\ engineCreateWindow(EngineContext*\ ctx,\ \textcolor{keyword}{const}\ WindowConfig\ config)}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00061}00061\ \{}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00062}00062\ \ \ \ \ glfwWindowHint(GLFW\_RESIZABLE,\ config.resizable);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00063}00063\ \ \ \ \ glfwWindowHint(GLFW\_DOUBLEBUFFER,\ config.doublebuffer);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00064}00064\ \ \ \ \ glfwWindowHint(GLFW\_CONTEXT\_VERSION\_MAJOR,\ 3);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00065}00065\ \ \ \ \ glfwWindowHint(GLFW\_CONTEXT\_VERSION\_MINOR,\ 3);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00066}00066\ \ \ \ \ glfwWindowHint(GLFW\_OPENGL\_PROFILE,\ GLFW\_OPENGL\_CORE\_PROFILE);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00067}00067\ \ \ \ \ ctx-\/>window\ =\ glfwCreateWindow(config.width,\ config.height,\ config.title,\ NULL,\ NULL);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00068}00068\ \ \ \ \ \textcolor{keywordflow}{if}\ (ctx-\/>window\ ==\ NULL)}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00069}00069\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00070}00070\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}*\ err;}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00071}00071\ \ \ \ \ \ \ \ \ glfwGetError(\&err);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00072}00072\ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Could\ not\ create\ a\ GLFW\ window!\(\backslash\)n\(\backslash\)t\%s\(\backslash\)n"{}},\ err);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00073}00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ EFALSE;}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00074}00074\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00076}00076\ \ \ \ \ glfwSetFramebufferSizeCallback(ctx-\/>window,\ framebuffer\_size\_callback);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00077}00077\ \ \ \ \ glfwSetKeyCallback(ctx-\/>window,\ key\_callback);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00079}00079\ \ \ \ \ glfwMakeContextCurrent(ctx-\/>window);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00080}00080\ \ \ \ \ \textcolor{keywordflow}{if}\ (gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)\ !=\ ETRUE)}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00081}00081\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00082}00082\ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Could\ not\ initialize\ GLAD!\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00083}00083\ \ \ \ \ \ \ \ \ engineClose(ctx);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00084}00084\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ EFALSE;}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00085}00085\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00087}00087\ \ \ \ \ \textcolor{keywordflow}{return}\ ETRUE;}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00088}00088\ \}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00090}00090\ \textcolor{keywordtype}{void}\ engineClose(EngineContext*\ ctx)}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00091}00091\ \{}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00092}00092\ \ \ \ \ \textcolor{keywordflow}{if}\ (glIsProgram(ctx-\/>program))}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00093}00093\ \ \ \ \ \ \ \ \ engineDeleteProgram(ctx);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00094}00094\ \ \ \ \ \textcolor{keywordflow}{if}\ (ctx-\/>window\ !=\ NULL)}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00095}00095\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00096}00096\ \ \ \ \ \ \ \ \ glfwDestroyWindow(ctx-\/>window);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00097}00097\ \ \ \ \ \ \ \ \ glfwTerminate();}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00098}00098\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00099}00099\ \ \ \ \ free(ctx);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00100}00100\ \ \ \ \ ctx\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00101}00101\ \}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00103}00103\ \textcolor{comment}{//\ matrix\ linear-\/algebra\ bullshit}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00104}00104\ \textcolor{comment}{//\ this\ shit\ is\ retarded,\ but\ opengl\ needs\ it\ for\ proper\ rendering}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00105}00105\ \textcolor{comment}{//\ woohoo}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00106}00106\ \textcolor{keywordtype}{void}\ engineInitProjectionMatrix(EngineContext*\ ctx)}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00107}00107\ \{}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00108}00108\ \ \ \ \ \textcolor{keywordtype}{int}\ width,\ height;}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00109}00109\ \ \ \ \ glfwGetWindowSize(ctx-\/>window,\ \&width,\ \&height);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00110}00110\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00111}00111\ \ \ \ \ mat4\ projection;}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00112}00112\ \ \ \ \ glm\_ortho(0.0f,\ (\textcolor{keywordtype}{float})width,\ (\textcolor{keywordtype}{float})height,\ 0.0f,\ -\/1.0f,\ 1.0f,\ projection);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00114}00114\ \ \ \ \ engineUseShader(ctx);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00115}00115\ \ \ \ \ engineSetMatrix4fv(ctx,\ \textcolor{stringliteral}{"{}projection"{}},\ projection);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00116}00116\ \ \ \ \ engineSetInteger(ctx,\ \textcolor{stringliteral}{"{}image"{}},\ 0);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00117}00117\ \}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00119}00119\ \textcolor{comment}{//\ glfw\ wrapper\ functions}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00120}00120\ EBOOL\ engineWindowShouldClose(EngineContext*\ ctx)}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00121}00121\ \{}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00122}00122\ \ \ \ \ \textcolor{keywordflow}{return}\ glfwWindowShouldClose(ctx-\/>window);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00123}00123\ \}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00124}00124\ }
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00125}00125\ \textcolor{keywordtype}{void}\ engineSetWindowClose(EngineContext*\ ctx,\ EBOOL\ value)}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00126}00126\ \{}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00127}00127\ \ \ \ \ glfwSetWindowShouldClose(ctx-\/>window,\ value);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00128}00128\ \}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00129}00129\ }
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00130}00130\ \textcolor{keywordtype}{void}\ engineWindowPollEvents(EngineContext*\ ctx)}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00131}00131\ \{}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00132}00132\ \ \ \ \ glfwPollEvents();}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00133}00133\ \ \ \ \ engineGetValues(keylist,\ ctx-\/>keys,\ NULL);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00134}00134\ \}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00135}00135\ }
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00136}00136\ \textcolor{keywordtype}{void}\ engineWindowSwapBuffers(EngineContext*\ ctx)}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00137}00137\ \{}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00138}00138\ \ \ \ \ glfwSwapBuffers(ctx-\/>window);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00139}00139\ \}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00140}00140\ }
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00141}00141\ \textcolor{keywordtype}{void}\ engineWindowGetSize(EngineContext*\ ctx,\ \textcolor{keywordtype}{int}*\ width,\ \textcolor{keywordtype}{int}*\ height)}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00142}00142\ \{}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00143}00143\ \ \ \ \ glfwGetWindowSize(ctx-\/>window,\ width,\ height);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00144}00144\ \}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00145}00145\ }
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00146}00146\ \textcolor{comment}{//\ opengl\ wrapper\ functions}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00147}00147\ \textcolor{keywordtype}{void}\ engineSetClearColor(\textcolor{keywordtype}{float}\ r,\ \textcolor{keywordtype}{float}\ g,\ \textcolor{keywordtype}{float}\ b,\ \textcolor{keywordtype}{float}\ a)}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00148}00148\ \{}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00149}00149\ \ \ \ \ glClearColor(r,\ g,\ b,\ a);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00150}00150\ \}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00151}00151\ }
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00152}00152\ \textcolor{keywordtype}{void}\ engineClear(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00153}00153\ \{}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00154}00154\ \ \ \ \ glClear(GL\_COLOR\_BUFFER\_BIT);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00155}00155\ \}}
+
+\end{DoxyCode}

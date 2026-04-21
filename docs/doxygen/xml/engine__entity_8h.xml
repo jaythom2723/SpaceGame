@@ -1,0 +1,227 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.16.1" xml:lang="en-US">
+  <compounddef id="engine__entity_8h" kind="file" language="C++">
+    <compoundname>engine_entity.h</compoundname>
+    <includes refid="engine__defs_8h" local="yes">engine_defs.h</includes>
+    <includes local="no">cglm/cglm.h</includes>
+    <includedby refid="engine__components_8c" local="yes">engine_components.c</includedby>
+    <includedby refid="engine__entity_8c" local="yes">engine_entity.c</includedby>
+    <includedby refid="engine__renderer_8c" local="yes">engine_renderer.c</includedby>
+    <includedby refid="game_8c" local="yes">game.c</includedby>
+    <incdepgraph>
+      <node id="2">
+        <label>engine_defs.h</label>
+        <link refid="engine__defs_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>engine_entity.h</label>
+        <link refid="engine__entity_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>GLFW/glfw3.h</label>
+      </node>
+      <node id="5">
+        <label>cglm/cglm.h</label>
+      </node>
+      <node id="3">
+        <label>glad/glad.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>engine_components.c</label>
+        <link refid="engine__components_8c_source"/>
+      </node>
+      <node id="3">
+        <label>engine_entity.c</label>
+        <link refid="engine__entity_8c_source"/>
+      </node>
+      <node id="1">
+        <label>engine_entity.h</label>
+        <link refid="engine__entity_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>engine_renderer.c</label>
+        <link refid="engine__renderer_8c_source"/>
+      </node>
+      <node id="5">
+        <label>game.c</label>
+        <link refid="game_8c_source"/>
+      </node>
+    </invincdepgraph>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="engine__entity_8h_1ad4e07e2847c44dd22a5cb64411bfefa4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const EBOOL</type>
+        <definition>const EBOOL engineCreateEntity</definition>
+        <argsstring>(EngineContext *ctx, vec2 pos, vec2 size, const EngineEntityKey key, const EngineTextureKey texkey)</argsstring>
+        <name>engineCreateEntity</name>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>vec2</type>
+          <declname>pos</declname>
+        </param>
+        <param>
+          <type>vec2</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>const EngineEntityKey</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>const EngineTextureKey</type>
+          <declname>texkey</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_entity.h" line="8" column="13" bodyfile="engine_entity.c" bodystart="8" bodyend="25" declfile="engine_entity.h" declline="8" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="function" id="engine__entity_8h_1aa89fb9bc57d6c8b13ffd27ecc7719f2b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void engineDestroyAllEntities</definition>
+        <argsstring>(EngineContext *ctx)</argsstring>
+        <name>engineDestroyAllEntities</name>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_entity.h" line="10" column="6" bodyfile="engine_entity.c" bodystart="27" bodyend="43" declfile="engine_entity.h" declline="10" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="engine__entity_8h_1a78ecfdab06a416fc4dd7f3b472f39d97" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void engineDestroyEntity</definition>
+        <argsstring>(EngineContext *ctx, EngineEntityKey key)</argsstring>
+        <name>engineDestroyEntity</name>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>EngineEntityKey</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_entity.h" line="11" column="6" bodyfile="engine_entity.c" bodystart="45" bodyend="57" declfile="engine_entity.h" declline="11" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="engine__entity_8h_1a0e89c1ee1567ce508a24c2d3143b2c23" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>EngineEntity *</type>
+        <definition>EngineEntity * engineGetEntity</definition>
+        <argsstring>(EngineContext *ctx, EngineEntityKey key)</argsstring>
+        <name>engineGetEntity</name>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>EngineEntityKey</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_entity.h" line="13" column="14" bodyfile="engine_entity.c" bodystart="59" bodyend="70" declfile="engine_entity.h" declline="13" declcolumn="14"/>
+      </memberdef>
+      <memberdef kind="function" id="engine__entity_8h_1a56c022fa95d201dea95966432db663f3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void engineInitEntityComponentList</definition>
+        <argsstring>(EngineEntity *ent)</argsstring>
+        <name>engineInitEntityComponentList</name>
+        <param>
+          <type>EngineEntity *</type>
+          <declname>ent</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_entity.h" line="15" column="6" bodyfile="engine_entity.c" bodystart="72" bodyend="86" declfile="engine_entity.h" declline="15" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="engine__entity_8h_1ae484ed871cbb72035f2575eb9f4f0c1c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void engineProcessEntities</definition>
+        <argsstring>(EngineContext *ctx, float deltaTime)</argsstring>
+        <name>engineProcessEntities</name>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>deltaTime</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_entity.h" line="17" column="6" bodyfile="engine_entity.c" bodystart="88" bodyend="106" declfile="engine_entity.h" declline="17" declcolumn="6"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>ENGINE_ENTITY_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ENGINE_ENTITY_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;engine_defs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cglm/cglm.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>EBOOL<sp/>engineCreateEntity(EngineContext*<sp/>ctx,<sp/>vec2<sp/>pos,<sp/>vec2<sp/>size,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>EngineEntityKey<sp/>key,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>EngineTextureKey<sp/>texkey);</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>engineDestroyAllEntities(EngineContext*<sp/>ctx);</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>engineDestroyEntity(EngineContext*<sp/>ctx,<sp/>EngineEntityKey<sp/>key);</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal">EngineEntity*<sp/>engineGetEntity(EngineContext*<sp/>ctx,<sp/>EngineEntityKey<sp/>key);</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>engineInitEntityComponentList(EngineEntity*<sp/>ent);</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>engineProcessEntities(EngineContext*<sp/>ctx,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>deltaTime);</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">//<sp/>ENGINE_ENTITY_H</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="engine_entity.h"/>
+  </compounddef>
+</doxygen>

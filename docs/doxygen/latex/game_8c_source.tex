@@ -1,0 +1,135 @@
+\doxysection{game.\+c}
+\hypertarget{game_8c_source}{}\label{game_8c_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}engine.h"{}}}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00002}00002\ \textcolor{preprocessor}{\#include\ "{}engine\_shaders.h"{}}}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00003}00003\ \textcolor{preprocessor}{\#include\ "{}engine\_buffers.h"{}}}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00004}00004\ \textcolor{preprocessor}{\#include\ "{}engine\_textures.h"{}}}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}engine\_entity.h"{}}}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00006}00006\ \textcolor{preprocessor}{\#include\ "{}engine\_renderer.h"{}}}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00007}00007\ \textcolor{preprocessor}{\#include\ "{}engine\_components.h"{}}}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}engine\_utils.h"{}}}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00012}00012\ \textcolor{keywordtype}{float}\ vertices[]\ =\ \{}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00013}00013\ \ \ \ \ \textcolor{comment}{//\ pos\ \ \ \ \ \ \ \ \ \ color\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tex}}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00014}00014\ \ \ \ \ 0.0f,\ 1.0f,\ \ \ \ \ 1.0f,\ 1.0f,\ 1.0f,\ \ \ 0.0f,\ 1.0f,}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00015}00015\ \ \ \ \ 1.0f,\ 0.0f,\ \ \ \ \ 1.0f,\ 1.0f,\ 1.0f,\ \ \ 1.0f,\ 0.0f,}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00016}00016\ \ \ \ \ 0.0f,\ 0.0f,\ \ \ \ \ 1.0f,\ 1.0f,\ 1.0f,\ \ \ 0.0f,\ 0.0f,}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00017}00017\ \ \ \ \ 0.0f,\ 1.0f,\ \ \ \ \ 1.0f,\ 1.0f,\ 1.0f,\ \ \ 0.0f,\ 1.0f,}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00018}00018\ \ \ \ \ 1.0f,\ 1.0f,\ \ \ \ \ 1.0f,\ 1.0f,\ 1.0f,\ \ \ 1.0f,\ 1.0f,}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00019}00019\ \ \ \ \ 1.0f,\ 0.0f,\ \ \ \ \ 1.0f,\ 1.0f,\ 1.0f,\ \ \ 1.0f,\ 0.0f,}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00020}00020\ \};}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00022}00022\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ init(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00023}00023\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ load(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00025}00025\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ input\_controller(EngineEntity*\ ent,\ EngineContext*\ ctx,\ \textcolor{keywordtype}{float}\ deltaTime);}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00027}00027\ \textcolor{keyword}{static}\ EngineContext*\ ctx\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00029}00029\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ DBG\_PLANET\_TEXTURE\_KEY\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00030}00030\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ DBG\_PLANET\_ENTITY\_KEY\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00032}00032\ \textcolor{keywordtype}{int}\ main(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00033}00033\ \{}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00034}00034\ \ \ \ \ init();}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00035}00035\ \ \ \ \ \textcolor{keywordflow}{if}\ (ctx\ ==\ NULL)}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00036}00036\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/2;}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00039}00039\ \ \ \ \ load();}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00041}00041\ \ \ \ \ \textcolor{keywordtype}{int}\ winwidth,\ winheight;}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00042}00042\ \ \ \ \ engineWindowGetSize(ctx,\ \&winwidth,\ \&winheight);}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00044}00044\ \ \ \ \ vec2\ size\ =\ \{\ 32,\ 32\ \};}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00045}00045\ \ \ \ \ vec2\ pos\ =\ \{\ winwidth\ /\ 2\ -\/\ size[0]\ /\ 2,\ winheight\ /\ 2\ -\/\ size[1]\ /\ 2\ \};}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00046}00046\ \ \ \ \ engineCreateEntity(ctx,\ pos,\ size,\ DBG\_PLANET\_ENTITY\_KEY,\ DBG\_PLANET\_TEXTURE\_KEY);}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00047}00047\ \ \ \ \ engineAddComponent(ctx,\ DBG\_PLANET\_ENTITY\_KEY,\ ENGINE\_COMPONENT\_RENDERER);}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00049}00049\ \ \ \ \ \textcolor{keywordtype}{float}\ oldtime\ =\ 0.0f;}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00050}00050\ \ \ \ \ \textcolor{keywordtype}{float}\ time\ =\ 0.0f;}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00051}00051\ \ \ \ \ \textcolor{keywordtype}{float}\ deltaTime\ =\ 0.0f;}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00053}00053\ \ \ \ \ \textcolor{keywordflow}{while}\ (!engineWindowShouldClose(ctx))}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00054}00054\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00055}00055\ \ \ \ \ \ \ \ \ engineWindowPollEvents(ctx);}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00057}00057\ \ \ \ \ \ \ \ \ time\ =\ (float)glfwGetTime();}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00058}00058\ \ \ \ \ \ \ \ \ deltaTime\ =\ time\ -\/\ oldtime;}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00059}00059\ \ \ \ \ \ \ \ \ oldtime\ =\ time;}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00061}00061\ \ \ \ \ \ \ \ \ engineSetClearColor(0.0f,\ 0.0f,\ 0.0f,\ 1.0f);}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00062}00062\ \ \ \ \ \ \ \ \ engineClear();}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00064}00064\ \ \ \ \ \ \ \ \ engineProcessEntities(ctx,\ deltaTime);}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00066}00066\ \ \ \ \ \ \ \ \ engineWindowSwapBuffers(ctx);}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00067}00067\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00069}00069\ \ \ \ \ engineDestroyAllEntities(ctx);}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00070}00070\ \ \ \ \ engineDestroyAllTextures(ctx);}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00071}00071\ \ \ \ \ engineClose(ctx);}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00073}00073\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00074}00074\ \}}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00076}00076\ \textcolor{keywordtype}{void}\ init(\textcolor{keywordtype}{void})\ }
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00077}00077\ \{}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00078}00078\ \ \ \ \ ctx\ =\ engineInit();}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00079}00079\ \ \ \ \ WindowConfig\ cfg\ =\ \{}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00080}00080\ \ \ \ \ \ \ \ \ .title\ =\ \textcolor{stringliteral}{"{}Test\ Window"{}},}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00081}00081\ \ \ \ \ \ \ \ \ .width\ =\ 800,}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00082}00082\ \ \ \ \ \ \ \ \ .height\ =\ 600,}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00083}00083\ \ \ \ \ \ \ \ \ .resizable\ =\ ETRUE,}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00084}00084\ \ \ \ \ \ \ \ \ .doublebuffer\ =\ ETRUE}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00085}00085\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00087}00087\ \ \ \ \ engineCreateWindow(ctx,\ cfg);}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00089}00089\ \ \ \ \ \textcolor{comment}{//\ TODO:\ internalize?}}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00090}00090\ \ \ \ \ EngineShader\ vertex,\ fragment;}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00091}00091\ \ \ \ \ \textcolor{comment}{//\ TODO:\ wrap\ gl\ shader\ types\ to\ engine\ shader\ types}}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00092}00092\ \ \ \ \ vertex\ =\ engineCreateShader(GL\_VERTEX\_SHADER);}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00093}00093\ \ \ \ \ fragment\ =\ engineCreateShader(GL\_FRAGMENT\_SHADER);}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00094}00094\ \ \ \ \ \textcolor{keyword}{const}\ EBOOL\ a\ =\ engineCompileShader(\&vertex,\ \textcolor{stringliteral}{"{}Shaders/vertex.glsl"{}});}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00095}00095\ \ \ \ \ \textcolor{keyword}{const}\ EBOOL\ b\ =\ engineCompileShader(\&fragment,\ \textcolor{stringliteral}{"{}Shaders/fragment.glsl"{}});}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00096}00096\ \ \ \ \ \textcolor{keywordflow}{if}\ (!a\ ||\ !b)}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00097}00097\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00098}00098\ \ \ \ \ \ \ \ \ engineClose(ctx);}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00099}00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00100}00100\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00101}00101\ \ \ \ \ engineCreateProgram(ctx);}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00102}00102\ \ \ \ \ engineAttachAndLink(ctx,\ \&vertex,\ \&fragment,\ NULL);}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00104}00104\ \ \ \ \ engineInitProjectionMatrix(ctx);}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00106}00106\ \ \ \ \ engineInitVBOVAOPair(ctx,\ \textcolor{keyword}{sizeof}(vertices),\ vertices);}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00107}00107\ \}}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00109}00109\ \textcolor{keywordtype}{void}\ load(\textcolor{keywordtype}{void})\ }
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00110}00110\ \{}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00111}00111\ \ \ \ \ engineGenTextureCheckMissing(ctx,\ DBG\_PLANET\_TEXTURE\_KEY,\ \textcolor{stringliteral}{"{}Textures/planet.png"{}},\ ETRUE);}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00112}00112\ \}}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00114}00114\ \textcolor{keywordtype}{void}\ input\_controller(EngineEntity*\ ent,\ EngineContext*\ ctx,\ \textcolor{keywordtype}{float}\ deltaTime)}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00115}00115\ \{}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00116}00116\ \ \ \ \ \textcolor{keywordflow}{if}\ (ctx-\/>keys[EKEY\_ESCAPE]\ ==\ ETRUE)}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00117}00117\ \ \ \ \ \ \ \ \ engineSetWindowClose(ctx,\ ETRUE);}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00119}00119\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ DBG\_SPEED\ =\ 250.0f;}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00120}00120\ }
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00121}00121\ \ \ \ \ \textcolor{keywordflow}{if}\ (ctx-\/>keys[EKEY\_W]\ ==\ ETRUE)}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00122}00122\ \ \ \ \ \ \ \ \ ent-\/>y\ -\/=\ DBG\_SPEED\ *\ deltaTime;}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00123}00123\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (ctx-\/>keys[EKEY\_S]\ ==\ ETRUE)}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00124}00124\ \ \ \ \ \ \ \ \ ent-\/>y\ +=\ DBG\_SPEED\ *\ deltaTime;}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00125}00125\ }
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00126}00126\ \ \ \ \ \textcolor{keywordflow}{if}\ (ctx-\/>keys[EKEY\_A]\ ==\ ETRUE)}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00127}00127\ \ \ \ \ \ \ \ \ ent-\/>x\ -\/=\ DBG\_SPEED\ *\ deltaTime;}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00128}00128\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (ctx-\/>keys[EKEY\_D]\ ==\ ETRUE)}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00129}00129\ \ \ \ \ \ \ \ \ ent-\/>x\ +=\ DBG\_SPEED\ *\ deltaTime;}
+\DoxyCodeLine{\Hypertarget{game_8c_source_l00130}00130\ \}}
+
+\end{DoxyCode}

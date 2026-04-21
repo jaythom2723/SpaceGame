@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_engine__textures_8c" xml:lang="en-US">
+<title>SpaceGame/engine_textures.c File Reference</title>
+<indexterm><primary>SpaceGame/engine_textures.c</primary></indexterm>
+<programlisting linenumbering="unnumbered">#include &quot;engine_textures.h&quot;<?linebreak?>#include &lt;stdio.h&gt;<?linebreak?>#include &lt;stdlib.h&gt;<?linebreak?>#include &lt;string.h&gt;<?linebreak?>#include &lt;glad/glad.h&gt;<?linebreak?>#include &lt;stb_image/stb_image.h&gt;<?linebreak?></programlisting><simplesect>
+    <title>Macros    </title>
+        <itemizedlist>
+            <listitem><para>#define <link linkend="_engine__textures_8c_1a18372412ad2fc3ce1e3240b3cf0efe78">STB_IMAGE_IMPLEMENTATION</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>const <link linkend="_engine__defs_8h_1a4fe707fd7f0392a3c6d81cfc62f1686c">EBOOL</link> <link linkend="_engine__textures_8c_1a1b3068ca241d9b3af9d5de08ad9127f0">engineCreateTexture</link> (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *ctx, unsigned int key)</para>
+</listitem>
+            <listitem><para>const <link linkend="_engine__defs_8h_1a4fe707fd7f0392a3c6d81cfc62f1686c">EBOOL</link> <link linkend="_engine__textures_8c_1a7fe1ea4bf1edcb3a8caa0c7a22f669fc">engineGenerateTexture</link> (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *ctx, unsigned int key, const char *path, const <link linkend="_engine__defs_8h_1a4fe707fd7f0392a3c6d81cfc62f1686c">EBOOL</link> alpha)</para>
+</listitem>
+            <listitem><para>void <link linkend="_engine__textures_8c_1a34ff1219003d553114790d7353656989">engineGenTextureCheckMissing</link> (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *ctx, unsigned int key, const char *path, const <link linkend="_engine__defs_8h_1a4fe707fd7f0392a3c6d81cfc62f1686c">EBOOL</link> alpha)</para>
+</listitem>
+            <listitem><para>void <link linkend="_engine__textures_8c_1a92918b2db1f8646edfc5e0bb36cff738">engineBindTexture</link> (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *ctx, unsigned int key)</para>
+</listitem>
+            <listitem><para>void <link linkend="_engine__textures_8c_1a1efab9bd82206af0777f113350d9bfdb">engineDestroyAllTextures</link> (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *ctx)</para>
+</listitem>
+            <listitem><para>void <link linkend="_engine__textures_8c_1a4337947cab60c424f5e764da1eb18500">engineDestroyTexture</link> (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *ctx, unsigned int key)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Macro Definition Documentation</title>
+<anchor xml:id="_engine__textures_8c_1a18372412ad2fc3ce1e3240b3cf0efe78"/><section>
+    <title>STB_IMAGE_IMPLEMENTATION</title>
+<indexterm><primary>STB_IMAGE_IMPLEMENTATION</primary><secondary>engine_textures.c</secondary></indexterm>
+<indexterm><primary>engine_textures.c</primary><secondary>STB_IMAGE_IMPLEMENTATION</secondary></indexterm>
+<para><computeroutput>#define STB_IMAGE_IMPLEMENTATION</computeroutput></para><para>
+Definition at line <link linkend="_engine__textures_8c_source_1l00009">9</link> of file <link linkend="_engine__textures_8c_source">engine_textures.c</link>.</para>
+</section>
+</section>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_engine__textures_8c_1a92918b2db1f8646edfc5e0bb36cff738"/><section>
+    <title>engineBindTexture()</title>
+<indexterm><primary>engineBindTexture</primary><secondary>engine_textures.c</secondary></indexterm>
+<indexterm><primary>engine_textures.c</primary><secondary>engineBindTexture</secondary></indexterm>
+<para><computeroutput>void engineBindTexture (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx, unsigned int key)</computeroutput></para><para>
+Definition at line <link linkend="_engine__textures_8c_source_1l00122">122</link> of file <link linkend="_engine__textures_8c_source">engine_textures.c</link>.</para>
+</section>
+<anchor xml:id="_engine__textures_8c_1a1b3068ca241d9b3af9d5de08ad9127f0"/><section>
+    <title>engineCreateTexture()</title>
+<indexterm><primary>engineCreateTexture</primary><secondary>engine_textures.c</secondary></indexterm>
+<indexterm><primary>engine_textures.c</primary><secondary>engineCreateTexture</secondary></indexterm>
+<para><computeroutput>const <link linkend="_engine__defs_8h_1a4fe707fd7f0392a3c6d81cfc62f1686c">EBOOL</link> engineCreateTexture (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx, unsigned int key)</computeroutput></para><para>
+Definition at line <link linkend="_engine__textures_8c_source_1l00019">19</link> of file <link linkend="_engine__textures_8c_source">engine_textures.c</link>.</para>
+</section>
+<anchor xml:id="_engine__textures_8c_1a1efab9bd82206af0777f113350d9bfdb"/><section>
+    <title>engineDestroyAllTextures()</title>
+<indexterm><primary>engineDestroyAllTextures</primary><secondary>engine_textures.c</secondary></indexterm>
+<indexterm><primary>engine_textures.c</primary><secondary>engineDestroyAllTextures</secondary></indexterm>
+<para><computeroutput>void engineDestroyAllTextures (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx)</computeroutput></para><para>
+Definition at line <link linkend="_engine__textures_8c_source_1l00132">132</link> of file <link linkend="_engine__textures_8c_source">engine_textures.c</link>.</para>
+</section>
+<anchor xml:id="_engine__textures_8c_1a4337947cab60c424f5e764da1eb18500"/><section>
+    <title>engineDestroyTexture()</title>
+<indexterm><primary>engineDestroyTexture</primary><secondary>engine_textures.c</secondary></indexterm>
+<indexterm><primary>engine_textures.c</primary><secondary>engineDestroyTexture</secondary></indexterm>
+<para><computeroutput>void engineDestroyTexture (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx, unsigned int key)</computeroutput></para><para>
+Definition at line <link linkend="_engine__textures_8c_source_1l00151">151</link> of file <link linkend="_engine__textures_8c_source">engine_textures.c</link>.</para>
+</section>
+<anchor xml:id="_engine__textures_8c_1a7fe1ea4bf1edcb3a8caa0c7a22f669fc"/><section>
+    <title>engineGenerateTexture()</title>
+<indexterm><primary>engineGenerateTexture</primary><secondary>engine_textures.c</secondary></indexterm>
+<indexterm><primary>engine_textures.c</primary><secondary>engineGenerateTexture</secondary></indexterm>
+<para><computeroutput>const <link linkend="_engine__defs_8h_1a4fe707fd7f0392a3c6d81cfc62f1686c">EBOOL</link> engineGenerateTexture (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx, unsigned int key, const char * path, const <link linkend="_engine__defs_8h_1a4fe707fd7f0392a3c6d81cfc62f1686c">EBOOL</link> alpha)</computeroutput></para><para>
+Definition at line <link linkend="_engine__textures_8c_source_1l00062">62</link> of file <link linkend="_engine__textures_8c_source">engine_textures.c</link>.</para>
+</section>
+<anchor xml:id="_engine__textures_8c_1a34ff1219003d553114790d7353656989"/><section>
+    <title>engineGenTextureCheckMissing()</title>
+<indexterm><primary>engineGenTextureCheckMissing</primary><secondary>engine_textures.c</secondary></indexterm>
+<indexterm><primary>engine_textures.c</primary><secondary>engineGenTextureCheckMissing</secondary></indexterm>
+<para><computeroutput>void engineGenTextureCheckMissing (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx, unsigned int key, const char * path, const <link linkend="_engine__defs_8h_1a4fe707fd7f0392a3c6d81cfc62f1686c">EBOOL</link> alpha)</computeroutput></para><para>
+Definition at line <link linkend="_engine__textures_8c_source_1l00115">115</link> of file <link linkend="_engine__textures_8c_source">engine_textures.c</link>.</para>
+</section>
+</section>
+</section>

@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_engine__buffers_8c" xml:lang="en-US">
+<title>SpaceGame/engine_buffers.c File Reference</title>
+<indexterm><primary>SpaceGame/engine_buffers.c</primary></indexterm>
+<programlisting linenumbering="unnumbered">#include &quot;engine_buffers.h&quot;<?linebreak?>#include &lt;glad/glad.h&gt;<?linebreak?>#include &lt;stdarg.h&gt;<?linebreak?></programlisting><simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>void <link linkend="_engine__buffers_8c_1a87edbb8640d857e3e91af80532ced41e">engineCreateVAO</link> (unsigned int *vao)</para>
+</listitem>
+            <listitem><para>void <link linkend="_engine__buffers_8c_1a9255bf5d757456d292612a692e608f34">engineCreateVBO</link> (unsigned int *vbo)</para>
+</listitem>
+            <listitem><para>void <link linkend="_engine__buffers_8c_1ad97d4788fd62ec30e6a4032a858d6f02">engineDeleteVAO</link> (unsigned int *vao)</para>
+</listitem>
+            <listitem><para>void <link linkend="_engine__buffers_8c_1a12f7b44c4c5226a52e0ea38654751c16">engineDeleteVBO</link> (unsigned int *vbo)</para>
+</listitem>
+            <listitem><para>void <link linkend="_engine__buffers_8c_1ad0af36c6daa2c632f4dc3c3a71b51f53">engineInitVBOVAOPair</link> (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *ctx, size_t vertBytes, float *<link linkend="_game_8c_1a25986ed96a435775e363f05540a2f9c4">vertices</link>)</para>
+</listitem>
+            <listitem><para>void <link linkend="_engine__buffers_8c_1a8a3bf7c78e5878b58ca6b863017c94a7">engineBindVAO</link> (unsigned int vao)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_engine__buffers_8c_1a8a3bf7c78e5878b58ca6b863017c94a7"/><section>
+    <title>engineBindVAO()</title>
+<indexterm><primary>engineBindVAO</primary><secondary>engine_buffers.c</secondary></indexterm>
+<indexterm><primary>engine_buffers.c</primary><secondary>engineBindVAO</secondary></indexterm>
+<para><computeroutput>void engineBindVAO (unsigned int vao)</computeroutput></para><para>
+Definition at line <link linkend="_engine__buffers_8c_source_1l00058">58</link> of file <link linkend="_engine__buffers_8c_source">engine_buffers.c</link>.</para>
+</section>
+<anchor xml:id="_engine__buffers_8c_1a87edbb8640d857e3e91af80532ced41e"/><section>
+    <title>engineCreateVAO()</title>
+<indexterm><primary>engineCreateVAO</primary><secondary>engine_buffers.c</secondary></indexterm>
+<indexterm><primary>engine_buffers.c</primary><secondary>engineCreateVAO</secondary></indexterm>
+<para><computeroutput>void engineCreateVAO (unsigned int * vao)</computeroutput></para><para>
+Definition at line <link linkend="_engine__buffers_8c_source_1l00017">17</link> of file <link linkend="_engine__buffers_8c_source">engine_buffers.c</link>.</para>
+</section>
+<anchor xml:id="_engine__buffers_8c_1a9255bf5d757456d292612a692e608f34"/><section>
+    <title>engineCreateVBO()</title>
+<indexterm><primary>engineCreateVBO</primary><secondary>engine_buffers.c</secondary></indexterm>
+<indexterm><primary>engine_buffers.c</primary><secondary>engineCreateVBO</secondary></indexterm>
+<para><computeroutput>void engineCreateVBO (unsigned int * vbo)</computeroutput></para><para>
+Definition at line <link linkend="_engine__buffers_8c_source_1l00022">22</link> of file <link linkend="_engine__buffers_8c_source">engine_buffers.c</link>.</para>
+</section>
+<anchor xml:id="_engine__buffers_8c_1ad97d4788fd62ec30e6a4032a858d6f02"/><section>
+    <title>engineDeleteVAO()</title>
+<indexterm><primary>engineDeleteVAO</primary><secondary>engine_buffers.c</secondary></indexterm>
+<indexterm><primary>engine_buffers.c</primary><secondary>engineDeleteVAO</secondary></indexterm>
+<para><computeroutput>void engineDeleteVAO (unsigned int * vao)</computeroutput></para><para>
+Definition at line <link linkend="_engine__buffers_8c_source_1l00027">27</link> of file <link linkend="_engine__buffers_8c_source">engine_buffers.c</link>.</para>
+</section>
+<anchor xml:id="_engine__buffers_8c_1a12f7b44c4c5226a52e0ea38654751c16"/><section>
+    <title>engineDeleteVBO()</title>
+<indexterm><primary>engineDeleteVBO</primary><secondary>engine_buffers.c</secondary></indexterm>
+<indexterm><primary>engine_buffers.c</primary><secondary>engineDeleteVBO</secondary></indexterm>
+<para><computeroutput>void engineDeleteVBO (unsigned int * vbo)</computeroutput></para><para>
+Definition at line <link linkend="_engine__buffers_8c_source_1l00033">33</link> of file <link linkend="_engine__buffers_8c_source">engine_buffers.c</link>.</para>
+</section>
+<anchor xml:id="_engine__buffers_8c_1ad0af36c6daa2c632f4dc3c3a71b51f53"/><section>
+    <title>engineInitVBOVAOPair()</title>
+<indexterm><primary>engineInitVBOVAOPair</primary><secondary>engine_buffers.c</secondary></indexterm>
+<indexterm><primary>engine_buffers.c</primary><secondary>engineInitVBOVAOPair</secondary></indexterm>
+<para><computeroutput>void engineInitVBOVAOPair (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx, size_t vertBytes, float * vertices)</computeroutput></para><para>
+Definition at line <link linkend="_engine__buffers_8c_source_1l00039">39</link> of file <link linkend="_engine__buffers_8c_source">engine_buffers.c</link>.</para>
+</section>
+</section>
+</section>

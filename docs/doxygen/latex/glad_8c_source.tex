@@ -1,0 +1,1145 @@
+\doxysection{glad.\+c}
+\hypertarget{glad_8c_source}{}\label{glad_8c_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00001}00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00002}00002\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00003}00003\ \textcolor{comment}{\ \ \ \ OpenGL\ loader\ generated\ by\ glad\ 0.1.36\ on\ Tue\ Mar\ 31\ 01:00:31\ 2026.}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00004}00004\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00005}00005\ \textcolor{comment}{\ \ \ \ Language/Generator:\ C/C++}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00006}00006\ \textcolor{comment}{\ \ \ \ Specification:\ gl}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00007}00007\ \textcolor{comment}{\ \ \ \ APIs:\ gl=3.3}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00008}00008\ \textcolor{comment}{\ \ \ \ Profile:\ core}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00009}00009\ \textcolor{comment}{\ \ \ \ Extensions:}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00010}00010\ \textcolor{comment}{\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00011}00011\ \textcolor{comment}{\ \ \ \ Loader:\ True}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00012}00012\ \textcolor{comment}{\ \ \ \ Local\ files:\ False}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00013}00013\ \textcolor{comment}{\ \ \ \ Omit\ khrplatform:\ False}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00014}00014\ \textcolor{comment}{\ \ \ \ Reproducible:\ False}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00015}00015\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00016}00016\ \textcolor{comment}{\ \ \ \ Commandline:}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00017}00017\ \textcolor{comment}{\ \ \ \ \ \ \ \ -\/-\/profile="{}core"{}\ -\/-\/api="{}gl=3.3"{}\ -\/-\/generator="{}c"{}\ -\/-\/spec="{}gl"{}\ -\/-\/extensions="{}"{}}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00018}00018\ \textcolor{comment}{\ \ \ \ Online:}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00019}00019\ \textcolor{comment}{\ \ \ \ \ \ \ \ https://glad.dav1d.de/\#profile=core\&language=c\&specification=gl\&loader=on\&api=gl\%3D3.3}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00020}00020\ \textcolor{comment}{*/}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00022}00022\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00023}00023\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00024}00024\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00025}00025\ \textcolor{preprocessor}{\#include\ <glad/glad.h>}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00027}00027\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}*\ get\_proc(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *namez);}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00029}00029\ \textcolor{preprocessor}{\#if\ defined(\_WIN32)\ ||\ defined(\_\_CYGWIN\_\_)}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00030}00030\ \textcolor{preprocessor}{\#ifndef\ \_WINDOWS\_}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00031}00031\ \textcolor{preprocessor}{\#undef\ APIENTRY}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00032}00032\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00033}00033\ \textcolor{preprocessor}{\#include\ <windows.h>}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00034}00034\ \textcolor{keyword}{static}\ HMODULE\ libGL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00036}00036\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{void}*\ (APIENTRYP\ PFNWGLGETPROCADDRESSPROC\_PRIVATE)(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*);}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00037}00037\ \textcolor{keyword}{static}\ PFNWGLGETPROCADDRESSPROC\_PRIVATE\ gladGetProcAddressPtr;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00039}00039\ \textcolor{preprocessor}{\#ifdef\ \_MSC\_VER}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00040}00040\ \textcolor{preprocessor}{\#ifdef\ \_\_has\_include}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00041}00041\ \textcolor{preprocessor}{\ \ \#if\ \_\_has\_include(<winapifamily.h>)}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00042}00042\ \textcolor{preprocessor}{\ \ \ \ \#define\ HAVE\_WINAPIFAMILY\ 1}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00043}00043\ \textcolor{preprocessor}{\ \ \#endif}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00044}00044\ \textcolor{preprocessor}{\#elif\ \_MSC\_VER\ >=\ 1700\ \&\&\ !\_USING\_V110\_SDK71\_}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00045}00045\ \textcolor{preprocessor}{\ \ \#define\ HAVE\_WINAPIFAMILY\ 1}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00046}00046\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00047}00047\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00049}00049\ \textcolor{preprocessor}{\#ifdef\ HAVE\_WINAPIFAMILY}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00050}00050\ \textcolor{preprocessor}{\ \ \#include\ <winapifamily.h>}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00051}00051\ \textcolor{preprocessor}{\ \ \#if\ !WINAPI\_FAMILY\_PARTITION(WINAPI\_PARTITION\_DESKTOP)\ \&\&\ WINAPI\_FAMILY\_PARTITION(WINAPI\_PARTITION\_APP)}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00052}00052\ \textcolor{preprocessor}{\ \ \ \ \#define\ IS\_UWP\ 1}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00053}00053\ \textcolor{preprocessor}{\ \ \#endif}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00054}00054\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00056}00056\ \textcolor{keyword}{static}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00057}00057\ \textcolor{keywordtype}{int}\ open\_gl(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00058}00058\ \textcolor{preprocessor}{\#ifndef\ IS\_UWP}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00059}00059\ \ \ \ \ libGL\ =\ LoadLibraryW(L\textcolor{stringliteral}{"{}opengl32.dll"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00060}00060\ \ \ \ \ \textcolor{keywordflow}{if}(libGL\ !=\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00061}00061\ \ \ \ \ \ \ \ \ void\ (*\ tmp)(void);}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00062}00062\ \ \ \ \ \ \ \ \ tmp\ =\ (void(*)(void))\ GetProcAddress(libGL,\ \textcolor{stringliteral}{"{}wglGetProcAddress"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00063}00063\ \ \ \ \ \ \ \ \ gladGetProcAddressPtr\ =\ (PFNWGLGETPROCADDRESSPROC\_PRIVATE)\ tmp;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00064}00064\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ gladGetProcAddressPtr\ !=\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00065}00065\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00066}00066\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00068}00068\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00069}00069\ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00071}00071\ \textcolor{keyword}{static}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00072}00072\ \textcolor{keywordtype}{void}\ close\_gl(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00073}00073\ \ \ \ \ \textcolor{keywordflow}{if}(libGL\ !=\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00074}00074\ \ \ \ \ \ \ \ \ FreeLibrary((HMODULE)\ libGL);}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00075}00075\ \ \ \ \ \ \ \ \ libGL\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00076}00076\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00077}00077\ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00078}00078\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00079}00079\ \textcolor{preprocessor}{\#include\ <dlfcn.h>}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00080}00080\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}*\ libGL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00082}00082\ \textcolor{preprocessor}{\#if\ !defined(\_\_APPLE\_\_)\ \&\&\ !defined(\_\_HAIKU\_\_)}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00083}00083\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{void}*\ (APIENTRYP\ PFNGLXGETPROCADDRESSPROC\_PRIVATE)(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*);}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00084}00084\ \textcolor{keyword}{static}\ PFNGLXGETPROCADDRESSPROC\_PRIVATE\ gladGetProcAddressPtr;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00085}00085\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00087}00087\ \textcolor{keyword}{static}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00088}00088\ \textcolor{keywordtype}{int}\ open\_gl(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00089}00089\ \textcolor{preprocessor}{\#ifdef\ \_\_APPLE\_\_}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00090}00090\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *NAMES[]\ =\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00091}00091\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}../Frameworks/OpenGL.framework/OpenGL"{}},}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00092}00092\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}/Library/Frameworks/OpenGL.framework/OpenGL"{}},}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00093}00093\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}/System/Library/Frameworks/OpenGL.framework/OpenGL"{}},}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00094}00094\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}/System/Library/Frameworks/OpenGL.framework/Versions/Current/OpenGL"{}}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00095}00095\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00096}00096\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00097}00097\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *NAMES[]\ =\ \{\textcolor{stringliteral}{"{}libGL.so.1"{}},\ \textcolor{stringliteral}{"{}libGL.so"{}}\};}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00098}00098\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00099}00099\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00100}00100\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ index\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00101}00101\ \ \ \ \ \textcolor{keywordflow}{for}(index\ =\ 0;\ index\ <\ (\textcolor{keyword}{sizeof}(NAMES)\ /\ \textcolor{keyword}{sizeof}(NAMES[0]));\ index++)\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00102}00102\ \ \ \ \ \ \ \ \ libGL\ =\ dlopen(NAMES[index],\ RTLD\_NOW\ |\ RTLD\_GLOBAL);}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00104}00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(libGL\ !=\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00105}00105\ \textcolor{preprocessor}{\#if\ defined(\_\_APPLE\_\_)\ ||\ defined(\_\_HAIKU\_\_)}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00107}00107\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ gladGetProcAddressPtr\ =\ (PFNGLXGETPROCADDRESSPROC\_PRIVATE)dlsym(libGL,}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}glXGetProcAddressARB"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ gladGetProcAddressPtr\ !=\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00111}00111\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00112}00112\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00113}00113\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00114}00114\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00115}00115\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00116}00116\ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00117}00117\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00118}00118\ \textcolor{keyword}{static}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00119}00119\ \textcolor{keywordtype}{void}\ close\_gl(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00120}00120\ \ \ \ \ \textcolor{keywordflow}{if}(libGL\ !=\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00121}00121\ \ \ \ \ \ \ \ \ dlclose(libGL);}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00122}00122\ \ \ \ \ \ \ \ \ libGL\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00123}00123\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00124}00124\ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00125}00125\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00126}00126\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00127}00127\ \textcolor{keyword}{static}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00128}00128\ \textcolor{keywordtype}{void}*\ get\_proc(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *namez)\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00129}00129\ \ \ \ \ \textcolor{keywordtype}{void}*\ result\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00130}00130\ \ \ \ \ \textcolor{keywordflow}{if}(libGL\ ==\ NULL)\ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00131}00131\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00132}00132\ \textcolor{preprocessor}{\#if\ !defined(\_\_APPLE\_\_)\ \&\&\ !defined(\_\_HAIKU\_\_)}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00133}00133\ \ \ \ \ \textcolor{keywordflow}{if}(gladGetProcAddressPtr\ !=\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00134}00134\ \ \ \ \ \ \ \ \ result\ =\ gladGetProcAddressPtr(namez);}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00135}00135\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00136}00136\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00137}00137\ \ \ \ \ \textcolor{keywordflow}{if}(result\ ==\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00138}00138\ \textcolor{preprocessor}{\#if\ defined(\_WIN32)\ ||\ defined(\_\_CYGWIN\_\_)}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00139}00139\ \ \ \ \ \ \ \ \ result\ =\ (\textcolor{keywordtype}{void}*)GetProcAddress((HMODULE)\ libGL,\ namez);}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00140}00140\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00141}00141\ \ \ \ \ \ \ \ \ result\ =\ dlsym(libGL,\ namez);}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00142}00142\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00143}00143\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00144}00144\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00145}00145\ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00146}00146\ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00147}00147\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00148}00148\ \textcolor{keywordtype}{int}\ gladLoadGL(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00149}00149\ \ \ \ \ \textcolor{keywordtype}{int}\ status\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00150}00150\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00151}00151\ \ \ \ \ \textcolor{keywordflow}{if}(open\_gl())\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00152}00152\ \ \ \ \ \ \ \ \ status\ =\ gladLoadGLLoader(\&get\_proc);}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00153}00153\ \ \ \ \ \ \ \ \ close\_gl();}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00154}00154\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00155}00155\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00156}00156\ \ \ \ \ \textcolor{keywordflow}{return}\ status;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00157}00157\ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00158}00158\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00159}00159\ \textcolor{keyword}{struct\ }gladGLversionStruct\ GLVersion\ =\ \{\ 0,\ 0\ \};}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00160}00160\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00161}00161\ \textcolor{preprocessor}{\#if\ defined(GL\_ES\_VERSION\_3\_0)\ ||\ defined(GL\_VERSION\_3\_0)}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00162}00162\ \textcolor{preprocessor}{\#define\ \_GLAD\_IS\_SOME\_NEW\_VERSION\ 1}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00163}00163\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00164}00164\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00165}00165\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ max\_loaded\_major;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00166}00166\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ max\_loaded\_minor;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00167}00167\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00168}00168\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *exts\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00169}00169\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ num\_exts\_i\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00170}00170\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{char}\ **exts\_i\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00171}00171\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00172}00172\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ get\_exts(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00173}00173\ \textcolor{preprocessor}{\#ifdef\ \_GLAD\_IS\_SOME\_NEW\_VERSION}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00174}00174\ \ \ \ \ \textcolor{keywordflow}{if}(max\_loaded\_major\ <\ 3)\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00175}00175\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00176}00176\ \ \ \ \ \ \ \ \ exts\ =\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *)glGetString(GL\_EXTENSIONS);}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00177}00177\ \textcolor{preprocessor}{\#ifdef\ \_GLAD\_IS\_SOME\_NEW\_VERSION}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00178}00178\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00179}00179\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ index;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00180}00180\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00181}00181\ \ \ \ \ \ \ \ \ num\_exts\_i\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00182}00182\ \ \ \ \ \ \ \ \ glGetIntegerv(GL\_NUM\_EXTENSIONS,\ \&num\_exts\_i);}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00183}00183\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (num\_exts\_i\ >\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00184}00184\ \ \ \ \ \ \ \ \ \ \ \ \ exts\_i\ =\ (\textcolor{keywordtype}{char}\ **)malloc((\textcolor{keywordtype}{size\_t})num\_exts\_i\ *\ (\textcolor{keyword}{sizeof}\ *exts\_i));}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00185}00185\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00186}00186\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00187}00187\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (exts\_i\ ==\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00188}00188\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00189}00189\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00190}00190\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00191}00191\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(index\ =\ 0;\ index\ <\ num\_exts\_i;\ index++)\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00192}00192\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *gl\_str\_tmp\ =\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*)glGetStringi(GL\_EXTENSIONS,\ index);}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00193}00193\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ len\ =\ strlen(gl\_str\_tmp);}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00194}00194\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00195}00195\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *local\_str\ =\ (\textcolor{keywordtype}{char}*)malloc((len+1)\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char}));}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00196}00196\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(local\_str\ !=\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00197}00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ memcpy(local\_str,\ gl\_str\_tmp,\ (len+1)\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char}));}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00198}00198\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00199}00199\ \ \ \ \ \ \ \ \ \ \ \ \ exts\_i[index]\ =\ local\_str;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00200}00200\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00201}00201\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00202}00202\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00203}00203\ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00204}00204\ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00205}00205\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00206}00206\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ free\_exts(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00207}00207\ \ \ \ \ \textcolor{keywordflow}{if}\ (exts\_i\ !=\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00208}00208\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ index;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00209}00209\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(index\ =\ 0;\ index\ <\ num\_exts\_i;\ index++)\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00210}00210\ \ \ \ \ \ \ \ \ \ \ \ \ free((\textcolor{keywordtype}{char}\ *)exts\_i[index]);}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00211}00211\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00212}00212\ \ \ \ \ \ \ \ \ free((\textcolor{keywordtype}{void}\ *)exts\_i);}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00213}00213\ \ \ \ \ \ \ \ \ exts\_i\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00214}00214\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00215}00215\ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00216}00216\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00217}00217\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ has\_ext(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *ext)\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00218}00218\ \textcolor{preprocessor}{\#ifdef\ \_GLAD\_IS\_SOME\_NEW\_VERSION}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00219}00219\ \ \ \ \ \textcolor{keywordflow}{if}(max\_loaded\_major\ <\ 3)\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00220}00220\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00221}00221\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *extensions;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00222}00222\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *loc;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00223}00223\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *terminator;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00224}00224\ \ \ \ \ \ \ \ \ extensions\ =\ exts;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00225}00225\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(extensions\ ==\ NULL\ ||\ ext\ ==\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00226}00226\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00227}00227\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00228}00228\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00229}00229\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(1)\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00230}00230\ \ \ \ \ \ \ \ \ \ \ \ \ loc\ =\ strstr(extensions,\ ext);}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00231}00231\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(loc\ ==\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00232}00232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00233}00233\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00234}00234\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00235}00235\ \ \ \ \ \ \ \ \ \ \ \ \ terminator\ =\ loc\ +\ strlen(ext);}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00236}00236\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}((loc\ ==\ extensions\ ||\ *(loc\ -\/\ 1)\ ==\ \textcolor{charliteral}{'\ '})\ \&\&}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00237}00237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*terminator\ ==\ \textcolor{charliteral}{'\ '}\ ||\ *terminator\ ==\ \textcolor{charliteral}{'\(\backslash\)0'}))\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00238}00238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00239}00239\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00240}00240\ \ \ \ \ \ \ \ \ \ \ \ \ extensions\ =\ terminator;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00241}00241\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00242}00242\ \textcolor{preprocessor}{\#ifdef\ \_GLAD\_IS\_SOME\_NEW\_VERSION}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00243}00243\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00244}00244\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ index;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00245}00245\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(exts\_i\ ==\ NULL)\ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00246}00246\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(index\ =\ 0;\ index\ <\ num\_exts\_i;\ index++)\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00247}00247\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *e\ =\ exts\_i[index];}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00248}00248\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00249}00249\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(exts\_i[index]\ !=\ NULL\ \&\&\ strcmp(e,\ ext)\ ==\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00250}00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00251}00251\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00252}00252\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00253}00253\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00254}00254\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00255}00255\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00256}00256\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00257}00257\ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00258}00258\ \textcolor{keywordtype}{int}\ GLAD\_GL\_VERSION\_1\_0\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00259}00259\ \textcolor{keywordtype}{int}\ GLAD\_GL\_VERSION\_1\_1\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00260}00260\ \textcolor{keywordtype}{int}\ GLAD\_GL\_VERSION\_1\_2\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00261}00261\ \textcolor{keywordtype}{int}\ GLAD\_GL\_VERSION\_1\_3\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00262}00262\ \textcolor{keywordtype}{int}\ GLAD\_GL\_VERSION\_1\_4\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00263}00263\ \textcolor{keywordtype}{int}\ GLAD\_GL\_VERSION\_1\_5\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00264}00264\ \textcolor{keywordtype}{int}\ GLAD\_GL\_VERSION\_2\_0\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00265}00265\ \textcolor{keywordtype}{int}\ GLAD\_GL\_VERSION\_2\_1\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00266}00266\ \textcolor{keywordtype}{int}\ GLAD\_GL\_VERSION\_3\_0\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00267}00267\ \textcolor{keywordtype}{int}\ GLAD\_GL\_VERSION\_3\_1\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00268}00268\ \textcolor{keywordtype}{int}\ GLAD\_GL\_VERSION\_3\_2\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00269}00269\ \textcolor{keywordtype}{int}\ GLAD\_GL\_VERSION\_3\_3\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00270}00270\ PFNGLACTIVETEXTUREPROC\ glad\_glActiveTexture\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00271}00271\ PFNGLATTACHSHADERPROC\ glad\_glAttachShader\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00272}00272\ PFNGLBEGINCONDITIONALRENDERPROC\ glad\_glBeginConditionalRender\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00273}00273\ PFNGLBEGINQUERYPROC\ glad\_glBeginQuery\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00274}00274\ PFNGLBEGINTRANSFORMFEEDBACKPROC\ glad\_glBeginTransformFeedback\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00275}00275\ PFNGLBINDATTRIBLOCATIONPROC\ glad\_glBindAttribLocation\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00276}00276\ PFNGLBINDBUFFERPROC\ glad\_glBindBuffer\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00277}00277\ PFNGLBINDBUFFERBASEPROC\ glad\_glBindBufferBase\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00278}00278\ PFNGLBINDBUFFERRANGEPROC\ glad\_glBindBufferRange\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00279}00279\ PFNGLBINDFRAGDATALOCATIONPROC\ glad\_glBindFragDataLocation\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00280}00280\ PFNGLBINDFRAGDATALOCATIONINDEXEDPROC\ glad\_glBindFragDataLocationIndexed\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00281}00281\ PFNGLBINDFRAMEBUFFERPROC\ glad\_glBindFramebuffer\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00282}00282\ PFNGLBINDRENDERBUFFERPROC\ glad\_glBindRenderbuffer\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00283}00283\ PFNGLBINDSAMPLERPROC\ glad\_glBindSampler\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00284}00284\ PFNGLBINDTEXTUREPROC\ glad\_glBindTexture\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00285}00285\ PFNGLBINDVERTEXARRAYPROC\ glad\_glBindVertexArray\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00286}00286\ PFNGLBLENDCOLORPROC\ glad\_glBlendColor\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00287}00287\ PFNGLBLENDEQUATIONPROC\ glad\_glBlendEquation\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00288}00288\ PFNGLBLENDEQUATIONSEPARATEPROC\ glad\_glBlendEquationSeparate\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00289}00289\ PFNGLBLENDFUNCPROC\ glad\_glBlendFunc\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00290}00290\ PFNGLBLENDFUNCSEPARATEPROC\ glad\_glBlendFuncSeparate\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00291}00291\ PFNGLBLITFRAMEBUFFERPROC\ glad\_glBlitFramebuffer\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00292}00292\ PFNGLBUFFERDATAPROC\ glad\_glBufferData\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00293}00293\ PFNGLBUFFERSUBDATAPROC\ glad\_glBufferSubData\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00294}00294\ PFNGLCHECKFRAMEBUFFERSTATUSPROC\ glad\_glCheckFramebufferStatus\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00295}00295\ PFNGLCLAMPCOLORPROC\ glad\_glClampColor\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00296}00296\ PFNGLCLEARPROC\ glad\_glClear\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00297}00297\ PFNGLCLEARBUFFERFIPROC\ glad\_glClearBufferfi\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00298}00298\ PFNGLCLEARBUFFERFVPROC\ glad\_glClearBufferfv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00299}00299\ PFNGLCLEARBUFFERIVPROC\ glad\_glClearBufferiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00300}00300\ PFNGLCLEARBUFFERUIVPROC\ glad\_glClearBufferuiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00301}00301\ PFNGLCLEARCOLORPROC\ glad\_glClearColor\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00302}00302\ PFNGLCLEARDEPTHPROC\ glad\_glClearDepth\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00303}00303\ PFNGLCLEARSTENCILPROC\ glad\_glClearStencil\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00304}00304\ PFNGLCLIENTWAITSYNCPROC\ glad\_glClientWaitSync\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00305}00305\ PFNGLCOLORMASKPROC\ glad\_glColorMask\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00306}00306\ PFNGLCOLORMASKIPROC\ glad\_glColorMaski\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00307}00307\ PFNGLCOLORP3UIPROC\ glad\_glColorP3ui\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00308}00308\ PFNGLCOLORP3UIVPROC\ glad\_glColorP3uiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00309}00309\ PFNGLCOLORP4UIPROC\ glad\_glColorP4ui\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00310}00310\ PFNGLCOLORP4UIVPROC\ glad\_glColorP4uiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00311}00311\ PFNGLCOMPILESHADERPROC\ glad\_glCompileShader\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00312}00312\ PFNGLCOMPRESSEDTEXIMAGE1DPROC\ glad\_glCompressedTexImage1D\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00313}00313\ PFNGLCOMPRESSEDTEXIMAGE2DPROC\ glad\_glCompressedTexImage2D\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00314}00314\ PFNGLCOMPRESSEDTEXIMAGE3DPROC\ glad\_glCompressedTexImage3D\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00315}00315\ PFNGLCOMPRESSEDTEXSUBIMAGE1DPROC\ glad\_glCompressedTexSubImage1D\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00316}00316\ PFNGLCOMPRESSEDTEXSUBIMAGE2DPROC\ glad\_glCompressedTexSubImage2D\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00317}00317\ PFNGLCOMPRESSEDTEXSUBIMAGE3DPROC\ glad\_glCompressedTexSubImage3D\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00318}00318\ PFNGLCOPYBUFFERSUBDATAPROC\ glad\_glCopyBufferSubData\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00319}00319\ PFNGLCOPYTEXIMAGE1DPROC\ glad\_glCopyTexImage1D\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00320}00320\ PFNGLCOPYTEXIMAGE2DPROC\ glad\_glCopyTexImage2D\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00321}00321\ PFNGLCOPYTEXSUBIMAGE1DPROC\ glad\_glCopyTexSubImage1D\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00322}00322\ PFNGLCOPYTEXSUBIMAGE2DPROC\ glad\_glCopyTexSubImage2D\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00323}00323\ PFNGLCOPYTEXSUBIMAGE3DPROC\ glad\_glCopyTexSubImage3D\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00324}00324\ PFNGLCREATEPROGRAMPROC\ glad\_glCreateProgram\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00325}00325\ PFNGLCREATESHADERPROC\ glad\_glCreateShader\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00326}00326\ PFNGLCULLFACEPROC\ glad\_glCullFace\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00327}00327\ PFNGLDELETEBUFFERSPROC\ glad\_glDeleteBuffers\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00328}00328\ PFNGLDELETEFRAMEBUFFERSPROC\ glad\_glDeleteFramebuffers\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00329}00329\ PFNGLDELETEPROGRAMPROC\ glad\_glDeleteProgram\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00330}00330\ PFNGLDELETEQUERIESPROC\ glad\_glDeleteQueries\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00331}00331\ PFNGLDELETERENDERBUFFERSPROC\ glad\_glDeleteRenderbuffers\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00332}00332\ PFNGLDELETESAMPLERSPROC\ glad\_glDeleteSamplers\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00333}00333\ PFNGLDELETESHADERPROC\ glad\_glDeleteShader\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00334}00334\ PFNGLDELETESYNCPROC\ glad\_glDeleteSync\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00335}00335\ PFNGLDELETETEXTURESPROC\ glad\_glDeleteTextures\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00336}00336\ PFNGLDELETEVERTEXARRAYSPROC\ glad\_glDeleteVertexArrays\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00337}00337\ PFNGLDEPTHFUNCPROC\ glad\_glDepthFunc\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00338}00338\ PFNGLDEPTHMASKPROC\ glad\_glDepthMask\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00339}00339\ PFNGLDEPTHRANGEPROC\ glad\_glDepthRange\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00340}00340\ PFNGLDETACHSHADERPROC\ glad\_glDetachShader\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00341}00341\ PFNGLDISABLEPROC\ glad\_glDisable\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00342}00342\ PFNGLDISABLEVERTEXATTRIBARRAYPROC\ glad\_glDisableVertexAttribArray\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00343}00343\ PFNGLDISABLEIPROC\ glad\_glDisablei\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00344}00344\ PFNGLDRAWARRAYSPROC\ glad\_glDrawArrays\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00345}00345\ PFNGLDRAWARRAYSINSTANCEDPROC\ glad\_glDrawArraysInstanced\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00346}00346\ PFNGLDRAWBUFFERPROC\ glad\_glDrawBuffer\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00347}00347\ PFNGLDRAWBUFFERSPROC\ glad\_glDrawBuffers\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00348}00348\ PFNGLDRAWELEMENTSPROC\ glad\_glDrawElements\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00349}00349\ PFNGLDRAWELEMENTSBASEVERTEXPROC\ glad\_glDrawElementsBaseVertex\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00350}00350\ PFNGLDRAWELEMENTSINSTANCEDPROC\ glad\_glDrawElementsInstanced\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00351}00351\ PFNGLDRAWELEMENTSINSTANCEDBASEVERTEXPROC\ glad\_glDrawElementsInstancedBaseVertex\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00352}00352\ PFNGLDRAWRANGEELEMENTSPROC\ glad\_glDrawRangeElements\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00353}00353\ PFNGLDRAWRANGEELEMENTSBASEVERTEXPROC\ glad\_glDrawRangeElementsBaseVertex\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00354}00354\ PFNGLENABLEPROC\ glad\_glEnable\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00355}00355\ PFNGLENABLEVERTEXATTRIBARRAYPROC\ glad\_glEnableVertexAttribArray\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00356}00356\ PFNGLENABLEIPROC\ glad\_glEnablei\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00357}00357\ PFNGLENDCONDITIONALRENDERPROC\ glad\_glEndConditionalRender\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00358}00358\ PFNGLENDQUERYPROC\ glad\_glEndQuery\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00359}00359\ PFNGLENDTRANSFORMFEEDBACKPROC\ glad\_glEndTransformFeedback\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00360}00360\ PFNGLFENCESYNCPROC\ glad\_glFenceSync\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00361}00361\ PFNGLFINISHPROC\ glad\_glFinish\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00362}00362\ PFNGLFLUSHPROC\ glad\_glFlush\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00363}00363\ PFNGLFLUSHMAPPEDBUFFERRANGEPROC\ glad\_glFlushMappedBufferRange\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00364}00364\ PFNGLFRAMEBUFFERRENDERBUFFERPROC\ glad\_glFramebufferRenderbuffer\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00365}00365\ PFNGLFRAMEBUFFERTEXTUREPROC\ glad\_glFramebufferTexture\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00366}00366\ PFNGLFRAMEBUFFERTEXTURE1DPROC\ glad\_glFramebufferTexture1D\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00367}00367\ PFNGLFRAMEBUFFERTEXTURE2DPROC\ glad\_glFramebufferTexture2D\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00368}00368\ PFNGLFRAMEBUFFERTEXTURE3DPROC\ glad\_glFramebufferTexture3D\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00369}00369\ PFNGLFRAMEBUFFERTEXTURELAYERPROC\ glad\_glFramebufferTextureLayer\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00370}00370\ PFNGLFRONTFACEPROC\ glad\_glFrontFace\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00371}00371\ PFNGLGENBUFFERSPROC\ glad\_glGenBuffers\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00372}00372\ PFNGLGENFRAMEBUFFERSPROC\ glad\_glGenFramebuffers\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00373}00373\ PFNGLGENQUERIESPROC\ glad\_glGenQueries\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00374}00374\ PFNGLGENRENDERBUFFERSPROC\ glad\_glGenRenderbuffers\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00375}00375\ PFNGLGENSAMPLERSPROC\ glad\_glGenSamplers\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00376}00376\ PFNGLGENTEXTURESPROC\ glad\_glGenTextures\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00377}00377\ PFNGLGENVERTEXARRAYSPROC\ glad\_glGenVertexArrays\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00378}00378\ PFNGLGENERATEMIPMAPPROC\ glad\_glGenerateMipmap\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00379}00379\ PFNGLGETACTIVEATTRIBPROC\ glad\_glGetActiveAttrib\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00380}00380\ PFNGLGETACTIVEUNIFORMPROC\ glad\_glGetActiveUniform\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00381}00381\ PFNGLGETACTIVEUNIFORMBLOCKNAMEPROC\ glad\_glGetActiveUniformBlockName\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00382}00382\ PFNGLGETACTIVEUNIFORMBLOCKIVPROC\ glad\_glGetActiveUniformBlockiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00383}00383\ PFNGLGETACTIVEUNIFORMNAMEPROC\ glad\_glGetActiveUniformName\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00384}00384\ PFNGLGETACTIVEUNIFORMSIVPROC\ glad\_glGetActiveUniformsiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00385}00385\ PFNGLGETATTACHEDSHADERSPROC\ glad\_glGetAttachedShaders\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00386}00386\ PFNGLGETATTRIBLOCATIONPROC\ glad\_glGetAttribLocation\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00387}00387\ PFNGLGETBOOLEANI\_VPROC\ glad\_glGetBooleani\_v\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00388}00388\ PFNGLGETBOOLEANVPROC\ glad\_glGetBooleanv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00389}00389\ PFNGLGETBUFFERPARAMETERI64VPROC\ glad\_glGetBufferParameteri64v\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00390}00390\ PFNGLGETBUFFERPARAMETERIVPROC\ glad\_glGetBufferParameteriv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00391}00391\ PFNGLGETBUFFERPOINTERVPROC\ glad\_glGetBufferPointerv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00392}00392\ PFNGLGETBUFFERSUBDATAPROC\ glad\_glGetBufferSubData\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00393}00393\ PFNGLGETCOMPRESSEDTEXIMAGEPROC\ glad\_glGetCompressedTexImage\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00394}00394\ PFNGLGETDOUBLEVPROC\ glad\_glGetDoublev\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00395}00395\ PFNGLGETERRORPROC\ glad\_glGetError\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00396}00396\ PFNGLGETFLOATVPROC\ glad\_glGetFloatv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00397}00397\ PFNGLGETFRAGDATAINDEXPROC\ glad\_glGetFragDataIndex\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00398}00398\ PFNGLGETFRAGDATALOCATIONPROC\ glad\_glGetFragDataLocation\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00399}00399\ PFNGLGETFRAMEBUFFERATTACHMENTPARAMETERIVPROC\ glad\_glGetFramebufferAttachmentParameteriv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00400}00400\ PFNGLGETINTEGER64I\_VPROC\ glad\_glGetInteger64i\_v\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00401}00401\ PFNGLGETINTEGER64VPROC\ glad\_glGetInteger64v\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00402}00402\ PFNGLGETINTEGERI\_VPROC\ glad\_glGetIntegeri\_v\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00403}00403\ PFNGLGETINTEGERVPROC\ glad\_glGetIntegerv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00404}00404\ PFNGLGETMULTISAMPLEFVPROC\ glad\_glGetMultisamplefv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00405}00405\ PFNGLGETPROGRAMINFOLOGPROC\ glad\_glGetProgramInfoLog\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00406}00406\ PFNGLGETPROGRAMIVPROC\ glad\_glGetProgramiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00407}00407\ PFNGLGETQUERYOBJECTI64VPROC\ glad\_glGetQueryObjecti64v\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00408}00408\ PFNGLGETQUERYOBJECTIVPROC\ glad\_glGetQueryObjectiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00409}00409\ PFNGLGETQUERYOBJECTUI64VPROC\ glad\_glGetQueryObjectui64v\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00410}00410\ PFNGLGETQUERYOBJECTUIVPROC\ glad\_glGetQueryObjectuiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00411}00411\ PFNGLGETQUERYIVPROC\ glad\_glGetQueryiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00412}00412\ PFNGLGETRENDERBUFFERPARAMETERIVPROC\ glad\_glGetRenderbufferParameteriv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00413}00413\ PFNGLGETSAMPLERPARAMETERIIVPROC\ glad\_glGetSamplerParameterIiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00414}00414\ PFNGLGETSAMPLERPARAMETERIUIVPROC\ glad\_glGetSamplerParameterIuiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00415}00415\ PFNGLGETSAMPLERPARAMETERFVPROC\ glad\_glGetSamplerParameterfv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00416}00416\ PFNGLGETSAMPLERPARAMETERIVPROC\ glad\_glGetSamplerParameteriv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00417}00417\ PFNGLGETSHADERINFOLOGPROC\ glad\_glGetShaderInfoLog\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00418}00418\ PFNGLGETSHADERSOURCEPROC\ glad\_glGetShaderSource\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00419}00419\ PFNGLGETSHADERIVPROC\ glad\_glGetShaderiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00420}00420\ PFNGLGETSTRINGPROC\ glad\_glGetString\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00421}00421\ PFNGLGETSTRINGIPROC\ glad\_glGetStringi\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00422}00422\ PFNGLGETSYNCIVPROC\ glad\_glGetSynciv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00423}00423\ PFNGLGETTEXIMAGEPROC\ glad\_glGetTexImage\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00424}00424\ PFNGLGETTEXLEVELPARAMETERFVPROC\ glad\_glGetTexLevelParameterfv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00425}00425\ PFNGLGETTEXLEVELPARAMETERIVPROC\ glad\_glGetTexLevelParameteriv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00426}00426\ PFNGLGETTEXPARAMETERIIVPROC\ glad\_glGetTexParameterIiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00427}00427\ PFNGLGETTEXPARAMETERIUIVPROC\ glad\_glGetTexParameterIuiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00428}00428\ PFNGLGETTEXPARAMETERFVPROC\ glad\_glGetTexParameterfv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00429}00429\ PFNGLGETTEXPARAMETERIVPROC\ glad\_glGetTexParameteriv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00430}00430\ PFNGLGETTRANSFORMFEEDBACKVARYINGPROC\ glad\_glGetTransformFeedbackVarying\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00431}00431\ PFNGLGETUNIFORMBLOCKINDEXPROC\ glad\_glGetUniformBlockIndex\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00432}00432\ PFNGLGETUNIFORMINDICESPROC\ glad\_glGetUniformIndices\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00433}00433\ PFNGLGETUNIFORMLOCATIONPROC\ glad\_glGetUniformLocation\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00434}00434\ PFNGLGETUNIFORMFVPROC\ glad\_glGetUniformfv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00435}00435\ PFNGLGETUNIFORMIVPROC\ glad\_glGetUniformiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00436}00436\ PFNGLGETUNIFORMUIVPROC\ glad\_glGetUniformuiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00437}00437\ PFNGLGETVERTEXATTRIBIIVPROC\ glad\_glGetVertexAttribIiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00438}00438\ PFNGLGETVERTEXATTRIBIUIVPROC\ glad\_glGetVertexAttribIuiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00439}00439\ PFNGLGETVERTEXATTRIBPOINTERVPROC\ glad\_glGetVertexAttribPointerv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00440}00440\ PFNGLGETVERTEXATTRIBDVPROC\ glad\_glGetVertexAttribdv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00441}00441\ PFNGLGETVERTEXATTRIBFVPROC\ glad\_glGetVertexAttribfv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00442}00442\ PFNGLGETVERTEXATTRIBIVPROC\ glad\_glGetVertexAttribiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00443}00443\ PFNGLHINTPROC\ glad\_glHint\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00444}00444\ PFNGLISBUFFERPROC\ glad\_glIsBuffer\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00445}00445\ PFNGLISENABLEDPROC\ glad\_glIsEnabled\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00446}00446\ PFNGLISENABLEDIPROC\ glad\_glIsEnabledi\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00447}00447\ PFNGLISFRAMEBUFFERPROC\ glad\_glIsFramebuffer\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00448}00448\ PFNGLISPROGRAMPROC\ glad\_glIsProgram\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00449}00449\ PFNGLISQUERYPROC\ glad\_glIsQuery\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00450}00450\ PFNGLISRENDERBUFFERPROC\ glad\_glIsRenderbuffer\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00451}00451\ PFNGLISSAMPLERPROC\ glad\_glIsSampler\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00452}00452\ PFNGLISSHADERPROC\ glad\_glIsShader\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00453}00453\ PFNGLISSYNCPROC\ glad\_glIsSync\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00454}00454\ PFNGLISTEXTUREPROC\ glad\_glIsTexture\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00455}00455\ PFNGLISVERTEXARRAYPROC\ glad\_glIsVertexArray\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00456}00456\ PFNGLLINEWIDTHPROC\ glad\_glLineWidth\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00457}00457\ PFNGLLINKPROGRAMPROC\ glad\_glLinkProgram\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00458}00458\ PFNGLLOGICOPPROC\ glad\_glLogicOp\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00459}00459\ PFNGLMAPBUFFERPROC\ glad\_glMapBuffer\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00460}00460\ PFNGLMAPBUFFERRANGEPROC\ glad\_glMapBufferRange\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00461}00461\ PFNGLMULTIDRAWARRAYSPROC\ glad\_glMultiDrawArrays\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00462}00462\ PFNGLMULTIDRAWELEMENTSPROC\ glad\_glMultiDrawElements\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00463}00463\ PFNGLMULTIDRAWELEMENTSBASEVERTEXPROC\ glad\_glMultiDrawElementsBaseVertex\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00464}00464\ PFNGLMULTITEXCOORDP1UIPROC\ glad\_glMultiTexCoordP1ui\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00465}00465\ PFNGLMULTITEXCOORDP1UIVPROC\ glad\_glMultiTexCoordP1uiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00466}00466\ PFNGLMULTITEXCOORDP2UIPROC\ glad\_glMultiTexCoordP2ui\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00467}00467\ PFNGLMULTITEXCOORDP2UIVPROC\ glad\_glMultiTexCoordP2uiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00468}00468\ PFNGLMULTITEXCOORDP3UIPROC\ glad\_glMultiTexCoordP3ui\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00469}00469\ PFNGLMULTITEXCOORDP3UIVPROC\ glad\_glMultiTexCoordP3uiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00470}00470\ PFNGLMULTITEXCOORDP4UIPROC\ glad\_glMultiTexCoordP4ui\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00471}00471\ PFNGLMULTITEXCOORDP4UIVPROC\ glad\_glMultiTexCoordP4uiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00472}00472\ PFNGLNORMALP3UIPROC\ glad\_glNormalP3ui\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00473}00473\ PFNGLNORMALP3UIVPROC\ glad\_glNormalP3uiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00474}00474\ PFNGLPIXELSTOREFPROC\ glad\_glPixelStoref\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00475}00475\ PFNGLPIXELSTOREIPROC\ glad\_glPixelStorei\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00476}00476\ PFNGLPOINTPARAMETERFPROC\ glad\_glPointParameterf\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00477}00477\ PFNGLPOINTPARAMETERFVPROC\ glad\_glPointParameterfv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00478}00478\ PFNGLPOINTPARAMETERIPROC\ glad\_glPointParameteri\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00479}00479\ PFNGLPOINTPARAMETERIVPROC\ glad\_glPointParameteriv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00480}00480\ PFNGLPOINTSIZEPROC\ glad\_glPointSize\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00481}00481\ PFNGLPOLYGONMODEPROC\ glad\_glPolygonMode\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00482}00482\ PFNGLPOLYGONOFFSETPROC\ glad\_glPolygonOffset\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00483}00483\ PFNGLPRIMITIVERESTARTINDEXPROC\ glad\_glPrimitiveRestartIndex\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00484}00484\ PFNGLPROVOKINGVERTEXPROC\ glad\_glProvokingVertex\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00485}00485\ PFNGLQUERYCOUNTERPROC\ glad\_glQueryCounter\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00486}00486\ PFNGLREADBUFFERPROC\ glad\_glReadBuffer\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00487}00487\ PFNGLREADPIXELSPROC\ glad\_glReadPixels\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00488}00488\ PFNGLRENDERBUFFERSTORAGEPROC\ glad\_glRenderbufferStorage\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00489}00489\ PFNGLRENDERBUFFERSTORAGEMULTISAMPLEPROC\ glad\_glRenderbufferStorageMultisample\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00490}00490\ PFNGLSAMPLECOVERAGEPROC\ glad\_glSampleCoverage\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00491}00491\ PFNGLSAMPLEMASKIPROC\ glad\_glSampleMaski\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00492}00492\ PFNGLSAMPLERPARAMETERIIVPROC\ glad\_glSamplerParameterIiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00493}00493\ PFNGLSAMPLERPARAMETERIUIVPROC\ glad\_glSamplerParameterIuiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00494}00494\ PFNGLSAMPLERPARAMETERFPROC\ glad\_glSamplerParameterf\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00495}00495\ PFNGLSAMPLERPARAMETERFVPROC\ glad\_glSamplerParameterfv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00496}00496\ PFNGLSAMPLERPARAMETERIPROC\ glad\_glSamplerParameteri\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00497}00497\ PFNGLSAMPLERPARAMETERIVPROC\ glad\_glSamplerParameteriv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00498}00498\ PFNGLSCISSORPROC\ glad\_glScissor\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00499}00499\ PFNGLSECONDARYCOLORP3UIPROC\ glad\_glSecondaryColorP3ui\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00500}00500\ PFNGLSECONDARYCOLORP3UIVPROC\ glad\_glSecondaryColorP3uiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00501}00501\ PFNGLSHADERSOURCEPROC\ glad\_glShaderSource\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00502}00502\ PFNGLSTENCILFUNCPROC\ glad\_glStencilFunc\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00503}00503\ PFNGLSTENCILFUNCSEPARATEPROC\ glad\_glStencilFuncSeparate\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00504}00504\ PFNGLSTENCILMASKPROC\ glad\_glStencilMask\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00505}00505\ PFNGLSTENCILMASKSEPARATEPROC\ glad\_glStencilMaskSeparate\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00506}00506\ PFNGLSTENCILOPPROC\ glad\_glStencilOp\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00507}00507\ PFNGLSTENCILOPSEPARATEPROC\ glad\_glStencilOpSeparate\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00508}00508\ PFNGLTEXBUFFERPROC\ glad\_glTexBuffer\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00509}00509\ PFNGLTEXCOORDP1UIPROC\ glad\_glTexCoordP1ui\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00510}00510\ PFNGLTEXCOORDP1UIVPROC\ glad\_glTexCoordP1uiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00511}00511\ PFNGLTEXCOORDP2UIPROC\ glad\_glTexCoordP2ui\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00512}00512\ PFNGLTEXCOORDP2UIVPROC\ glad\_glTexCoordP2uiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00513}00513\ PFNGLTEXCOORDP3UIPROC\ glad\_glTexCoordP3ui\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00514}00514\ PFNGLTEXCOORDP3UIVPROC\ glad\_glTexCoordP3uiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00515}00515\ PFNGLTEXCOORDP4UIPROC\ glad\_glTexCoordP4ui\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00516}00516\ PFNGLTEXCOORDP4UIVPROC\ glad\_glTexCoordP4uiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00517}00517\ PFNGLTEXIMAGE1DPROC\ glad\_glTexImage1D\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00518}00518\ PFNGLTEXIMAGE2DPROC\ glad\_glTexImage2D\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00519}00519\ PFNGLTEXIMAGE2DMULTISAMPLEPROC\ glad\_glTexImage2DMultisample\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00520}00520\ PFNGLTEXIMAGE3DPROC\ glad\_glTexImage3D\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00521}00521\ PFNGLTEXIMAGE3DMULTISAMPLEPROC\ glad\_glTexImage3DMultisample\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00522}00522\ PFNGLTEXPARAMETERIIVPROC\ glad\_glTexParameterIiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00523}00523\ PFNGLTEXPARAMETERIUIVPROC\ glad\_glTexParameterIuiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00524}00524\ PFNGLTEXPARAMETERFPROC\ glad\_glTexParameterf\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00525}00525\ PFNGLTEXPARAMETERFVPROC\ glad\_glTexParameterfv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00526}00526\ PFNGLTEXPARAMETERIPROC\ glad\_glTexParameteri\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00527}00527\ PFNGLTEXPARAMETERIVPROC\ glad\_glTexParameteriv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00528}00528\ PFNGLTEXSUBIMAGE1DPROC\ glad\_glTexSubImage1D\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00529}00529\ PFNGLTEXSUBIMAGE2DPROC\ glad\_glTexSubImage2D\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00530}00530\ PFNGLTEXSUBIMAGE3DPROC\ glad\_glTexSubImage3D\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00531}00531\ PFNGLTRANSFORMFEEDBACKVARYINGSPROC\ glad\_glTransformFeedbackVaryings\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00532}00532\ PFNGLUNIFORM1FPROC\ glad\_glUniform1f\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00533}00533\ PFNGLUNIFORM1FVPROC\ glad\_glUniform1fv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00534}00534\ PFNGLUNIFORM1IPROC\ glad\_glUniform1i\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00535}00535\ PFNGLUNIFORM1IVPROC\ glad\_glUniform1iv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00536}00536\ PFNGLUNIFORM1UIPROC\ glad\_glUniform1ui\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00537}00537\ PFNGLUNIFORM1UIVPROC\ glad\_glUniform1uiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00538}00538\ PFNGLUNIFORM2FPROC\ glad\_glUniform2f\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00539}00539\ PFNGLUNIFORM2FVPROC\ glad\_glUniform2fv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00540}00540\ PFNGLUNIFORM2IPROC\ glad\_glUniform2i\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00541}00541\ PFNGLUNIFORM2IVPROC\ glad\_glUniform2iv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00542}00542\ PFNGLUNIFORM2UIPROC\ glad\_glUniform2ui\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00543}00543\ PFNGLUNIFORM2UIVPROC\ glad\_glUniform2uiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00544}00544\ PFNGLUNIFORM3FPROC\ glad\_glUniform3f\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00545}00545\ PFNGLUNIFORM3FVPROC\ glad\_glUniform3fv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00546}00546\ PFNGLUNIFORM3IPROC\ glad\_glUniform3i\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00547}00547\ PFNGLUNIFORM3IVPROC\ glad\_glUniform3iv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00548}00548\ PFNGLUNIFORM3UIPROC\ glad\_glUniform3ui\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00549}00549\ PFNGLUNIFORM3UIVPROC\ glad\_glUniform3uiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00550}00550\ PFNGLUNIFORM4FPROC\ glad\_glUniform4f\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00551}00551\ PFNGLUNIFORM4FVPROC\ glad\_glUniform4fv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00552}00552\ PFNGLUNIFORM4IPROC\ glad\_glUniform4i\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00553}00553\ PFNGLUNIFORM4IVPROC\ glad\_glUniform4iv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00554}00554\ PFNGLUNIFORM4UIPROC\ glad\_glUniform4ui\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00555}00555\ PFNGLUNIFORM4UIVPROC\ glad\_glUniform4uiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00556}00556\ PFNGLUNIFORMBLOCKBINDINGPROC\ glad\_glUniformBlockBinding\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00557}00557\ PFNGLUNIFORMMATRIX2FVPROC\ glad\_glUniformMatrix2fv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00558}00558\ PFNGLUNIFORMMATRIX2X3FVPROC\ glad\_glUniformMatrix2x3fv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00559}00559\ PFNGLUNIFORMMATRIX2X4FVPROC\ glad\_glUniformMatrix2x4fv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00560}00560\ PFNGLUNIFORMMATRIX3FVPROC\ glad\_glUniformMatrix3fv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00561}00561\ PFNGLUNIFORMMATRIX3X2FVPROC\ glad\_glUniformMatrix3x2fv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00562}00562\ PFNGLUNIFORMMATRIX3X4FVPROC\ glad\_glUniformMatrix3x4fv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00563}00563\ PFNGLUNIFORMMATRIX4FVPROC\ glad\_glUniformMatrix4fv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00564}00564\ PFNGLUNIFORMMATRIX4X2FVPROC\ glad\_glUniformMatrix4x2fv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00565}00565\ PFNGLUNIFORMMATRIX4X3FVPROC\ glad\_glUniformMatrix4x3fv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00566}00566\ PFNGLUNMAPBUFFERPROC\ glad\_glUnmapBuffer\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00567}00567\ PFNGLUSEPROGRAMPROC\ glad\_glUseProgram\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00568}00568\ PFNGLVALIDATEPROGRAMPROC\ glad\_glValidateProgram\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00569}00569\ PFNGLVERTEXATTRIB1DPROC\ glad\_glVertexAttrib1d\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00570}00570\ PFNGLVERTEXATTRIB1DVPROC\ glad\_glVertexAttrib1dv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00571}00571\ PFNGLVERTEXATTRIB1FPROC\ glad\_glVertexAttrib1f\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00572}00572\ PFNGLVERTEXATTRIB1FVPROC\ glad\_glVertexAttrib1fv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00573}00573\ PFNGLVERTEXATTRIB1SPROC\ glad\_glVertexAttrib1s\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00574}00574\ PFNGLVERTEXATTRIB1SVPROC\ glad\_glVertexAttrib1sv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00575}00575\ PFNGLVERTEXATTRIB2DPROC\ glad\_glVertexAttrib2d\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00576}00576\ PFNGLVERTEXATTRIB2DVPROC\ glad\_glVertexAttrib2dv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00577}00577\ PFNGLVERTEXATTRIB2FPROC\ glad\_glVertexAttrib2f\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00578}00578\ PFNGLVERTEXATTRIB2FVPROC\ glad\_glVertexAttrib2fv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00579}00579\ PFNGLVERTEXATTRIB2SPROC\ glad\_glVertexAttrib2s\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00580}00580\ PFNGLVERTEXATTRIB2SVPROC\ glad\_glVertexAttrib2sv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00581}00581\ PFNGLVERTEXATTRIB3DPROC\ glad\_glVertexAttrib3d\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00582}00582\ PFNGLVERTEXATTRIB3DVPROC\ glad\_glVertexAttrib3dv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00583}00583\ PFNGLVERTEXATTRIB3FPROC\ glad\_glVertexAttrib3f\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00584}00584\ PFNGLVERTEXATTRIB3FVPROC\ glad\_glVertexAttrib3fv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00585}00585\ PFNGLVERTEXATTRIB3SPROC\ glad\_glVertexAttrib3s\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00586}00586\ PFNGLVERTEXATTRIB3SVPROC\ glad\_glVertexAttrib3sv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00587}00587\ PFNGLVERTEXATTRIB4NBVPROC\ glad\_glVertexAttrib4Nbv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00588}00588\ PFNGLVERTEXATTRIB4NIVPROC\ glad\_glVertexAttrib4Niv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00589}00589\ PFNGLVERTEXATTRIB4NSVPROC\ glad\_glVertexAttrib4Nsv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00590}00590\ PFNGLVERTEXATTRIB4NUBPROC\ glad\_glVertexAttrib4Nub\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00591}00591\ PFNGLVERTEXATTRIB4NUBVPROC\ glad\_glVertexAttrib4Nubv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00592}00592\ PFNGLVERTEXATTRIB4NUIVPROC\ glad\_glVertexAttrib4Nuiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00593}00593\ PFNGLVERTEXATTRIB4NUSVPROC\ glad\_glVertexAttrib4Nusv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00594}00594\ PFNGLVERTEXATTRIB4BVPROC\ glad\_glVertexAttrib4bv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00595}00595\ PFNGLVERTEXATTRIB4DPROC\ glad\_glVertexAttrib4d\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00596}00596\ PFNGLVERTEXATTRIB4DVPROC\ glad\_glVertexAttrib4dv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00597}00597\ PFNGLVERTEXATTRIB4FPROC\ glad\_glVertexAttrib4f\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00598}00598\ PFNGLVERTEXATTRIB4FVPROC\ glad\_glVertexAttrib4fv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00599}00599\ PFNGLVERTEXATTRIB4IVPROC\ glad\_glVertexAttrib4iv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00600}00600\ PFNGLVERTEXATTRIB4SPROC\ glad\_glVertexAttrib4s\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00601}00601\ PFNGLVERTEXATTRIB4SVPROC\ glad\_glVertexAttrib4sv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00602}00602\ PFNGLVERTEXATTRIB4UBVPROC\ glad\_glVertexAttrib4ubv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00603}00603\ PFNGLVERTEXATTRIB4UIVPROC\ glad\_glVertexAttrib4uiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00604}00604\ PFNGLVERTEXATTRIB4USVPROC\ glad\_glVertexAttrib4usv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00605}00605\ PFNGLVERTEXATTRIBDIVISORPROC\ glad\_glVertexAttribDivisor\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00606}00606\ PFNGLVERTEXATTRIBI1IPROC\ glad\_glVertexAttribI1i\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00607}00607\ PFNGLVERTEXATTRIBI1IVPROC\ glad\_glVertexAttribI1iv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00608}00608\ PFNGLVERTEXATTRIBI1UIPROC\ glad\_glVertexAttribI1ui\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00609}00609\ PFNGLVERTEXATTRIBI1UIVPROC\ glad\_glVertexAttribI1uiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00610}00610\ PFNGLVERTEXATTRIBI2IPROC\ glad\_glVertexAttribI2i\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00611}00611\ PFNGLVERTEXATTRIBI2IVPROC\ glad\_glVertexAttribI2iv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00612}00612\ PFNGLVERTEXATTRIBI2UIPROC\ glad\_glVertexAttribI2ui\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00613}00613\ PFNGLVERTEXATTRIBI2UIVPROC\ glad\_glVertexAttribI2uiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00614}00614\ PFNGLVERTEXATTRIBI3IPROC\ glad\_glVertexAttribI3i\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00615}00615\ PFNGLVERTEXATTRIBI3IVPROC\ glad\_glVertexAttribI3iv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00616}00616\ PFNGLVERTEXATTRIBI3UIPROC\ glad\_glVertexAttribI3ui\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00617}00617\ PFNGLVERTEXATTRIBI3UIVPROC\ glad\_glVertexAttribI3uiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00618}00618\ PFNGLVERTEXATTRIBI4BVPROC\ glad\_glVertexAttribI4bv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00619}00619\ PFNGLVERTEXATTRIBI4IPROC\ glad\_glVertexAttribI4i\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00620}00620\ PFNGLVERTEXATTRIBI4IVPROC\ glad\_glVertexAttribI4iv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00621}00621\ PFNGLVERTEXATTRIBI4SVPROC\ glad\_glVertexAttribI4sv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00622}00622\ PFNGLVERTEXATTRIBI4UBVPROC\ glad\_glVertexAttribI4ubv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00623}00623\ PFNGLVERTEXATTRIBI4UIPROC\ glad\_glVertexAttribI4ui\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00624}00624\ PFNGLVERTEXATTRIBI4UIVPROC\ glad\_glVertexAttribI4uiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00625}00625\ PFNGLVERTEXATTRIBI4USVPROC\ glad\_glVertexAttribI4usv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00626}00626\ PFNGLVERTEXATTRIBIPOINTERPROC\ glad\_glVertexAttribIPointer\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00627}00627\ PFNGLVERTEXATTRIBP1UIPROC\ glad\_glVertexAttribP1ui\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00628}00628\ PFNGLVERTEXATTRIBP1UIVPROC\ glad\_glVertexAttribP1uiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00629}00629\ PFNGLVERTEXATTRIBP2UIPROC\ glad\_glVertexAttribP2ui\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00630}00630\ PFNGLVERTEXATTRIBP2UIVPROC\ glad\_glVertexAttribP2uiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00631}00631\ PFNGLVERTEXATTRIBP3UIPROC\ glad\_glVertexAttribP3ui\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00632}00632\ PFNGLVERTEXATTRIBP3UIVPROC\ glad\_glVertexAttribP3uiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00633}00633\ PFNGLVERTEXATTRIBP4UIPROC\ glad\_glVertexAttribP4ui\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00634}00634\ PFNGLVERTEXATTRIBP4UIVPROC\ glad\_glVertexAttribP4uiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00635}00635\ PFNGLVERTEXATTRIBPOINTERPROC\ glad\_glVertexAttribPointer\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00636}00636\ PFNGLVERTEXP2UIPROC\ glad\_glVertexP2ui\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00637}00637\ PFNGLVERTEXP2UIVPROC\ glad\_glVertexP2uiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00638}00638\ PFNGLVERTEXP3UIPROC\ glad\_glVertexP3ui\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00639}00639\ PFNGLVERTEXP3UIVPROC\ glad\_glVertexP3uiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00640}00640\ PFNGLVERTEXP4UIPROC\ glad\_glVertexP4ui\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00641}00641\ PFNGLVERTEXP4UIVPROC\ glad\_glVertexP4uiv\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00642}00642\ PFNGLVIEWPORTPROC\ glad\_glViewport\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00643}00643\ PFNGLWAITSYNCPROC\ glad\_glWaitSync\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00644}00644\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ load\_GL\_VERSION\_1\_0(GLADloadproc\ load)\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00645}00645\ \ \ \ \ \textcolor{keywordflow}{if}(!GLAD\_GL\_VERSION\_1\_0)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00646}00646\ \ \ \ \ glad\_glCullFace\ =\ (PFNGLCULLFACEPROC)load(\textcolor{stringliteral}{"{}glCullFace"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00647}00647\ \ \ \ \ glad\_glFrontFace\ =\ (PFNGLFRONTFACEPROC)load(\textcolor{stringliteral}{"{}glFrontFace"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00648}00648\ \ \ \ \ glad\_glHint\ =\ (PFNGLHINTPROC)load(\textcolor{stringliteral}{"{}glHint"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00649}00649\ \ \ \ \ glad\_glLineWidth\ =\ (PFNGLLINEWIDTHPROC)load(\textcolor{stringliteral}{"{}glLineWidth"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00650}00650\ \ \ \ \ glad\_glPointSize\ =\ (PFNGLPOINTSIZEPROC)load(\textcolor{stringliteral}{"{}glPointSize"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00651}00651\ \ \ \ \ glad\_glPolygonMode\ =\ (PFNGLPOLYGONMODEPROC)load(\textcolor{stringliteral}{"{}glPolygonMode"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00652}00652\ \ \ \ \ glad\_glScissor\ =\ (PFNGLSCISSORPROC)load(\textcolor{stringliteral}{"{}glScissor"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00653}00653\ \ \ \ \ glad\_glTexParameterf\ =\ (PFNGLTEXPARAMETERFPROC)load(\textcolor{stringliteral}{"{}glTexParameterf"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00654}00654\ \ \ \ \ glad\_glTexParameterfv\ =\ (PFNGLTEXPARAMETERFVPROC)load(\textcolor{stringliteral}{"{}glTexParameterfv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00655}00655\ \ \ \ \ glad\_glTexParameteri\ =\ (PFNGLTEXPARAMETERIPROC)load(\textcolor{stringliteral}{"{}glTexParameteri"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00656}00656\ \ \ \ \ glad\_glTexParameteriv\ =\ (PFNGLTEXPARAMETERIVPROC)load(\textcolor{stringliteral}{"{}glTexParameteriv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00657}00657\ \ \ \ \ glad\_glTexImage1D\ =\ (PFNGLTEXIMAGE1DPROC)load(\textcolor{stringliteral}{"{}glTexImage1D"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00658}00658\ \ \ \ \ glad\_glTexImage2D\ =\ (PFNGLTEXIMAGE2DPROC)load(\textcolor{stringliteral}{"{}glTexImage2D"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00659}00659\ \ \ \ \ glad\_glDrawBuffer\ =\ (PFNGLDRAWBUFFERPROC)load(\textcolor{stringliteral}{"{}glDrawBuffer"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00660}00660\ \ \ \ \ glad\_glClear\ =\ (PFNGLCLEARPROC)load(\textcolor{stringliteral}{"{}glClear"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00661}00661\ \ \ \ \ glad\_glClearColor\ =\ (PFNGLCLEARCOLORPROC)load(\textcolor{stringliteral}{"{}glClearColor"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00662}00662\ \ \ \ \ glad\_glClearStencil\ =\ (PFNGLCLEARSTENCILPROC)load(\textcolor{stringliteral}{"{}glClearStencil"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00663}00663\ \ \ \ \ glad\_glClearDepth\ =\ (PFNGLCLEARDEPTHPROC)load(\textcolor{stringliteral}{"{}glClearDepth"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00664}00664\ \ \ \ \ glad\_glStencilMask\ =\ (PFNGLSTENCILMASKPROC)load(\textcolor{stringliteral}{"{}glStencilMask"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00665}00665\ \ \ \ \ glad\_glColorMask\ =\ (PFNGLCOLORMASKPROC)load(\textcolor{stringliteral}{"{}glColorMask"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00666}00666\ \ \ \ \ glad\_glDepthMask\ =\ (PFNGLDEPTHMASKPROC)load(\textcolor{stringliteral}{"{}glDepthMask"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00667}00667\ \ \ \ \ glad\_glDisable\ =\ (PFNGLDISABLEPROC)load(\textcolor{stringliteral}{"{}glDisable"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00668}00668\ \ \ \ \ glad\_glEnable\ =\ (PFNGLENABLEPROC)load(\textcolor{stringliteral}{"{}glEnable"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00669}00669\ \ \ \ \ glad\_glFinish\ =\ (PFNGLFINISHPROC)load(\textcolor{stringliteral}{"{}glFinish"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00670}00670\ \ \ \ \ glad\_glFlush\ =\ (PFNGLFLUSHPROC)load(\textcolor{stringliteral}{"{}glFlush"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00671}00671\ \ \ \ \ glad\_glBlendFunc\ =\ (PFNGLBLENDFUNCPROC)load(\textcolor{stringliteral}{"{}glBlendFunc"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00672}00672\ \ \ \ \ glad\_glLogicOp\ =\ (PFNGLLOGICOPPROC)load(\textcolor{stringliteral}{"{}glLogicOp"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00673}00673\ \ \ \ \ glad\_glStencilFunc\ =\ (PFNGLSTENCILFUNCPROC)load(\textcolor{stringliteral}{"{}glStencilFunc"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00674}00674\ \ \ \ \ glad\_glStencilOp\ =\ (PFNGLSTENCILOPPROC)load(\textcolor{stringliteral}{"{}glStencilOp"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00675}00675\ \ \ \ \ glad\_glDepthFunc\ =\ (PFNGLDEPTHFUNCPROC)load(\textcolor{stringliteral}{"{}glDepthFunc"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00676}00676\ \ \ \ \ glad\_glPixelStoref\ =\ (PFNGLPIXELSTOREFPROC)load(\textcolor{stringliteral}{"{}glPixelStoref"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00677}00677\ \ \ \ \ glad\_glPixelStorei\ =\ (PFNGLPIXELSTOREIPROC)load(\textcolor{stringliteral}{"{}glPixelStorei"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00678}00678\ \ \ \ \ glad\_glReadBuffer\ =\ (PFNGLREADBUFFERPROC)load(\textcolor{stringliteral}{"{}glReadBuffer"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00679}00679\ \ \ \ \ glad\_glReadPixels\ =\ (PFNGLREADPIXELSPROC)load(\textcolor{stringliteral}{"{}glReadPixels"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00680}00680\ \ \ \ \ glad\_glGetBooleanv\ =\ (PFNGLGETBOOLEANVPROC)load(\textcolor{stringliteral}{"{}glGetBooleanv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00681}00681\ \ \ \ \ glad\_glGetDoublev\ =\ (PFNGLGETDOUBLEVPROC)load(\textcolor{stringliteral}{"{}glGetDoublev"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00682}00682\ \ \ \ \ glad\_glGetError\ =\ (PFNGLGETERRORPROC)load(\textcolor{stringliteral}{"{}glGetError"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00683}00683\ \ \ \ \ glad\_glGetFloatv\ =\ (PFNGLGETFLOATVPROC)load(\textcolor{stringliteral}{"{}glGetFloatv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00684}00684\ \ \ \ \ glad\_glGetIntegerv\ =\ (PFNGLGETINTEGERVPROC)load(\textcolor{stringliteral}{"{}glGetIntegerv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00685}00685\ \ \ \ \ glad\_glGetString\ =\ (PFNGLGETSTRINGPROC)load(\textcolor{stringliteral}{"{}glGetString"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00686}00686\ \ \ \ \ glad\_glGetTexImage\ =\ (PFNGLGETTEXIMAGEPROC)load(\textcolor{stringliteral}{"{}glGetTexImage"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00687}00687\ \ \ \ \ glad\_glGetTexParameterfv\ =\ (PFNGLGETTEXPARAMETERFVPROC)load(\textcolor{stringliteral}{"{}glGetTexParameterfv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00688}00688\ \ \ \ \ glad\_glGetTexParameteriv\ =\ (PFNGLGETTEXPARAMETERIVPROC)load(\textcolor{stringliteral}{"{}glGetTexParameteriv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00689}00689\ \ \ \ \ glad\_glGetTexLevelParameterfv\ =\ (PFNGLGETTEXLEVELPARAMETERFVPROC)load(\textcolor{stringliteral}{"{}glGetTexLevelParameterfv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00690}00690\ \ \ \ \ glad\_glGetTexLevelParameteriv\ =\ (PFNGLGETTEXLEVELPARAMETERIVPROC)load(\textcolor{stringliteral}{"{}glGetTexLevelParameteriv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00691}00691\ \ \ \ \ glad\_glIsEnabled\ =\ (PFNGLISENABLEDPROC)load(\textcolor{stringliteral}{"{}glIsEnabled"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00692}00692\ \ \ \ \ glad\_glDepthRange\ =\ (PFNGLDEPTHRANGEPROC)load(\textcolor{stringliteral}{"{}glDepthRange"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00693}00693\ \ \ \ \ glad\_glViewport\ =\ (PFNGLVIEWPORTPROC)load(\textcolor{stringliteral}{"{}glViewport"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00694}00694\ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00695}00695\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ load\_GL\_VERSION\_1\_1(GLADloadproc\ load)\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00696}00696\ \ \ \ \ \textcolor{keywordflow}{if}(!GLAD\_GL\_VERSION\_1\_1)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00697}00697\ \ \ \ \ glad\_glDrawArrays\ =\ (PFNGLDRAWARRAYSPROC)load(\textcolor{stringliteral}{"{}glDrawArrays"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00698}00698\ \ \ \ \ glad\_glDrawElements\ =\ (PFNGLDRAWELEMENTSPROC)load(\textcolor{stringliteral}{"{}glDrawElements"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00699}00699\ \ \ \ \ glad\_glPolygonOffset\ =\ (PFNGLPOLYGONOFFSETPROC)load(\textcolor{stringliteral}{"{}glPolygonOffset"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00700}00700\ \ \ \ \ glad\_glCopyTexImage1D\ =\ (PFNGLCOPYTEXIMAGE1DPROC)load(\textcolor{stringliteral}{"{}glCopyTexImage1D"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00701}00701\ \ \ \ \ glad\_glCopyTexImage2D\ =\ (PFNGLCOPYTEXIMAGE2DPROC)load(\textcolor{stringliteral}{"{}glCopyTexImage2D"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00702}00702\ \ \ \ \ glad\_glCopyTexSubImage1D\ =\ (PFNGLCOPYTEXSUBIMAGE1DPROC)load(\textcolor{stringliteral}{"{}glCopyTexSubImage1D"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00703}00703\ \ \ \ \ glad\_glCopyTexSubImage2D\ =\ (PFNGLCOPYTEXSUBIMAGE2DPROC)load(\textcolor{stringliteral}{"{}glCopyTexSubImage2D"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00704}00704\ \ \ \ \ glad\_glTexSubImage1D\ =\ (PFNGLTEXSUBIMAGE1DPROC)load(\textcolor{stringliteral}{"{}glTexSubImage1D"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00705}00705\ \ \ \ \ glad\_glTexSubImage2D\ =\ (PFNGLTEXSUBIMAGE2DPROC)load(\textcolor{stringliteral}{"{}glTexSubImage2D"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00706}00706\ \ \ \ \ glad\_glBindTexture\ =\ (PFNGLBINDTEXTUREPROC)load(\textcolor{stringliteral}{"{}glBindTexture"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00707}00707\ \ \ \ \ glad\_glDeleteTextures\ =\ (PFNGLDELETETEXTURESPROC)load(\textcolor{stringliteral}{"{}glDeleteTextures"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00708}00708\ \ \ \ \ glad\_glGenTextures\ =\ (PFNGLGENTEXTURESPROC)load(\textcolor{stringliteral}{"{}glGenTextures"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00709}00709\ \ \ \ \ glad\_glIsTexture\ =\ (PFNGLISTEXTUREPROC)load(\textcolor{stringliteral}{"{}glIsTexture"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00710}00710\ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00711}00711\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ load\_GL\_VERSION\_1\_2(GLADloadproc\ load)\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00712}00712\ \ \ \ \ \textcolor{keywordflow}{if}(!GLAD\_GL\_VERSION\_1\_2)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00713}00713\ \ \ \ \ glad\_glDrawRangeElements\ =\ (PFNGLDRAWRANGEELEMENTSPROC)load(\textcolor{stringliteral}{"{}glDrawRangeElements"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00714}00714\ \ \ \ \ glad\_glTexImage3D\ =\ (PFNGLTEXIMAGE3DPROC)load(\textcolor{stringliteral}{"{}glTexImage3D"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00715}00715\ \ \ \ \ glad\_glTexSubImage3D\ =\ (PFNGLTEXSUBIMAGE3DPROC)load(\textcolor{stringliteral}{"{}glTexSubImage3D"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00716}00716\ \ \ \ \ glad\_glCopyTexSubImage3D\ =\ (PFNGLCOPYTEXSUBIMAGE3DPROC)load(\textcolor{stringliteral}{"{}glCopyTexSubImage3D"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00717}00717\ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00718}00718\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ load\_GL\_VERSION\_1\_3(GLADloadproc\ load)\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00719}00719\ \ \ \ \ \textcolor{keywordflow}{if}(!GLAD\_GL\_VERSION\_1\_3)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00720}00720\ \ \ \ \ glad\_glActiveTexture\ =\ (PFNGLACTIVETEXTUREPROC)load(\textcolor{stringliteral}{"{}glActiveTexture"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00721}00721\ \ \ \ \ glad\_glSampleCoverage\ =\ (PFNGLSAMPLECOVERAGEPROC)load(\textcolor{stringliteral}{"{}glSampleCoverage"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00722}00722\ \ \ \ \ glad\_glCompressedTexImage3D\ =\ (PFNGLCOMPRESSEDTEXIMAGE3DPROC)load(\textcolor{stringliteral}{"{}glCompressedTexImage3D"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00723}00723\ \ \ \ \ glad\_glCompressedTexImage2D\ =\ (PFNGLCOMPRESSEDTEXIMAGE2DPROC)load(\textcolor{stringliteral}{"{}glCompressedTexImage2D"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00724}00724\ \ \ \ \ glad\_glCompressedTexImage1D\ =\ (PFNGLCOMPRESSEDTEXIMAGE1DPROC)load(\textcolor{stringliteral}{"{}glCompressedTexImage1D"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00725}00725\ \ \ \ \ glad\_glCompressedTexSubImage3D\ =\ (PFNGLCOMPRESSEDTEXSUBIMAGE3DPROC)load(\textcolor{stringliteral}{"{}glCompressedTexSubImage3D"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00726}00726\ \ \ \ \ glad\_glCompressedTexSubImage2D\ =\ (PFNGLCOMPRESSEDTEXSUBIMAGE2DPROC)load(\textcolor{stringliteral}{"{}glCompressedTexSubImage2D"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00727}00727\ \ \ \ \ glad\_glCompressedTexSubImage1D\ =\ (PFNGLCOMPRESSEDTEXSUBIMAGE1DPROC)load(\textcolor{stringliteral}{"{}glCompressedTexSubImage1D"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00728}00728\ \ \ \ \ glad\_glGetCompressedTexImage\ =\ (PFNGLGETCOMPRESSEDTEXIMAGEPROC)load(\textcolor{stringliteral}{"{}glGetCompressedTexImage"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00729}00729\ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00730}00730\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ load\_GL\_VERSION\_1\_4(GLADloadproc\ load)\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00731}00731\ \ \ \ \ \textcolor{keywordflow}{if}(!GLAD\_GL\_VERSION\_1\_4)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00732}00732\ \ \ \ \ glad\_glBlendFuncSeparate\ =\ (PFNGLBLENDFUNCSEPARATEPROC)load(\textcolor{stringliteral}{"{}glBlendFuncSeparate"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00733}00733\ \ \ \ \ glad\_glMultiDrawArrays\ =\ (PFNGLMULTIDRAWARRAYSPROC)load(\textcolor{stringliteral}{"{}glMultiDrawArrays"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00734}00734\ \ \ \ \ glad\_glMultiDrawElements\ =\ (PFNGLMULTIDRAWELEMENTSPROC)load(\textcolor{stringliteral}{"{}glMultiDrawElements"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00735}00735\ \ \ \ \ glad\_glPointParameterf\ =\ (PFNGLPOINTPARAMETERFPROC)load(\textcolor{stringliteral}{"{}glPointParameterf"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00736}00736\ \ \ \ \ glad\_glPointParameterfv\ =\ (PFNGLPOINTPARAMETERFVPROC)load(\textcolor{stringliteral}{"{}glPointParameterfv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00737}00737\ \ \ \ \ glad\_glPointParameteri\ =\ (PFNGLPOINTPARAMETERIPROC)load(\textcolor{stringliteral}{"{}glPointParameteri"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00738}00738\ \ \ \ \ glad\_glPointParameteriv\ =\ (PFNGLPOINTPARAMETERIVPROC)load(\textcolor{stringliteral}{"{}glPointParameteriv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00739}00739\ \ \ \ \ glad\_glBlendColor\ =\ (PFNGLBLENDCOLORPROC)load(\textcolor{stringliteral}{"{}glBlendColor"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00740}00740\ \ \ \ \ glad\_glBlendEquation\ =\ (PFNGLBLENDEQUATIONPROC)load(\textcolor{stringliteral}{"{}glBlendEquation"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00741}00741\ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00742}00742\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ load\_GL\_VERSION\_1\_5(GLADloadproc\ load)\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00743}00743\ \ \ \ \ \textcolor{keywordflow}{if}(!GLAD\_GL\_VERSION\_1\_5)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00744}00744\ \ \ \ \ glad\_glGenQueries\ =\ (PFNGLGENQUERIESPROC)load(\textcolor{stringliteral}{"{}glGenQueries"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00745}00745\ \ \ \ \ glad\_glDeleteQueries\ =\ (PFNGLDELETEQUERIESPROC)load(\textcolor{stringliteral}{"{}glDeleteQueries"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00746}00746\ \ \ \ \ glad\_glIsQuery\ =\ (PFNGLISQUERYPROC)load(\textcolor{stringliteral}{"{}glIsQuery"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00747}00747\ \ \ \ \ glad\_glBeginQuery\ =\ (PFNGLBEGINQUERYPROC)load(\textcolor{stringliteral}{"{}glBeginQuery"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00748}00748\ \ \ \ \ glad\_glEndQuery\ =\ (PFNGLENDQUERYPROC)load(\textcolor{stringliteral}{"{}glEndQuery"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00749}00749\ \ \ \ \ glad\_glGetQueryiv\ =\ (PFNGLGETQUERYIVPROC)load(\textcolor{stringliteral}{"{}glGetQueryiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00750}00750\ \ \ \ \ glad\_glGetQueryObjectiv\ =\ (PFNGLGETQUERYOBJECTIVPROC)load(\textcolor{stringliteral}{"{}glGetQueryObjectiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00751}00751\ \ \ \ \ glad\_glGetQueryObjectuiv\ =\ (PFNGLGETQUERYOBJECTUIVPROC)load(\textcolor{stringliteral}{"{}glGetQueryObjectuiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00752}00752\ \ \ \ \ glad\_glBindBuffer\ =\ (PFNGLBINDBUFFERPROC)load(\textcolor{stringliteral}{"{}glBindBuffer"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00753}00753\ \ \ \ \ glad\_glDeleteBuffers\ =\ (PFNGLDELETEBUFFERSPROC)load(\textcolor{stringliteral}{"{}glDeleteBuffers"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00754}00754\ \ \ \ \ glad\_glGenBuffers\ =\ (PFNGLGENBUFFERSPROC)load(\textcolor{stringliteral}{"{}glGenBuffers"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00755}00755\ \ \ \ \ glad\_glIsBuffer\ =\ (PFNGLISBUFFERPROC)load(\textcolor{stringliteral}{"{}glIsBuffer"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00756}00756\ \ \ \ \ glad\_glBufferData\ =\ (PFNGLBUFFERDATAPROC)load(\textcolor{stringliteral}{"{}glBufferData"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00757}00757\ \ \ \ \ glad\_glBufferSubData\ =\ (PFNGLBUFFERSUBDATAPROC)load(\textcolor{stringliteral}{"{}glBufferSubData"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00758}00758\ \ \ \ \ glad\_glGetBufferSubData\ =\ (PFNGLGETBUFFERSUBDATAPROC)load(\textcolor{stringliteral}{"{}glGetBufferSubData"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00759}00759\ \ \ \ \ glad\_glMapBuffer\ =\ (PFNGLMAPBUFFERPROC)load(\textcolor{stringliteral}{"{}glMapBuffer"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00760}00760\ \ \ \ \ glad\_glUnmapBuffer\ =\ (PFNGLUNMAPBUFFERPROC)load(\textcolor{stringliteral}{"{}glUnmapBuffer"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00761}00761\ \ \ \ \ glad\_glGetBufferParameteriv\ =\ (PFNGLGETBUFFERPARAMETERIVPROC)load(\textcolor{stringliteral}{"{}glGetBufferParameteriv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00762}00762\ \ \ \ \ glad\_glGetBufferPointerv\ =\ (PFNGLGETBUFFERPOINTERVPROC)load(\textcolor{stringliteral}{"{}glGetBufferPointerv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00763}00763\ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00764}00764\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ load\_GL\_VERSION\_2\_0(GLADloadproc\ load)\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00765}00765\ \ \ \ \ \textcolor{keywordflow}{if}(!GLAD\_GL\_VERSION\_2\_0)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00766}00766\ \ \ \ \ glad\_glBlendEquationSeparate\ =\ (PFNGLBLENDEQUATIONSEPARATEPROC)load(\textcolor{stringliteral}{"{}glBlendEquationSeparate"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00767}00767\ \ \ \ \ glad\_glDrawBuffers\ =\ (PFNGLDRAWBUFFERSPROC)load(\textcolor{stringliteral}{"{}glDrawBuffers"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00768}00768\ \ \ \ \ glad\_glStencilOpSeparate\ =\ (PFNGLSTENCILOPSEPARATEPROC)load(\textcolor{stringliteral}{"{}glStencilOpSeparate"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00769}00769\ \ \ \ \ glad\_glStencilFuncSeparate\ =\ (PFNGLSTENCILFUNCSEPARATEPROC)load(\textcolor{stringliteral}{"{}glStencilFuncSeparate"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00770}00770\ \ \ \ \ glad\_glStencilMaskSeparate\ =\ (PFNGLSTENCILMASKSEPARATEPROC)load(\textcolor{stringliteral}{"{}glStencilMaskSeparate"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00771}00771\ \ \ \ \ glad\_glAttachShader\ =\ (PFNGLATTACHSHADERPROC)load(\textcolor{stringliteral}{"{}glAttachShader"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00772}00772\ \ \ \ \ glad\_glBindAttribLocation\ =\ (PFNGLBINDATTRIBLOCATIONPROC)load(\textcolor{stringliteral}{"{}glBindAttribLocation"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00773}00773\ \ \ \ \ glad\_glCompileShader\ =\ (PFNGLCOMPILESHADERPROC)load(\textcolor{stringliteral}{"{}glCompileShader"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00774}00774\ \ \ \ \ glad\_glCreateProgram\ =\ (PFNGLCREATEPROGRAMPROC)load(\textcolor{stringliteral}{"{}glCreateProgram"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00775}00775\ \ \ \ \ glad\_glCreateShader\ =\ (PFNGLCREATESHADERPROC)load(\textcolor{stringliteral}{"{}glCreateShader"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00776}00776\ \ \ \ \ glad\_glDeleteProgram\ =\ (PFNGLDELETEPROGRAMPROC)load(\textcolor{stringliteral}{"{}glDeleteProgram"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00777}00777\ \ \ \ \ glad\_glDeleteShader\ =\ (PFNGLDELETESHADERPROC)load(\textcolor{stringliteral}{"{}glDeleteShader"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00778}00778\ \ \ \ \ glad\_glDetachShader\ =\ (PFNGLDETACHSHADERPROC)load(\textcolor{stringliteral}{"{}glDetachShader"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00779}00779\ \ \ \ \ glad\_glDisableVertexAttribArray\ =\ (PFNGLDISABLEVERTEXATTRIBARRAYPROC)load(\textcolor{stringliteral}{"{}glDisableVertexAttribArray"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00780}00780\ \ \ \ \ glad\_glEnableVertexAttribArray\ =\ (PFNGLENABLEVERTEXATTRIBARRAYPROC)load(\textcolor{stringliteral}{"{}glEnableVertexAttribArray"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00781}00781\ \ \ \ \ glad\_glGetActiveAttrib\ =\ (PFNGLGETACTIVEATTRIBPROC)load(\textcolor{stringliteral}{"{}glGetActiveAttrib"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00782}00782\ \ \ \ \ glad\_glGetActiveUniform\ =\ (PFNGLGETACTIVEUNIFORMPROC)load(\textcolor{stringliteral}{"{}glGetActiveUniform"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00783}00783\ \ \ \ \ glad\_glGetAttachedShaders\ =\ (PFNGLGETATTACHEDSHADERSPROC)load(\textcolor{stringliteral}{"{}glGetAttachedShaders"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00784}00784\ \ \ \ \ glad\_glGetAttribLocation\ =\ (PFNGLGETATTRIBLOCATIONPROC)load(\textcolor{stringliteral}{"{}glGetAttribLocation"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00785}00785\ \ \ \ \ glad\_glGetProgramiv\ =\ (PFNGLGETPROGRAMIVPROC)load(\textcolor{stringliteral}{"{}glGetProgramiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00786}00786\ \ \ \ \ glad\_glGetProgramInfoLog\ =\ (PFNGLGETPROGRAMINFOLOGPROC)load(\textcolor{stringliteral}{"{}glGetProgramInfoLog"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00787}00787\ \ \ \ \ glad\_glGetShaderiv\ =\ (PFNGLGETSHADERIVPROC)load(\textcolor{stringliteral}{"{}glGetShaderiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00788}00788\ \ \ \ \ glad\_glGetShaderInfoLog\ =\ (PFNGLGETSHADERINFOLOGPROC)load(\textcolor{stringliteral}{"{}glGetShaderInfoLog"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00789}00789\ \ \ \ \ glad\_glGetShaderSource\ =\ (PFNGLGETSHADERSOURCEPROC)load(\textcolor{stringliteral}{"{}glGetShaderSource"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00790}00790\ \ \ \ \ glad\_glGetUniformLocation\ =\ (PFNGLGETUNIFORMLOCATIONPROC)load(\textcolor{stringliteral}{"{}glGetUniformLocation"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00791}00791\ \ \ \ \ glad\_glGetUniformfv\ =\ (PFNGLGETUNIFORMFVPROC)load(\textcolor{stringliteral}{"{}glGetUniformfv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00792}00792\ \ \ \ \ glad\_glGetUniformiv\ =\ (PFNGLGETUNIFORMIVPROC)load(\textcolor{stringliteral}{"{}glGetUniformiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00793}00793\ \ \ \ \ glad\_glGetVertexAttribdv\ =\ (PFNGLGETVERTEXATTRIBDVPROC)load(\textcolor{stringliteral}{"{}glGetVertexAttribdv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00794}00794\ \ \ \ \ glad\_glGetVertexAttribfv\ =\ (PFNGLGETVERTEXATTRIBFVPROC)load(\textcolor{stringliteral}{"{}glGetVertexAttribfv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00795}00795\ \ \ \ \ glad\_glGetVertexAttribiv\ =\ (PFNGLGETVERTEXATTRIBIVPROC)load(\textcolor{stringliteral}{"{}glGetVertexAttribiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00796}00796\ \ \ \ \ glad\_glGetVertexAttribPointerv\ =\ (PFNGLGETVERTEXATTRIBPOINTERVPROC)load(\textcolor{stringliteral}{"{}glGetVertexAttribPointerv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00797}00797\ \ \ \ \ glad\_glIsProgram\ =\ (PFNGLISPROGRAMPROC)load(\textcolor{stringliteral}{"{}glIsProgram"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00798}00798\ \ \ \ \ glad\_glIsShader\ =\ (PFNGLISSHADERPROC)load(\textcolor{stringliteral}{"{}glIsShader"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00799}00799\ \ \ \ \ glad\_glLinkProgram\ =\ (PFNGLLINKPROGRAMPROC)load(\textcolor{stringliteral}{"{}glLinkProgram"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00800}00800\ \ \ \ \ glad\_glShaderSource\ =\ (PFNGLSHADERSOURCEPROC)load(\textcolor{stringliteral}{"{}glShaderSource"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00801}00801\ \ \ \ \ glad\_glUseProgram\ =\ (PFNGLUSEPROGRAMPROC)load(\textcolor{stringliteral}{"{}glUseProgram"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00802}00802\ \ \ \ \ glad\_glUniform1f\ =\ (PFNGLUNIFORM1FPROC)load(\textcolor{stringliteral}{"{}glUniform1f"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00803}00803\ \ \ \ \ glad\_glUniform2f\ =\ (PFNGLUNIFORM2FPROC)load(\textcolor{stringliteral}{"{}glUniform2f"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00804}00804\ \ \ \ \ glad\_glUniform3f\ =\ (PFNGLUNIFORM3FPROC)load(\textcolor{stringliteral}{"{}glUniform3f"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00805}00805\ \ \ \ \ glad\_glUniform4f\ =\ (PFNGLUNIFORM4FPROC)load(\textcolor{stringliteral}{"{}glUniform4f"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00806}00806\ \ \ \ \ glad\_glUniform1i\ =\ (PFNGLUNIFORM1IPROC)load(\textcolor{stringliteral}{"{}glUniform1i"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00807}00807\ \ \ \ \ glad\_glUniform2i\ =\ (PFNGLUNIFORM2IPROC)load(\textcolor{stringliteral}{"{}glUniform2i"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00808}00808\ \ \ \ \ glad\_glUniform3i\ =\ (PFNGLUNIFORM3IPROC)load(\textcolor{stringliteral}{"{}glUniform3i"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00809}00809\ \ \ \ \ glad\_glUniform4i\ =\ (PFNGLUNIFORM4IPROC)load(\textcolor{stringliteral}{"{}glUniform4i"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00810}00810\ \ \ \ \ glad\_glUniform1fv\ =\ (PFNGLUNIFORM1FVPROC)load(\textcolor{stringliteral}{"{}glUniform1fv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00811}00811\ \ \ \ \ glad\_glUniform2fv\ =\ (PFNGLUNIFORM2FVPROC)load(\textcolor{stringliteral}{"{}glUniform2fv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00812}00812\ \ \ \ \ glad\_glUniform3fv\ =\ (PFNGLUNIFORM3FVPROC)load(\textcolor{stringliteral}{"{}glUniform3fv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00813}00813\ \ \ \ \ glad\_glUniform4fv\ =\ (PFNGLUNIFORM4FVPROC)load(\textcolor{stringliteral}{"{}glUniform4fv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00814}00814\ \ \ \ \ glad\_glUniform1iv\ =\ (PFNGLUNIFORM1IVPROC)load(\textcolor{stringliteral}{"{}glUniform1iv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00815}00815\ \ \ \ \ glad\_glUniform2iv\ =\ (PFNGLUNIFORM2IVPROC)load(\textcolor{stringliteral}{"{}glUniform2iv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00816}00816\ \ \ \ \ glad\_glUniform3iv\ =\ (PFNGLUNIFORM3IVPROC)load(\textcolor{stringliteral}{"{}glUniform3iv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00817}00817\ \ \ \ \ glad\_glUniform4iv\ =\ (PFNGLUNIFORM4IVPROC)load(\textcolor{stringliteral}{"{}glUniform4iv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00818}00818\ \ \ \ \ glad\_glUniformMatrix2fv\ =\ (PFNGLUNIFORMMATRIX2FVPROC)load(\textcolor{stringliteral}{"{}glUniformMatrix2fv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00819}00819\ \ \ \ \ glad\_glUniformMatrix3fv\ =\ (PFNGLUNIFORMMATRIX3FVPROC)load(\textcolor{stringliteral}{"{}glUniformMatrix3fv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00820}00820\ \ \ \ \ glad\_glUniformMatrix4fv\ =\ (PFNGLUNIFORMMATRIX4FVPROC)load(\textcolor{stringliteral}{"{}glUniformMatrix4fv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00821}00821\ \ \ \ \ glad\_glValidateProgram\ =\ (PFNGLVALIDATEPROGRAMPROC)load(\textcolor{stringliteral}{"{}glValidateProgram"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00822}00822\ \ \ \ \ glad\_glVertexAttrib1d\ =\ (PFNGLVERTEXATTRIB1DPROC)load(\textcolor{stringliteral}{"{}glVertexAttrib1d"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00823}00823\ \ \ \ \ glad\_glVertexAttrib1dv\ =\ (PFNGLVERTEXATTRIB1DVPROC)load(\textcolor{stringliteral}{"{}glVertexAttrib1dv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00824}00824\ \ \ \ \ glad\_glVertexAttrib1f\ =\ (PFNGLVERTEXATTRIB1FPROC)load(\textcolor{stringliteral}{"{}glVertexAttrib1f"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00825}00825\ \ \ \ \ glad\_glVertexAttrib1fv\ =\ (PFNGLVERTEXATTRIB1FVPROC)load(\textcolor{stringliteral}{"{}glVertexAttrib1fv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00826}00826\ \ \ \ \ glad\_glVertexAttrib1s\ =\ (PFNGLVERTEXATTRIB1SPROC)load(\textcolor{stringliteral}{"{}glVertexAttrib1s"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00827}00827\ \ \ \ \ glad\_glVertexAttrib1sv\ =\ (PFNGLVERTEXATTRIB1SVPROC)load(\textcolor{stringliteral}{"{}glVertexAttrib1sv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00828}00828\ \ \ \ \ glad\_glVertexAttrib2d\ =\ (PFNGLVERTEXATTRIB2DPROC)load(\textcolor{stringliteral}{"{}glVertexAttrib2d"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00829}00829\ \ \ \ \ glad\_glVertexAttrib2dv\ =\ (PFNGLVERTEXATTRIB2DVPROC)load(\textcolor{stringliteral}{"{}glVertexAttrib2dv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00830}00830\ \ \ \ \ glad\_glVertexAttrib2f\ =\ (PFNGLVERTEXATTRIB2FPROC)load(\textcolor{stringliteral}{"{}glVertexAttrib2f"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00831}00831\ \ \ \ \ glad\_glVertexAttrib2fv\ =\ (PFNGLVERTEXATTRIB2FVPROC)load(\textcolor{stringliteral}{"{}glVertexAttrib2fv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00832}00832\ \ \ \ \ glad\_glVertexAttrib2s\ =\ (PFNGLVERTEXATTRIB2SPROC)load(\textcolor{stringliteral}{"{}glVertexAttrib2s"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00833}00833\ \ \ \ \ glad\_glVertexAttrib2sv\ =\ (PFNGLVERTEXATTRIB2SVPROC)load(\textcolor{stringliteral}{"{}glVertexAttrib2sv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00834}00834\ \ \ \ \ glad\_glVertexAttrib3d\ =\ (PFNGLVERTEXATTRIB3DPROC)load(\textcolor{stringliteral}{"{}glVertexAttrib3d"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00835}00835\ \ \ \ \ glad\_glVertexAttrib3dv\ =\ (PFNGLVERTEXATTRIB3DVPROC)load(\textcolor{stringliteral}{"{}glVertexAttrib3dv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00836}00836\ \ \ \ \ glad\_glVertexAttrib3f\ =\ (PFNGLVERTEXATTRIB3FPROC)load(\textcolor{stringliteral}{"{}glVertexAttrib3f"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00837}00837\ \ \ \ \ glad\_glVertexAttrib3fv\ =\ (PFNGLVERTEXATTRIB3FVPROC)load(\textcolor{stringliteral}{"{}glVertexAttrib3fv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00838}00838\ \ \ \ \ glad\_glVertexAttrib3s\ =\ (PFNGLVERTEXATTRIB3SPROC)load(\textcolor{stringliteral}{"{}glVertexAttrib3s"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00839}00839\ \ \ \ \ glad\_glVertexAttrib3sv\ =\ (PFNGLVERTEXATTRIB3SVPROC)load(\textcolor{stringliteral}{"{}glVertexAttrib3sv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00840}00840\ \ \ \ \ glad\_glVertexAttrib4Nbv\ =\ (PFNGLVERTEXATTRIB4NBVPROC)load(\textcolor{stringliteral}{"{}glVertexAttrib4Nbv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00841}00841\ \ \ \ \ glad\_glVertexAttrib4Niv\ =\ (PFNGLVERTEXATTRIB4NIVPROC)load(\textcolor{stringliteral}{"{}glVertexAttrib4Niv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00842}00842\ \ \ \ \ glad\_glVertexAttrib4Nsv\ =\ (PFNGLVERTEXATTRIB4NSVPROC)load(\textcolor{stringliteral}{"{}glVertexAttrib4Nsv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00843}00843\ \ \ \ \ glad\_glVertexAttrib4Nub\ =\ (PFNGLVERTEXATTRIB4NUBPROC)load(\textcolor{stringliteral}{"{}glVertexAttrib4Nub"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00844}00844\ \ \ \ \ glad\_glVertexAttrib4Nubv\ =\ (PFNGLVERTEXATTRIB4NUBVPROC)load(\textcolor{stringliteral}{"{}glVertexAttrib4Nubv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00845}00845\ \ \ \ \ glad\_glVertexAttrib4Nuiv\ =\ (PFNGLVERTEXATTRIB4NUIVPROC)load(\textcolor{stringliteral}{"{}glVertexAttrib4Nuiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00846}00846\ \ \ \ \ glad\_glVertexAttrib4Nusv\ =\ (PFNGLVERTEXATTRIB4NUSVPROC)load(\textcolor{stringliteral}{"{}glVertexAttrib4Nusv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00847}00847\ \ \ \ \ glad\_glVertexAttrib4bv\ =\ (PFNGLVERTEXATTRIB4BVPROC)load(\textcolor{stringliteral}{"{}glVertexAttrib4bv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00848}00848\ \ \ \ \ glad\_glVertexAttrib4d\ =\ (PFNGLVERTEXATTRIB4DPROC)load(\textcolor{stringliteral}{"{}glVertexAttrib4d"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00849}00849\ \ \ \ \ glad\_glVertexAttrib4dv\ =\ (PFNGLVERTEXATTRIB4DVPROC)load(\textcolor{stringliteral}{"{}glVertexAttrib4dv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00850}00850\ \ \ \ \ glad\_glVertexAttrib4f\ =\ (PFNGLVERTEXATTRIB4FPROC)load(\textcolor{stringliteral}{"{}glVertexAttrib4f"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00851}00851\ \ \ \ \ glad\_glVertexAttrib4fv\ =\ (PFNGLVERTEXATTRIB4FVPROC)load(\textcolor{stringliteral}{"{}glVertexAttrib4fv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00852}00852\ \ \ \ \ glad\_glVertexAttrib4iv\ =\ (PFNGLVERTEXATTRIB4IVPROC)load(\textcolor{stringliteral}{"{}glVertexAttrib4iv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00853}00853\ \ \ \ \ glad\_glVertexAttrib4s\ =\ (PFNGLVERTEXATTRIB4SPROC)load(\textcolor{stringliteral}{"{}glVertexAttrib4s"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00854}00854\ \ \ \ \ glad\_glVertexAttrib4sv\ =\ (PFNGLVERTEXATTRIB4SVPROC)load(\textcolor{stringliteral}{"{}glVertexAttrib4sv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00855}00855\ \ \ \ \ glad\_glVertexAttrib4ubv\ =\ (PFNGLVERTEXATTRIB4UBVPROC)load(\textcolor{stringliteral}{"{}glVertexAttrib4ubv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00856}00856\ \ \ \ \ glad\_glVertexAttrib4uiv\ =\ (PFNGLVERTEXATTRIB4UIVPROC)load(\textcolor{stringliteral}{"{}glVertexAttrib4uiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00857}00857\ \ \ \ \ glad\_glVertexAttrib4usv\ =\ (PFNGLVERTEXATTRIB4USVPROC)load(\textcolor{stringliteral}{"{}glVertexAttrib4usv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00858}00858\ \ \ \ \ glad\_glVertexAttribPointer\ =\ (PFNGLVERTEXATTRIBPOINTERPROC)load(\textcolor{stringliteral}{"{}glVertexAttribPointer"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00859}00859\ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00860}00860\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ load\_GL\_VERSION\_2\_1(GLADloadproc\ load)\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00861}00861\ \ \ \ \ \textcolor{keywordflow}{if}(!GLAD\_GL\_VERSION\_2\_1)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00862}00862\ \ \ \ \ glad\_glUniformMatrix2x3fv\ =\ (PFNGLUNIFORMMATRIX2X3FVPROC)load(\textcolor{stringliteral}{"{}glUniformMatrix2x3fv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00863}00863\ \ \ \ \ glad\_glUniformMatrix3x2fv\ =\ (PFNGLUNIFORMMATRIX3X2FVPROC)load(\textcolor{stringliteral}{"{}glUniformMatrix3x2fv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00864}00864\ \ \ \ \ glad\_glUniformMatrix2x4fv\ =\ (PFNGLUNIFORMMATRIX2X4FVPROC)load(\textcolor{stringliteral}{"{}glUniformMatrix2x4fv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00865}00865\ \ \ \ \ glad\_glUniformMatrix4x2fv\ =\ (PFNGLUNIFORMMATRIX4X2FVPROC)load(\textcolor{stringliteral}{"{}glUniformMatrix4x2fv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00866}00866\ \ \ \ \ glad\_glUniformMatrix3x4fv\ =\ (PFNGLUNIFORMMATRIX3X4FVPROC)load(\textcolor{stringliteral}{"{}glUniformMatrix3x4fv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00867}00867\ \ \ \ \ glad\_glUniformMatrix4x3fv\ =\ (PFNGLUNIFORMMATRIX4X3FVPROC)load(\textcolor{stringliteral}{"{}glUniformMatrix4x3fv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00868}00868\ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00869}00869\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ load\_GL\_VERSION\_3\_0(GLADloadproc\ load)\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00870}00870\ \ \ \ \ \textcolor{keywordflow}{if}(!GLAD\_GL\_VERSION\_3\_0)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00871}00871\ \ \ \ \ glad\_glColorMaski\ =\ (PFNGLCOLORMASKIPROC)load(\textcolor{stringliteral}{"{}glColorMaski"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00872}00872\ \ \ \ \ glad\_glGetBooleani\_v\ =\ (PFNGLGETBOOLEANI\_VPROC)load(\textcolor{stringliteral}{"{}glGetBooleani\_v"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00873}00873\ \ \ \ \ glad\_glGetIntegeri\_v\ =\ (PFNGLGETINTEGERI\_VPROC)load(\textcolor{stringliteral}{"{}glGetIntegeri\_v"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00874}00874\ \ \ \ \ glad\_glEnablei\ =\ (PFNGLENABLEIPROC)load(\textcolor{stringliteral}{"{}glEnablei"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00875}00875\ \ \ \ \ glad\_glDisablei\ =\ (PFNGLDISABLEIPROC)load(\textcolor{stringliteral}{"{}glDisablei"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00876}00876\ \ \ \ \ glad\_glIsEnabledi\ =\ (PFNGLISENABLEDIPROC)load(\textcolor{stringliteral}{"{}glIsEnabledi"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00877}00877\ \ \ \ \ glad\_glBeginTransformFeedback\ =\ (PFNGLBEGINTRANSFORMFEEDBACKPROC)load(\textcolor{stringliteral}{"{}glBeginTransformFeedback"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00878}00878\ \ \ \ \ glad\_glEndTransformFeedback\ =\ (PFNGLENDTRANSFORMFEEDBACKPROC)load(\textcolor{stringliteral}{"{}glEndTransformFeedback"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00879}00879\ \ \ \ \ glad\_glBindBufferRange\ =\ (PFNGLBINDBUFFERRANGEPROC)load(\textcolor{stringliteral}{"{}glBindBufferRange"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00880}00880\ \ \ \ \ glad\_glBindBufferBase\ =\ (PFNGLBINDBUFFERBASEPROC)load(\textcolor{stringliteral}{"{}glBindBufferBase"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00881}00881\ \ \ \ \ glad\_glTransformFeedbackVaryings\ =\ (PFNGLTRANSFORMFEEDBACKVARYINGSPROC)load(\textcolor{stringliteral}{"{}glTransformFeedbackVaryings"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00882}00882\ \ \ \ \ glad\_glGetTransformFeedbackVarying\ =\ (PFNGLGETTRANSFORMFEEDBACKVARYINGPROC)load(\textcolor{stringliteral}{"{}glGetTransformFeedbackVarying"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00883}00883\ \ \ \ \ glad\_glClampColor\ =\ (PFNGLCLAMPCOLORPROC)load(\textcolor{stringliteral}{"{}glClampColor"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00884}00884\ \ \ \ \ glad\_glBeginConditionalRender\ =\ (PFNGLBEGINCONDITIONALRENDERPROC)load(\textcolor{stringliteral}{"{}glBeginConditionalRender"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00885}00885\ \ \ \ \ glad\_glEndConditionalRender\ =\ (PFNGLENDCONDITIONALRENDERPROC)load(\textcolor{stringliteral}{"{}glEndConditionalRender"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00886}00886\ \ \ \ \ glad\_glVertexAttribIPointer\ =\ (PFNGLVERTEXATTRIBIPOINTERPROC)load(\textcolor{stringliteral}{"{}glVertexAttribIPointer"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00887}00887\ \ \ \ \ glad\_glGetVertexAttribIiv\ =\ (PFNGLGETVERTEXATTRIBIIVPROC)load(\textcolor{stringliteral}{"{}glGetVertexAttribIiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00888}00888\ \ \ \ \ glad\_glGetVertexAttribIuiv\ =\ (PFNGLGETVERTEXATTRIBIUIVPROC)load(\textcolor{stringliteral}{"{}glGetVertexAttribIuiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00889}00889\ \ \ \ \ glad\_glVertexAttribI1i\ =\ (PFNGLVERTEXATTRIBI1IPROC)load(\textcolor{stringliteral}{"{}glVertexAttribI1i"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00890}00890\ \ \ \ \ glad\_glVertexAttribI2i\ =\ (PFNGLVERTEXATTRIBI2IPROC)load(\textcolor{stringliteral}{"{}glVertexAttribI2i"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00891}00891\ \ \ \ \ glad\_glVertexAttribI3i\ =\ (PFNGLVERTEXATTRIBI3IPROC)load(\textcolor{stringliteral}{"{}glVertexAttribI3i"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00892}00892\ \ \ \ \ glad\_glVertexAttribI4i\ =\ (PFNGLVERTEXATTRIBI4IPROC)load(\textcolor{stringliteral}{"{}glVertexAttribI4i"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00893}00893\ \ \ \ \ glad\_glVertexAttribI1ui\ =\ (PFNGLVERTEXATTRIBI1UIPROC)load(\textcolor{stringliteral}{"{}glVertexAttribI1ui"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00894}00894\ \ \ \ \ glad\_glVertexAttribI2ui\ =\ (PFNGLVERTEXATTRIBI2UIPROC)load(\textcolor{stringliteral}{"{}glVertexAttribI2ui"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00895}00895\ \ \ \ \ glad\_glVertexAttribI3ui\ =\ (PFNGLVERTEXATTRIBI3UIPROC)load(\textcolor{stringliteral}{"{}glVertexAttribI3ui"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00896}00896\ \ \ \ \ glad\_glVertexAttribI4ui\ =\ (PFNGLVERTEXATTRIBI4UIPROC)load(\textcolor{stringliteral}{"{}glVertexAttribI4ui"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00897}00897\ \ \ \ \ glad\_glVertexAttribI1iv\ =\ (PFNGLVERTEXATTRIBI1IVPROC)load(\textcolor{stringliteral}{"{}glVertexAttribI1iv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00898}00898\ \ \ \ \ glad\_glVertexAttribI2iv\ =\ (PFNGLVERTEXATTRIBI2IVPROC)load(\textcolor{stringliteral}{"{}glVertexAttribI2iv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00899}00899\ \ \ \ \ glad\_glVertexAttribI3iv\ =\ (PFNGLVERTEXATTRIBI3IVPROC)load(\textcolor{stringliteral}{"{}glVertexAttribI3iv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00900}00900\ \ \ \ \ glad\_glVertexAttribI4iv\ =\ (PFNGLVERTEXATTRIBI4IVPROC)load(\textcolor{stringliteral}{"{}glVertexAttribI4iv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00901}00901\ \ \ \ \ glad\_glVertexAttribI1uiv\ =\ (PFNGLVERTEXATTRIBI1UIVPROC)load(\textcolor{stringliteral}{"{}glVertexAttribI1uiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00902}00902\ \ \ \ \ glad\_glVertexAttribI2uiv\ =\ (PFNGLVERTEXATTRIBI2UIVPROC)load(\textcolor{stringliteral}{"{}glVertexAttribI2uiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00903}00903\ \ \ \ \ glad\_glVertexAttribI3uiv\ =\ (PFNGLVERTEXATTRIBI3UIVPROC)load(\textcolor{stringliteral}{"{}glVertexAttribI3uiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00904}00904\ \ \ \ \ glad\_glVertexAttribI4uiv\ =\ (PFNGLVERTEXATTRIBI4UIVPROC)load(\textcolor{stringliteral}{"{}glVertexAttribI4uiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00905}00905\ \ \ \ \ glad\_glVertexAttribI4bv\ =\ (PFNGLVERTEXATTRIBI4BVPROC)load(\textcolor{stringliteral}{"{}glVertexAttribI4bv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00906}00906\ \ \ \ \ glad\_glVertexAttribI4sv\ =\ (PFNGLVERTEXATTRIBI4SVPROC)load(\textcolor{stringliteral}{"{}glVertexAttribI4sv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00907}00907\ \ \ \ \ glad\_glVertexAttribI4ubv\ =\ (PFNGLVERTEXATTRIBI4UBVPROC)load(\textcolor{stringliteral}{"{}glVertexAttribI4ubv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00908}00908\ \ \ \ \ glad\_glVertexAttribI4usv\ =\ (PFNGLVERTEXATTRIBI4USVPROC)load(\textcolor{stringliteral}{"{}glVertexAttribI4usv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00909}00909\ \ \ \ \ glad\_glGetUniformuiv\ =\ (PFNGLGETUNIFORMUIVPROC)load(\textcolor{stringliteral}{"{}glGetUniformuiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00910}00910\ \ \ \ \ glad\_glBindFragDataLocation\ =\ (PFNGLBINDFRAGDATALOCATIONPROC)load(\textcolor{stringliteral}{"{}glBindFragDataLocation"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00911}00911\ \ \ \ \ glad\_glGetFragDataLocation\ =\ (PFNGLGETFRAGDATALOCATIONPROC)load(\textcolor{stringliteral}{"{}glGetFragDataLocation"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00912}00912\ \ \ \ \ glad\_glUniform1ui\ =\ (PFNGLUNIFORM1UIPROC)load(\textcolor{stringliteral}{"{}glUniform1ui"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00913}00913\ \ \ \ \ glad\_glUniform2ui\ =\ (PFNGLUNIFORM2UIPROC)load(\textcolor{stringliteral}{"{}glUniform2ui"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00914}00914\ \ \ \ \ glad\_glUniform3ui\ =\ (PFNGLUNIFORM3UIPROC)load(\textcolor{stringliteral}{"{}glUniform3ui"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00915}00915\ \ \ \ \ glad\_glUniform4ui\ =\ (PFNGLUNIFORM4UIPROC)load(\textcolor{stringliteral}{"{}glUniform4ui"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00916}00916\ \ \ \ \ glad\_glUniform1uiv\ =\ (PFNGLUNIFORM1UIVPROC)load(\textcolor{stringliteral}{"{}glUniform1uiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00917}00917\ \ \ \ \ glad\_glUniform2uiv\ =\ (PFNGLUNIFORM2UIVPROC)load(\textcolor{stringliteral}{"{}glUniform2uiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00918}00918\ \ \ \ \ glad\_glUniform3uiv\ =\ (PFNGLUNIFORM3UIVPROC)load(\textcolor{stringliteral}{"{}glUniform3uiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00919}00919\ \ \ \ \ glad\_glUniform4uiv\ =\ (PFNGLUNIFORM4UIVPROC)load(\textcolor{stringliteral}{"{}glUniform4uiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00920}00920\ \ \ \ \ glad\_glTexParameterIiv\ =\ (PFNGLTEXPARAMETERIIVPROC)load(\textcolor{stringliteral}{"{}glTexParameterIiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00921}00921\ \ \ \ \ glad\_glTexParameterIuiv\ =\ (PFNGLTEXPARAMETERIUIVPROC)load(\textcolor{stringliteral}{"{}glTexParameterIuiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00922}00922\ \ \ \ \ glad\_glGetTexParameterIiv\ =\ (PFNGLGETTEXPARAMETERIIVPROC)load(\textcolor{stringliteral}{"{}glGetTexParameterIiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00923}00923\ \ \ \ \ glad\_glGetTexParameterIuiv\ =\ (PFNGLGETTEXPARAMETERIUIVPROC)load(\textcolor{stringliteral}{"{}glGetTexParameterIuiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00924}00924\ \ \ \ \ glad\_glClearBufferiv\ =\ (PFNGLCLEARBUFFERIVPROC)load(\textcolor{stringliteral}{"{}glClearBufferiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00925}00925\ \ \ \ \ glad\_glClearBufferuiv\ =\ (PFNGLCLEARBUFFERUIVPROC)load(\textcolor{stringliteral}{"{}glClearBufferuiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00926}00926\ \ \ \ \ glad\_glClearBufferfv\ =\ (PFNGLCLEARBUFFERFVPROC)load(\textcolor{stringliteral}{"{}glClearBufferfv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00927}00927\ \ \ \ \ glad\_glClearBufferfi\ =\ (PFNGLCLEARBUFFERFIPROC)load(\textcolor{stringliteral}{"{}glClearBufferfi"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00928}00928\ \ \ \ \ glad\_glGetStringi\ =\ (PFNGLGETSTRINGIPROC)load(\textcolor{stringliteral}{"{}glGetStringi"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00929}00929\ \ \ \ \ glad\_glIsRenderbuffer\ =\ (PFNGLISRENDERBUFFERPROC)load(\textcolor{stringliteral}{"{}glIsRenderbuffer"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00930}00930\ \ \ \ \ glad\_glBindRenderbuffer\ =\ (PFNGLBINDRENDERBUFFERPROC)load(\textcolor{stringliteral}{"{}glBindRenderbuffer"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00931}00931\ \ \ \ \ glad\_glDeleteRenderbuffers\ =\ (PFNGLDELETERENDERBUFFERSPROC)load(\textcolor{stringliteral}{"{}glDeleteRenderbuffers"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00932}00932\ \ \ \ \ glad\_glGenRenderbuffers\ =\ (PFNGLGENRENDERBUFFERSPROC)load(\textcolor{stringliteral}{"{}glGenRenderbuffers"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00933}00933\ \ \ \ \ glad\_glRenderbufferStorage\ =\ (PFNGLRENDERBUFFERSTORAGEPROC)load(\textcolor{stringliteral}{"{}glRenderbufferStorage"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00934}00934\ \ \ \ \ glad\_glGetRenderbufferParameteriv\ =\ (PFNGLGETRENDERBUFFERPARAMETERIVPROC)load(\textcolor{stringliteral}{"{}glGetRenderbufferParameteriv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00935}00935\ \ \ \ \ glad\_glIsFramebuffer\ =\ (PFNGLISFRAMEBUFFERPROC)load(\textcolor{stringliteral}{"{}glIsFramebuffer"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00936}00936\ \ \ \ \ glad\_glBindFramebuffer\ =\ (PFNGLBINDFRAMEBUFFERPROC)load(\textcolor{stringliteral}{"{}glBindFramebuffer"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00937}00937\ \ \ \ \ glad\_glDeleteFramebuffers\ =\ (PFNGLDELETEFRAMEBUFFERSPROC)load(\textcolor{stringliteral}{"{}glDeleteFramebuffers"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00938}00938\ \ \ \ \ glad\_glGenFramebuffers\ =\ (PFNGLGENFRAMEBUFFERSPROC)load(\textcolor{stringliteral}{"{}glGenFramebuffers"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00939}00939\ \ \ \ \ glad\_glCheckFramebufferStatus\ =\ (PFNGLCHECKFRAMEBUFFERSTATUSPROC)load(\textcolor{stringliteral}{"{}glCheckFramebufferStatus"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00940}00940\ \ \ \ \ glad\_glFramebufferTexture1D\ =\ (PFNGLFRAMEBUFFERTEXTURE1DPROC)load(\textcolor{stringliteral}{"{}glFramebufferTexture1D"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00941}00941\ \ \ \ \ glad\_glFramebufferTexture2D\ =\ (PFNGLFRAMEBUFFERTEXTURE2DPROC)load(\textcolor{stringliteral}{"{}glFramebufferTexture2D"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00942}00942\ \ \ \ \ glad\_glFramebufferTexture3D\ =\ (PFNGLFRAMEBUFFERTEXTURE3DPROC)load(\textcolor{stringliteral}{"{}glFramebufferTexture3D"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00943}00943\ \ \ \ \ glad\_glFramebufferRenderbuffer\ =\ (PFNGLFRAMEBUFFERRENDERBUFFERPROC)load(\textcolor{stringliteral}{"{}glFramebufferRenderbuffer"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00944}00944\ \ \ \ \ glad\_glGetFramebufferAttachmentParameteriv\ =\ (PFNGLGETFRAMEBUFFERATTACHMENTPARAMETERIVPROC)load(\textcolor{stringliteral}{"{}glGetFramebufferAttachmentParameteriv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00945}00945\ \ \ \ \ glad\_glGenerateMipmap\ =\ (PFNGLGENERATEMIPMAPPROC)load(\textcolor{stringliteral}{"{}glGenerateMipmap"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00946}00946\ \ \ \ \ glad\_glBlitFramebuffer\ =\ (PFNGLBLITFRAMEBUFFERPROC)load(\textcolor{stringliteral}{"{}glBlitFramebuffer"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00947}00947\ \ \ \ \ glad\_glRenderbufferStorageMultisample\ =\ (PFNGLRENDERBUFFERSTORAGEMULTISAMPLEPROC)load(\textcolor{stringliteral}{"{}glRenderbufferStorageMultisample"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00948}00948\ \ \ \ \ glad\_glFramebufferTextureLayer\ =\ (PFNGLFRAMEBUFFERTEXTURELAYERPROC)load(\textcolor{stringliteral}{"{}glFramebufferTextureLayer"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00949}00949\ \ \ \ \ glad\_glMapBufferRange\ =\ (PFNGLMAPBUFFERRANGEPROC)load(\textcolor{stringliteral}{"{}glMapBufferRange"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00950}00950\ \ \ \ \ glad\_glFlushMappedBufferRange\ =\ (PFNGLFLUSHMAPPEDBUFFERRANGEPROC)load(\textcolor{stringliteral}{"{}glFlushMappedBufferRange"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00951}00951\ \ \ \ \ glad\_glBindVertexArray\ =\ (PFNGLBINDVERTEXARRAYPROC)load(\textcolor{stringliteral}{"{}glBindVertexArray"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00952}00952\ \ \ \ \ glad\_glDeleteVertexArrays\ =\ (PFNGLDELETEVERTEXARRAYSPROC)load(\textcolor{stringliteral}{"{}glDeleteVertexArrays"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00953}00953\ \ \ \ \ glad\_glGenVertexArrays\ =\ (PFNGLGENVERTEXARRAYSPROC)load(\textcolor{stringliteral}{"{}glGenVertexArrays"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00954}00954\ \ \ \ \ glad\_glIsVertexArray\ =\ (PFNGLISVERTEXARRAYPROC)load(\textcolor{stringliteral}{"{}glIsVertexArray"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00955}00955\ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00956}00956\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ load\_GL\_VERSION\_3\_1(GLADloadproc\ load)\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00957}00957\ \ \ \ \ \textcolor{keywordflow}{if}(!GLAD\_GL\_VERSION\_3\_1)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00958}00958\ \ \ \ \ glad\_glDrawArraysInstanced\ =\ (PFNGLDRAWARRAYSINSTANCEDPROC)load(\textcolor{stringliteral}{"{}glDrawArraysInstanced"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00959}00959\ \ \ \ \ glad\_glDrawElementsInstanced\ =\ (PFNGLDRAWELEMENTSINSTANCEDPROC)load(\textcolor{stringliteral}{"{}glDrawElementsInstanced"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00960}00960\ \ \ \ \ glad\_glTexBuffer\ =\ (PFNGLTEXBUFFERPROC)load(\textcolor{stringliteral}{"{}glTexBuffer"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00961}00961\ \ \ \ \ glad\_glPrimitiveRestartIndex\ =\ (PFNGLPRIMITIVERESTARTINDEXPROC)load(\textcolor{stringliteral}{"{}glPrimitiveRestartIndex"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00962}00962\ \ \ \ \ glad\_glCopyBufferSubData\ =\ (PFNGLCOPYBUFFERSUBDATAPROC)load(\textcolor{stringliteral}{"{}glCopyBufferSubData"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00963}00963\ \ \ \ \ glad\_glGetUniformIndices\ =\ (PFNGLGETUNIFORMINDICESPROC)load(\textcolor{stringliteral}{"{}glGetUniformIndices"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00964}00964\ \ \ \ \ glad\_glGetActiveUniformsiv\ =\ (PFNGLGETACTIVEUNIFORMSIVPROC)load(\textcolor{stringliteral}{"{}glGetActiveUniformsiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00965}00965\ \ \ \ \ glad\_glGetActiveUniformName\ =\ (PFNGLGETACTIVEUNIFORMNAMEPROC)load(\textcolor{stringliteral}{"{}glGetActiveUniformName"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00966}00966\ \ \ \ \ glad\_glGetUniformBlockIndex\ =\ (PFNGLGETUNIFORMBLOCKINDEXPROC)load(\textcolor{stringliteral}{"{}glGetUniformBlockIndex"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00967}00967\ \ \ \ \ glad\_glGetActiveUniformBlockiv\ =\ (PFNGLGETACTIVEUNIFORMBLOCKIVPROC)load(\textcolor{stringliteral}{"{}glGetActiveUniformBlockiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00968}00968\ \ \ \ \ glad\_glGetActiveUniformBlockName\ =\ (PFNGLGETACTIVEUNIFORMBLOCKNAMEPROC)load(\textcolor{stringliteral}{"{}glGetActiveUniformBlockName"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00969}00969\ \ \ \ \ glad\_glUniformBlockBinding\ =\ (PFNGLUNIFORMBLOCKBINDINGPROC)load(\textcolor{stringliteral}{"{}glUniformBlockBinding"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00970}00970\ \ \ \ \ glad\_glBindBufferRange\ =\ (PFNGLBINDBUFFERRANGEPROC)load(\textcolor{stringliteral}{"{}glBindBufferRange"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00971}00971\ \ \ \ \ glad\_glBindBufferBase\ =\ (PFNGLBINDBUFFERBASEPROC)load(\textcolor{stringliteral}{"{}glBindBufferBase"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00972}00972\ \ \ \ \ glad\_glGetIntegeri\_v\ =\ (PFNGLGETINTEGERI\_VPROC)load(\textcolor{stringliteral}{"{}glGetIntegeri\_v"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00973}00973\ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00974}00974\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ load\_GL\_VERSION\_3\_2(GLADloadproc\ load)\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00975}00975\ \ \ \ \ \textcolor{keywordflow}{if}(!GLAD\_GL\_VERSION\_3\_2)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00976}00976\ \ \ \ \ glad\_glDrawElementsBaseVertex\ =\ (PFNGLDRAWELEMENTSBASEVERTEXPROC)load(\textcolor{stringliteral}{"{}glDrawElementsBaseVertex"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00977}00977\ \ \ \ \ glad\_glDrawRangeElementsBaseVertex\ =\ (PFNGLDRAWRANGEELEMENTSBASEVERTEXPROC)load(\textcolor{stringliteral}{"{}glDrawRangeElementsBaseVertex"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00978}00978\ \ \ \ \ glad\_glDrawElementsInstancedBaseVertex\ =\ (PFNGLDRAWELEMENTSINSTANCEDBASEVERTEXPROC)load(\textcolor{stringliteral}{"{}glDrawElementsInstancedBaseVertex"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00979}00979\ \ \ \ \ glad\_glMultiDrawElementsBaseVertex\ =\ (PFNGLMULTIDRAWELEMENTSBASEVERTEXPROC)load(\textcolor{stringliteral}{"{}glMultiDrawElementsBaseVertex"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00980}00980\ \ \ \ \ glad\_glProvokingVertex\ =\ (PFNGLPROVOKINGVERTEXPROC)load(\textcolor{stringliteral}{"{}glProvokingVertex"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00981}00981\ \ \ \ \ glad\_glFenceSync\ =\ (PFNGLFENCESYNCPROC)load(\textcolor{stringliteral}{"{}glFenceSync"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00982}00982\ \ \ \ \ glad\_glIsSync\ =\ (PFNGLISSYNCPROC)load(\textcolor{stringliteral}{"{}glIsSync"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00983}00983\ \ \ \ \ glad\_glDeleteSync\ =\ (PFNGLDELETESYNCPROC)load(\textcolor{stringliteral}{"{}glDeleteSync"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00984}00984\ \ \ \ \ glad\_glClientWaitSync\ =\ (PFNGLCLIENTWAITSYNCPROC)load(\textcolor{stringliteral}{"{}glClientWaitSync"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00985}00985\ \ \ \ \ glad\_glWaitSync\ =\ (PFNGLWAITSYNCPROC)load(\textcolor{stringliteral}{"{}glWaitSync"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00986}00986\ \ \ \ \ glad\_glGetInteger64v\ =\ (PFNGLGETINTEGER64VPROC)load(\textcolor{stringliteral}{"{}glGetInteger64v"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00987}00987\ \ \ \ \ glad\_glGetSynciv\ =\ (PFNGLGETSYNCIVPROC)load(\textcolor{stringliteral}{"{}glGetSynciv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00988}00988\ \ \ \ \ glad\_glGetInteger64i\_v\ =\ (PFNGLGETINTEGER64I\_VPROC)load(\textcolor{stringliteral}{"{}glGetInteger64i\_v"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00989}00989\ \ \ \ \ glad\_glGetBufferParameteri64v\ =\ (PFNGLGETBUFFERPARAMETERI64VPROC)load(\textcolor{stringliteral}{"{}glGetBufferParameteri64v"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00990}00990\ \ \ \ \ glad\_glFramebufferTexture\ =\ (PFNGLFRAMEBUFFERTEXTUREPROC)load(\textcolor{stringliteral}{"{}glFramebufferTexture"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00991}00991\ \ \ \ \ glad\_glTexImage2DMultisample\ =\ (PFNGLTEXIMAGE2DMULTISAMPLEPROC)load(\textcolor{stringliteral}{"{}glTexImage2DMultisample"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00992}00992\ \ \ \ \ glad\_glTexImage3DMultisample\ =\ (PFNGLTEXIMAGE3DMULTISAMPLEPROC)load(\textcolor{stringliteral}{"{}glTexImage3DMultisample"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00993}00993\ \ \ \ \ glad\_glGetMultisamplefv\ =\ (PFNGLGETMULTISAMPLEFVPROC)load(\textcolor{stringliteral}{"{}glGetMultisamplefv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00994}00994\ \ \ \ \ glad\_glSampleMaski\ =\ (PFNGLSAMPLEMASKIPROC)load(\textcolor{stringliteral}{"{}glSampleMaski"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00995}00995\ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00996}00996\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ load\_GL\_VERSION\_3\_3(GLADloadproc\ load)\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00997}00997\ \ \ \ \ \textcolor{keywordflow}{if}(!GLAD\_GL\_VERSION\_3\_3)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00998}00998\ \ \ \ \ glad\_glBindFragDataLocationIndexed\ =\ (PFNGLBINDFRAGDATALOCATIONINDEXEDPROC)load(\textcolor{stringliteral}{"{}glBindFragDataLocationIndexed"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l00999}00999\ \ \ \ \ glad\_glGetFragDataIndex\ =\ (PFNGLGETFRAGDATAINDEXPROC)load(\textcolor{stringliteral}{"{}glGetFragDataIndex"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01000}01000\ \ \ \ \ glad\_glGenSamplers\ =\ (PFNGLGENSAMPLERSPROC)load(\textcolor{stringliteral}{"{}glGenSamplers"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01001}01001\ \ \ \ \ glad\_glDeleteSamplers\ =\ (PFNGLDELETESAMPLERSPROC)load(\textcolor{stringliteral}{"{}glDeleteSamplers"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01002}01002\ \ \ \ \ glad\_glIsSampler\ =\ (PFNGLISSAMPLERPROC)load(\textcolor{stringliteral}{"{}glIsSampler"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01003}01003\ \ \ \ \ glad\_glBindSampler\ =\ (PFNGLBINDSAMPLERPROC)load(\textcolor{stringliteral}{"{}glBindSampler"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01004}01004\ \ \ \ \ glad\_glSamplerParameteri\ =\ (PFNGLSAMPLERPARAMETERIPROC)load(\textcolor{stringliteral}{"{}glSamplerParameteri"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01005}01005\ \ \ \ \ glad\_glSamplerParameteriv\ =\ (PFNGLSAMPLERPARAMETERIVPROC)load(\textcolor{stringliteral}{"{}glSamplerParameteriv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01006}01006\ \ \ \ \ glad\_glSamplerParameterf\ =\ (PFNGLSAMPLERPARAMETERFPROC)load(\textcolor{stringliteral}{"{}glSamplerParameterf"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01007}01007\ \ \ \ \ glad\_glSamplerParameterfv\ =\ (PFNGLSAMPLERPARAMETERFVPROC)load(\textcolor{stringliteral}{"{}glSamplerParameterfv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01008}01008\ \ \ \ \ glad\_glSamplerParameterIiv\ =\ (PFNGLSAMPLERPARAMETERIIVPROC)load(\textcolor{stringliteral}{"{}glSamplerParameterIiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01009}01009\ \ \ \ \ glad\_glSamplerParameterIuiv\ =\ (PFNGLSAMPLERPARAMETERIUIVPROC)load(\textcolor{stringliteral}{"{}glSamplerParameterIuiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01010}01010\ \ \ \ \ glad\_glGetSamplerParameteriv\ =\ (PFNGLGETSAMPLERPARAMETERIVPROC)load(\textcolor{stringliteral}{"{}glGetSamplerParameteriv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01011}01011\ \ \ \ \ glad\_glGetSamplerParameterIiv\ =\ (PFNGLGETSAMPLERPARAMETERIIVPROC)load(\textcolor{stringliteral}{"{}glGetSamplerParameterIiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01012}01012\ \ \ \ \ glad\_glGetSamplerParameterfv\ =\ (PFNGLGETSAMPLERPARAMETERFVPROC)load(\textcolor{stringliteral}{"{}glGetSamplerParameterfv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01013}01013\ \ \ \ \ glad\_glGetSamplerParameterIuiv\ =\ (PFNGLGETSAMPLERPARAMETERIUIVPROC)load(\textcolor{stringliteral}{"{}glGetSamplerParameterIuiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01014}01014\ \ \ \ \ glad\_glQueryCounter\ =\ (PFNGLQUERYCOUNTERPROC)load(\textcolor{stringliteral}{"{}glQueryCounter"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01015}01015\ \ \ \ \ glad\_glGetQueryObjecti64v\ =\ (PFNGLGETQUERYOBJECTI64VPROC)load(\textcolor{stringliteral}{"{}glGetQueryObjecti64v"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01016}01016\ \ \ \ \ glad\_glGetQueryObjectui64v\ =\ (PFNGLGETQUERYOBJECTUI64VPROC)load(\textcolor{stringliteral}{"{}glGetQueryObjectui64v"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01017}01017\ \ \ \ \ glad\_glVertexAttribDivisor\ =\ (PFNGLVERTEXATTRIBDIVISORPROC)load(\textcolor{stringliteral}{"{}glVertexAttribDivisor"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01018}01018\ \ \ \ \ glad\_glVertexAttribP1ui\ =\ (PFNGLVERTEXATTRIBP1UIPROC)load(\textcolor{stringliteral}{"{}glVertexAttribP1ui"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01019}01019\ \ \ \ \ glad\_glVertexAttribP1uiv\ =\ (PFNGLVERTEXATTRIBP1UIVPROC)load(\textcolor{stringliteral}{"{}glVertexAttribP1uiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01020}01020\ \ \ \ \ glad\_glVertexAttribP2ui\ =\ (PFNGLVERTEXATTRIBP2UIPROC)load(\textcolor{stringliteral}{"{}glVertexAttribP2ui"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01021}01021\ \ \ \ \ glad\_glVertexAttribP2uiv\ =\ (PFNGLVERTEXATTRIBP2UIVPROC)load(\textcolor{stringliteral}{"{}glVertexAttribP2uiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01022}01022\ \ \ \ \ glad\_glVertexAttribP3ui\ =\ (PFNGLVERTEXATTRIBP3UIPROC)load(\textcolor{stringliteral}{"{}glVertexAttribP3ui"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01023}01023\ \ \ \ \ glad\_glVertexAttribP3uiv\ =\ (PFNGLVERTEXATTRIBP3UIVPROC)load(\textcolor{stringliteral}{"{}glVertexAttribP3uiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01024}01024\ \ \ \ \ glad\_glVertexAttribP4ui\ =\ (PFNGLVERTEXATTRIBP4UIPROC)load(\textcolor{stringliteral}{"{}glVertexAttribP4ui"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01025}01025\ \ \ \ \ glad\_glVertexAttribP4uiv\ =\ (PFNGLVERTEXATTRIBP4UIVPROC)load(\textcolor{stringliteral}{"{}glVertexAttribP4uiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01026}01026\ \ \ \ \ glad\_glVertexP2ui\ =\ (PFNGLVERTEXP2UIPROC)load(\textcolor{stringliteral}{"{}glVertexP2ui"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01027}01027\ \ \ \ \ glad\_glVertexP2uiv\ =\ (PFNGLVERTEXP2UIVPROC)load(\textcolor{stringliteral}{"{}glVertexP2uiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01028}01028\ \ \ \ \ glad\_glVertexP3ui\ =\ (PFNGLVERTEXP3UIPROC)load(\textcolor{stringliteral}{"{}glVertexP3ui"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01029}01029\ \ \ \ \ glad\_glVertexP3uiv\ =\ (PFNGLVERTEXP3UIVPROC)load(\textcolor{stringliteral}{"{}glVertexP3uiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01030}01030\ \ \ \ \ glad\_glVertexP4ui\ =\ (PFNGLVERTEXP4UIPROC)load(\textcolor{stringliteral}{"{}glVertexP4ui"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01031}01031\ \ \ \ \ glad\_glVertexP4uiv\ =\ (PFNGLVERTEXP4UIVPROC)load(\textcolor{stringliteral}{"{}glVertexP4uiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01032}01032\ \ \ \ \ glad\_glTexCoordP1ui\ =\ (PFNGLTEXCOORDP1UIPROC)load(\textcolor{stringliteral}{"{}glTexCoordP1ui"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01033}01033\ \ \ \ \ glad\_glTexCoordP1uiv\ =\ (PFNGLTEXCOORDP1UIVPROC)load(\textcolor{stringliteral}{"{}glTexCoordP1uiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01034}01034\ \ \ \ \ glad\_glTexCoordP2ui\ =\ (PFNGLTEXCOORDP2UIPROC)load(\textcolor{stringliteral}{"{}glTexCoordP2ui"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01035}01035\ \ \ \ \ glad\_glTexCoordP2uiv\ =\ (PFNGLTEXCOORDP2UIVPROC)load(\textcolor{stringliteral}{"{}glTexCoordP2uiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01036}01036\ \ \ \ \ glad\_glTexCoordP3ui\ =\ (PFNGLTEXCOORDP3UIPROC)load(\textcolor{stringliteral}{"{}glTexCoordP3ui"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01037}01037\ \ \ \ \ glad\_glTexCoordP3uiv\ =\ (PFNGLTEXCOORDP3UIVPROC)load(\textcolor{stringliteral}{"{}glTexCoordP3uiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01038}01038\ \ \ \ \ glad\_glTexCoordP4ui\ =\ (PFNGLTEXCOORDP4UIPROC)load(\textcolor{stringliteral}{"{}glTexCoordP4ui"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01039}01039\ \ \ \ \ glad\_glTexCoordP4uiv\ =\ (PFNGLTEXCOORDP4UIVPROC)load(\textcolor{stringliteral}{"{}glTexCoordP4uiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01040}01040\ \ \ \ \ glad\_glMultiTexCoordP1ui\ =\ (PFNGLMULTITEXCOORDP1UIPROC)load(\textcolor{stringliteral}{"{}glMultiTexCoordP1ui"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01041}01041\ \ \ \ \ glad\_glMultiTexCoordP1uiv\ =\ (PFNGLMULTITEXCOORDP1UIVPROC)load(\textcolor{stringliteral}{"{}glMultiTexCoordP1uiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01042}01042\ \ \ \ \ glad\_glMultiTexCoordP2ui\ =\ (PFNGLMULTITEXCOORDP2UIPROC)load(\textcolor{stringliteral}{"{}glMultiTexCoordP2ui"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01043}01043\ \ \ \ \ glad\_glMultiTexCoordP2uiv\ =\ (PFNGLMULTITEXCOORDP2UIVPROC)load(\textcolor{stringliteral}{"{}glMultiTexCoordP2uiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01044}01044\ \ \ \ \ glad\_glMultiTexCoordP3ui\ =\ (PFNGLMULTITEXCOORDP3UIPROC)load(\textcolor{stringliteral}{"{}glMultiTexCoordP3ui"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01045}01045\ \ \ \ \ glad\_glMultiTexCoordP3uiv\ =\ (PFNGLMULTITEXCOORDP3UIVPROC)load(\textcolor{stringliteral}{"{}glMultiTexCoordP3uiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01046}01046\ \ \ \ \ glad\_glMultiTexCoordP4ui\ =\ (PFNGLMULTITEXCOORDP4UIPROC)load(\textcolor{stringliteral}{"{}glMultiTexCoordP4ui"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01047}01047\ \ \ \ \ glad\_glMultiTexCoordP4uiv\ =\ (PFNGLMULTITEXCOORDP4UIVPROC)load(\textcolor{stringliteral}{"{}glMultiTexCoordP4uiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01048}01048\ \ \ \ \ glad\_glNormalP3ui\ =\ (PFNGLNORMALP3UIPROC)load(\textcolor{stringliteral}{"{}glNormalP3ui"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01049}01049\ \ \ \ \ glad\_glNormalP3uiv\ =\ (PFNGLNORMALP3UIVPROC)load(\textcolor{stringliteral}{"{}glNormalP3uiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01050}01050\ \ \ \ \ glad\_glColorP3ui\ =\ (PFNGLCOLORP3UIPROC)load(\textcolor{stringliteral}{"{}glColorP3ui"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01051}01051\ \ \ \ \ glad\_glColorP3uiv\ =\ (PFNGLCOLORP3UIVPROC)load(\textcolor{stringliteral}{"{}glColorP3uiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01052}01052\ \ \ \ \ glad\_glColorP4ui\ =\ (PFNGLCOLORP4UIPROC)load(\textcolor{stringliteral}{"{}glColorP4ui"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01053}01053\ \ \ \ \ glad\_glColorP4uiv\ =\ (PFNGLCOLORP4UIVPROC)load(\textcolor{stringliteral}{"{}glColorP4uiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01054}01054\ \ \ \ \ glad\_glSecondaryColorP3ui\ =\ (PFNGLSECONDARYCOLORP3UIPROC)load(\textcolor{stringliteral}{"{}glSecondaryColorP3ui"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01055}01055\ \ \ \ \ glad\_glSecondaryColorP3uiv\ =\ (PFNGLSECONDARYCOLORP3UIVPROC)load(\textcolor{stringliteral}{"{}glSecondaryColorP3uiv"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01056}01056\ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01057}01057\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ find\_extensionsGL(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01058}01058\ \ \ \ \ \textcolor{keywordflow}{if}\ (!get\_exts())\ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01059}01059\ \ \ \ \ (void)\&has\_ext;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01060}01060\ \ \ \ \ free\_exts();}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01061}01061\ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01062}01062\ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01063}01063\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01064}01064\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ find\_coreGL(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01065}01065\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01066}01066\ \ \ \ \ \textcolor{comment}{/*\ Thank\ you\ @elmindreda}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01067}01067\ \textcolor{comment}{\ \ \ \ \ *\ https://github.com/elmindreda/greg/blob/master/templates/greg.c.in\#L176}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01068}01068\ \textcolor{comment}{\ \ \ \ \ *\ https://github.com/glfw/glfw/blob/master/src/context.c\#L36}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01069}01069\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01070}01070\ \ \ \ \ \textcolor{keywordtype}{int}\ i,\ major,\ minor;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01071}01071\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01072}01072\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ version;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01073}01073\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ prefixes[]\ =\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01074}01074\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}OpenGL\ ES-\/CM\ "{}},}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01075}01075\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}OpenGL\ ES-\/CL\ "{}},}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01076}01076\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}OpenGL\ ES\ "{}},}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01077}01077\ \ \ \ \ \ \ \ \ NULL}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01078}01078\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01079}01079\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01080}01080\ \ \ \ \ version\ =\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*)\ glGetString(GL\_VERSION);}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01081}01081\ \ \ \ \ \textcolor{keywordflow}{if}\ (!version)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01082}01082\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01083}01083\ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ \ prefixes[i];\ \ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01084}01084\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ length\ =\ strlen(prefixes[i]);}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01085}01085\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (strncmp(version,\ prefixes[i],\ length)\ ==\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01086}01086\ \ \ \ \ \ \ \ \ \ \ \ \ version\ +=\ length;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01087}01087\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01088}01088\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01089}01089\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01090}01090\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01091}01091\ \textcolor{comment}{/*\ PR\ \#18\ */}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01092}01092\ \textcolor{preprocessor}{\#ifdef\ \_MSC\_VER}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01093}01093\ \ \ \ \ sscanf\_s(version,\ \textcolor{stringliteral}{"{}\%d.\%d"{}},\ \&major,\ \&minor);}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01094}01094\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01095}01095\ \ \ \ \ sscanf(version,\ \textcolor{stringliteral}{"{}\%d.\%d"{}},\ \&major,\ \&minor);}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01096}01096\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01097}01097\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01098}01098\ \ \ \ \ GLVersion.major\ =\ major;\ GLVersion.minor\ =\ minor;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01099}01099\ \ \ \ \ max\_loaded\_major\ =\ major;\ max\_loaded\_minor\ =\ minor;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01100}01100\ \ \ \ \ GLAD\_GL\_VERSION\_1\_0\ =\ (major\ ==\ 1\ \&\&\ minor\ >=\ 0)\ ||\ major\ >\ 1;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01101}01101\ \ \ \ \ GLAD\_GL\_VERSION\_1\_1\ =\ (major\ ==\ 1\ \&\&\ minor\ >=\ 1)\ ||\ major\ >\ 1;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01102}01102\ \ \ \ \ GLAD\_GL\_VERSION\_1\_2\ =\ (major\ ==\ 1\ \&\&\ minor\ >=\ 2)\ ||\ major\ >\ 1;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01103}01103\ \ \ \ \ GLAD\_GL\_VERSION\_1\_3\ =\ (major\ ==\ 1\ \&\&\ minor\ >=\ 3)\ ||\ major\ >\ 1;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01104}01104\ \ \ \ \ GLAD\_GL\_VERSION\_1\_4\ =\ (major\ ==\ 1\ \&\&\ minor\ >=\ 4)\ ||\ major\ >\ 1;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01105}01105\ \ \ \ \ GLAD\_GL\_VERSION\_1\_5\ =\ (major\ ==\ 1\ \&\&\ minor\ >=\ 5)\ ||\ major\ >\ 1;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01106}01106\ \ \ \ \ GLAD\_GL\_VERSION\_2\_0\ =\ (major\ ==\ 2\ \&\&\ minor\ >=\ 0)\ ||\ major\ >\ 2;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01107}01107\ \ \ \ \ GLAD\_GL\_VERSION\_2\_1\ =\ (major\ ==\ 2\ \&\&\ minor\ >=\ 1)\ ||\ major\ >\ 2;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01108}01108\ \ \ \ \ GLAD\_GL\_VERSION\_3\_0\ =\ (major\ ==\ 3\ \&\&\ minor\ >=\ 0)\ ||\ major\ >\ 3;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01109}01109\ \ \ \ \ GLAD\_GL\_VERSION\_3\_1\ =\ (major\ ==\ 3\ \&\&\ minor\ >=\ 1)\ ||\ major\ >\ 3;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01110}01110\ \ \ \ \ GLAD\_GL\_VERSION\_3\_2\ =\ (major\ ==\ 3\ \&\&\ minor\ >=\ 2)\ ||\ major\ >\ 3;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01111}01111\ \ \ \ \ GLAD\_GL\_VERSION\_3\_3\ =\ (major\ ==\ 3\ \&\&\ minor\ >=\ 3)\ ||\ major\ >\ 3;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01112}01112\ \ \ \ \ \textcolor{keywordflow}{if}\ (GLVersion.major\ >\ 3\ ||\ (GLVersion.major\ >=\ 3\ \&\&\ GLVersion.minor\ >=\ 3))\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01113}01113\ \ \ \ \ \ \ \ \ max\_loaded\_major\ =\ 3;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01114}01114\ \ \ \ \ \ \ \ \ max\_loaded\_minor\ =\ 3;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01115}01115\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01116}01116\ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01117}01117\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01118}01118\ \textcolor{keywordtype}{int}\ gladLoadGLLoader(GLADloadproc\ load)\ \{}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01119}01119\ \ \ \ \ GLVersion.major\ =\ 0;\ GLVersion.minor\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01120}01120\ \ \ \ \ glGetString\ =\ (PFNGLGETSTRINGPROC)load(\textcolor{stringliteral}{"{}glGetString"{}});}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01121}01121\ \ \ \ \ \textcolor{keywordflow}{if}(glGetString\ ==\ NULL)\ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01122}01122\ \ \ \ \ \textcolor{keywordflow}{if}(glGetString(GL\_VERSION)\ ==\ NULL)\ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01123}01123\ \ \ \ \ find\_coreGL();}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01124}01124\ \ \ \ \ load\_GL\_VERSION\_1\_0(load);}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01125}01125\ \ \ \ \ load\_GL\_VERSION\_1\_1(load);}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01126}01126\ \ \ \ \ load\_GL\_VERSION\_1\_2(load);}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01127}01127\ \ \ \ \ load\_GL\_VERSION\_1\_3(load);}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01128}01128\ \ \ \ \ load\_GL\_VERSION\_1\_4(load);}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01129}01129\ \ \ \ \ load\_GL\_VERSION\_1\_5(load);}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01130}01130\ \ \ \ \ load\_GL\_VERSION\_2\_0(load);}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01131}01131\ \ \ \ \ load\_GL\_VERSION\_2\_1(load);}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01132}01132\ \ \ \ \ load\_GL\_VERSION\_3\_0(load);}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01133}01133\ \ \ \ \ load\_GL\_VERSION\_3\_1(load);}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01134}01134\ \ \ \ \ load\_GL\_VERSION\_3\_2(load);}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01135}01135\ \ \ \ \ load\_GL\_VERSION\_3\_3(load);}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01136}01136\ }
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01137}01137\ \ \ \ \ \textcolor{keywordflow}{if}\ (!find\_extensionsGL())\ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01138}01138\ \ \ \ \ \textcolor{keywordflow}{return}\ GLVersion.major\ !=\ 0\ ||\ GLVersion.minor\ !=\ 0;}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01139}01139\ \}}
+\DoxyCodeLine{\Hypertarget{glad_8c_source_l01140}01140\ }
+
+\end{DoxyCode}

@@ -1,0 +1,24 @@
+\doxysection{engine\+\_\+entity.\+h}
+\hypertarget{engine__entity_8h_source}{}\label{engine__entity_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{engine__entity_8h_source_l00001}00001\ \textcolor{preprocessor}{\#ifndef\ ENGINE\_ENTITY\_H}}
+\DoxyCodeLine{\Hypertarget{engine__entity_8h_source_l00002}00002\ \textcolor{preprocessor}{\#define\ ENGINE\_ENTITY\_H}}
+\DoxyCodeLine{\Hypertarget{engine__entity_8h_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{engine__entity_8h_source_l00004}00004\ \textcolor{preprocessor}{\#include\ "{}engine\_defs.h"{}}}
+\DoxyCodeLine{\Hypertarget{engine__entity_8h_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{engine__entity_8h_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <cglm/cglm.h>}}
+\DoxyCodeLine{\Hypertarget{engine__entity_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{engine__entity_8h_source_l00008}00008\ \textcolor{keyword}{const}\ EBOOL\ engineCreateEntity(EngineContext*\ ctx,\ vec2\ pos,\ vec2\ size,\ \textcolor{keyword}{const}\ EngineEntityKey\ key,\ \textcolor{keyword}{const}\ EngineTextureKey\ texkey);}
+\DoxyCodeLine{\Hypertarget{engine__entity_8h_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{engine__entity_8h_source_l00010}00010\ \textcolor{keywordtype}{void}\ engineDestroyAllEntities(EngineContext*\ ctx);}
+\DoxyCodeLine{\Hypertarget{engine__entity_8h_source_l00011}00011\ \textcolor{keywordtype}{void}\ engineDestroyEntity(EngineContext*\ ctx,\ EngineEntityKey\ key);}
+\DoxyCodeLine{\Hypertarget{engine__entity_8h_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{engine__entity_8h_source_l00013}00013\ EngineEntity*\ engineGetEntity(EngineContext*\ ctx,\ EngineEntityKey\ key);}
+\DoxyCodeLine{\Hypertarget{engine__entity_8h_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{engine__entity_8h_source_l00015}00015\ \textcolor{keywordtype}{void}\ engineInitEntityComponentList(EngineEntity*\ ent);}
+\DoxyCodeLine{\Hypertarget{engine__entity_8h_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{engine__entity_8h_source_l00017}00017\ \textcolor{keywordtype}{void}\ engineProcessEntities(EngineContext*\ ctx,\ \textcolor{keywordtype}{float}\ deltaTime);}
+\DoxyCodeLine{\Hypertarget{engine__entity_8h_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{engine__entity_8h_source_l00019}00019\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ENGINE\_ENTITY\_H}}
+
+\end{DoxyCode}

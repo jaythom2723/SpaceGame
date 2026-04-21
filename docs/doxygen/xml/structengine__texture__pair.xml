@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.16.1" xml:lang="en-US">
+  <compounddef id="structengine__texture__pair" kind="struct" language="C++" prot="public">
+    <compoundname>engine_texture_pair</compoundname>
+    <includes refid="engine__defs_8h" local="no">engine_defs.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structengine__texture__pair_1a9aee8bf729cfb250ee52cabdb0b35be6" prot="public" static="no" mutable="no">
+        <type>EngineTextureKey</type>
+        <definition>EngineTextureKey key</definition>
+        <argsstring></argsstring>
+        <name>key</name>
+        <qualifiedname>engine_texture_pair::key</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="84" column="18" bodyfile="engine_defs.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structengine__texture__pair_1a398421b81a806cbbfd962554d6bbd921" prot="public" static="no" mutable="no">
+        <type>EngineTexture *</type>
+        <definition>EngineTexture* value</definition>
+        <argsstring></argsstring>
+        <name>value</name>
+        <qualifiedname>engine_texture_pair::value</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="85" column="15" bodyfile="engine_defs.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Used to make a pseudo-dictionary for the engine. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>engine_texture</label>
+        <link refid="structengine__texture"/>
+      </node>
+      <node id="1">
+        <label>engine_texture_pair</label>
+        <link refid="structengine__texture__pair"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>value</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="engine_defs.h" line="83" column="1" bodyfile="engine_defs.h" bodystart="83" bodyend="86"/>
+    <listofallmembers>
+      <member refid="structengine__texture__pair_1a9aee8bf729cfb250ee52cabdb0b35be6" prot="public" virt="non-virtual"><scope>engine_texture_pair</scope><name>key</name></member>
+      <member refid="structengine__texture__pair_1a398421b81a806cbbfd962554d6bbd921" prot="public" virt="non-virtual"><scope>engine_texture_pair</scope><name>value</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

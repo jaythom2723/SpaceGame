@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_engine__buffers_8h_source" xml:lang="en-US">
+<title>engine_buffers.h</title>
+<programlisting linenumbering="unnumbered"><anchor xml:id="_engine__buffers_8h_source_1l00001"/>00001 <emphasis role="preprocessor">#ifndef&#32;ENGINE_BUFFERS_H</emphasis>
+<anchor xml:id="_engine__buffers_8h_source_1l00002"/>00002 <emphasis role="preprocessor">#define&#32;ENGINE_BUFFERS_H</emphasis>
+<anchor xml:id="_engine__buffers_8h_source_1l00003"/>00003 
+<anchor xml:id="_engine__buffers_8h_source_1l00004"/>00004 <emphasis role="preprocessor">#include&#32;&quot;engine_defs.h&quot;</emphasis>
+<anchor xml:id="_engine__buffers_8h_source_1l00005"/>00005 
+<anchor xml:id="_engine__buffers_8h_source_1l00006"/>00006 <emphasis role="preprocessor">#include&#32;&lt;stdlib.h&gt;</emphasis>
+<anchor xml:id="_engine__buffers_8h_source_1l00007"/>00007 
+<anchor xml:id="_engine__buffers_8h_source_1l00008"/>00008 <emphasis role="keywordtype">void</emphasis>&#32;engineCreateVAO(<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>*&#32;vao);
+<anchor xml:id="_engine__buffers_8h_source_1l00009"/>00009 <emphasis role="keywordtype">void</emphasis>&#32;engineCreateVBO(<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>*&#32;vbo);
+<anchor xml:id="_engine__buffers_8h_source_1l00010"/>00010 
+<anchor xml:id="_engine__buffers_8h_source_1l00011"/>00011 <emphasis role="keywordtype">void</emphasis>&#32;engineDeleteVAO(<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>*&#32;vao);
+<anchor xml:id="_engine__buffers_8h_source_1l00012"/>00012 <emphasis role="keywordtype">void</emphasis>&#32;engineDeleteVBO(<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>*&#32;vbo);
+<anchor xml:id="_engine__buffers_8h_source_1l00013"/>00013 
+<anchor xml:id="_engine__buffers_8h_source_1l00014"/>00014 <emphasis role="keywordtype">void</emphasis>&#32;engineInitVBOVAOPair(EngineContext*&#32;ctx,&#32;<emphasis role="keywordtype">size_t</emphasis>&#32;vertBytes,&#32;<emphasis role="keywordtype">float</emphasis>*&#32;vertices);
+<anchor xml:id="_engine__buffers_8h_source_1l00015"/>00015 
+<anchor xml:id="_engine__buffers_8h_source_1l00016"/>00016 <emphasis role="keywordtype">void</emphasis>&#32;engineBindVAO(<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;vao);
+<anchor xml:id="_engine__buffers_8h_source_1l00017"/>00017 
+<anchor xml:id="_engine__buffers_8h_source_1l00018"/>00018 <emphasis role="preprocessor">#endif&#32;</emphasis><emphasis role="comment">//&#32;ENGINE_BUFFERS_H</emphasis>
+</programlisting></section>

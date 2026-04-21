@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_engine__component__funcs_8c_source" xml:lang="en-US">
+<title>engine_component_funcs.c</title>
+<programlisting linenumbering="unnumbered"><anchor xml:id="_engine__component__funcs_8c_source_1l00001"/>00001 <emphasis role="preprocessor">#include&#32;&quot;engine_defs.h&quot;</emphasis>
+<anchor xml:id="_engine__component__funcs_8c_source_1l00002"/>00002 <emphasis role="preprocessor">#include&#32;&quot;engine_components.h&quot;</emphasis>
+<anchor xml:id="_engine__component__funcs_8c_source_1l00003"/>00003 <emphasis role="preprocessor">#include&#32;&quot;engine_renderer.h&quot;</emphasis>
+<anchor xml:id="_engine__component__funcs_8c_source_1l00004"/>00004 
+<anchor xml:id="_engine__component__funcs_8c_source_1l00005"/>00005 <emphasis role="preprocessor">#include&#32;&lt;stdio.h&gt;</emphasis>
+<anchor xml:id="_engine__component__funcs_8c_source_1l00006"/>00006 
+<anchor xml:id="_engine__component__funcs_8c_source_1l00007"/>00007 <emphasis role="keywordtype">void</emphasis>&#32;__engine__defaultRendererComponentFunc(EngineEntity*&#32;ent,&#32;EngineContext*&#32;ctx,&#32;<emphasis role="keywordtype">float</emphasis>&#32;deltaTime)
+<anchor xml:id="_engine__component__funcs_8c_source_1l00008"/>00008 {
+<anchor xml:id="_engine__component__funcs_8c_source_1l00009"/>00009 &#32;&#32;&#32;&#32;engineRenderEntity(ctx,&#32;ent-&gt;key);
+<anchor xml:id="_engine__component__funcs_8c_source_1l00010"/>00010 }
+<anchor xml:id="_engine__component__funcs_8c_source_1l00011"/>00011 
+<anchor xml:id="_engine__component__funcs_8c_source_1l00012"/>00012 <emphasis role="keywordtype">void</emphasis>&#32;__engine__defaultControllerComponentFunc(EngineEntity*&#32;ent,&#32;EngineContext*&#32;ctx,&#32;<emphasis role="keywordtype">float</emphasis>&#32;deltaTime)
+<anchor xml:id="_engine__component__funcs_8c_source_1l00013"/>00013 {
+<anchor xml:id="_engine__component__funcs_8c_source_1l00014"/>00014 &#32;&#32;&#32;&#32;<emphasis role="comment">/*</emphasis>
+<anchor xml:id="_engine__component__funcs_8c_source_1l00015"/>00015 <emphasis role="comment">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;NOTE:</emphasis>
+<anchor xml:id="_engine__component__funcs_8c_source_1l00016"/>00016 <emphasis role="comment">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;There&#32;really&#32;isn&apos;t&#32;a&#32;&quot;default&quot;&#32;controller&#32;function,</emphasis>
+<anchor xml:id="_engine__component__funcs_8c_source_1l00017"/>00017 <emphasis role="comment">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;as&#32;most&#32;controls&#32;are/should&#32;be&#32;defined&#32;by&#32;the&#32;engine&apos;s&#32;user.</emphasis>
+<anchor xml:id="_engine__component__funcs_8c_source_1l00018"/>00018 <emphasis role="comment">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;TODO:</emphasis>
+<anchor xml:id="_engine__component__funcs_8c_source_1l00019"/>00019 <emphasis role="comment">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;prototype&#32;a&#32;control&#32;loading&#32;scheme&#32;for&#32;a&#32;csv&#32;or&#32;cfg&#32;file.</emphasis>
+<anchor xml:id="_engine__component__funcs_8c_source_1l00020"/>00020 <emphasis role="comment">&#32;&#32;&#32;&#32;*/</emphasis>
+<anchor xml:id="_engine__component__funcs_8c_source_1l00021"/>00021 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;ENGINE_NUM_KEYS;&#32;i++)
+<anchor xml:id="_engine__component__funcs_8c_source_1l00022"/>00022 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_engine__component__funcs_8c_source_1l00023"/>00023 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(ctx-&gt;keys[i]&#32;==&#32;ETRUE)
+<anchor xml:id="_engine__component__funcs_8c_source_1l00024"/>00024 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;printf(<emphasis role="stringliteral">&quot;Pressed&#32;a&#32;key:&#32;%d!\n&quot;</emphasis>,&#32;i);
+<anchor xml:id="_engine__component__funcs_8c_source_1l00025"/>00025 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_engine__component__funcs_8c_source_1l00026"/>00026 }
+<anchor xml:id="_engine__component__funcs_8c_source_1l00027"/>00027 
+<anchor xml:id="_engine__component__funcs_8c_source_1l00028"/>00028 <emphasis role="keywordtype">void</emphasis>&#32;__engine__defaultTickComponentFunc(EngineEntity*&#32;ent,&#32;EngineContext*&#32;ctx,&#32;<emphasis role="keywordtype">float</emphasis>&#32;deltaTime)
+<anchor xml:id="_engine__component__funcs_8c_source_1l00029"/>00029 {
+<anchor xml:id="_engine__component__funcs_8c_source_1l00030"/>00030 &#32;&#32;&#32;&#32;<emphasis role="comment">/*</emphasis>
+<anchor xml:id="_engine__component__funcs_8c_source_1l00031"/>00031 <emphasis role="comment">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;NOTE:&#32;</emphasis>
+<anchor xml:id="_engine__component__funcs_8c_source_1l00032"/>00032 <emphasis role="comment">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;There&#32;really&#32;isn&apos;t&#32;a&#32;&quot;default&quot;&#32;tick&#32;compononent&#32;function</emphasis>
+<anchor xml:id="_engine__component__funcs_8c_source_1l00033"/>00033 <emphasis role="comment">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;either,&#32;as&#32;all&#32;of&#32;this&#32;logic&#32;should&#32;be&#32;handled&#32;by</emphasis>
+<anchor xml:id="_engine__component__funcs_8c_source_1l00034"/>00034 <emphasis role="comment">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;the&#32;game&#32;programmer</emphasis>
+<anchor xml:id="_engine__component__funcs_8c_source_1l00035"/>00035 <emphasis role="comment">&#32;&#32;&#32;&#32;*/</emphasis>
+<anchor xml:id="_engine__component__funcs_8c_source_1l00036"/>00036 }
+</programlisting></section>

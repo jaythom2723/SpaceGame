@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_game_8c" xml:lang="en-US">
+<title>SpaceGame/game.c File Reference</title>
+<indexterm><primary>SpaceGame/game.c</primary></indexterm>
+<programlisting linenumbering="unnumbered">#include &quot;engine.h&quot;<?linebreak?>#include &quot;engine_shaders.h&quot;<?linebreak?>#include &quot;engine_buffers.h&quot;<?linebreak?>#include &quot;engine_textures.h&quot;<?linebreak?>#include &quot;engine_entity.h&quot;<?linebreak?>#include &quot;engine_renderer.h&quot;<?linebreak?>#include &quot;engine_components.h&quot;<?linebreak?>#include &quot;engine_utils.h&quot;<?linebreak?>#include &lt;stdio.h&gt;<?linebreak?></programlisting><simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>int <link linkend="_game_8c_1a840291bc02cba5474a4cb46a9b9566fe">main</link> (void)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para>float <link linkend="_game_8c_1a25986ed96a435775e363f05540a2f9c4">vertices</link> []</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_game_8c_1a840291bc02cba5474a4cb46a9b9566fe"/><section>
+    <title>main()</title>
+<indexterm><primary>main</primary><secondary>game.c</secondary></indexterm>
+<indexterm><primary>game.c</primary><secondary>main</secondary></indexterm>
+<para><computeroutput>int main (void )</computeroutput></para><para>
+Definition at line <link linkend="_game_8c_source_1l00032">32</link> of file <link linkend="_game_8c_source">game.c</link>.</para>
+</section>
+</section>
+<section>
+<title>Variable Documentation</title>
+<anchor xml:id="_game_8c_1a25986ed96a435775e363f05540a2f9c4"/><section>
+    <title>vertices</title>
+<indexterm><primary>vertices</primary><secondary>game.c</secondary></indexterm>
+<indexterm><primary>game.c</primary><secondary>vertices</secondary></indexterm>
+<para><computeroutput>float vertices[]</computeroutput></para><emphasis role="strong">Initial value:</emphasis><programlisting linenumbering="unnumbered">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;=&#32;{
+&#32;&#32;&#32;&#32;
+&#32;&#32;&#32;&#32;0.0f,&#32;1.0f,&#32;&#32;&#32;&#32;&#32;1.0f,&#32;1.0f,&#32;1.0f,&#32;&#32;&#32;0.0f,&#32;1.0f,
+&#32;&#32;&#32;&#32;1.0f,&#32;0.0f,&#32;&#32;&#32;&#32;&#32;1.0f,&#32;1.0f,&#32;1.0f,&#32;&#32;&#32;1.0f,&#32;0.0f,
+&#32;&#32;&#32;&#32;0.0f,&#32;0.0f,&#32;&#32;&#32;&#32;&#32;1.0f,&#32;1.0f,&#32;1.0f,&#32;&#32;&#32;0.0f,&#32;0.0f,
+&#32;&#32;&#32;&#32;0.0f,&#32;1.0f,&#32;&#32;&#32;&#32;&#32;1.0f,&#32;1.0f,&#32;1.0f,&#32;&#32;&#32;0.0f,&#32;1.0f,
+&#32;&#32;&#32;&#32;1.0f,&#32;1.0f,&#32;&#32;&#32;&#32;&#32;1.0f,&#32;1.0f,&#32;1.0f,&#32;&#32;&#32;1.0f,&#32;1.0f,
+&#32;&#32;&#32;&#32;1.0f,&#32;0.0f,&#32;&#32;&#32;&#32;&#32;1.0f,&#32;1.0f,&#32;1.0f,&#32;&#32;&#32;1.0f,&#32;0.0f,
+}
+</programlisting><para>
+Definition at line <link linkend="_game_8c_source_1l00012">12</link> of file <link linkend="_game_8c_source">game.c</link>.</para>
+</section>
+</section>
+</section>

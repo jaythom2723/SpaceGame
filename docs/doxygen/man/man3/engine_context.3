@@ -1,0 +1,82 @@
+.TH "engine_context" 3 "Version 0.1.0" "Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+engine_context \- The engine itself, nothing can function without this being initialized!  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <engine_defs\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "GLFWwindow * \fBwindow\fP"
+.br
+.ti -1c
+.RI "EngineTexturePair \fBtextures\fP [ENGINE_MAX_TEXTURES]"
+.br
+.ti -1c
+.RI "EngineEntity \fBentities\fP [ENGINE_MAX_ENTITIES]"
+.br
+.ti -1c
+.RI "EBOOL \fBkeys\fP [ENGINE_NUM_KEYS]"
+.br
+.ti -1c
+.RI "EngineProgram \fBprogram\fP"
+.br
+.ti -1c
+.RI "unsigned int \fBvao\fP"
+.br
+.ti -1c
+.RI "unsigned int \fBntextures\fP"
+.br
+.ti -1c
+.RI "unsigned int \fBnentities\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The engine itself, nothing can function without this being initialized! 
+.PP
+Definition at line \fB125\fP of file \fBengine_defs\&.h\fP\&.
+.SH "Field Documentation"
+.PP 
+.SS "EngineEntity entities[ENGINE_MAX_ENTITIES]"
+
+.PP
+Definition at line \fB129\fP of file \fBengine_defs\&.h\fP\&.
+.SS "EBOOL keys[ENGINE_NUM_KEYS]"
+
+.PP
+Definition at line \fB130\fP of file \fBengine_defs\&.h\fP\&.
+.SS "unsigned int nentities"
+
+.PP
+Definition at line \fB135\fP of file \fBengine_defs\&.h\fP\&.
+.SS "unsigned int ntextures"
+
+.PP
+Definition at line \fB135\fP of file \fBengine_defs\&.h\fP\&.
+.SS "EngineProgram program"
+
+.PP
+Definition at line \fB132\fP of file \fBengine_defs\&.h\fP\&.
+.SS "EngineTexturePair textures[ENGINE_MAX_TEXTURES]"
+
+.PP
+Definition at line \fB128\fP of file \fBengine_defs\&.h\fP\&.
+.SS "unsigned int vao"
+
+.PP
+Definition at line \fB134\fP of file \fBengine_defs\&.h\fP\&.
+.SS "GLFWwindow* window"
+
+.PP
+Definition at line \fB126\fP of file \fBengine_defs\&.h\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Engine from the source code\&.

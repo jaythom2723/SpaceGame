@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.16.1" xml:lang="en-US">
+  <compounddef id="structengine__entity" kind="struct" language="C++" prot="public">
+    <compoundname>engine_entity</compoundname>
+    <includes refid="engine__defs_8h" local="no">engine_defs.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structengine__entity_1ad0da36b2558901e21e7a30f6c227a45e" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <qualifiedname>engine_entity::x</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="92" column="7" bodyfile="engine_defs.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structengine__entity_1aa4f0d3eebc3c443f9be81bf48561a217" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <qualifiedname>engine_entity::y</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="92" column="9" bodyfile="engine_defs.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structengine__entity_1ae426f00e82704fa09578f5446e22d915" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float width</definition>
+        <argsstring></argsstring>
+        <name>width</name>
+        <qualifiedname>engine_entity::width</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="93" column="7" bodyfile="engine_defs.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structengine__entity_1a48083b65ac9a863566dc3e3fff09a5b4" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float height</definition>
+        <argsstring></argsstring>
+        <name>height</name>
+        <qualifiedname>engine_entity::height</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="93" column="13" bodyfile="engine_defs.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structengine__entity_1a53441510bcb5689f45f1b64e511f41d9" prot="public" static="no" mutable="no">
+        <type>EngineEntityKey</type>
+        <definition>EngineEntityKey key</definition>
+        <argsstring></argsstring>
+        <name>key</name>
+        <qualifiedname>engine_entity::key</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="94" column="17" bodyfile="engine_defs.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structengine__entity_1a566488cb493dafca69619d551a94f32a" prot="public" static="no" mutable="no">
+        <type>EngineTextureKey</type>
+        <definition>EngineTextureKey texkey</definition>
+        <argsstring></argsstring>
+        <name>texkey</name>
+        <qualifiedname>engine_entity::texkey</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="95" column="18" bodyfile="engine_defs.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structengine__entity_1a6030d74561841335eee8810692e7f977" prot="public" static="no" mutable="no">
+        <type>EngineComponent *</type>
+        <definition>EngineComponent* components</definition>
+        <argsstring></argsstring>
+        <name>components</name>
+        <qualifiedname>engine_entity::components</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="96" column="17" bodyfile="engine_defs.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>An entity, contains position, size, texture, and component data. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>engine_component</label>
+        <link refid="structengine__component"/>
+        <childnode refid="1" relation="usage">
+          <edgelabel>func</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>engine_entity</label>
+        <link refid="structengine__entity"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>components</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="engine_defs.h" line="91" column="1" bodyfile="engine_defs.h" bodystart="91" bodyend="97"/>
+    <listofallmembers>
+      <member refid="structengine__entity_1a6030d74561841335eee8810692e7f977" prot="public" virt="non-virtual"><scope>engine_entity</scope><name>components</name></member>
+      <member refid="structengine__entity_1a48083b65ac9a863566dc3e3fff09a5b4" prot="public" virt="non-virtual"><scope>engine_entity</scope><name>height</name></member>
+      <member refid="structengine__entity_1a53441510bcb5689f45f1b64e511f41d9" prot="public" virt="non-virtual"><scope>engine_entity</scope><name>key</name></member>
+      <member refid="structengine__entity_1a566488cb493dafca69619d551a94f32a" prot="public" virt="non-virtual"><scope>engine_entity</scope><name>texkey</name></member>
+      <member refid="structengine__entity_1ae426f00e82704fa09578f5446e22d915" prot="public" virt="non-virtual"><scope>engine_entity</scope><name>width</name></member>
+      <member refid="structengine__entity_1ad0da36b2558901e21e7a30f6c227a45e" prot="public" virt="non-virtual"><scope>engine_entity</scope><name>x</name></member>
+      <member refid="structengine__entity_1aa4f0d3eebc3c443f9be81bf48561a217" prot="public" virt="non-virtual"><scope>engine_entity</scope><name>y</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

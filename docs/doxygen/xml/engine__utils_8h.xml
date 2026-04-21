@@ -1,0 +1,343 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.16.1" xml:lang="en-US">
+  <compounddef id="engine__utils_8h" kind="file" language="C++">
+    <compoundname>engine_utils.h</compoundname>
+    <includes refid="engine__defs_8h" local="yes">engine_defs.h</includes>
+    <includes local="no">stdlib.h</includes>
+    <includedby refid="engine_8c" local="yes">engine.c</includedby>
+    <includedby refid="engine__shaders_8c" local="yes">engine_shaders.c</includedby>
+    <includedby refid="engine__utils_8c" local="yes">engine_utils.c</includedby>
+    <includedby refid="game_8c" local="yes">game.c</includedby>
+    <incdepgraph>
+      <node id="2">
+        <label>engine_defs.h</label>
+        <link refid="engine__defs_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>engine_utils.h</label>
+        <link refid="engine__utils_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>GLFW/glfw3.h</label>
+      </node>
+      <node id="3">
+        <label>glad/glad.h</label>
+      </node>
+      <node id="5">
+        <label>stdlib.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>engine.c</label>
+        <link refid="engine_8c_source"/>
+      </node>
+      <node id="3">
+        <label>engine_shaders.c</label>
+        <link refid="engine__shaders_8c_source"/>
+      </node>
+      <node id="4">
+        <label>engine_utils.c</label>
+        <link refid="engine__utils_8c_source"/>
+      </node>
+      <node id="1">
+        <label>engine_utils.h</label>
+        <link refid="engine__utils_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>game.c</label>
+        <link refid="game_8c_source"/>
+      </node>
+    </invincdepgraph>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="engine__utils_8h_1a727172c6895455abceada6b9d40e280b" prot="public" static="no">
+        <name>ENGINE_DEF_LINK_LIST_ALLOC_SIZE</name>
+        <initializer>0xFF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_utils.h" line="8" column="9" bodyfile="engine_utils.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="engine__utils_8h_1a694f0ba0e84d478e51c189a45739ac0a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>EngineLinkedList *</type>
+        <definition>EngineLinkedList * engineCreateLinkedList</definition>
+        <argsstring>(char *lista, char *listb, size_t arrsize, size_t typesize)</argsstring>
+        <name>engineCreateLinkedList</name>
+        <param>
+          <type>char *</type>
+          <declname>lista</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>listb</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>arrsize</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>typesize</declname>
+        </param>
+        <briefdescription>
+<para>Creates a linked list. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>lista</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The first list to copy values from (can be NULL) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>listb</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The second list to copy values from (can be NULL) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>arrsize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of elements in the array </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>typesze</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The size of the datatype in bytes</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The created EngineLinkedList </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_utils.h" line="20" column="18" bodyfile="engine_utils.c" bodystart="7" bodyend="42" declfile="engine_utils.h" declline="20" declcolumn="18"/>
+      </memberdef>
+      <memberdef kind="function" id="engine__utils_8h_1a6e3521de92edc89a0d37c98dc138d7e6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void engineDestroyLinkedList</definition>
+        <argsstring>(EngineLinkedList *list)</argsstring>
+        <name>engineDestroyLinkedList</name>
+        <param>
+          <type>EngineLinkedList *</type>
+          <declname>list</declname>
+        </param>
+        <briefdescription>
+<para>Destroys a linked list. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>list</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The list to destroy </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_utils.h" line="27" column="6" bodyfile="engine_utils.c" bodystart="44" bodyend="54" declfile="engine_utils.h" declline="27" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="engine__utils_8h_1a1787bb18ad5aa2424d57eab4b0150796" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const EBOOL</type>
+        <definition>const EBOOL engineSetValue</definition>
+        <argsstring>(EngineLinkedList *list, int index, int value)</argsstring>
+        <name>engineSetValue</name>
+        <param>
+          <type>EngineLinkedList *</type>
+          <declname>list</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>index</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>Set a value to a EngineLinkedList. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>list</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The list to set the value to </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index to set the value of </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The the value to set</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns EFALSE if the operation was unsuccessful </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_utils.h" line="40" column="13" bodyfile="engine_utils.c" bodystart="63" bodyend="72" declfile="engine_utils.h" declline="40" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="function" id="engine__utils_8h_1a1022b44e858700e9e2642fc16c231f51" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void engineGetValues</definition>
+        <argsstring>(EngineLinkedList *list, char *desta, char *destb)</argsstring>
+        <name>engineGetValues</name>
+        <param>
+          <type>EngineLinkedList *</type>
+          <declname>list</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>desta</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>destb</declname>
+        </param>
+        <briefdescription>
+<para>Get values from a EngineLinkedList. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>list</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The list to get values from </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>desta</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The first destination (can be NULL) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>destb</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The second destination (can be NULL) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_utils.h" line="49" column="6" bodyfile="engine_utils.c" bodystart="74" bodyend="81" declfile="engine_utils.h" declline="49" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="engine__utils_8h_1abe056cc7f89bf011a17725492cf77f4c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char * engineReadFile</definition>
+        <argsstring>(const char *path)</argsstring>
+        <name>engineReadFile</name>
+        <param>
+          <type>const char *</type>
+          <declname>path</declname>
+        </param>
+        <briefdescription>
+<para>Reads a file from the disk. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The path of the file to read.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns the contents of the read file. (must free) </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_utils.h" line="58" column="6" bodyfile="engine_utils.c" bodystart="83" bodyend="112" declfile="engine_utils.h" declline="58" declcolumn="6"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>ENGINE_UTILS_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ENGINE_UTILS_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;engine_defs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdlib.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ENGINE_DEF_LINK_LIST_ALLOC_SIZE<sp/>0xFF</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal">EngineLinkedList*<sp/>engineCreateLinkedList(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>lista,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>listb,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>arrsize,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>typesize);</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>engineDestroyLinkedList(EngineLinkedList*<sp/>list);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">//<sp/>TODO:<sp/>come<sp/>up<sp/>with<sp/>better<sp/>names<sp/>for<sp/>lines<sp/>13-14</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>EBOOL<sp/>engineSetValue(EngineLinkedList*<sp/>list,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>index,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>value);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>engineGetValues(EngineLinkedList*<sp/>list,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>desta,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>destb);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>engineReadFile(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>path);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">//<sp/>ENGINE_H</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="engine_utils.h"/>
+  </compounddef>
+</doxygen>

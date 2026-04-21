@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_annotated" xml:lang="en-US">
+<title>Data Structures</title>
+Here are the data structures with brief descriptions:<link linkend="_structengine__component">engine_component</link>
+<para>A component used for the functionality of entities </para>
+<link linkend="_structengine__context">engine_context</link>
+<para>The engine itself, nothing can function without this being initialized! </para>
+<link linkend="_structengine__entity">engine_entity</link>
+<para>An entity, contains position, size, texture, and component data </para>
+<link linkend="_structengine__texture">engine_texture</link>
+<para>A texture handle that contains all necessary texture information </para>
+<link linkend="_structengine__texture__pair">engine_texture_pair</link>
+<para>Used to make a pseudo-dictionary for the engine </para>
+<link linkend="_structlinklist">linklist</link>
+<para>A standard link list data structure </para>
+<link linkend="_structwindow__config">window_config</link>
+<para>The window config tells the engine how to setup the window </para>
+</section>

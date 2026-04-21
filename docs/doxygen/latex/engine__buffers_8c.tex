@@ -1,0 +1,85 @@
+\doxysection{Space\+Game/\+engine\+\_\+buffers.c File Reference}
+\hypertarget{engine__buffers_8c}{}\label{engine__buffers_8c}\index{SpaceGame/engine\_buffers.c@{SpaceGame/engine\_buffers.c}}
+{\ttfamily \+\#include "{}engine\+\_\+buffers.\+h"{}}\newline
+{\ttfamily \+\#include $<$glad/\+glad.\+h$>$}\newline
+{\ttfamily \+\#include $<$stdarg.\+h$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{engine__buffers_8c_a87edbb8640d857e3e91af80532ced41e}{engine\+Create\+VAO}} (unsigned int \texorpdfstring{$\ast$}{*}vao)
+\item 
+void \doxymbox{\hyperlink{engine__buffers_8c_a9255bf5d757456d292612a692e608f34}{engine\+Create\+VBO}} (unsigned int \texorpdfstring{$\ast$}{*}vbo)
+\item 
+void \doxymbox{\hyperlink{engine__buffers_8c_ad97d4788fd62ec30e6a4032a858d6f02}{engine\+Delete\+VAO}} (unsigned int \texorpdfstring{$\ast$}{*}vao)
+\item 
+void \doxymbox{\hyperlink{engine__buffers_8c_a12f7b44c4c5226a52e0ea38654751c16}{engine\+Delete\+VBO}} (unsigned int \texorpdfstring{$\ast$}{*}vbo)
+\item 
+void \doxymbox{\hyperlink{engine__buffers_8c_ad0af36c6daa2c632f4dc3c3a71b51f53}{engine\+Init\+VBOVAOPair}} (\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}ctx, size\+\_\+t vert\+Bytes, float \texorpdfstring{$\ast$}{*}\doxymbox{\hyperlink{game_8c_a25986ed96a435775e363f05540a2f9c4}{vertices}})
+\item 
+void \doxymbox{\hyperlink{engine__buffers_8c_a8a3bf7c78e5878b58ca6b863017c94a7}{engine\+Bind\+VAO}} (unsigned int vao)
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{engine__buffers_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{engine__buffers_8c_a8a3bf7c78e5878b58ca6b863017c94a7}\index{engine\_buffers.c@{engine\_buffers.c}!engineBindVAO@{engineBindVAO}}
+\index{engineBindVAO@{engineBindVAO}!engine\_buffers.c@{engine\_buffers.c}}
+\doxysubsubsection{\texorpdfstring{engineBindVAO()}{engineBindVAO()}}
+{\footnotesize\ttfamily \label{engine__buffers_8c_a8a3bf7c78e5878b58ca6b863017c94a7} 
+void engine\+Bind\+VAO (\begin{DoxyParamCaption}\item[{unsigned int}]{vao}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__buffers_8c_source_l00058}{58}} of file \doxymbox{\hyperlink{engine__buffers_8c_source}{engine\+\_\+buffers.\+c}}.
+
+\Hypertarget{engine__buffers_8c_a87edbb8640d857e3e91af80532ced41e}\index{engine\_buffers.c@{engine\_buffers.c}!engineCreateVAO@{engineCreateVAO}}
+\index{engineCreateVAO@{engineCreateVAO}!engine\_buffers.c@{engine\_buffers.c}}
+\doxysubsubsection{\texorpdfstring{engineCreateVAO()}{engineCreateVAO()}}
+{\footnotesize\ttfamily \label{engine__buffers_8c_a87edbb8640d857e3e91af80532ced41e} 
+void engine\+Create\+VAO (\begin{DoxyParamCaption}\item[{unsigned int \texorpdfstring{$\ast$}{*}}]{vao}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__buffers_8c_source_l00017}{17}} of file \doxymbox{\hyperlink{engine__buffers_8c_source}{engine\+\_\+buffers.\+c}}.
+
+\Hypertarget{engine__buffers_8c_a9255bf5d757456d292612a692e608f34}\index{engine\_buffers.c@{engine\_buffers.c}!engineCreateVBO@{engineCreateVBO}}
+\index{engineCreateVBO@{engineCreateVBO}!engine\_buffers.c@{engine\_buffers.c}}
+\doxysubsubsection{\texorpdfstring{engineCreateVBO()}{engineCreateVBO()}}
+{\footnotesize\ttfamily \label{engine__buffers_8c_a9255bf5d757456d292612a692e608f34} 
+void engine\+Create\+VBO (\begin{DoxyParamCaption}\item[{unsigned int \texorpdfstring{$\ast$}{*}}]{vbo}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__buffers_8c_source_l00022}{22}} of file \doxymbox{\hyperlink{engine__buffers_8c_source}{engine\+\_\+buffers.\+c}}.
+
+\Hypertarget{engine__buffers_8c_ad97d4788fd62ec30e6a4032a858d6f02}\index{engine\_buffers.c@{engine\_buffers.c}!engineDeleteVAO@{engineDeleteVAO}}
+\index{engineDeleteVAO@{engineDeleteVAO}!engine\_buffers.c@{engine\_buffers.c}}
+\doxysubsubsection{\texorpdfstring{engineDeleteVAO()}{engineDeleteVAO()}}
+{\footnotesize\ttfamily \label{engine__buffers_8c_ad97d4788fd62ec30e6a4032a858d6f02} 
+void engine\+Delete\+VAO (\begin{DoxyParamCaption}\item[{unsigned int \texorpdfstring{$\ast$}{*}}]{vao}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__buffers_8c_source_l00027}{27}} of file \doxymbox{\hyperlink{engine__buffers_8c_source}{engine\+\_\+buffers.\+c}}.
+
+\Hypertarget{engine__buffers_8c_a12f7b44c4c5226a52e0ea38654751c16}\index{engine\_buffers.c@{engine\_buffers.c}!engineDeleteVBO@{engineDeleteVBO}}
+\index{engineDeleteVBO@{engineDeleteVBO}!engine\_buffers.c@{engine\_buffers.c}}
+\doxysubsubsection{\texorpdfstring{engineDeleteVBO()}{engineDeleteVBO()}}
+{\footnotesize\ttfamily \label{engine__buffers_8c_a12f7b44c4c5226a52e0ea38654751c16} 
+void engine\+Delete\+VBO (\begin{DoxyParamCaption}\item[{unsigned int \texorpdfstring{$\ast$}{*}}]{vbo}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__buffers_8c_source_l00033}{33}} of file \doxymbox{\hyperlink{engine__buffers_8c_source}{engine\+\_\+buffers.\+c}}.
+
+\Hypertarget{engine__buffers_8c_ad0af36c6daa2c632f4dc3c3a71b51f53}\index{engine\_buffers.c@{engine\_buffers.c}!engineInitVBOVAOPair@{engineInitVBOVAOPair}}
+\index{engineInitVBOVAOPair@{engineInitVBOVAOPair}!engine\_buffers.c@{engine\_buffers.c}}
+\doxysubsubsection{\texorpdfstring{engineInitVBOVAOPair()}{engineInitVBOVAOPair()}}
+{\footnotesize\ttfamily \label{engine__buffers_8c_ad0af36c6daa2c632f4dc3c3a71b51f53} 
+void engine\+Init\+VBOVAOPair (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{size\+\_\+t}]{vert\+Bytes}{, }\item[{float \texorpdfstring{$\ast$}{*}}]{vertices}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__buffers_8c_source_l00039}{39}} of file \doxymbox{\hyperlink{engine__buffers_8c_source}{engine\+\_\+buffers.\+c}}.
+

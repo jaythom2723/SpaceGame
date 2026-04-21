@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.16.1" xml:lang="en-US">
+  <compounddef id="dir_5c97d50dc5e986a91c2215656d7436da" kind="dir">
+    <compoundname>SpaceGame</compoundname>
+    <innerfile refid="engine_8c">engine.c</innerfile>
+    <innerfile refid="engine_8h">engine.h</innerfile>
+    <innerfile refid="engine__buffers_8c">engine_buffers.c</innerfile>
+    <innerfile refid="engine__buffers_8h">engine_buffers.h</innerfile>
+    <innerfile refid="engine__component__funcs_8c">engine_component_funcs.c</innerfile>
+    <innerfile refid="engine__components_8c">engine_components.c</innerfile>
+    <innerfile refid="engine__components_8h">engine_components.h</innerfile>
+    <innerfile refid="engine__defs_8h">engine_defs.h</innerfile>
+    <innerfile refid="engine__entity_8c">engine_entity.c</innerfile>
+    <innerfile refid="engine__entity_8h">engine_entity.h</innerfile>
+    <innerfile refid="engine__renderer_8c">engine_renderer.c</innerfile>
+    <innerfile refid="engine__renderer_8h">engine_renderer.h</innerfile>
+    <innerfile refid="engine__shaders_8c">engine_shaders.c</innerfile>
+    <innerfile refid="engine__shaders_8h">engine_shaders.h</innerfile>
+    <innerfile refid="engine__textures_8c">engine_textures.c</innerfile>
+    <innerfile refid="engine__textures_8h">engine_textures.h</innerfile>
+    <innerfile refid="engine__utils_8c">engine_utils.c</innerfile>
+    <innerfile refid="engine__utils_8h">engine_utils.h</innerfile>
+    <innerfile refid="game_8c">game.c</innerfile>
+    <innerfile refid="glad_8c">glad.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="SpaceGame/"/>
+  </compounddef>
+</doxygen>

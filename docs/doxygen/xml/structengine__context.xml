@@ -1,0 +1,174 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.16.1" xml:lang="en-US">
+  <compounddef id="structengine__context" kind="struct" language="C++" prot="public">
+    <compoundname>engine_context</compoundname>
+    <includes refid="engine__defs_8h" local="no">engine_defs.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structengine__context_1a80de27bd7dc4e2b2ad3d5895b97a70f0" prot="public" static="no" mutable="no">
+        <type>GLFWwindow *</type>
+        <definition>GLFWwindow* window</definition>
+        <argsstring></argsstring>
+        <name>window</name>
+        <qualifiedname>engine_context::window</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="126" column="12" bodyfile="engine_defs.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structengine__context_1a7c97b3627dcbbdb79d9272f6f7006cbb" prot="public" static="no" mutable="no">
+        <type>EngineTexturePair</type>
+        <definition>EngineTexturePair textures[ENGINE_MAX_TEXTURES]</definition>
+        <argsstring>[ENGINE_MAX_TEXTURES]</argsstring>
+        <name>textures</name>
+        <qualifiedname>engine_context::textures</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="128" column="19" bodyfile="engine_defs.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structengine__context_1a86b86cb368e95cfdfa80fc423972b50c" prot="public" static="no" mutable="no">
+        <type>EngineEntity</type>
+        <definition>EngineEntity entities[ENGINE_MAX_ENTITIES]</definition>
+        <argsstring>[ENGINE_MAX_ENTITIES]</argsstring>
+        <name>entities</name>
+        <qualifiedname>engine_context::entities</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="129" column="14" bodyfile="engine_defs.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structengine__context_1af51d2cd04b7f1f01d9c5b62f3f70e98d" prot="public" static="no" mutable="no">
+        <type>EBOOL</type>
+        <definition>EBOOL keys[ENGINE_NUM_KEYS]</definition>
+        <argsstring>[ENGINE_NUM_KEYS]</argsstring>
+        <name>keys</name>
+        <qualifiedname>engine_context::keys</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="130" column="7" bodyfile="engine_defs.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structengine__context_1a39cd3fdd6f4ed8c61ab51e8db52044a9" prot="public" static="no" mutable="no">
+        <type>EngineProgram</type>
+        <definition>EngineProgram program</definition>
+        <argsstring></argsstring>
+        <name>program</name>
+        <qualifiedname>engine_context::program</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="132" column="15" bodyfile="engine_defs.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structengine__context_1a66af7003e38e6bc4336b96bbda1fe29a" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int vao</definition>
+        <argsstring></argsstring>
+        <name>vao</name>
+        <qualifiedname>engine_context::vao</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="134" column="14" bodyfile="engine_defs.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structengine__context_1a3832d3906a9d9d6b26256fa302a67b2f" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int ntextures</definition>
+        <argsstring></argsstring>
+        <name>ntextures</name>
+        <qualifiedname>engine_context::ntextures</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="135" column="14" bodyfile="engine_defs.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structengine__context_1a09e1c512ef421db69ab67653d987666b" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int nentities</definition>
+        <argsstring></argsstring>
+        <name>nentities</name>
+        <qualifiedname>engine_context::nentities</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="135" column="24" bodyfile="engine_defs.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>The engine itself, nothing can function without this being initialized! </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="5">
+        <label>engine_component</label>
+        <link refid="structengine__component"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>func</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>engine_context</label>
+        <link refid="structengine__context"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>textures</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>entities</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>engine_entity</label>
+        <link refid="structengine__entity"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>components</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>engine_texture</label>
+        <link refid="structengine__texture"/>
+      </node>
+      <node id="2">
+        <label>engine_texture_pair</label>
+        <link refid="structengine__texture__pair"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>value</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="engine_defs.h" line="125" column="1" bodyfile="engine_defs.h" bodystart="125" bodyend="136"/>
+    <listofallmembers>
+      <member refid="structengine__context_1a86b86cb368e95cfdfa80fc423972b50c" prot="public" virt="non-virtual"><scope>engine_context</scope><name>entities</name></member>
+      <member refid="structengine__context_1af51d2cd04b7f1f01d9c5b62f3f70e98d" prot="public" virt="non-virtual"><scope>engine_context</scope><name>keys</name></member>
+      <member refid="structengine__context_1a09e1c512ef421db69ab67653d987666b" prot="public" virt="non-virtual"><scope>engine_context</scope><name>nentities</name></member>
+      <member refid="structengine__context_1a3832d3906a9d9d6b26256fa302a67b2f" prot="public" virt="non-virtual"><scope>engine_context</scope><name>ntextures</name></member>
+      <member refid="structengine__context_1a39cd3fdd6f4ed8c61ab51e8db52044a9" prot="public" virt="non-virtual"><scope>engine_context</scope><name>program</name></member>
+      <member refid="structengine__context_1a7c97b3627dcbbdb79d9272f6f7006cbb" prot="public" virt="non-virtual"><scope>engine_context</scope><name>textures</name></member>
+      <member refid="structengine__context_1a66af7003e38e6bc4336b96bbda1fe29a" prot="public" virt="non-virtual"><scope>engine_context</scope><name>vao</name></member>
+      <member refid="structengine__context_1a80de27bd7dc4e2b2ad3d5895b97a70f0" prot="public" virt="non-virtual"><scope>engine_context</scope><name>window</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

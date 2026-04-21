@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.16.1" xml:lang="en-US">
+  <compounddef id="structwindow__config" kind="struct" language="C++" prot="public">
+    <compoundname>window_config</compoundname>
+    <includes refid="engine__defs_8h" local="no">engine_defs.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structwindow__config_1af06d911bb9e05f491ef3da520d03796c" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* title</definition>
+        <argsstring></argsstring>
+        <name>title</name>
+        <qualifiedname>window_config::title</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="63" column="6" bodyfile="engine_defs.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structwindow__config_1aca34d28e3d8bcbcadb8edb4e3af24f8c" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int width</definition>
+        <argsstring></argsstring>
+        <name>width</name>
+        <qualifiedname>window_config::width</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="64" column="14" bodyfile="engine_defs.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structwindow__config_1ab2e78c61905b4419fcc7b4cfc500fe85" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int height</definition>
+        <argsstring></argsstring>
+        <name>height</name>
+        <qualifiedname>window_config::height</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="64" column="20" bodyfile="engine_defs.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structwindow__config_1a89e78a5fc8053b4fbe0e58524d4df8d8" prot="public" static="no" mutable="no">
+        <type>EBOOL</type>
+        <definition>EBOOL resizable</definition>
+        <argsstring></argsstring>
+        <name>resizable</name>
+        <qualifiedname>window_config::resizable</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="65" column="7" bodyfile="engine_defs.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structwindow__config_1a7025fce3ed6303fb249af6cd7f8aacd2" prot="public" static="no" mutable="no">
+        <type>EBOOL</type>
+        <definition>EBOOL doublebuffer</definition>
+        <argsstring></argsstring>
+        <name>doublebuffer</name>
+        <qualifiedname>window_config::doublebuffer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="65" column="17" bodyfile="engine_defs.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>The window config tells the engine how to setup the window. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="engine_defs.h" line="62" column="1" bodyfile="engine_defs.h" bodystart="62" bodyend="66"/>
+    <listofallmembers>
+      <member refid="structwindow__config_1a7025fce3ed6303fb249af6cd7f8aacd2" prot="public" virt="non-virtual"><scope>window_config</scope><name>doublebuffer</name></member>
+      <member refid="structwindow__config_1ab2e78c61905b4419fcc7b4cfc500fe85" prot="public" virt="non-virtual"><scope>window_config</scope><name>height</name></member>
+      <member refid="structwindow__config_1a89e78a5fc8053b4fbe0e58524d4df8d8" prot="public" virt="non-virtual"><scope>window_config</scope><name>resizable</name></member>
+      <member refid="structwindow__config_1af06d911bb9e05f491ef3da520d03796c" prot="public" virt="non-virtual"><scope>window_config</scope><name>title</name></member>
+      <member refid="structwindow__config_1aca34d28e3d8bcbcadb8edb4e3af24f8c" prot="public" virt="non-virtual"><scope>window_config</scope><name>width</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

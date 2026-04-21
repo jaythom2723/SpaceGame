@@ -1,0 +1,758 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.16.1" xml:lang="en-US">
+  <compounddef id="engine__defs_8h" kind="file" language="C++">
+    <compoundname>engine_defs.h</compoundname>
+    <includes local="no">glad/glad.h</includes>
+    <includes local="no">GLFW/glfw3.h</includes>
+    <includedby refid="engine_8h" local="yes">engine.h</includedby>
+    <includedby refid="engine__buffers_8h" local="yes">engine_buffers.h</includedby>
+    <includedby refid="engine__component__funcs_8c" local="yes">engine_component_funcs.c</includedby>
+    <includedby refid="engine__components_8h" local="yes">engine_components.h</includedby>
+    <includedby refid="engine__entity_8h" local="yes">engine_entity.h</includedby>
+    <includedby refid="engine__renderer_8h" local="yes">engine_renderer.h</includedby>
+    <includedby refid="engine__shaders_8h" local="yes">engine_shaders.h</includedby>
+    <includedby refid="engine__textures_8h" local="yes">engine_textures.h</includedby>
+    <includedby refid="engine__utils_8h" local="yes">engine_utils.h</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>engine_defs.h</label>
+        <link refid="engine__defs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>GLFW/glfw3.h</label>
+      </node>
+      <node id="2">
+        <label>glad/glad.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3">
+        <label>engine.c</label>
+        <link refid="engine_8c_source"/>
+      </node>
+      <node id="2">
+        <label>engine.h</label>
+        <link refid="engine_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>engine_buffers.c</label>
+        <link refid="engine__buffers_8c_source"/>
+      </node>
+      <node id="5">
+        <label>engine_buffers.h</label>
+        <link refid="engine__buffers_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>engine_component_funcs.c</label>
+        <link refid="engine__component__funcs_8c_source"/>
+      </node>
+      <node id="10">
+        <label>engine_components.c</label>
+        <link refid="engine__components_8c_source"/>
+      </node>
+      <node id="9">
+        <label>engine_components.h</label>
+        <link refid="engine__components_8h_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>engine_defs.h</label>
+        <link refid="engine__defs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>engine_entity.c</label>
+        <link refid="engine__entity_8c_source"/>
+      </node>
+      <node id="12">
+        <label>engine_entity.h</label>
+        <link refid="engine__entity_8h_source"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>engine_renderer.c</label>
+        <link refid="engine__renderer_8c_source"/>
+      </node>
+      <node id="13">
+        <label>engine_renderer.h</label>
+        <link refid="engine__renderer_8h_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>engine_shaders.c</label>
+        <link refid="engine__shaders_8c_source"/>
+      </node>
+      <node id="14">
+        <label>engine_shaders.h</label>
+        <link refid="engine__shaders_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>engine_textures.c</label>
+        <link refid="engine__textures_8c_source"/>
+      </node>
+      <node id="16">
+        <label>engine_textures.h</label>
+        <link refid="engine__textures_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>engine_utils.c</label>
+        <link refid="engine__utils_8c_source"/>
+      </node>
+      <node id="18">
+        <label>engine_utils.h</label>
+        <link refid="engine__utils_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>game.c</label>
+        <link refid="game_8c_source"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structwindow__config" prot="public">window_config</innerclass>
+    <innerclass refid="structengine__texture" prot="public">engine_texture</innerclass>
+    <innerclass refid="structengine__texture__pair" prot="public">engine_texture_pair</innerclass>
+    <innerclass refid="structengine__entity" prot="public">engine_entity</innerclass>
+    <innerclass refid="structengine__component" prot="public">engine_component</innerclass>
+    <innerclass refid="structlinklist" prot="public">linklist</innerclass>
+    <innerclass refid="structengine__context" prot="public">engine_context</innerclass>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="engine__defs_8h_1a36f190ee08b08696d7e8d0277e366ebb" prot="public" static="no">
+        <name>ENGINE_MAX_TEXTURES</name>
+        <initializer>1024</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="7" column="9" bodyfile="engine_defs.h" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="engine__defs_8h_1a1ecd280a1b8f9ded11592607470280ac" prot="public" static="no">
+        <name>ENGINE_MAX_ENTITIES</name>
+        <initializer>0xFFFF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="8" column="9" bodyfile="engine_defs.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="engine__defs_8h_1a1cea4428b12087f11597871d840ef91a" prot="public" static="no">
+        <name>ENGINE_MAX_COMPONENTS</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="9" column="9" bodyfile="engine_defs.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="engine__defs_8h_1a2d2393873df56debfeef8840b3fbc572" prot="public" static="no">
+        <name>ENGINE_NUM_KEYS</name>
+        <initializer>1024</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="10" column="9" bodyfile="engine_defs.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="engine__defs_8h_1aa116cf7d624db650672746e4ab5b4cfc" prot="public" static="no">
+        <name>ENGINE_MISSING_TEXTURE_KEY</name>
+        <initializer>ENGINE_MAX_TEXTURES-1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="12" column="9" bodyfile="engine_defs.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="engine__defs_8h_1a4e3c39537b35c593b26b7ce8c48ab3d8" prot="public" static="no">
+        <name>MAKE_ENT_PAIR</name>
+        <param><defname>k</defname></param>
+        <param><defname>pos</defname></param>
+        <param><defname>sz</defname></param>
+        <param><defname>tk</defname></param>
+        <initializer>deprecated DO NOT USE.</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="14" column="9" bodyfile="engine_defs.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="engine__defs_8h_1aaf69623c4723efcb269c2b9a0d33ba0b" prot="public" static="no">
+        <name>ETRUE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="17" column="9" bodyfile="engine_defs.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="engine__defs_8h_1ade4ce8c6163449c210de16251f6bcda9" prot="public" static="no">
+        <name>EFALSE</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="18" column="9" bodyfile="engine_defs.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="engine__defs_8h_1a4df9eadfc43ac04551458c89fbc378bb" prot="public" static="no">
+        <name>EKEY_ESCAPE</name>
+        <initializer>GLFW_KEY_ESCAPE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="36" column="9" bodyfile="engine_defs.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="engine__defs_8h_1a67806a002bc1b671462a44804e6f805b" prot="public" static="no">
+        <name>EKEY_W</name>
+        <initializer>GLFW_KEY_W</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="37" column="9" bodyfile="engine_defs.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="engine__defs_8h_1afaae5b7d03788dd4f712db652701c9c7" prot="public" static="no">
+        <name>EKEY_S</name>
+        <initializer>GLFW_KEY_S</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="38" column="9" bodyfile="engine_defs.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="engine__defs_8h_1abe7c91296c5fc875c0b3688487985a3b" prot="public" static="no">
+        <name>EKEY_A</name>
+        <initializer>GLFW_KEY_A</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="39" column="9" bodyfile="engine_defs.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="engine__defs_8h_1aa04ad1411deb015736e31cb1287fd63f" prot="public" static="no">
+        <name>EKEY_D</name>
+        <initializer>GLFW_KEY_D</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="40" column="9" bodyfile="engine_defs.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="engine__defs_8h_1a736e2ea11e2584d889f302013d178098" prot="public" static="no">
+        <name>EKEY_UP</name>
+        <initializer>GLFW_KEY_UP</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="41" column="9" bodyfile="engine_defs.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="engine__defs_8h_1a5cee394f9de509dea661d40b5a724ac6" prot="public" static="no">
+        <name>EKEY_DOWN</name>
+        <initializer>GLFW_KEY_DOWN</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="42" column="9" bodyfile="engine_defs.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="engine__defs_8h_1ab3d6b1349a88522392413d719469ed7e" prot="public" static="no">
+        <name>EKEY_RIGHT</name>
+        <initializer>GLFW_KEY_RIGHT</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="43" column="9" bodyfile="engine_defs.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="engine__defs_8h_1a7f78cf88d81a586b4eaf85db6b407d87" prot="public" static="no">
+        <name>EKEY_LEFT</name>
+        <initializer>GLFW_KEY_LEFT</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="44" column="9" bodyfile="engine_defs.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="enum">
+      <memberdef kind="enum" id="engine__defs_8h_1a4ca99c4435f534981c8f010a42399b8f" prot="public" static="no" strong="no">
+        <type></type>
+        <name>component_type</name>
+        <enumvalue id="engine__defs_8h_1a4ca99c4435f534981c8f010a42399b8fa88e24b300b4fe0854e0aacf8ed46358d" prot="public">
+          <name>ENGINE_COMPONENT_RENDERER</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="engine__defs_8h_1a4ca99c4435f534981c8f010a42399b8faedc80912a190108fb8024b04936d8305" prot="public">
+          <name>ENGINE_COMPONENT_TICK</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="engine__defs_8h_1a4ca99c4435f534981c8f010a42399b8fac18d1186ab6639a28d072e5b40f7e955" prot="public">
+          <name>ENGINE_COMPONENT_CONTROLLER</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Types of components embedded into the engine. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>You can create your own component types as well </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="53" column="1" bodyfile="engine_defs.h" bodystart="53" bodyend="57"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="engine__defs_8h_1a4fe707fd7f0392a3c6d81cfc62f1686c" prot="public" static="no">
+        <type>unsigned char</type>
+        <definition>typedef unsigned char EBOOL</definition>
+        <argsstring></argsstring>
+        <name>EBOOL</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="16" column="23" bodyfile="engine_defs.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="engine__defs_8h_1ad5bbadc2683f69c3cc216f456e83aef5" prot="public" static="no">
+        <type>unsigned int</type>
+        <definition>typedef unsigned int EngineShader</definition>
+        <argsstring></argsstring>
+        <name>EngineShader</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="20" column="22" bodyfile="engine_defs.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="engine__defs_8h_1a4089a7465fbba0988b4933eb318a7541" prot="public" static="no">
+        <type>unsigned int</type>
+        <definition>typedef unsigned int EngineProgram</definition>
+        <argsstring></argsstring>
+        <name>EngineProgram</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="21" column="22" bodyfile="engine_defs.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="engine__defs_8h_1a0a29a026b82481d6384d6880a2b6b071" prot="public" static="no">
+        <type>unsigned int</type>
+        <definition>typedef unsigned int EngineTextureKey</definition>
+        <argsstring></argsstring>
+        <name>EngineTextureKey</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="23" column="22" bodyfile="engine_defs.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="engine__defs_8h_1a4471320c0db41d630bed66ecbfff9bb9" prot="public" static="no">
+        <type>unsigned int</type>
+        <definition>typedef unsigned int EngineEntityKey</definition>
+        <argsstring></argsstring>
+        <name>EngineEntityKey</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="24" column="22" bodyfile="engine_defs.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="engine__defs_8h_1a5f517ac8fe5b6213281fcf3e869014a3" prot="public" static="no">
+        <type>unsigned int</type>
+        <definition>typedef unsigned int EngineComponentID</definition>
+        <argsstring></argsstring>
+        <name>EngineComponentID</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="26" column="22" bodyfile="engine_defs.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="engine__defs_8h_1adbf6f00f51442de5cfeccabf6fe7009d" prot="public" static="no">
+        <type>enum gamestate</type>
+        <definition>typedef enum gamestate GameState</definition>
+        <argsstring></argsstring>
+        <name>GameState</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="28" column="23" bodyfile="engine_defs.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58" prot="public" static="no">
+        <type>struct <ref refid="structengine__context" kindref="compound">engine_context</ref></type>
+        <definition>typedef struct engine_context EngineContext</definition>
+        <argsstring></argsstring>
+        <name>EngineContext</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="30" column="29" bodyfile="engine_defs.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="engine__defs_8h_1aa5d34c353188c6922fdb05c9cdf2f1f0" prot="public" static="no">
+        <type>struct <ref refid="structengine__component" kindref="compound">engine_component</ref></type>
+        <definition>typedef struct engine_component EngineComponent</definition>
+        <argsstring></argsstring>
+        <name>EngineComponent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="31" column="31" bodyfile="engine_defs.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="engine__defs_8h_1a6c53f0b7ec3737ab96bcfea47dd18695" prot="public" static="no">
+        <type>struct <ref refid="structengine__entity" kindref="compound">engine_entity</ref></type>
+        <definition>typedef struct engine_entity EngineEntity</definition>
+        <argsstring></argsstring>
+        <name>EngineEntity</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="32" column="28" bodyfile="engine_defs.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="engine__defs_8h_1a25cd721674b601a381fb538f63193316" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* EngineComponentFunc) (EngineEntity *, EngineContext *, float)</definition>
+        <argsstring>)(EngineEntity *, EngineContext *, float)</argsstring>
+        <name>EngineComponentFunc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="34" column="9" bodyfile="engine_defs.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="engine__defs_8h_1addaf8da9d811dea07390c134ec64e60e" prot="public" static="no">
+        <type>enum component_type</type>
+        <definition>typedef enum component_type EngineComponentType</definition>
+        <argsstring></argsstring>
+        <name>EngineComponentType</name>
+        <briefdescription>
+<para>Types of components embedded into the engine. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>You can create your own component types as well </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="57" column="21"/>
+      </memberdef>
+      <memberdef kind="typedef" id="engine__defs_8h_1ace08f4d3a2b304b58e1719b16ba36a16" prot="public" static="no">
+        <type>struct <ref refid="structwindow__config" kindref="compound">window_config</ref></type>
+        <definition>typedef struct window_config WindowConfig</definition>
+        <argsstring></argsstring>
+        <name>WindowConfig</name>
+        <briefdescription>
+<para>The window config tells the engine how to setup the window. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="66" column="14"/>
+      </memberdef>
+      <memberdef kind="typedef" id="engine__defs_8h_1ab7190cb26ff0940aad30e42f4b863a65" prot="public" static="no">
+        <type>struct <ref refid="structengine__texture" kindref="compound">engine_texture</ref></type>
+        <definition>typedef struct engine_texture EngineTexture</definition>
+        <argsstring></argsstring>
+        <name>EngineTexture</name>
+        <briefdescription>
+<para>A texture handle that contains all necessary texture information. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="78" column="15"/>
+      </memberdef>
+      <memberdef kind="typedef" id="engine__defs_8h_1ab1b932d98fa15c9b0f3ca42807c8f319" prot="public" static="no">
+        <type>struct <ref refid="structengine__texture__pair" kindref="compound">engine_texture_pair</ref></type>
+        <definition>typedef struct engine_texture_pair EngineTexturePair</definition>
+        <argsstring></argsstring>
+        <name>EngineTexturePair</name>
+        <briefdescription>
+<para>Used to make a pseudo-dictionary for the engine. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="86" column="19"/>
+      </memberdef>
+      <memberdef kind="typedef" id="engine__defs_8h_1a09036c28461371d73a173aa18b119cd3" prot="public" static="no">
+        <type>struct <ref refid="structlinklist" kindref="compound">linklist</ref></type>
+        <definition>typedef struct linklist EngineLinkedList</definition>
+        <argsstring></argsstring>
+        <name>EngineLinkedList</name>
+        <briefdescription>
+<para>A standard link list data structure. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="120" column="18"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>ENGINE_DEFS_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ENGINE_DEFS_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;glad/glad.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;GLFW/glfw3.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ENGINE_MAX_TEXTURES<sp/><sp/><sp/><sp/><sp/>1024</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ENGINE_MAX_ENTITIES<sp/><sp/><sp/><sp/><sp/>0xFFFF</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ENGINE_MAX_COMPONENTS<sp/><sp/><sp/>0x10</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ENGINE_NUM_KEYS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1024</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ENGINE_MISSING_TEXTURE_KEY<sp/>ENGINE_MAX_TEXTURES-1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MAKE_ENT_PAIR(k,pos,sz,tk)<sp/>deprecated<sp/>DO<sp/>NOT<sp/>USE.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>EBOOL;</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ETRUE<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EFALSE<sp/>0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>EngineShader;</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>EngineProgram;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>EngineTextureKey;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>EngineEntityKey;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>EngineComponentID;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>gamestate<sp/>GameState;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structengine__context" kindref="compound">engine_context</ref><sp/>EngineContext;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structengine__component" kindref="compound">engine_component</ref><sp/>EngineComponent;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structengine__entity" kindref="compound">engine_entity</ref><sp/>EngineEntity;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*EngineComponentFunc)(EngineEntity*,EngineContext*,float);</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EKEY_ESCAPE<sp/><sp/><sp/><sp/><sp/>GLFW_KEY_ESCAPE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EKEY_W<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GLFW_KEY_W</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EKEY_S<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GLFW_KEY_S</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EKEY_A<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GLFW_KEY_A</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EKEY_D<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GLFW_KEY_D</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EKEY_UP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GLFW_KEY_UP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EKEY_DOWN<sp/><sp/><sp/><sp/><sp/><sp/><sp/>GLFW_KEY_DOWN</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EKEY_RIGHT<sp/><sp/><sp/><sp/><sp/><sp/>GLFW_KEY_RIGHT</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EKEY_LEFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>GLFW_KEY_LEFT</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">//<sp/>offsets<sp/>the<sp/>component<sp/>ptr<sp/>by<sp/>the<sp/>values<sp/>assigned<sp/>by<sp/>the<sp/>compiler</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>component_type<sp/>{</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/>ENGINE_COMPONENT_RENDERER,<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/>ENGINE_COMPONENT_TICK,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>ENGINE_COMPONENT_CONTROLLER,<sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>...</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal">}<sp/>EngineComponentType;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62" refid="structwindow__config" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structwindow__config" kindref="compound">window_config</ref><sp/>{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>title;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>width,<sp/>height;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/>EBOOL<sp/>resizable,<sp/>doublebuffer;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal">}<sp/>WindowConfig;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71" refid="structengine__texture" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structengine__texture" kindref="compound">engine_texture</ref><sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>id;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>width,<sp/>height;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>internalformat;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>imageformat;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>wraps,<sp/>wrapt;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>filtermax,<sp/>filtermin;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal">}<sp/>EngineTexture;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83" refid="structengine__texture__pair" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structengine__texture__pair" kindref="compound">engine_texture_pair</ref><sp/>{</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/>EngineTextureKey<sp/>key;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/>EngineTexture*<sp/>value;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal">}<sp/>EngineTexturePair;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91" refid="structengine__entity" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structengine__entity" kindref="compound">engine_entity</ref><sp/>{</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>x,<sp/>y;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>width,<sp/>height;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>EngineEntityKey<sp/>key;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/>EngineTextureKey<sp/>texkey;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/>EngineComponent*<sp/>components;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102" refid="structengine__component" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structengine__component" kindref="compound">engine_component</ref><sp/>{</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/>EngineComponentID<sp/>id;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/>EngineComponentType<sp/>type;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/>EngineComponentFunc<sp/>func;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111" refid="structlinklist" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structlinklist" kindref="compound">linklist</ref><sp/>{</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>lista;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>listb;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>typesize;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>arrsize;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/>EBOOL<sp/>aalloc;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/>EBOOL<sp/>balloc;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal">}<sp/>EngineLinkedList;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125" refid="structengine__context" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structengine__context" kindref="compound">engine_context</ref><sp/>{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/>GLFWwindow*<sp/>window;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/>EngineTexturePair<sp/>textures[ENGINE_MAX_TEXTURES];</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/>EngineEntity<sp/>entities[ENGINE_MAX_ENTITIES];</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/>EBOOL<sp/>keys[ENGINE_NUM_KEYS];</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/>EngineProgram<sp/>program;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>vao;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ntextures,<sp/>nentities;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">//<sp/>ENGINE_DEFS_H</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="engine_defs.h"/>
+  </compounddef>
+</doxygen>

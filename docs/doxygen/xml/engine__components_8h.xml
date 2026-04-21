@@ -1,0 +1,220 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.16.1" xml:lang="en-US">
+  <compounddef id="engine__components_8h" kind="file" language="C++">
+    <compoundname>engine_components.h</compoundname>
+    <includes refid="engine__defs_8h" local="yes">engine_defs.h</includes>
+    <includedby refid="engine__component__funcs_8c" local="yes">engine_component_funcs.c</includedby>
+    <includedby refid="engine__components_8c" local="yes">engine_components.c</includedby>
+    <includedby refid="engine__entity_8c" local="yes">engine_entity.c</includedby>
+    <includedby refid="game_8c" local="yes">game.c</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>engine_components.h</label>
+        <link refid="engine__components_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>engine_defs.h</label>
+        <link refid="engine__defs_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>GLFW/glfw3.h</label>
+      </node>
+      <node id="3">
+        <label>glad/glad.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>engine_component_funcs.c</label>
+        <link refid="engine__component__funcs_8c_source"/>
+      </node>
+      <node id="3">
+        <label>engine_components.c</label>
+        <link refid="engine__components_8c_source"/>
+      </node>
+      <node id="1">
+        <label>engine_components.h</label>
+        <link refid="engine__components_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>engine_entity.c</label>
+        <link refid="engine__entity_8c_source"/>
+      </node>
+      <node id="5">
+        <label>game.c</label>
+        <link refid="game_8c_source"/>
+      </node>
+    </invincdepgraph>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="engine__components_8h_1ab9a835e838ea4a7bd5d4610507f254ed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void engineAddComponent</definition>
+        <argsstring>(EngineContext *ctx, EngineEntityKey key, EngineComponentType type)</argsstring>
+        <name>engineAddComponent</name>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>EngineEntityKey</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>EngineComponentType</type>
+          <declname>type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_components.h" line="6" column="6" bodyfile="engine_components.c" bodystart="18" bodyend="35" declfile="engine_components.h" declline="6" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="engine__components_8h_1a72b83a59fda5ca9d8b12dec7bf29076a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void engineSetComponentCallback</definition>
+        <argsstring>(EngineContext *ctx, EngineEntityKey key, EngineComponentType type, EngineComponentFunc func)</argsstring>
+        <name>engineSetComponentCallback</name>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>EngineEntityKey</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>EngineComponentType</type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>EngineComponentFunc</type>
+          <declname>func</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_components.h" line="7" column="6" bodyfile="engine_components.c" bodystart="37" bodyend="46" declfile="engine_components.h" declline="7" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="engine__components_8h_1a9b953d599b77c05686083469e14aa362" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const EBOOL</type>
+        <definition>const EBOOL engineRemoveComponent</definition>
+        <argsstring>(EngineContext *ctx, EngineEntityKey key, EngineComponentType type)</argsstring>
+        <name>engineRemoveComponent</name>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>EngineEntityKey</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>EngineComponentType</type>
+          <declname>type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_components.h" line="8" column="13" bodyfile="engine_components.c" bodystart="48" bodyend="59" declfile="engine_components.h" declline="8" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="function" id="engine__components_8h_1a8b10324c2eb0287786117a22a4fe71a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const EBOOL</type>
+        <definition>const EBOOL engineHasComponent</definition>
+        <argsstring>(EngineContext *ctx, EngineEntityKey key, EngineComponentType type)</argsstring>
+        <name>engineHasComponent</name>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>EngineEntityKey</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>EngineComponentType</type>
+          <declname>type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_components.h" line="9" column="13" bodyfile="engine_components.c" bodystart="61" bodyend="70" declfile="engine_components.h" declline="9" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="function" id="engine__components_8h_1ad42d74a1645f795e1d8c3b1684cb63d9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void engineRunComponentFunc</definition>
+        <argsstring>(EngineContext *ctx, EngineEntity *key, EngineComponent *comp, float deltaTime)</argsstring>
+        <name>engineRunComponentFunc</name>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>EngineEntity *</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>EngineComponent *</type>
+          <declname>comp</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>deltaTime</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_components.h" line="11" column="6" bodyfile="engine_components.c" bodystart="72" bodyend="84" declfile="engine_components.h" declline="11" declcolumn="6"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>ENGINE_COMPONENTS_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ENGINE_COMPONENTS_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;engine_defs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>engineAddComponent(EngineContext*<sp/>ctx,<sp/>EngineEntityKey<sp/>key,<sp/>EngineComponentType<sp/>type);</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>engineSetComponentCallback(EngineContext*<sp/>ctx,<sp/>EngineEntityKey<sp/>key,<sp/>EngineComponentType<sp/>type,<sp/>EngineComponentFunc<sp/>func);</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>EBOOL<sp/>engineRemoveComponent(EngineContext*<sp/>ctx,<sp/>EngineEntityKey<sp/>key,<sp/>EngineComponentType<sp/>type);</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>EBOOL<sp/>engineHasComponent(EngineContext*<sp/>ctx,<sp/>EngineEntityKey<sp/>key,<sp/>EngineComponentType<sp/>type);</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>engineRunComponentFunc(EngineContext*<sp/>ctx,<sp/>EngineEntity*<sp/>key,<sp/>EngineComponent*<sp/>comp,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>deltaTime);</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="comment">//void<sp/>engineRunComponentFunc(EngineContext*<sp/>ctx,<sp/>EngineEntityKey<sp/>key,<sp/>EngineComponentType<sp/>type,<sp/>float<sp/>deltaTime);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">//<sp/>ENGINE_COMPONENTS_H</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="engine_components.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,204 @@
+\doxysection{Space\+Game/\+engine\+\_\+shaders.h File Reference}
+\hypertarget{engine__shaders_8h}{}\label{engine__shaders_8h}\index{SpaceGame/engine\_shaders.h@{SpaceGame/engine\_shaders.h}}
+{\ttfamily \+\#include $<$cglm/\+cglm.\+h$>$}\newline
+{\ttfamily \+\#include "{}engine\+\_\+defs.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{engine__defs_8h_ad5bbadc2683f69c3cc216f456e83aef5}{Engine\+Shader}} \doxymbox{\hyperlink{engine__shaders_8h_adff8ca4d27a6f6d827fea8b9e0c49df2}{engine\+Create\+Shader}} (int shader\+Type)
+\item 
+const \doxymbox{\hyperlink{engine__defs_8h_a4fe707fd7f0392a3c6d81cfc62f1686c}{EBOOL}} \doxymbox{\hyperlink{engine__shaders_8h_ae17ed877f9f71bd0bbb56f214f7239d3}{engine\+Compile\+Shader}} (\doxymbox{\hyperlink{engine__defs_8h_ad5bbadc2683f69c3cc216f456e83aef5}{Engine\+Shader}} \texorpdfstring{$\ast$}{*}shader, const char \texorpdfstring{$\ast$}{*}path)
+\item 
+void \doxymbox{\hyperlink{engine__shaders_8h_ad71f97ffc978ee71368a9e3ecb26185c}{engine\+Delete\+Shader}} (\doxymbox{\hyperlink{engine__defs_8h_ad5bbadc2683f69c3cc216f456e83aef5}{Engine\+Shader}} \texorpdfstring{$\ast$}{*}shader)
+\item 
+void \doxymbox{\hyperlink{engine__shaders_8h_a0b6859bf015168ca8e949b8d0bc2708c}{engine\+Create\+Program}} (\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}ctx)
+\item 
+const \doxymbox{\hyperlink{engine__defs_8h_a4fe707fd7f0392a3c6d81cfc62f1686c}{EBOOL}} \doxymbox{\hyperlink{engine__shaders_8h_a2088abecec475be10aa0507d3effa383}{engine\+Attach\+And\+Link}} (\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}ctx, \doxymbox{\hyperlink{engine__defs_8h_ad5bbadc2683f69c3cc216f456e83aef5}{Engine\+Shader}} \texorpdfstring{$\ast$}{*}vertex, \doxymbox{\hyperlink{engine__defs_8h_ad5bbadc2683f69c3cc216f456e83aef5}{Engine\+Shader}} \texorpdfstring{$\ast$}{*}fragment, \doxymbox{\hyperlink{engine__defs_8h_ad5bbadc2683f69c3cc216f456e83aef5}{Engine\+Shader}} \texorpdfstring{$\ast$}{*}geometry)
+\item 
+void \doxymbox{\hyperlink{engine__shaders_8h_a746376652a77c48b6bf8071772a637c8}{engine\+Delete\+Program}} (\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}ctx)
+\item 
+void \doxymbox{\hyperlink{engine__shaders_8h_a0d859349671a331bc021366a737b55be}{engine\+Use\+Shader}} (\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}ctx)
+\item 
+void \doxymbox{\hyperlink{engine__shaders_8h_a4baf6602a1647c43e29a870d6e9a84d7}{engine\+Set\+Float}} (\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}ctx, const char \texorpdfstring{$\ast$}{*}name, float value)
+\item 
+void \doxymbox{\hyperlink{engine__shaders_8h_aca0cfd6bf973e8149c0190c6797ea746}{engine\+Set\+Integer}} (\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}ctx, const char \texorpdfstring{$\ast$}{*}name, int value)
+\item 
+void \doxymbox{\hyperlink{engine__shaders_8h_a4c48075d10a5c0cffcabf0a608ee5fb7}{engine\+Set\+Vector2f}} (\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}ctx, const char \texorpdfstring{$\ast$}{*}name, float x, float y)
+\item 
+void \doxymbox{\hyperlink{engine__shaders_8h_aba8fe2caae9fa0ab1830697c8d707cff}{engine\+Set\+Vector2fv}} (\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}ctx, const char \texorpdfstring{$\ast$}{*}name, vec2 value)
+\item 
+void \doxymbox{\hyperlink{engine__shaders_8h_ad9fb34cc6295035dfec904fc1b5937ee}{engine\+Set\+Vector3f}} (\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}ctx, const char \texorpdfstring{$\ast$}{*}name, float x, float y, float z)
+\item 
+void \doxymbox{\hyperlink{engine__shaders_8h_ad6359b9918d07efb420b89fce41324b0}{engine\+Set\+Vector3fv}} (\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}ctx, const char \texorpdfstring{$\ast$}{*}name, vec3 value)
+\item 
+void \doxymbox{\hyperlink{engine__shaders_8h_aa9590463a18a2d0505cc75b3c2dd8d2a}{engine\+Set\+Vector4f}} (\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}ctx, const char \texorpdfstring{$\ast$}{*}name, float x, float y, float z, float w)
+\item 
+void \doxymbox{\hyperlink{engine__shaders_8h_ac85a90fa9e9aaee455fd56c09eea2a69}{engine\+Set\+Vector4fv}} (\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}ctx, const char \texorpdfstring{$\ast$}{*}name, vec4 value)
+\item 
+void \doxymbox{\hyperlink{engine__shaders_8h_a727dc6fafecf285e9c1a1e6c16539352}{engine\+Set\+Matrix4fv}} (\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}ctx, const char \texorpdfstring{$\ast$}{*}name, mat4 value)
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{engine__shaders_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{engine__shaders_8h_a2088abecec475be10aa0507d3effa383}\index{engine\_shaders.h@{engine\_shaders.h}!engineAttachAndLink@{engineAttachAndLink}}
+\index{engineAttachAndLink@{engineAttachAndLink}!engine\_shaders.h@{engine\_shaders.h}}
+\doxysubsubsection{\texorpdfstring{engineAttachAndLink()}{engineAttachAndLink()}}
+{\footnotesize\ttfamily \label{engine__shaders_8h_a2088abecec475be10aa0507d3effa383} 
+const \doxymbox{\hyperlink{engine__defs_8h_a4fe707fd7f0392a3c6d81cfc62f1686c}{EBOOL}} engine\+Attach\+And\+Link (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{\doxymbox{\hyperlink{engine__defs_8h_ad5bbadc2683f69c3cc216f456e83aef5}{Engine\+Shader}} \texorpdfstring{$\ast$}{*}}]{vertex}{, }\item[{\doxymbox{\hyperlink{engine__defs_8h_ad5bbadc2683f69c3cc216f456e83aef5}{Engine\+Shader}} \texorpdfstring{$\ast$}{*}}]{fragment}{, }\item[{\doxymbox{\hyperlink{engine__defs_8h_ad5bbadc2683f69c3cc216f456e83aef5}{Engine\+Shader}} \texorpdfstring{$\ast$}{*}}]{geometry}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__shaders_8c_source_l00046}{46}} of file \doxymbox{\hyperlink{engine__shaders_8c_source}{engine\+\_\+shaders.\+c}}.
+
+\Hypertarget{engine__shaders_8h_ae17ed877f9f71bd0bbb56f214f7239d3}\index{engine\_shaders.h@{engine\_shaders.h}!engineCompileShader@{engineCompileShader}}
+\index{engineCompileShader@{engineCompileShader}!engine\_shaders.h@{engine\_shaders.h}}
+\doxysubsubsection{\texorpdfstring{engineCompileShader()}{engineCompileShader()}}
+{\footnotesize\ttfamily \label{engine__shaders_8h_ae17ed877f9f71bd0bbb56f214f7239d3} 
+const \doxymbox{\hyperlink{engine__defs_8h_a4fe707fd7f0392a3c6d81cfc62f1686c}{EBOOL}} engine\+Compile\+Shader (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_ad5bbadc2683f69c3cc216f456e83aef5}{Engine\+Shader}} \texorpdfstring{$\ast$}{*}}]{shader}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{path}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__shaders_8c_source_l00015}{15}} of file \doxymbox{\hyperlink{engine__shaders_8c_source}{engine\+\_\+shaders.\+c}}.
+
+\Hypertarget{engine__shaders_8h_a0b6859bf015168ca8e949b8d0bc2708c}\index{engine\_shaders.h@{engine\_shaders.h}!engineCreateProgram@{engineCreateProgram}}
+\index{engineCreateProgram@{engineCreateProgram}!engine\_shaders.h@{engine\_shaders.h}}
+\doxysubsubsection{\texorpdfstring{engineCreateProgram()}{engineCreateProgram()}}
+{\footnotesize\ttfamily \label{engine__shaders_8h_a0b6859bf015168ca8e949b8d0bc2708c} 
+void engine\+Create\+Program (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__shaders_8c_source_l00041}{41}} of file \doxymbox{\hyperlink{engine__shaders_8c_source}{engine\+\_\+shaders.\+c}}.
+
+\Hypertarget{engine__shaders_8h_adff8ca4d27a6f6d827fea8b9e0c49df2}\index{engine\_shaders.h@{engine\_shaders.h}!engineCreateShader@{engineCreateShader}}
+\index{engineCreateShader@{engineCreateShader}!engine\_shaders.h@{engine\_shaders.h}}
+\doxysubsubsection{\texorpdfstring{engineCreateShader()}{engineCreateShader()}}
+{\footnotesize\ttfamily \label{engine__shaders_8h_adff8ca4d27a6f6d827fea8b9e0c49df2} 
+\doxymbox{\hyperlink{engine__defs_8h_ad5bbadc2683f69c3cc216f456e83aef5}{Engine\+Shader}} engine\+Create\+Shader (\begin{DoxyParamCaption}\item[{int}]{shader\+Type}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__shaders_8c_source_l00010}{10}} of file \doxymbox{\hyperlink{engine__shaders_8c_source}{engine\+\_\+shaders.\+c}}.
+
+\Hypertarget{engine__shaders_8h_a746376652a77c48b6bf8071772a637c8}\index{engine\_shaders.h@{engine\_shaders.h}!engineDeleteProgram@{engineDeleteProgram}}
+\index{engineDeleteProgram@{engineDeleteProgram}!engine\_shaders.h@{engine\_shaders.h}}
+\doxysubsubsection{\texorpdfstring{engineDeleteProgram()}{engineDeleteProgram()}}
+{\footnotesize\ttfamily \label{engine__shaders_8h_a746376652a77c48b6bf8071772a637c8} 
+void engine\+Delete\+Program (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__shaders_8c_source_l00078}{78}} of file \doxymbox{\hyperlink{engine__shaders_8c_source}{engine\+\_\+shaders.\+c}}.
+
+\Hypertarget{engine__shaders_8h_ad71f97ffc978ee71368a9e3ecb26185c}\index{engine\_shaders.h@{engine\_shaders.h}!engineDeleteShader@{engineDeleteShader}}
+\index{engineDeleteShader@{engineDeleteShader}!engine\_shaders.h@{engine\_shaders.h}}
+\doxysubsubsection{\texorpdfstring{engineDeleteShader()}{engineDeleteShader()}}
+{\footnotesize\ttfamily \label{engine__shaders_8h_ad71f97ffc978ee71368a9e3ecb26185c} 
+void engine\+Delete\+Shader (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_ad5bbadc2683f69c3cc216f456e83aef5}{Engine\+Shader}} \texorpdfstring{$\ast$}{*}}]{shader}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__shaders_8c_source_l00036}{36}} of file \doxymbox{\hyperlink{engine__shaders_8c_source}{engine\+\_\+shaders.\+c}}.
+
+\Hypertarget{engine__shaders_8h_a4baf6602a1647c43e29a870d6e9a84d7}\index{engine\_shaders.h@{engine\_shaders.h}!engineSetFloat@{engineSetFloat}}
+\index{engineSetFloat@{engineSetFloat}!engine\_shaders.h@{engine\_shaders.h}}
+\doxysubsubsection{\texorpdfstring{engineSetFloat()}{engineSetFloat()}}
+{\footnotesize\ttfamily \label{engine__shaders_8h_a4baf6602a1647c43e29a870d6e9a84d7} 
+void engine\+Set\+Float (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{float}]{value}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__shaders_8c_source_l00088}{88}} of file \doxymbox{\hyperlink{engine__shaders_8c_source}{engine\+\_\+shaders.\+c}}.
+
+\Hypertarget{engine__shaders_8h_aca0cfd6bf973e8149c0190c6797ea746}\index{engine\_shaders.h@{engine\_shaders.h}!engineSetInteger@{engineSetInteger}}
+\index{engineSetInteger@{engineSetInteger}!engine\_shaders.h@{engine\_shaders.h}}
+\doxysubsubsection{\texorpdfstring{engineSetInteger()}{engineSetInteger()}}
+{\footnotesize\ttfamily \label{engine__shaders_8h_aca0cfd6bf973e8149c0190c6797ea746} 
+void engine\+Set\+Integer (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{int}]{value}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__shaders_8c_source_l00102}{102}} of file \doxymbox{\hyperlink{engine__shaders_8c_source}{engine\+\_\+shaders.\+c}}.
+
+\Hypertarget{engine__shaders_8h_a727dc6fafecf285e9c1a1e6c16539352}\index{engine\_shaders.h@{engine\_shaders.h}!engineSetMatrix4fv@{engineSetMatrix4fv}}
+\index{engineSetMatrix4fv@{engineSetMatrix4fv}!engine\_shaders.h@{engine\_shaders.h}}
+\doxysubsubsection{\texorpdfstring{engineSetMatrix4fv()}{engineSetMatrix4fv()}}
+{\footnotesize\ttfamily \label{engine__shaders_8h_a727dc6fafecf285e9c1a1e6c16539352} 
+void engine\+Set\+Matrix4fv (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{mat4}]{value}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__shaders_8c_source_l00200}{200}} of file \doxymbox{\hyperlink{engine__shaders_8c_source}{engine\+\_\+shaders.\+c}}.
+
+\Hypertarget{engine__shaders_8h_a4c48075d10a5c0cffcabf0a608ee5fb7}\index{engine\_shaders.h@{engine\_shaders.h}!engineSetVector2f@{engineSetVector2f}}
+\index{engineSetVector2f@{engineSetVector2f}!engine\_shaders.h@{engine\_shaders.h}}
+\doxysubsubsection{\texorpdfstring{engineSetVector2f()}{engineSetVector2f()}}
+{\footnotesize\ttfamily \label{engine__shaders_8h_a4c48075d10a5c0cffcabf0a608ee5fb7} 
+void engine\+Set\+Vector2f (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{float}]{x}{, }\item[{float}]{y}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__shaders_8c_source_l00116}{116}} of file \doxymbox{\hyperlink{engine__shaders_8c_source}{engine\+\_\+shaders.\+c}}.
+
+\Hypertarget{engine__shaders_8h_aba8fe2caae9fa0ab1830697c8d707cff}\index{engine\_shaders.h@{engine\_shaders.h}!engineSetVector2fv@{engineSetVector2fv}}
+\index{engineSetVector2fv@{engineSetVector2fv}!engine\_shaders.h@{engine\_shaders.h}}
+\doxysubsubsection{\texorpdfstring{engineSetVector2fv()}{engineSetVector2fv()}}
+{\footnotesize\ttfamily \label{engine__shaders_8h_aba8fe2caae9fa0ab1830697c8d707cff} 
+void engine\+Set\+Vector2fv (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{vec2}]{value}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__shaders_8c_source_l00130}{130}} of file \doxymbox{\hyperlink{engine__shaders_8c_source}{engine\+\_\+shaders.\+c}}.
+
+\Hypertarget{engine__shaders_8h_ad9fb34cc6295035dfec904fc1b5937ee}\index{engine\_shaders.h@{engine\_shaders.h}!engineSetVector3f@{engineSetVector3f}}
+\index{engineSetVector3f@{engineSetVector3f}!engine\_shaders.h@{engine\_shaders.h}}
+\doxysubsubsection{\texorpdfstring{engineSetVector3f()}{engineSetVector3f()}}
+{\footnotesize\ttfamily \label{engine__shaders_8h_ad9fb34cc6295035dfec904fc1b5937ee} 
+void engine\+Set\+Vector3f (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{float}]{x}{, }\item[{float}]{y}{, }\item[{float}]{z}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__shaders_8c_source_l00144}{144}} of file \doxymbox{\hyperlink{engine__shaders_8c_source}{engine\+\_\+shaders.\+c}}.
+
+\Hypertarget{engine__shaders_8h_ad6359b9918d07efb420b89fce41324b0}\index{engine\_shaders.h@{engine\_shaders.h}!engineSetVector3fv@{engineSetVector3fv}}
+\index{engineSetVector3fv@{engineSetVector3fv}!engine\_shaders.h@{engine\_shaders.h}}
+\doxysubsubsection{\texorpdfstring{engineSetVector3fv()}{engineSetVector3fv()}}
+{\footnotesize\ttfamily \label{engine__shaders_8h_ad6359b9918d07efb420b89fce41324b0} 
+void engine\+Set\+Vector3fv (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{vec3}]{value}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__shaders_8c_source_l00158}{158}} of file \doxymbox{\hyperlink{engine__shaders_8c_source}{engine\+\_\+shaders.\+c}}.
+
+\Hypertarget{engine__shaders_8h_aa9590463a18a2d0505cc75b3c2dd8d2a}\index{engine\_shaders.h@{engine\_shaders.h}!engineSetVector4f@{engineSetVector4f}}
+\index{engineSetVector4f@{engineSetVector4f}!engine\_shaders.h@{engine\_shaders.h}}
+\doxysubsubsection{\texorpdfstring{engineSetVector4f()}{engineSetVector4f()}}
+{\footnotesize\ttfamily \label{engine__shaders_8h_aa9590463a18a2d0505cc75b3c2dd8d2a} 
+void engine\+Set\+Vector4f (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{float}]{x}{, }\item[{float}]{y}{, }\item[{float}]{z}{, }\item[{float}]{w}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__shaders_8c_source_l00172}{172}} of file \doxymbox{\hyperlink{engine__shaders_8c_source}{engine\+\_\+shaders.\+c}}.
+
+\Hypertarget{engine__shaders_8h_ac85a90fa9e9aaee455fd56c09eea2a69}\index{engine\_shaders.h@{engine\_shaders.h}!engineSetVector4fv@{engineSetVector4fv}}
+\index{engineSetVector4fv@{engineSetVector4fv}!engine\_shaders.h@{engine\_shaders.h}}
+\doxysubsubsection{\texorpdfstring{engineSetVector4fv()}{engineSetVector4fv()}}
+{\footnotesize\ttfamily \label{engine__shaders_8h_ac85a90fa9e9aaee455fd56c09eea2a69} 
+void engine\+Set\+Vector4fv (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{vec4}]{value}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__shaders_8c_source_l00186}{186}} of file \doxymbox{\hyperlink{engine__shaders_8c_source}{engine\+\_\+shaders.\+c}}.
+
+\Hypertarget{engine__shaders_8h_a0d859349671a331bc021366a737b55be}\index{engine\_shaders.h@{engine\_shaders.h}!engineUseShader@{engineUseShader}}
+\index{engineUseShader@{engineUseShader}!engine\_shaders.h@{engine\_shaders.h}}
+\doxysubsubsection{\texorpdfstring{engineUseShader()}{engineUseShader()}}
+{\footnotesize\ttfamily \label{engine__shaders_8h_a0d859349671a331bc021366a737b55be} 
+void engine\+Use\+Shader (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__shaders_8c_source_l00083}{83}} of file \doxymbox{\hyperlink{engine__shaders_8c_source}{engine\+\_\+shaders.\+c}}.
+

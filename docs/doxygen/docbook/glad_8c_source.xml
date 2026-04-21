@@ -1,0 +1,1144 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_glad_8c_source" xml:lang="en-US">
+<title>glad.c</title>
+<programlisting linenumbering="unnumbered"><anchor xml:id="_glad_8c_source_1l00001"/>00001 <emphasis role="comment">/*</emphasis>
+<anchor xml:id="_glad_8c_source_1l00002"/>00002 <emphasis role="comment"></emphasis>
+<anchor xml:id="_glad_8c_source_1l00003"/>00003 <emphasis role="comment">&#32;&#32;&#32;&#32;OpenGL&#32;loader&#32;generated&#32;by&#32;glad&#32;0.1.36&#32;on&#32;Tue&#32;Mar&#32;31&#32;01:00:31&#32;2026.</emphasis>
+<anchor xml:id="_glad_8c_source_1l00004"/>00004 <emphasis role="comment"></emphasis>
+<anchor xml:id="_glad_8c_source_1l00005"/>00005 <emphasis role="comment">&#32;&#32;&#32;&#32;Language/Generator:&#32;C/C++</emphasis>
+<anchor xml:id="_glad_8c_source_1l00006"/>00006 <emphasis role="comment">&#32;&#32;&#32;&#32;Specification:&#32;gl</emphasis>
+<anchor xml:id="_glad_8c_source_1l00007"/>00007 <emphasis role="comment">&#32;&#32;&#32;&#32;APIs:&#32;gl=3.3</emphasis>
+<anchor xml:id="_glad_8c_source_1l00008"/>00008 <emphasis role="comment">&#32;&#32;&#32;&#32;Profile:&#32;core</emphasis>
+<anchor xml:id="_glad_8c_source_1l00009"/>00009 <emphasis role="comment">&#32;&#32;&#32;&#32;Extensions:</emphasis>
+<anchor xml:id="_glad_8c_source_1l00010"/>00010 <emphasis role="comment">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_glad_8c_source_1l00011"/>00011 <emphasis role="comment">&#32;&#32;&#32;&#32;Loader:&#32;True</emphasis>
+<anchor xml:id="_glad_8c_source_1l00012"/>00012 <emphasis role="comment">&#32;&#32;&#32;&#32;Local&#32;files:&#32;False</emphasis>
+<anchor xml:id="_glad_8c_source_1l00013"/>00013 <emphasis role="comment">&#32;&#32;&#32;&#32;Omit&#32;khrplatform:&#32;False</emphasis>
+<anchor xml:id="_glad_8c_source_1l00014"/>00014 <emphasis role="comment">&#32;&#32;&#32;&#32;Reproducible:&#32;False</emphasis>
+<anchor xml:id="_glad_8c_source_1l00015"/>00015 <emphasis role="comment"></emphasis>
+<anchor xml:id="_glad_8c_source_1l00016"/>00016 <emphasis role="comment">&#32;&#32;&#32;&#32;Commandline:</emphasis>
+<anchor xml:id="_glad_8c_source_1l00017"/>00017 <emphasis role="comment">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;--profile=&quot;core&quot;&#32;--api=&quot;gl=3.3&quot;&#32;--generator=&quot;c&quot;&#32;--spec=&quot;gl&quot;&#32;--extensions=&quot;&quot;</emphasis>
+<anchor xml:id="_glad_8c_source_1l00018"/>00018 <emphasis role="comment">&#32;&#32;&#32;&#32;Online:</emphasis>
+<anchor xml:id="_glad_8c_source_1l00019"/>00019 <emphasis role="comment">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;https://glad.dav1d.de/#profile=core&amp;language=c&amp;specification=gl&amp;loader=on&amp;api=gl%3D3.3</emphasis>
+<anchor xml:id="_glad_8c_source_1l00020"/>00020 <emphasis role="comment">*/</emphasis>
+<anchor xml:id="_glad_8c_source_1l00021"/>00021 
+<anchor xml:id="_glad_8c_source_1l00022"/>00022 <emphasis role="preprocessor">#include&#32;&lt;stdio.h&gt;</emphasis>
+<anchor xml:id="_glad_8c_source_1l00023"/>00023 <emphasis role="preprocessor">#include&#32;&lt;stdlib.h&gt;</emphasis>
+<anchor xml:id="_glad_8c_source_1l00024"/>00024 <emphasis role="preprocessor">#include&#32;&lt;string.h&gt;</emphasis>
+<anchor xml:id="_glad_8c_source_1l00025"/>00025 <emphasis role="preprocessor">#include&#32;&lt;glad/glad.h&gt;</emphasis>
+<anchor xml:id="_glad_8c_source_1l00026"/>00026 
+<anchor xml:id="_glad_8c_source_1l00027"/>00027 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">void</emphasis>*&#32;get_proc(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*namez);
+<anchor xml:id="_glad_8c_source_1l00028"/>00028 
+<anchor xml:id="_glad_8c_source_1l00029"/>00029 <emphasis role="preprocessor">#if&#32;defined(_WIN32)&#32;||&#32;defined(__CYGWIN__)</emphasis>
+<anchor xml:id="_glad_8c_source_1l00030"/>00030 <emphasis role="preprocessor">#ifndef&#32;_WINDOWS_</emphasis>
+<anchor xml:id="_glad_8c_source_1l00031"/>00031 <emphasis role="preprocessor">#undef&#32;APIENTRY</emphasis>
+<anchor xml:id="_glad_8c_source_1l00032"/>00032 <emphasis role="preprocessor">#endif</emphasis>
+<anchor xml:id="_glad_8c_source_1l00033"/>00033 <emphasis role="preprocessor">#include&#32;&lt;windows.h&gt;</emphasis>
+<anchor xml:id="_glad_8c_source_1l00034"/>00034 <emphasis role="keyword">static</emphasis>&#32;HMODULE&#32;libGL;
+<anchor xml:id="_glad_8c_source_1l00035"/>00035 
+<anchor xml:id="_glad_8c_source_1l00036"/>00036 <emphasis role="keyword">typedef</emphasis>&#32;<emphasis role="keywordtype">void</emphasis>*&#32;(APIENTRYP&#32;PFNWGLGETPROCADDRESSPROC_PRIVATE)(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>*);
+<anchor xml:id="_glad_8c_source_1l00037"/>00037 <emphasis role="keyword">static</emphasis>&#32;PFNWGLGETPROCADDRESSPROC_PRIVATE&#32;gladGetProcAddressPtr;
+<anchor xml:id="_glad_8c_source_1l00038"/>00038 
+<anchor xml:id="_glad_8c_source_1l00039"/>00039 <emphasis role="preprocessor">#ifdef&#32;_MSC_VER</emphasis>
+<anchor xml:id="_glad_8c_source_1l00040"/>00040 <emphasis role="preprocessor">#ifdef&#32;__has_include</emphasis>
+<anchor xml:id="_glad_8c_source_1l00041"/>00041 <emphasis role="preprocessor">&#32;&#32;#if&#32;__has_include(&lt;winapifamily.h&gt;)</emphasis>
+<anchor xml:id="_glad_8c_source_1l00042"/>00042 <emphasis role="preprocessor">&#32;&#32;&#32;&#32;#define&#32;HAVE_WINAPIFAMILY&#32;1</emphasis>
+<anchor xml:id="_glad_8c_source_1l00043"/>00043 <emphasis role="preprocessor">&#32;&#32;#endif</emphasis>
+<anchor xml:id="_glad_8c_source_1l00044"/>00044 <emphasis role="preprocessor">#elif&#32;_MSC_VER&#32;&gt;=&#32;1700&#32;&amp;&amp;&#32;!_USING_V110_SDK71_</emphasis>
+<anchor xml:id="_glad_8c_source_1l00045"/>00045 <emphasis role="preprocessor">&#32;&#32;#define&#32;HAVE_WINAPIFAMILY&#32;1</emphasis>
+<anchor xml:id="_glad_8c_source_1l00046"/>00046 <emphasis role="preprocessor">#endif</emphasis>
+<anchor xml:id="_glad_8c_source_1l00047"/>00047 <emphasis role="preprocessor">#endif</emphasis>
+<anchor xml:id="_glad_8c_source_1l00048"/>00048 
+<anchor xml:id="_glad_8c_source_1l00049"/>00049 <emphasis role="preprocessor">#ifdef&#32;HAVE_WINAPIFAMILY</emphasis>
+<anchor xml:id="_glad_8c_source_1l00050"/>00050 <emphasis role="preprocessor">&#32;&#32;#include&#32;&lt;winapifamily.h&gt;</emphasis>
+<anchor xml:id="_glad_8c_source_1l00051"/>00051 <emphasis role="preprocessor">&#32;&#32;#if&#32;!WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)&#32;&amp;&amp;&#32;WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_APP)</emphasis>
+<anchor xml:id="_glad_8c_source_1l00052"/>00052 <emphasis role="preprocessor">&#32;&#32;&#32;&#32;#define&#32;IS_UWP&#32;1</emphasis>
+<anchor xml:id="_glad_8c_source_1l00053"/>00053 <emphasis role="preprocessor">&#32;&#32;#endif</emphasis>
+<anchor xml:id="_glad_8c_source_1l00054"/>00054 <emphasis role="preprocessor">#endif</emphasis>
+<anchor xml:id="_glad_8c_source_1l00055"/>00055 
+<anchor xml:id="_glad_8c_source_1l00056"/>00056 <emphasis role="keyword">static</emphasis>
+<anchor xml:id="_glad_8c_source_1l00057"/>00057 <emphasis role="keywordtype">int</emphasis>&#32;open_gl(<emphasis role="keywordtype">void</emphasis>)&#32;{
+<anchor xml:id="_glad_8c_source_1l00058"/>00058 <emphasis role="preprocessor">#ifndef&#32;IS_UWP</emphasis>
+<anchor xml:id="_glad_8c_source_1l00059"/>00059 &#32;&#32;&#32;&#32;libGL&#32;=&#32;LoadLibraryW(L<emphasis role="stringliteral">&quot;opengl32.dll&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00060"/>00060 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(libGL&#32;!=&#32;NULL)&#32;{
+<anchor xml:id="_glad_8c_source_1l00061"/>00061 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;void&#32;(*&#32;tmp)(void);
+<anchor xml:id="_glad_8c_source_1l00062"/>00062 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;tmp&#32;=&#32;(void(*)(void))&#32;GetProcAddress(libGL,&#32;<emphasis role="stringliteral">&quot;wglGetProcAddress&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00063"/>00063 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;gladGetProcAddressPtr&#32;=&#32;(PFNWGLGETPROCADDRESSPROC_PRIVATE)&#32;tmp;
+<anchor xml:id="_glad_8c_source_1l00064"/>00064 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;gladGetProcAddressPtr&#32;!=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00065"/>00065 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_glad_8c_source_1l00066"/>00066 <emphasis role="preprocessor">#endif</emphasis>
+<anchor xml:id="_glad_8c_source_1l00067"/>00067 
+<anchor xml:id="_glad_8c_source_1l00068"/>00068 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;0;
+<anchor xml:id="_glad_8c_source_1l00069"/>00069 }
+<anchor xml:id="_glad_8c_source_1l00070"/>00070 
+<anchor xml:id="_glad_8c_source_1l00071"/>00071 <emphasis role="keyword">static</emphasis>
+<anchor xml:id="_glad_8c_source_1l00072"/>00072 <emphasis role="keywordtype">void</emphasis>&#32;close_gl(<emphasis role="keywordtype">void</emphasis>)&#32;{
+<anchor xml:id="_glad_8c_source_1l00073"/>00073 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(libGL&#32;!=&#32;NULL)&#32;{
+<anchor xml:id="_glad_8c_source_1l00074"/>00074 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;FreeLibrary((HMODULE)&#32;libGL);
+<anchor xml:id="_glad_8c_source_1l00075"/>00075 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;libGL&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00076"/>00076 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_glad_8c_source_1l00077"/>00077 }
+<anchor xml:id="_glad_8c_source_1l00078"/>00078 <emphasis role="preprocessor">#else</emphasis>
+<anchor xml:id="_glad_8c_source_1l00079"/>00079 <emphasis role="preprocessor">#include&#32;&lt;dlfcn.h&gt;</emphasis>
+<anchor xml:id="_glad_8c_source_1l00080"/>00080 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">void</emphasis>*&#32;libGL;
+<anchor xml:id="_glad_8c_source_1l00081"/>00081 
+<anchor xml:id="_glad_8c_source_1l00082"/>00082 <emphasis role="preprocessor">#if&#32;!defined(__APPLE__)&#32;&amp;&amp;&#32;!defined(__HAIKU__)</emphasis>
+<anchor xml:id="_glad_8c_source_1l00083"/>00083 <emphasis role="keyword">typedef</emphasis>&#32;<emphasis role="keywordtype">void</emphasis>*&#32;(APIENTRYP&#32;PFNGLXGETPROCADDRESSPROC_PRIVATE)(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>*);
+<anchor xml:id="_glad_8c_source_1l00084"/>00084 <emphasis role="keyword">static</emphasis>&#32;PFNGLXGETPROCADDRESSPROC_PRIVATE&#32;gladGetProcAddressPtr;
+<anchor xml:id="_glad_8c_source_1l00085"/>00085 <emphasis role="preprocessor">#endif</emphasis>
+<anchor xml:id="_glad_8c_source_1l00086"/>00086 
+<anchor xml:id="_glad_8c_source_1l00087"/>00087 <emphasis role="keyword">static</emphasis>
+<anchor xml:id="_glad_8c_source_1l00088"/>00088 <emphasis role="keywordtype">int</emphasis>&#32;open_gl(<emphasis role="keywordtype">void</emphasis>)&#32;{
+<anchor xml:id="_glad_8c_source_1l00089"/>00089 <emphasis role="preprocessor">#ifdef&#32;__APPLE__</emphasis>
+<anchor xml:id="_glad_8c_source_1l00090"/>00090 &#32;&#32;&#32;&#32;<emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*NAMES[]&#32;=&#32;{
+<anchor xml:id="_glad_8c_source_1l00091"/>00091 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;../Frameworks/OpenGL.framework/OpenGL&quot;</emphasis>,
+<anchor xml:id="_glad_8c_source_1l00092"/>00092 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;/Library/Frameworks/OpenGL.framework/OpenGL&quot;</emphasis>,
+<anchor xml:id="_glad_8c_source_1l00093"/>00093 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;/System/Library/Frameworks/OpenGL.framework/OpenGL&quot;</emphasis>,
+<anchor xml:id="_glad_8c_source_1l00094"/>00094 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;/System/Library/Frameworks/OpenGL.framework/Versions/Current/OpenGL&quot;</emphasis>
+<anchor xml:id="_glad_8c_source_1l00095"/>00095 &#32;&#32;&#32;&#32;};
+<anchor xml:id="_glad_8c_source_1l00096"/>00096 <emphasis role="preprocessor">#else</emphasis>
+<anchor xml:id="_glad_8c_source_1l00097"/>00097 &#32;&#32;&#32;&#32;<emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*NAMES[]&#32;=&#32;{<emphasis role="stringliteral">&quot;libGL.so.1&quot;</emphasis>,&#32;<emphasis role="stringliteral">&quot;libGL.so&quot;</emphasis>};
+<anchor xml:id="_glad_8c_source_1l00098"/>00098 <emphasis role="preprocessor">#endif</emphasis>
+<anchor xml:id="_glad_8c_source_1l00099"/>00099 
+<anchor xml:id="_glad_8c_source_1l00100"/>00100 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;index&#32;=&#32;0;
+<anchor xml:id="_glad_8c_source_1l00101"/>00101 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(index&#32;=&#32;0;&#32;index&#32;&lt;&#32;(<emphasis role="keyword">sizeof</emphasis>(NAMES)&#32;/&#32;<emphasis role="keyword">sizeof</emphasis>(NAMES[0]));&#32;index++)&#32;{
+<anchor xml:id="_glad_8c_source_1l00102"/>00102 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;libGL&#32;=&#32;dlopen(NAMES[index],&#32;RTLD_NOW&#32;|&#32;RTLD_GLOBAL);
+<anchor xml:id="_glad_8c_source_1l00103"/>00103 
+<anchor xml:id="_glad_8c_source_1l00104"/>00104 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(libGL&#32;!=&#32;NULL)&#32;{
+<anchor xml:id="_glad_8c_source_1l00105"/>00105 <emphasis role="preprocessor">#if&#32;defined(__APPLE__)&#32;||&#32;defined(__HAIKU__)</emphasis>
+<anchor xml:id="_glad_8c_source_1l00106"/>00106 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;1;
+<anchor xml:id="_glad_8c_source_1l00107"/>00107 <emphasis role="preprocessor">#else</emphasis>
+<anchor xml:id="_glad_8c_source_1l00108"/>00108 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;gladGetProcAddressPtr&#32;=&#32;(PFNGLXGETPROCADDRESSPROC_PRIVATE)dlsym(libGL,
+<anchor xml:id="_glad_8c_source_1l00109"/>00109 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;glXGetProcAddressARB&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00110"/>00110 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;gladGetProcAddressPtr&#32;!=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00111"/>00111 <emphasis role="preprocessor">#endif</emphasis>
+<anchor xml:id="_glad_8c_source_1l00112"/>00112 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_glad_8c_source_1l00113"/>00113 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_glad_8c_source_1l00114"/>00114 
+<anchor xml:id="_glad_8c_source_1l00115"/>00115 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;0;
+<anchor xml:id="_glad_8c_source_1l00116"/>00116 }
+<anchor xml:id="_glad_8c_source_1l00117"/>00117 
+<anchor xml:id="_glad_8c_source_1l00118"/>00118 <emphasis role="keyword">static</emphasis>
+<anchor xml:id="_glad_8c_source_1l00119"/>00119 <emphasis role="keywordtype">void</emphasis>&#32;close_gl(<emphasis role="keywordtype">void</emphasis>)&#32;{
+<anchor xml:id="_glad_8c_source_1l00120"/>00120 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(libGL&#32;!=&#32;NULL)&#32;{
+<anchor xml:id="_glad_8c_source_1l00121"/>00121 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dlclose(libGL);
+<anchor xml:id="_glad_8c_source_1l00122"/>00122 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;libGL&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00123"/>00123 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_glad_8c_source_1l00124"/>00124 }
+<anchor xml:id="_glad_8c_source_1l00125"/>00125 <emphasis role="preprocessor">#endif</emphasis>
+<anchor xml:id="_glad_8c_source_1l00126"/>00126 
+<anchor xml:id="_glad_8c_source_1l00127"/>00127 <emphasis role="keyword">static</emphasis>
+<anchor xml:id="_glad_8c_source_1l00128"/>00128 <emphasis role="keywordtype">void</emphasis>*&#32;get_proc(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*namez)&#32;{
+<anchor xml:id="_glad_8c_source_1l00129"/>00129 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">void</emphasis>*&#32;result&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00130"/>00130 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(libGL&#32;==&#32;NULL)&#32;<emphasis role="keywordflow">return</emphasis>&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00131"/>00131 
+<anchor xml:id="_glad_8c_source_1l00132"/>00132 <emphasis role="preprocessor">#if&#32;!defined(__APPLE__)&#32;&amp;&amp;&#32;!defined(__HAIKU__)</emphasis>
+<anchor xml:id="_glad_8c_source_1l00133"/>00133 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(gladGetProcAddressPtr&#32;!=&#32;NULL)&#32;{
+<anchor xml:id="_glad_8c_source_1l00134"/>00134 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;result&#32;=&#32;gladGetProcAddressPtr(namez);
+<anchor xml:id="_glad_8c_source_1l00135"/>00135 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_glad_8c_source_1l00136"/>00136 <emphasis role="preprocessor">#endif</emphasis>
+<anchor xml:id="_glad_8c_source_1l00137"/>00137 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(result&#32;==&#32;NULL)&#32;{
+<anchor xml:id="_glad_8c_source_1l00138"/>00138 <emphasis role="preprocessor">#if&#32;defined(_WIN32)&#32;||&#32;defined(__CYGWIN__)</emphasis>
+<anchor xml:id="_glad_8c_source_1l00139"/>00139 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;result&#32;=&#32;(<emphasis role="keywordtype">void</emphasis>*)GetProcAddress((HMODULE)&#32;libGL,&#32;namez);
+<anchor xml:id="_glad_8c_source_1l00140"/>00140 <emphasis role="preprocessor">#else</emphasis>
+<anchor xml:id="_glad_8c_source_1l00141"/>00141 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;result&#32;=&#32;dlsym(libGL,&#32;namez);
+<anchor xml:id="_glad_8c_source_1l00142"/>00142 <emphasis role="preprocessor">#endif</emphasis>
+<anchor xml:id="_glad_8c_source_1l00143"/>00143 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_glad_8c_source_1l00144"/>00144 
+<anchor xml:id="_glad_8c_source_1l00145"/>00145 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;result;
+<anchor xml:id="_glad_8c_source_1l00146"/>00146 }
+<anchor xml:id="_glad_8c_source_1l00147"/>00147 
+<anchor xml:id="_glad_8c_source_1l00148"/>00148 <emphasis role="keywordtype">int</emphasis>&#32;gladLoadGL(<emphasis role="keywordtype">void</emphasis>)&#32;{
+<anchor xml:id="_glad_8c_source_1l00149"/>00149 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;status&#32;=&#32;0;
+<anchor xml:id="_glad_8c_source_1l00150"/>00150 
+<anchor xml:id="_glad_8c_source_1l00151"/>00151 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(open_gl())&#32;{
+<anchor xml:id="_glad_8c_source_1l00152"/>00152 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;status&#32;=&#32;gladLoadGLLoader(&amp;get_proc);
+<anchor xml:id="_glad_8c_source_1l00153"/>00153 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;close_gl();
+<anchor xml:id="_glad_8c_source_1l00154"/>00154 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_glad_8c_source_1l00155"/>00155 
+<anchor xml:id="_glad_8c_source_1l00156"/>00156 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;status;
+<anchor xml:id="_glad_8c_source_1l00157"/>00157 }
+<anchor xml:id="_glad_8c_source_1l00158"/>00158 
+<anchor xml:id="_glad_8c_source_1l00159"/>00159 <emphasis role="keyword">struct&#32;</emphasis>gladGLversionStruct&#32;GLVersion&#32;=&#32;{&#32;0,&#32;0&#32;};
+<anchor xml:id="_glad_8c_source_1l00160"/>00160 
+<anchor xml:id="_glad_8c_source_1l00161"/>00161 <emphasis role="preprocessor">#if&#32;defined(GL_ES_VERSION_3_0)&#32;||&#32;defined(GL_VERSION_3_0)</emphasis>
+<anchor xml:id="_glad_8c_source_1l00162"/>00162 <emphasis role="preprocessor">#define&#32;_GLAD_IS_SOME_NEW_VERSION&#32;1</emphasis>
+<anchor xml:id="_glad_8c_source_1l00163"/>00163 <emphasis role="preprocessor">#endif</emphasis>
+<anchor xml:id="_glad_8c_source_1l00164"/>00164 
+<anchor xml:id="_glad_8c_source_1l00165"/>00165 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;max_loaded_major;
+<anchor xml:id="_glad_8c_source_1l00166"/>00166 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;max_loaded_minor;
+<anchor xml:id="_glad_8c_source_1l00167"/>00167 
+<anchor xml:id="_glad_8c_source_1l00168"/>00168 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*exts&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00169"/>00169 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;num_exts_i&#32;=&#32;0;
+<anchor xml:id="_glad_8c_source_1l00170"/>00170 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;**exts_i&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00171"/>00171 
+<anchor xml:id="_glad_8c_source_1l00172"/>00172 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;get_exts(<emphasis role="keywordtype">void</emphasis>)&#32;{
+<anchor xml:id="_glad_8c_source_1l00173"/>00173 <emphasis role="preprocessor">#ifdef&#32;_GLAD_IS_SOME_NEW_VERSION</emphasis>
+<anchor xml:id="_glad_8c_source_1l00174"/>00174 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(max_loaded_major&#32;&lt;&#32;3)&#32;{
+<anchor xml:id="_glad_8c_source_1l00175"/>00175 <emphasis role="preprocessor">#endif</emphasis>
+<anchor xml:id="_glad_8c_source_1l00176"/>00176 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;exts&#32;=&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*)glGetString(GL_EXTENSIONS);
+<anchor xml:id="_glad_8c_source_1l00177"/>00177 <emphasis role="preprocessor">#ifdef&#32;_GLAD_IS_SOME_NEW_VERSION</emphasis>
+<anchor xml:id="_glad_8c_source_1l00178"/>00178 &#32;&#32;&#32;&#32;}&#32;<emphasis role="keywordflow">else</emphasis>&#32;{
+<anchor xml:id="_glad_8c_source_1l00179"/>00179 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;index;
+<anchor xml:id="_glad_8c_source_1l00180"/>00180 
+<anchor xml:id="_glad_8c_source_1l00181"/>00181 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;num_exts_i&#32;=&#32;0;
+<anchor xml:id="_glad_8c_source_1l00182"/>00182 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;glGetIntegerv(GL_NUM_EXTENSIONS,&#32;&amp;num_exts_i);
+<anchor xml:id="_glad_8c_source_1l00183"/>00183 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(num_exts_i&#32;&gt;&#32;0)&#32;{
+<anchor xml:id="_glad_8c_source_1l00184"/>00184 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;exts_i&#32;=&#32;(<emphasis role="keywordtype">char</emphasis>&#32;**)malloc((<emphasis role="keywordtype">size_t</emphasis>)num_exts_i&#32;*&#32;(<emphasis role="keyword">sizeof</emphasis>&#32;*exts_i));
+<anchor xml:id="_glad_8c_source_1l00185"/>00185 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_glad_8c_source_1l00186"/>00186 
+<anchor xml:id="_glad_8c_source_1l00187"/>00187 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(exts_i&#32;==&#32;NULL)&#32;{
+<anchor xml:id="_glad_8c_source_1l00188"/>00188 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;0;
+<anchor xml:id="_glad_8c_source_1l00189"/>00189 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_glad_8c_source_1l00190"/>00190 
+<anchor xml:id="_glad_8c_source_1l00191"/>00191 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(index&#32;=&#32;0;&#32;index&#32;&lt;&#32;num_exts_i;&#32;index++)&#32;{
+<anchor xml:id="_glad_8c_source_1l00192"/>00192 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*gl_str_tmp&#32;=&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>*)glGetStringi(GL_EXTENSIONS,&#32;index);
+<anchor xml:id="_glad_8c_source_1l00193"/>00193 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">size_t</emphasis>&#32;len&#32;=&#32;strlen(gl_str_tmp);
+<anchor xml:id="_glad_8c_source_1l00194"/>00194 
+<anchor xml:id="_glad_8c_source_1l00195"/>00195 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*local_str&#32;=&#32;(<emphasis role="keywordtype">char</emphasis>*)malloc((len+1)&#32;*&#32;<emphasis role="keyword">sizeof</emphasis>(<emphasis role="keywordtype">char</emphasis>));
+<anchor xml:id="_glad_8c_source_1l00196"/>00196 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(local_str&#32;!=&#32;NULL)&#32;{
+<anchor xml:id="_glad_8c_source_1l00197"/>00197 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;memcpy(local_str,&#32;gl_str_tmp,&#32;(len+1)&#32;*&#32;<emphasis role="keyword">sizeof</emphasis>(<emphasis role="keywordtype">char</emphasis>));
+<anchor xml:id="_glad_8c_source_1l00198"/>00198 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_glad_8c_source_1l00199"/>00199 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;exts_i[index]&#32;=&#32;local_str;
+<anchor xml:id="_glad_8c_source_1l00200"/>00200 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_glad_8c_source_1l00201"/>00201 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_glad_8c_source_1l00202"/>00202 <emphasis role="preprocessor">#endif</emphasis>
+<anchor xml:id="_glad_8c_source_1l00203"/>00203 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;1;
+<anchor xml:id="_glad_8c_source_1l00204"/>00204 }
+<anchor xml:id="_glad_8c_source_1l00205"/>00205 
+<anchor xml:id="_glad_8c_source_1l00206"/>00206 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">void</emphasis>&#32;free_exts(<emphasis role="keywordtype">void</emphasis>)&#32;{
+<anchor xml:id="_glad_8c_source_1l00207"/>00207 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(exts_i&#32;!=&#32;NULL)&#32;{
+<anchor xml:id="_glad_8c_source_1l00208"/>00208 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;index;
+<anchor xml:id="_glad_8c_source_1l00209"/>00209 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(index&#32;=&#32;0;&#32;index&#32;&lt;&#32;num_exts_i;&#32;index++)&#32;{
+<anchor xml:id="_glad_8c_source_1l00210"/>00210 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;free((<emphasis role="keywordtype">char</emphasis>&#32;*)exts_i[index]);
+<anchor xml:id="_glad_8c_source_1l00211"/>00211 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_glad_8c_source_1l00212"/>00212 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;free((<emphasis role="keywordtype">void</emphasis>&#32;*)exts_i);
+<anchor xml:id="_glad_8c_source_1l00213"/>00213 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;exts_i&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00214"/>00214 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_glad_8c_source_1l00215"/>00215 }
+<anchor xml:id="_glad_8c_source_1l00216"/>00216 
+<anchor xml:id="_glad_8c_source_1l00217"/>00217 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;has_ext(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*ext)&#32;{
+<anchor xml:id="_glad_8c_source_1l00218"/>00218 <emphasis role="preprocessor">#ifdef&#32;_GLAD_IS_SOME_NEW_VERSION</emphasis>
+<anchor xml:id="_glad_8c_source_1l00219"/>00219 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(max_loaded_major&#32;&lt;&#32;3)&#32;{
+<anchor xml:id="_glad_8c_source_1l00220"/>00220 <emphasis role="preprocessor">#endif</emphasis>
+<anchor xml:id="_glad_8c_source_1l00221"/>00221 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*extensions;
+<anchor xml:id="_glad_8c_source_1l00222"/>00222 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*loc;
+<anchor xml:id="_glad_8c_source_1l00223"/>00223 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*terminator;
+<anchor xml:id="_glad_8c_source_1l00224"/>00224 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;extensions&#32;=&#32;exts;
+<anchor xml:id="_glad_8c_source_1l00225"/>00225 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(extensions&#32;==&#32;NULL&#32;||&#32;ext&#32;==&#32;NULL)&#32;{
+<anchor xml:id="_glad_8c_source_1l00226"/>00226 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;0;
+<anchor xml:id="_glad_8c_source_1l00227"/>00227 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_glad_8c_source_1l00228"/>00228 
+<anchor xml:id="_glad_8c_source_1l00229"/>00229 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>(1)&#32;{
+<anchor xml:id="_glad_8c_source_1l00230"/>00230 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;loc&#32;=&#32;strstr(extensions,&#32;ext);
+<anchor xml:id="_glad_8c_source_1l00231"/>00231 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(loc&#32;==&#32;NULL)&#32;{
+<anchor xml:id="_glad_8c_source_1l00232"/>00232 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;0;
+<anchor xml:id="_glad_8c_source_1l00233"/>00233 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_glad_8c_source_1l00234"/>00234 
+<anchor xml:id="_glad_8c_source_1l00235"/>00235 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;terminator&#32;=&#32;loc&#32;+&#32;strlen(ext);
+<anchor xml:id="_glad_8c_source_1l00236"/>00236 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>((loc&#32;==&#32;extensions&#32;||&#32;*(loc&#32;-&#32;1)&#32;==&#32;<emphasis role="charliteral">&apos;&#32;&apos;</emphasis>)&#32;&amp;&amp;
+<anchor xml:id="_glad_8c_source_1l00237"/>00237 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;(*terminator&#32;==&#32;<emphasis role="charliteral">&apos;&#32;&apos;</emphasis>&#32;||&#32;*terminator&#32;==&#32;<emphasis role="charliteral">&apos;\0&apos;</emphasis>))&#32;{
+<anchor xml:id="_glad_8c_source_1l00238"/>00238 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;1;
+<anchor xml:id="_glad_8c_source_1l00239"/>00239 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_glad_8c_source_1l00240"/>00240 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;extensions&#32;=&#32;terminator;
+<anchor xml:id="_glad_8c_source_1l00241"/>00241 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_glad_8c_source_1l00242"/>00242 <emphasis role="preprocessor">#ifdef&#32;_GLAD_IS_SOME_NEW_VERSION</emphasis>
+<anchor xml:id="_glad_8c_source_1l00243"/>00243 &#32;&#32;&#32;&#32;}&#32;<emphasis role="keywordflow">else</emphasis>&#32;{
+<anchor xml:id="_glad_8c_source_1l00244"/>00244 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;index;
+<anchor xml:id="_glad_8c_source_1l00245"/>00245 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(exts_i&#32;==&#32;NULL)&#32;<emphasis role="keywordflow">return</emphasis>&#32;0;
+<anchor xml:id="_glad_8c_source_1l00246"/>00246 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(index&#32;=&#32;0;&#32;index&#32;&lt;&#32;num_exts_i;&#32;index++)&#32;{
+<anchor xml:id="_glad_8c_source_1l00247"/>00247 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*e&#32;=&#32;exts_i[index];
+<anchor xml:id="_glad_8c_source_1l00248"/>00248 
+<anchor xml:id="_glad_8c_source_1l00249"/>00249 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(exts_i[index]&#32;!=&#32;NULL&#32;&amp;&amp;&#32;strcmp(e,&#32;ext)&#32;==&#32;0)&#32;{
+<anchor xml:id="_glad_8c_source_1l00250"/>00250 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;1;
+<anchor xml:id="_glad_8c_source_1l00251"/>00251 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_glad_8c_source_1l00252"/>00252 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_glad_8c_source_1l00253"/>00253 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_glad_8c_source_1l00254"/>00254 <emphasis role="preprocessor">#endif</emphasis>
+<anchor xml:id="_glad_8c_source_1l00255"/>00255 
+<anchor xml:id="_glad_8c_source_1l00256"/>00256 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;0;
+<anchor xml:id="_glad_8c_source_1l00257"/>00257 }
+<anchor xml:id="_glad_8c_source_1l00258"/>00258 <emphasis role="keywordtype">int</emphasis>&#32;GLAD_GL_VERSION_1_0&#32;=&#32;0;
+<anchor xml:id="_glad_8c_source_1l00259"/>00259 <emphasis role="keywordtype">int</emphasis>&#32;GLAD_GL_VERSION_1_1&#32;=&#32;0;
+<anchor xml:id="_glad_8c_source_1l00260"/>00260 <emphasis role="keywordtype">int</emphasis>&#32;GLAD_GL_VERSION_1_2&#32;=&#32;0;
+<anchor xml:id="_glad_8c_source_1l00261"/>00261 <emphasis role="keywordtype">int</emphasis>&#32;GLAD_GL_VERSION_1_3&#32;=&#32;0;
+<anchor xml:id="_glad_8c_source_1l00262"/>00262 <emphasis role="keywordtype">int</emphasis>&#32;GLAD_GL_VERSION_1_4&#32;=&#32;0;
+<anchor xml:id="_glad_8c_source_1l00263"/>00263 <emphasis role="keywordtype">int</emphasis>&#32;GLAD_GL_VERSION_1_5&#32;=&#32;0;
+<anchor xml:id="_glad_8c_source_1l00264"/>00264 <emphasis role="keywordtype">int</emphasis>&#32;GLAD_GL_VERSION_2_0&#32;=&#32;0;
+<anchor xml:id="_glad_8c_source_1l00265"/>00265 <emphasis role="keywordtype">int</emphasis>&#32;GLAD_GL_VERSION_2_1&#32;=&#32;0;
+<anchor xml:id="_glad_8c_source_1l00266"/>00266 <emphasis role="keywordtype">int</emphasis>&#32;GLAD_GL_VERSION_3_0&#32;=&#32;0;
+<anchor xml:id="_glad_8c_source_1l00267"/>00267 <emphasis role="keywordtype">int</emphasis>&#32;GLAD_GL_VERSION_3_1&#32;=&#32;0;
+<anchor xml:id="_glad_8c_source_1l00268"/>00268 <emphasis role="keywordtype">int</emphasis>&#32;GLAD_GL_VERSION_3_2&#32;=&#32;0;
+<anchor xml:id="_glad_8c_source_1l00269"/>00269 <emphasis role="keywordtype">int</emphasis>&#32;GLAD_GL_VERSION_3_3&#32;=&#32;0;
+<anchor xml:id="_glad_8c_source_1l00270"/>00270 PFNGLACTIVETEXTUREPROC&#32;glad_glActiveTexture&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00271"/>00271 PFNGLATTACHSHADERPROC&#32;glad_glAttachShader&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00272"/>00272 PFNGLBEGINCONDITIONALRENDERPROC&#32;glad_glBeginConditionalRender&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00273"/>00273 PFNGLBEGINQUERYPROC&#32;glad_glBeginQuery&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00274"/>00274 PFNGLBEGINTRANSFORMFEEDBACKPROC&#32;glad_glBeginTransformFeedback&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00275"/>00275 PFNGLBINDATTRIBLOCATIONPROC&#32;glad_glBindAttribLocation&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00276"/>00276 PFNGLBINDBUFFERPROC&#32;glad_glBindBuffer&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00277"/>00277 PFNGLBINDBUFFERBASEPROC&#32;glad_glBindBufferBase&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00278"/>00278 PFNGLBINDBUFFERRANGEPROC&#32;glad_glBindBufferRange&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00279"/>00279 PFNGLBINDFRAGDATALOCATIONPROC&#32;glad_glBindFragDataLocation&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00280"/>00280 PFNGLBINDFRAGDATALOCATIONINDEXEDPROC&#32;glad_glBindFragDataLocationIndexed&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00281"/>00281 PFNGLBINDFRAMEBUFFERPROC&#32;glad_glBindFramebuffer&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00282"/>00282 PFNGLBINDRENDERBUFFERPROC&#32;glad_glBindRenderbuffer&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00283"/>00283 PFNGLBINDSAMPLERPROC&#32;glad_glBindSampler&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00284"/>00284 PFNGLBINDTEXTUREPROC&#32;glad_glBindTexture&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00285"/>00285 PFNGLBINDVERTEXARRAYPROC&#32;glad_glBindVertexArray&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00286"/>00286 PFNGLBLENDCOLORPROC&#32;glad_glBlendColor&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00287"/>00287 PFNGLBLENDEQUATIONPROC&#32;glad_glBlendEquation&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00288"/>00288 PFNGLBLENDEQUATIONSEPARATEPROC&#32;glad_glBlendEquationSeparate&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00289"/>00289 PFNGLBLENDFUNCPROC&#32;glad_glBlendFunc&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00290"/>00290 PFNGLBLENDFUNCSEPARATEPROC&#32;glad_glBlendFuncSeparate&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00291"/>00291 PFNGLBLITFRAMEBUFFERPROC&#32;glad_glBlitFramebuffer&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00292"/>00292 PFNGLBUFFERDATAPROC&#32;glad_glBufferData&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00293"/>00293 PFNGLBUFFERSUBDATAPROC&#32;glad_glBufferSubData&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00294"/>00294 PFNGLCHECKFRAMEBUFFERSTATUSPROC&#32;glad_glCheckFramebufferStatus&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00295"/>00295 PFNGLCLAMPCOLORPROC&#32;glad_glClampColor&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00296"/>00296 PFNGLCLEARPROC&#32;glad_glClear&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00297"/>00297 PFNGLCLEARBUFFERFIPROC&#32;glad_glClearBufferfi&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00298"/>00298 PFNGLCLEARBUFFERFVPROC&#32;glad_glClearBufferfv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00299"/>00299 PFNGLCLEARBUFFERIVPROC&#32;glad_glClearBufferiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00300"/>00300 PFNGLCLEARBUFFERUIVPROC&#32;glad_glClearBufferuiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00301"/>00301 PFNGLCLEARCOLORPROC&#32;glad_glClearColor&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00302"/>00302 PFNGLCLEARDEPTHPROC&#32;glad_glClearDepth&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00303"/>00303 PFNGLCLEARSTENCILPROC&#32;glad_glClearStencil&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00304"/>00304 PFNGLCLIENTWAITSYNCPROC&#32;glad_glClientWaitSync&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00305"/>00305 PFNGLCOLORMASKPROC&#32;glad_glColorMask&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00306"/>00306 PFNGLCOLORMASKIPROC&#32;glad_glColorMaski&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00307"/>00307 PFNGLCOLORP3UIPROC&#32;glad_glColorP3ui&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00308"/>00308 PFNGLCOLORP3UIVPROC&#32;glad_glColorP3uiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00309"/>00309 PFNGLCOLORP4UIPROC&#32;glad_glColorP4ui&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00310"/>00310 PFNGLCOLORP4UIVPROC&#32;glad_glColorP4uiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00311"/>00311 PFNGLCOMPILESHADERPROC&#32;glad_glCompileShader&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00312"/>00312 PFNGLCOMPRESSEDTEXIMAGE1DPROC&#32;glad_glCompressedTexImage1D&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00313"/>00313 PFNGLCOMPRESSEDTEXIMAGE2DPROC&#32;glad_glCompressedTexImage2D&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00314"/>00314 PFNGLCOMPRESSEDTEXIMAGE3DPROC&#32;glad_glCompressedTexImage3D&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00315"/>00315 PFNGLCOMPRESSEDTEXSUBIMAGE1DPROC&#32;glad_glCompressedTexSubImage1D&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00316"/>00316 PFNGLCOMPRESSEDTEXSUBIMAGE2DPROC&#32;glad_glCompressedTexSubImage2D&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00317"/>00317 PFNGLCOMPRESSEDTEXSUBIMAGE3DPROC&#32;glad_glCompressedTexSubImage3D&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00318"/>00318 PFNGLCOPYBUFFERSUBDATAPROC&#32;glad_glCopyBufferSubData&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00319"/>00319 PFNGLCOPYTEXIMAGE1DPROC&#32;glad_glCopyTexImage1D&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00320"/>00320 PFNGLCOPYTEXIMAGE2DPROC&#32;glad_glCopyTexImage2D&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00321"/>00321 PFNGLCOPYTEXSUBIMAGE1DPROC&#32;glad_glCopyTexSubImage1D&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00322"/>00322 PFNGLCOPYTEXSUBIMAGE2DPROC&#32;glad_glCopyTexSubImage2D&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00323"/>00323 PFNGLCOPYTEXSUBIMAGE3DPROC&#32;glad_glCopyTexSubImage3D&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00324"/>00324 PFNGLCREATEPROGRAMPROC&#32;glad_glCreateProgram&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00325"/>00325 PFNGLCREATESHADERPROC&#32;glad_glCreateShader&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00326"/>00326 PFNGLCULLFACEPROC&#32;glad_glCullFace&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00327"/>00327 PFNGLDELETEBUFFERSPROC&#32;glad_glDeleteBuffers&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00328"/>00328 PFNGLDELETEFRAMEBUFFERSPROC&#32;glad_glDeleteFramebuffers&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00329"/>00329 PFNGLDELETEPROGRAMPROC&#32;glad_glDeleteProgram&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00330"/>00330 PFNGLDELETEQUERIESPROC&#32;glad_glDeleteQueries&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00331"/>00331 PFNGLDELETERENDERBUFFERSPROC&#32;glad_glDeleteRenderbuffers&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00332"/>00332 PFNGLDELETESAMPLERSPROC&#32;glad_glDeleteSamplers&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00333"/>00333 PFNGLDELETESHADERPROC&#32;glad_glDeleteShader&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00334"/>00334 PFNGLDELETESYNCPROC&#32;glad_glDeleteSync&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00335"/>00335 PFNGLDELETETEXTURESPROC&#32;glad_glDeleteTextures&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00336"/>00336 PFNGLDELETEVERTEXARRAYSPROC&#32;glad_glDeleteVertexArrays&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00337"/>00337 PFNGLDEPTHFUNCPROC&#32;glad_glDepthFunc&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00338"/>00338 PFNGLDEPTHMASKPROC&#32;glad_glDepthMask&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00339"/>00339 PFNGLDEPTHRANGEPROC&#32;glad_glDepthRange&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00340"/>00340 PFNGLDETACHSHADERPROC&#32;glad_glDetachShader&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00341"/>00341 PFNGLDISABLEPROC&#32;glad_glDisable&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00342"/>00342 PFNGLDISABLEVERTEXATTRIBARRAYPROC&#32;glad_glDisableVertexAttribArray&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00343"/>00343 PFNGLDISABLEIPROC&#32;glad_glDisablei&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00344"/>00344 PFNGLDRAWARRAYSPROC&#32;glad_glDrawArrays&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00345"/>00345 PFNGLDRAWARRAYSINSTANCEDPROC&#32;glad_glDrawArraysInstanced&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00346"/>00346 PFNGLDRAWBUFFERPROC&#32;glad_glDrawBuffer&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00347"/>00347 PFNGLDRAWBUFFERSPROC&#32;glad_glDrawBuffers&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00348"/>00348 PFNGLDRAWELEMENTSPROC&#32;glad_glDrawElements&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00349"/>00349 PFNGLDRAWELEMENTSBASEVERTEXPROC&#32;glad_glDrawElementsBaseVertex&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00350"/>00350 PFNGLDRAWELEMENTSINSTANCEDPROC&#32;glad_glDrawElementsInstanced&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00351"/>00351 PFNGLDRAWELEMENTSINSTANCEDBASEVERTEXPROC&#32;glad_glDrawElementsInstancedBaseVertex&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00352"/>00352 PFNGLDRAWRANGEELEMENTSPROC&#32;glad_glDrawRangeElements&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00353"/>00353 PFNGLDRAWRANGEELEMENTSBASEVERTEXPROC&#32;glad_glDrawRangeElementsBaseVertex&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00354"/>00354 PFNGLENABLEPROC&#32;glad_glEnable&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00355"/>00355 PFNGLENABLEVERTEXATTRIBARRAYPROC&#32;glad_glEnableVertexAttribArray&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00356"/>00356 PFNGLENABLEIPROC&#32;glad_glEnablei&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00357"/>00357 PFNGLENDCONDITIONALRENDERPROC&#32;glad_glEndConditionalRender&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00358"/>00358 PFNGLENDQUERYPROC&#32;glad_glEndQuery&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00359"/>00359 PFNGLENDTRANSFORMFEEDBACKPROC&#32;glad_glEndTransformFeedback&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00360"/>00360 PFNGLFENCESYNCPROC&#32;glad_glFenceSync&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00361"/>00361 PFNGLFINISHPROC&#32;glad_glFinish&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00362"/>00362 PFNGLFLUSHPROC&#32;glad_glFlush&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00363"/>00363 PFNGLFLUSHMAPPEDBUFFERRANGEPROC&#32;glad_glFlushMappedBufferRange&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00364"/>00364 PFNGLFRAMEBUFFERRENDERBUFFERPROC&#32;glad_glFramebufferRenderbuffer&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00365"/>00365 PFNGLFRAMEBUFFERTEXTUREPROC&#32;glad_glFramebufferTexture&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00366"/>00366 PFNGLFRAMEBUFFERTEXTURE1DPROC&#32;glad_glFramebufferTexture1D&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00367"/>00367 PFNGLFRAMEBUFFERTEXTURE2DPROC&#32;glad_glFramebufferTexture2D&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00368"/>00368 PFNGLFRAMEBUFFERTEXTURE3DPROC&#32;glad_glFramebufferTexture3D&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00369"/>00369 PFNGLFRAMEBUFFERTEXTURELAYERPROC&#32;glad_glFramebufferTextureLayer&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00370"/>00370 PFNGLFRONTFACEPROC&#32;glad_glFrontFace&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00371"/>00371 PFNGLGENBUFFERSPROC&#32;glad_glGenBuffers&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00372"/>00372 PFNGLGENFRAMEBUFFERSPROC&#32;glad_glGenFramebuffers&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00373"/>00373 PFNGLGENQUERIESPROC&#32;glad_glGenQueries&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00374"/>00374 PFNGLGENRENDERBUFFERSPROC&#32;glad_glGenRenderbuffers&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00375"/>00375 PFNGLGENSAMPLERSPROC&#32;glad_glGenSamplers&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00376"/>00376 PFNGLGENTEXTURESPROC&#32;glad_glGenTextures&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00377"/>00377 PFNGLGENVERTEXARRAYSPROC&#32;glad_glGenVertexArrays&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00378"/>00378 PFNGLGENERATEMIPMAPPROC&#32;glad_glGenerateMipmap&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00379"/>00379 PFNGLGETACTIVEATTRIBPROC&#32;glad_glGetActiveAttrib&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00380"/>00380 PFNGLGETACTIVEUNIFORMPROC&#32;glad_glGetActiveUniform&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00381"/>00381 PFNGLGETACTIVEUNIFORMBLOCKNAMEPROC&#32;glad_glGetActiveUniformBlockName&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00382"/>00382 PFNGLGETACTIVEUNIFORMBLOCKIVPROC&#32;glad_glGetActiveUniformBlockiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00383"/>00383 PFNGLGETACTIVEUNIFORMNAMEPROC&#32;glad_glGetActiveUniformName&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00384"/>00384 PFNGLGETACTIVEUNIFORMSIVPROC&#32;glad_glGetActiveUniformsiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00385"/>00385 PFNGLGETATTACHEDSHADERSPROC&#32;glad_glGetAttachedShaders&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00386"/>00386 PFNGLGETATTRIBLOCATIONPROC&#32;glad_glGetAttribLocation&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00387"/>00387 PFNGLGETBOOLEANI_VPROC&#32;glad_glGetBooleani_v&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00388"/>00388 PFNGLGETBOOLEANVPROC&#32;glad_glGetBooleanv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00389"/>00389 PFNGLGETBUFFERPARAMETERI64VPROC&#32;glad_glGetBufferParameteri64v&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00390"/>00390 PFNGLGETBUFFERPARAMETERIVPROC&#32;glad_glGetBufferParameteriv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00391"/>00391 PFNGLGETBUFFERPOINTERVPROC&#32;glad_glGetBufferPointerv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00392"/>00392 PFNGLGETBUFFERSUBDATAPROC&#32;glad_glGetBufferSubData&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00393"/>00393 PFNGLGETCOMPRESSEDTEXIMAGEPROC&#32;glad_glGetCompressedTexImage&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00394"/>00394 PFNGLGETDOUBLEVPROC&#32;glad_glGetDoublev&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00395"/>00395 PFNGLGETERRORPROC&#32;glad_glGetError&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00396"/>00396 PFNGLGETFLOATVPROC&#32;glad_glGetFloatv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00397"/>00397 PFNGLGETFRAGDATAINDEXPROC&#32;glad_glGetFragDataIndex&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00398"/>00398 PFNGLGETFRAGDATALOCATIONPROC&#32;glad_glGetFragDataLocation&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00399"/>00399 PFNGLGETFRAMEBUFFERATTACHMENTPARAMETERIVPROC&#32;glad_glGetFramebufferAttachmentParameteriv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00400"/>00400 PFNGLGETINTEGER64I_VPROC&#32;glad_glGetInteger64i_v&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00401"/>00401 PFNGLGETINTEGER64VPROC&#32;glad_glGetInteger64v&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00402"/>00402 PFNGLGETINTEGERI_VPROC&#32;glad_glGetIntegeri_v&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00403"/>00403 PFNGLGETINTEGERVPROC&#32;glad_glGetIntegerv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00404"/>00404 PFNGLGETMULTISAMPLEFVPROC&#32;glad_glGetMultisamplefv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00405"/>00405 PFNGLGETPROGRAMINFOLOGPROC&#32;glad_glGetProgramInfoLog&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00406"/>00406 PFNGLGETPROGRAMIVPROC&#32;glad_glGetProgramiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00407"/>00407 PFNGLGETQUERYOBJECTI64VPROC&#32;glad_glGetQueryObjecti64v&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00408"/>00408 PFNGLGETQUERYOBJECTIVPROC&#32;glad_glGetQueryObjectiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00409"/>00409 PFNGLGETQUERYOBJECTUI64VPROC&#32;glad_glGetQueryObjectui64v&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00410"/>00410 PFNGLGETQUERYOBJECTUIVPROC&#32;glad_glGetQueryObjectuiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00411"/>00411 PFNGLGETQUERYIVPROC&#32;glad_glGetQueryiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00412"/>00412 PFNGLGETRENDERBUFFERPARAMETERIVPROC&#32;glad_glGetRenderbufferParameteriv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00413"/>00413 PFNGLGETSAMPLERPARAMETERIIVPROC&#32;glad_glGetSamplerParameterIiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00414"/>00414 PFNGLGETSAMPLERPARAMETERIUIVPROC&#32;glad_glGetSamplerParameterIuiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00415"/>00415 PFNGLGETSAMPLERPARAMETERFVPROC&#32;glad_glGetSamplerParameterfv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00416"/>00416 PFNGLGETSAMPLERPARAMETERIVPROC&#32;glad_glGetSamplerParameteriv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00417"/>00417 PFNGLGETSHADERINFOLOGPROC&#32;glad_glGetShaderInfoLog&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00418"/>00418 PFNGLGETSHADERSOURCEPROC&#32;glad_glGetShaderSource&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00419"/>00419 PFNGLGETSHADERIVPROC&#32;glad_glGetShaderiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00420"/>00420 PFNGLGETSTRINGPROC&#32;glad_glGetString&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00421"/>00421 PFNGLGETSTRINGIPROC&#32;glad_glGetStringi&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00422"/>00422 PFNGLGETSYNCIVPROC&#32;glad_glGetSynciv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00423"/>00423 PFNGLGETTEXIMAGEPROC&#32;glad_glGetTexImage&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00424"/>00424 PFNGLGETTEXLEVELPARAMETERFVPROC&#32;glad_glGetTexLevelParameterfv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00425"/>00425 PFNGLGETTEXLEVELPARAMETERIVPROC&#32;glad_glGetTexLevelParameteriv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00426"/>00426 PFNGLGETTEXPARAMETERIIVPROC&#32;glad_glGetTexParameterIiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00427"/>00427 PFNGLGETTEXPARAMETERIUIVPROC&#32;glad_glGetTexParameterIuiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00428"/>00428 PFNGLGETTEXPARAMETERFVPROC&#32;glad_glGetTexParameterfv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00429"/>00429 PFNGLGETTEXPARAMETERIVPROC&#32;glad_glGetTexParameteriv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00430"/>00430 PFNGLGETTRANSFORMFEEDBACKVARYINGPROC&#32;glad_glGetTransformFeedbackVarying&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00431"/>00431 PFNGLGETUNIFORMBLOCKINDEXPROC&#32;glad_glGetUniformBlockIndex&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00432"/>00432 PFNGLGETUNIFORMINDICESPROC&#32;glad_glGetUniformIndices&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00433"/>00433 PFNGLGETUNIFORMLOCATIONPROC&#32;glad_glGetUniformLocation&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00434"/>00434 PFNGLGETUNIFORMFVPROC&#32;glad_glGetUniformfv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00435"/>00435 PFNGLGETUNIFORMIVPROC&#32;glad_glGetUniformiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00436"/>00436 PFNGLGETUNIFORMUIVPROC&#32;glad_glGetUniformuiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00437"/>00437 PFNGLGETVERTEXATTRIBIIVPROC&#32;glad_glGetVertexAttribIiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00438"/>00438 PFNGLGETVERTEXATTRIBIUIVPROC&#32;glad_glGetVertexAttribIuiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00439"/>00439 PFNGLGETVERTEXATTRIBPOINTERVPROC&#32;glad_glGetVertexAttribPointerv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00440"/>00440 PFNGLGETVERTEXATTRIBDVPROC&#32;glad_glGetVertexAttribdv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00441"/>00441 PFNGLGETVERTEXATTRIBFVPROC&#32;glad_glGetVertexAttribfv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00442"/>00442 PFNGLGETVERTEXATTRIBIVPROC&#32;glad_glGetVertexAttribiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00443"/>00443 PFNGLHINTPROC&#32;glad_glHint&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00444"/>00444 PFNGLISBUFFERPROC&#32;glad_glIsBuffer&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00445"/>00445 PFNGLISENABLEDPROC&#32;glad_glIsEnabled&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00446"/>00446 PFNGLISENABLEDIPROC&#32;glad_glIsEnabledi&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00447"/>00447 PFNGLISFRAMEBUFFERPROC&#32;glad_glIsFramebuffer&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00448"/>00448 PFNGLISPROGRAMPROC&#32;glad_glIsProgram&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00449"/>00449 PFNGLISQUERYPROC&#32;glad_glIsQuery&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00450"/>00450 PFNGLISRENDERBUFFERPROC&#32;glad_glIsRenderbuffer&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00451"/>00451 PFNGLISSAMPLERPROC&#32;glad_glIsSampler&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00452"/>00452 PFNGLISSHADERPROC&#32;glad_glIsShader&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00453"/>00453 PFNGLISSYNCPROC&#32;glad_glIsSync&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00454"/>00454 PFNGLISTEXTUREPROC&#32;glad_glIsTexture&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00455"/>00455 PFNGLISVERTEXARRAYPROC&#32;glad_glIsVertexArray&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00456"/>00456 PFNGLLINEWIDTHPROC&#32;glad_glLineWidth&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00457"/>00457 PFNGLLINKPROGRAMPROC&#32;glad_glLinkProgram&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00458"/>00458 PFNGLLOGICOPPROC&#32;glad_glLogicOp&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00459"/>00459 PFNGLMAPBUFFERPROC&#32;glad_glMapBuffer&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00460"/>00460 PFNGLMAPBUFFERRANGEPROC&#32;glad_glMapBufferRange&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00461"/>00461 PFNGLMULTIDRAWARRAYSPROC&#32;glad_glMultiDrawArrays&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00462"/>00462 PFNGLMULTIDRAWELEMENTSPROC&#32;glad_glMultiDrawElements&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00463"/>00463 PFNGLMULTIDRAWELEMENTSBASEVERTEXPROC&#32;glad_glMultiDrawElementsBaseVertex&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00464"/>00464 PFNGLMULTITEXCOORDP1UIPROC&#32;glad_glMultiTexCoordP1ui&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00465"/>00465 PFNGLMULTITEXCOORDP1UIVPROC&#32;glad_glMultiTexCoordP1uiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00466"/>00466 PFNGLMULTITEXCOORDP2UIPROC&#32;glad_glMultiTexCoordP2ui&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00467"/>00467 PFNGLMULTITEXCOORDP2UIVPROC&#32;glad_glMultiTexCoordP2uiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00468"/>00468 PFNGLMULTITEXCOORDP3UIPROC&#32;glad_glMultiTexCoordP3ui&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00469"/>00469 PFNGLMULTITEXCOORDP3UIVPROC&#32;glad_glMultiTexCoordP3uiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00470"/>00470 PFNGLMULTITEXCOORDP4UIPROC&#32;glad_glMultiTexCoordP4ui&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00471"/>00471 PFNGLMULTITEXCOORDP4UIVPROC&#32;glad_glMultiTexCoordP4uiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00472"/>00472 PFNGLNORMALP3UIPROC&#32;glad_glNormalP3ui&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00473"/>00473 PFNGLNORMALP3UIVPROC&#32;glad_glNormalP3uiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00474"/>00474 PFNGLPIXELSTOREFPROC&#32;glad_glPixelStoref&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00475"/>00475 PFNGLPIXELSTOREIPROC&#32;glad_glPixelStorei&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00476"/>00476 PFNGLPOINTPARAMETERFPROC&#32;glad_glPointParameterf&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00477"/>00477 PFNGLPOINTPARAMETERFVPROC&#32;glad_glPointParameterfv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00478"/>00478 PFNGLPOINTPARAMETERIPROC&#32;glad_glPointParameteri&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00479"/>00479 PFNGLPOINTPARAMETERIVPROC&#32;glad_glPointParameteriv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00480"/>00480 PFNGLPOINTSIZEPROC&#32;glad_glPointSize&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00481"/>00481 PFNGLPOLYGONMODEPROC&#32;glad_glPolygonMode&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00482"/>00482 PFNGLPOLYGONOFFSETPROC&#32;glad_glPolygonOffset&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00483"/>00483 PFNGLPRIMITIVERESTARTINDEXPROC&#32;glad_glPrimitiveRestartIndex&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00484"/>00484 PFNGLPROVOKINGVERTEXPROC&#32;glad_glProvokingVertex&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00485"/>00485 PFNGLQUERYCOUNTERPROC&#32;glad_glQueryCounter&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00486"/>00486 PFNGLREADBUFFERPROC&#32;glad_glReadBuffer&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00487"/>00487 PFNGLREADPIXELSPROC&#32;glad_glReadPixels&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00488"/>00488 PFNGLRENDERBUFFERSTORAGEPROC&#32;glad_glRenderbufferStorage&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00489"/>00489 PFNGLRENDERBUFFERSTORAGEMULTISAMPLEPROC&#32;glad_glRenderbufferStorageMultisample&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00490"/>00490 PFNGLSAMPLECOVERAGEPROC&#32;glad_glSampleCoverage&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00491"/>00491 PFNGLSAMPLEMASKIPROC&#32;glad_glSampleMaski&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00492"/>00492 PFNGLSAMPLERPARAMETERIIVPROC&#32;glad_glSamplerParameterIiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00493"/>00493 PFNGLSAMPLERPARAMETERIUIVPROC&#32;glad_glSamplerParameterIuiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00494"/>00494 PFNGLSAMPLERPARAMETERFPROC&#32;glad_glSamplerParameterf&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00495"/>00495 PFNGLSAMPLERPARAMETERFVPROC&#32;glad_glSamplerParameterfv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00496"/>00496 PFNGLSAMPLERPARAMETERIPROC&#32;glad_glSamplerParameteri&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00497"/>00497 PFNGLSAMPLERPARAMETERIVPROC&#32;glad_glSamplerParameteriv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00498"/>00498 PFNGLSCISSORPROC&#32;glad_glScissor&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00499"/>00499 PFNGLSECONDARYCOLORP3UIPROC&#32;glad_glSecondaryColorP3ui&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00500"/>00500 PFNGLSECONDARYCOLORP3UIVPROC&#32;glad_glSecondaryColorP3uiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00501"/>00501 PFNGLSHADERSOURCEPROC&#32;glad_glShaderSource&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00502"/>00502 PFNGLSTENCILFUNCPROC&#32;glad_glStencilFunc&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00503"/>00503 PFNGLSTENCILFUNCSEPARATEPROC&#32;glad_glStencilFuncSeparate&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00504"/>00504 PFNGLSTENCILMASKPROC&#32;glad_glStencilMask&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00505"/>00505 PFNGLSTENCILMASKSEPARATEPROC&#32;glad_glStencilMaskSeparate&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00506"/>00506 PFNGLSTENCILOPPROC&#32;glad_glStencilOp&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00507"/>00507 PFNGLSTENCILOPSEPARATEPROC&#32;glad_glStencilOpSeparate&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00508"/>00508 PFNGLTEXBUFFERPROC&#32;glad_glTexBuffer&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00509"/>00509 PFNGLTEXCOORDP1UIPROC&#32;glad_glTexCoordP1ui&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00510"/>00510 PFNGLTEXCOORDP1UIVPROC&#32;glad_glTexCoordP1uiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00511"/>00511 PFNGLTEXCOORDP2UIPROC&#32;glad_glTexCoordP2ui&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00512"/>00512 PFNGLTEXCOORDP2UIVPROC&#32;glad_glTexCoordP2uiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00513"/>00513 PFNGLTEXCOORDP3UIPROC&#32;glad_glTexCoordP3ui&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00514"/>00514 PFNGLTEXCOORDP3UIVPROC&#32;glad_glTexCoordP3uiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00515"/>00515 PFNGLTEXCOORDP4UIPROC&#32;glad_glTexCoordP4ui&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00516"/>00516 PFNGLTEXCOORDP4UIVPROC&#32;glad_glTexCoordP4uiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00517"/>00517 PFNGLTEXIMAGE1DPROC&#32;glad_glTexImage1D&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00518"/>00518 PFNGLTEXIMAGE2DPROC&#32;glad_glTexImage2D&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00519"/>00519 PFNGLTEXIMAGE2DMULTISAMPLEPROC&#32;glad_glTexImage2DMultisample&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00520"/>00520 PFNGLTEXIMAGE3DPROC&#32;glad_glTexImage3D&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00521"/>00521 PFNGLTEXIMAGE3DMULTISAMPLEPROC&#32;glad_glTexImage3DMultisample&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00522"/>00522 PFNGLTEXPARAMETERIIVPROC&#32;glad_glTexParameterIiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00523"/>00523 PFNGLTEXPARAMETERIUIVPROC&#32;glad_glTexParameterIuiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00524"/>00524 PFNGLTEXPARAMETERFPROC&#32;glad_glTexParameterf&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00525"/>00525 PFNGLTEXPARAMETERFVPROC&#32;glad_glTexParameterfv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00526"/>00526 PFNGLTEXPARAMETERIPROC&#32;glad_glTexParameteri&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00527"/>00527 PFNGLTEXPARAMETERIVPROC&#32;glad_glTexParameteriv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00528"/>00528 PFNGLTEXSUBIMAGE1DPROC&#32;glad_glTexSubImage1D&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00529"/>00529 PFNGLTEXSUBIMAGE2DPROC&#32;glad_glTexSubImage2D&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00530"/>00530 PFNGLTEXSUBIMAGE3DPROC&#32;glad_glTexSubImage3D&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00531"/>00531 PFNGLTRANSFORMFEEDBACKVARYINGSPROC&#32;glad_glTransformFeedbackVaryings&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00532"/>00532 PFNGLUNIFORM1FPROC&#32;glad_glUniform1f&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00533"/>00533 PFNGLUNIFORM1FVPROC&#32;glad_glUniform1fv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00534"/>00534 PFNGLUNIFORM1IPROC&#32;glad_glUniform1i&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00535"/>00535 PFNGLUNIFORM1IVPROC&#32;glad_glUniform1iv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00536"/>00536 PFNGLUNIFORM1UIPROC&#32;glad_glUniform1ui&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00537"/>00537 PFNGLUNIFORM1UIVPROC&#32;glad_glUniform1uiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00538"/>00538 PFNGLUNIFORM2FPROC&#32;glad_glUniform2f&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00539"/>00539 PFNGLUNIFORM2FVPROC&#32;glad_glUniform2fv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00540"/>00540 PFNGLUNIFORM2IPROC&#32;glad_glUniform2i&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00541"/>00541 PFNGLUNIFORM2IVPROC&#32;glad_glUniform2iv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00542"/>00542 PFNGLUNIFORM2UIPROC&#32;glad_glUniform2ui&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00543"/>00543 PFNGLUNIFORM2UIVPROC&#32;glad_glUniform2uiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00544"/>00544 PFNGLUNIFORM3FPROC&#32;glad_glUniform3f&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00545"/>00545 PFNGLUNIFORM3FVPROC&#32;glad_glUniform3fv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00546"/>00546 PFNGLUNIFORM3IPROC&#32;glad_glUniform3i&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00547"/>00547 PFNGLUNIFORM3IVPROC&#32;glad_glUniform3iv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00548"/>00548 PFNGLUNIFORM3UIPROC&#32;glad_glUniform3ui&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00549"/>00549 PFNGLUNIFORM3UIVPROC&#32;glad_glUniform3uiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00550"/>00550 PFNGLUNIFORM4FPROC&#32;glad_glUniform4f&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00551"/>00551 PFNGLUNIFORM4FVPROC&#32;glad_glUniform4fv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00552"/>00552 PFNGLUNIFORM4IPROC&#32;glad_glUniform4i&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00553"/>00553 PFNGLUNIFORM4IVPROC&#32;glad_glUniform4iv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00554"/>00554 PFNGLUNIFORM4UIPROC&#32;glad_glUniform4ui&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00555"/>00555 PFNGLUNIFORM4UIVPROC&#32;glad_glUniform4uiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00556"/>00556 PFNGLUNIFORMBLOCKBINDINGPROC&#32;glad_glUniformBlockBinding&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00557"/>00557 PFNGLUNIFORMMATRIX2FVPROC&#32;glad_glUniformMatrix2fv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00558"/>00558 PFNGLUNIFORMMATRIX2X3FVPROC&#32;glad_glUniformMatrix2x3fv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00559"/>00559 PFNGLUNIFORMMATRIX2X4FVPROC&#32;glad_glUniformMatrix2x4fv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00560"/>00560 PFNGLUNIFORMMATRIX3FVPROC&#32;glad_glUniformMatrix3fv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00561"/>00561 PFNGLUNIFORMMATRIX3X2FVPROC&#32;glad_glUniformMatrix3x2fv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00562"/>00562 PFNGLUNIFORMMATRIX3X4FVPROC&#32;glad_glUniformMatrix3x4fv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00563"/>00563 PFNGLUNIFORMMATRIX4FVPROC&#32;glad_glUniformMatrix4fv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00564"/>00564 PFNGLUNIFORMMATRIX4X2FVPROC&#32;glad_glUniformMatrix4x2fv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00565"/>00565 PFNGLUNIFORMMATRIX4X3FVPROC&#32;glad_glUniformMatrix4x3fv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00566"/>00566 PFNGLUNMAPBUFFERPROC&#32;glad_glUnmapBuffer&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00567"/>00567 PFNGLUSEPROGRAMPROC&#32;glad_glUseProgram&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00568"/>00568 PFNGLVALIDATEPROGRAMPROC&#32;glad_glValidateProgram&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00569"/>00569 PFNGLVERTEXATTRIB1DPROC&#32;glad_glVertexAttrib1d&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00570"/>00570 PFNGLVERTEXATTRIB1DVPROC&#32;glad_glVertexAttrib1dv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00571"/>00571 PFNGLVERTEXATTRIB1FPROC&#32;glad_glVertexAttrib1f&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00572"/>00572 PFNGLVERTEXATTRIB1FVPROC&#32;glad_glVertexAttrib1fv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00573"/>00573 PFNGLVERTEXATTRIB1SPROC&#32;glad_glVertexAttrib1s&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00574"/>00574 PFNGLVERTEXATTRIB1SVPROC&#32;glad_glVertexAttrib1sv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00575"/>00575 PFNGLVERTEXATTRIB2DPROC&#32;glad_glVertexAttrib2d&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00576"/>00576 PFNGLVERTEXATTRIB2DVPROC&#32;glad_glVertexAttrib2dv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00577"/>00577 PFNGLVERTEXATTRIB2FPROC&#32;glad_glVertexAttrib2f&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00578"/>00578 PFNGLVERTEXATTRIB2FVPROC&#32;glad_glVertexAttrib2fv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00579"/>00579 PFNGLVERTEXATTRIB2SPROC&#32;glad_glVertexAttrib2s&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00580"/>00580 PFNGLVERTEXATTRIB2SVPROC&#32;glad_glVertexAttrib2sv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00581"/>00581 PFNGLVERTEXATTRIB3DPROC&#32;glad_glVertexAttrib3d&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00582"/>00582 PFNGLVERTEXATTRIB3DVPROC&#32;glad_glVertexAttrib3dv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00583"/>00583 PFNGLVERTEXATTRIB3FPROC&#32;glad_glVertexAttrib3f&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00584"/>00584 PFNGLVERTEXATTRIB3FVPROC&#32;glad_glVertexAttrib3fv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00585"/>00585 PFNGLVERTEXATTRIB3SPROC&#32;glad_glVertexAttrib3s&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00586"/>00586 PFNGLVERTEXATTRIB3SVPROC&#32;glad_glVertexAttrib3sv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00587"/>00587 PFNGLVERTEXATTRIB4NBVPROC&#32;glad_glVertexAttrib4Nbv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00588"/>00588 PFNGLVERTEXATTRIB4NIVPROC&#32;glad_glVertexAttrib4Niv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00589"/>00589 PFNGLVERTEXATTRIB4NSVPROC&#32;glad_glVertexAttrib4Nsv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00590"/>00590 PFNGLVERTEXATTRIB4NUBPROC&#32;glad_glVertexAttrib4Nub&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00591"/>00591 PFNGLVERTEXATTRIB4NUBVPROC&#32;glad_glVertexAttrib4Nubv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00592"/>00592 PFNGLVERTEXATTRIB4NUIVPROC&#32;glad_glVertexAttrib4Nuiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00593"/>00593 PFNGLVERTEXATTRIB4NUSVPROC&#32;glad_glVertexAttrib4Nusv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00594"/>00594 PFNGLVERTEXATTRIB4BVPROC&#32;glad_glVertexAttrib4bv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00595"/>00595 PFNGLVERTEXATTRIB4DPROC&#32;glad_glVertexAttrib4d&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00596"/>00596 PFNGLVERTEXATTRIB4DVPROC&#32;glad_glVertexAttrib4dv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00597"/>00597 PFNGLVERTEXATTRIB4FPROC&#32;glad_glVertexAttrib4f&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00598"/>00598 PFNGLVERTEXATTRIB4FVPROC&#32;glad_glVertexAttrib4fv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00599"/>00599 PFNGLVERTEXATTRIB4IVPROC&#32;glad_glVertexAttrib4iv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00600"/>00600 PFNGLVERTEXATTRIB4SPROC&#32;glad_glVertexAttrib4s&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00601"/>00601 PFNGLVERTEXATTRIB4SVPROC&#32;glad_glVertexAttrib4sv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00602"/>00602 PFNGLVERTEXATTRIB4UBVPROC&#32;glad_glVertexAttrib4ubv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00603"/>00603 PFNGLVERTEXATTRIB4UIVPROC&#32;glad_glVertexAttrib4uiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00604"/>00604 PFNGLVERTEXATTRIB4USVPROC&#32;glad_glVertexAttrib4usv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00605"/>00605 PFNGLVERTEXATTRIBDIVISORPROC&#32;glad_glVertexAttribDivisor&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00606"/>00606 PFNGLVERTEXATTRIBI1IPROC&#32;glad_glVertexAttribI1i&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00607"/>00607 PFNGLVERTEXATTRIBI1IVPROC&#32;glad_glVertexAttribI1iv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00608"/>00608 PFNGLVERTEXATTRIBI1UIPROC&#32;glad_glVertexAttribI1ui&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00609"/>00609 PFNGLVERTEXATTRIBI1UIVPROC&#32;glad_glVertexAttribI1uiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00610"/>00610 PFNGLVERTEXATTRIBI2IPROC&#32;glad_glVertexAttribI2i&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00611"/>00611 PFNGLVERTEXATTRIBI2IVPROC&#32;glad_glVertexAttribI2iv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00612"/>00612 PFNGLVERTEXATTRIBI2UIPROC&#32;glad_glVertexAttribI2ui&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00613"/>00613 PFNGLVERTEXATTRIBI2UIVPROC&#32;glad_glVertexAttribI2uiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00614"/>00614 PFNGLVERTEXATTRIBI3IPROC&#32;glad_glVertexAttribI3i&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00615"/>00615 PFNGLVERTEXATTRIBI3IVPROC&#32;glad_glVertexAttribI3iv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00616"/>00616 PFNGLVERTEXATTRIBI3UIPROC&#32;glad_glVertexAttribI3ui&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00617"/>00617 PFNGLVERTEXATTRIBI3UIVPROC&#32;glad_glVertexAttribI3uiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00618"/>00618 PFNGLVERTEXATTRIBI4BVPROC&#32;glad_glVertexAttribI4bv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00619"/>00619 PFNGLVERTEXATTRIBI4IPROC&#32;glad_glVertexAttribI4i&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00620"/>00620 PFNGLVERTEXATTRIBI4IVPROC&#32;glad_glVertexAttribI4iv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00621"/>00621 PFNGLVERTEXATTRIBI4SVPROC&#32;glad_glVertexAttribI4sv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00622"/>00622 PFNGLVERTEXATTRIBI4UBVPROC&#32;glad_glVertexAttribI4ubv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00623"/>00623 PFNGLVERTEXATTRIBI4UIPROC&#32;glad_glVertexAttribI4ui&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00624"/>00624 PFNGLVERTEXATTRIBI4UIVPROC&#32;glad_glVertexAttribI4uiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00625"/>00625 PFNGLVERTEXATTRIBI4USVPROC&#32;glad_glVertexAttribI4usv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00626"/>00626 PFNGLVERTEXATTRIBIPOINTERPROC&#32;glad_glVertexAttribIPointer&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00627"/>00627 PFNGLVERTEXATTRIBP1UIPROC&#32;glad_glVertexAttribP1ui&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00628"/>00628 PFNGLVERTEXATTRIBP1UIVPROC&#32;glad_glVertexAttribP1uiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00629"/>00629 PFNGLVERTEXATTRIBP2UIPROC&#32;glad_glVertexAttribP2ui&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00630"/>00630 PFNGLVERTEXATTRIBP2UIVPROC&#32;glad_glVertexAttribP2uiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00631"/>00631 PFNGLVERTEXATTRIBP3UIPROC&#32;glad_glVertexAttribP3ui&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00632"/>00632 PFNGLVERTEXATTRIBP3UIVPROC&#32;glad_glVertexAttribP3uiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00633"/>00633 PFNGLVERTEXATTRIBP4UIPROC&#32;glad_glVertexAttribP4ui&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00634"/>00634 PFNGLVERTEXATTRIBP4UIVPROC&#32;glad_glVertexAttribP4uiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00635"/>00635 PFNGLVERTEXATTRIBPOINTERPROC&#32;glad_glVertexAttribPointer&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00636"/>00636 PFNGLVERTEXP2UIPROC&#32;glad_glVertexP2ui&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00637"/>00637 PFNGLVERTEXP2UIVPROC&#32;glad_glVertexP2uiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00638"/>00638 PFNGLVERTEXP3UIPROC&#32;glad_glVertexP3ui&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00639"/>00639 PFNGLVERTEXP3UIVPROC&#32;glad_glVertexP3uiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00640"/>00640 PFNGLVERTEXP4UIPROC&#32;glad_glVertexP4ui&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00641"/>00641 PFNGLVERTEXP4UIVPROC&#32;glad_glVertexP4uiv&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00642"/>00642 PFNGLVIEWPORTPROC&#32;glad_glViewport&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00643"/>00643 PFNGLWAITSYNCPROC&#32;glad_glWaitSync&#32;=&#32;NULL;
+<anchor xml:id="_glad_8c_source_1l00644"/>00644 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">void</emphasis>&#32;load_GL_VERSION_1_0(GLADloadproc&#32;load)&#32;{
+<anchor xml:id="_glad_8c_source_1l00645"/>00645 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(!GLAD_GL_VERSION_1_0)&#32;<emphasis role="keywordflow">return</emphasis>;
+<anchor xml:id="_glad_8c_source_1l00646"/>00646 &#32;&#32;&#32;&#32;glad_glCullFace&#32;=&#32;(PFNGLCULLFACEPROC)load(<emphasis role="stringliteral">&quot;glCullFace&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00647"/>00647 &#32;&#32;&#32;&#32;glad_glFrontFace&#32;=&#32;(PFNGLFRONTFACEPROC)load(<emphasis role="stringliteral">&quot;glFrontFace&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00648"/>00648 &#32;&#32;&#32;&#32;glad_glHint&#32;=&#32;(PFNGLHINTPROC)load(<emphasis role="stringliteral">&quot;glHint&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00649"/>00649 &#32;&#32;&#32;&#32;glad_glLineWidth&#32;=&#32;(PFNGLLINEWIDTHPROC)load(<emphasis role="stringliteral">&quot;glLineWidth&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00650"/>00650 &#32;&#32;&#32;&#32;glad_glPointSize&#32;=&#32;(PFNGLPOINTSIZEPROC)load(<emphasis role="stringliteral">&quot;glPointSize&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00651"/>00651 &#32;&#32;&#32;&#32;glad_glPolygonMode&#32;=&#32;(PFNGLPOLYGONMODEPROC)load(<emphasis role="stringliteral">&quot;glPolygonMode&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00652"/>00652 &#32;&#32;&#32;&#32;glad_glScissor&#32;=&#32;(PFNGLSCISSORPROC)load(<emphasis role="stringliteral">&quot;glScissor&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00653"/>00653 &#32;&#32;&#32;&#32;glad_glTexParameterf&#32;=&#32;(PFNGLTEXPARAMETERFPROC)load(<emphasis role="stringliteral">&quot;glTexParameterf&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00654"/>00654 &#32;&#32;&#32;&#32;glad_glTexParameterfv&#32;=&#32;(PFNGLTEXPARAMETERFVPROC)load(<emphasis role="stringliteral">&quot;glTexParameterfv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00655"/>00655 &#32;&#32;&#32;&#32;glad_glTexParameteri&#32;=&#32;(PFNGLTEXPARAMETERIPROC)load(<emphasis role="stringliteral">&quot;glTexParameteri&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00656"/>00656 &#32;&#32;&#32;&#32;glad_glTexParameteriv&#32;=&#32;(PFNGLTEXPARAMETERIVPROC)load(<emphasis role="stringliteral">&quot;glTexParameteriv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00657"/>00657 &#32;&#32;&#32;&#32;glad_glTexImage1D&#32;=&#32;(PFNGLTEXIMAGE1DPROC)load(<emphasis role="stringliteral">&quot;glTexImage1D&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00658"/>00658 &#32;&#32;&#32;&#32;glad_glTexImage2D&#32;=&#32;(PFNGLTEXIMAGE2DPROC)load(<emphasis role="stringliteral">&quot;glTexImage2D&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00659"/>00659 &#32;&#32;&#32;&#32;glad_glDrawBuffer&#32;=&#32;(PFNGLDRAWBUFFERPROC)load(<emphasis role="stringliteral">&quot;glDrawBuffer&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00660"/>00660 &#32;&#32;&#32;&#32;glad_glClear&#32;=&#32;(PFNGLCLEARPROC)load(<emphasis role="stringliteral">&quot;glClear&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00661"/>00661 &#32;&#32;&#32;&#32;glad_glClearColor&#32;=&#32;(PFNGLCLEARCOLORPROC)load(<emphasis role="stringliteral">&quot;glClearColor&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00662"/>00662 &#32;&#32;&#32;&#32;glad_glClearStencil&#32;=&#32;(PFNGLCLEARSTENCILPROC)load(<emphasis role="stringliteral">&quot;glClearStencil&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00663"/>00663 &#32;&#32;&#32;&#32;glad_glClearDepth&#32;=&#32;(PFNGLCLEARDEPTHPROC)load(<emphasis role="stringliteral">&quot;glClearDepth&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00664"/>00664 &#32;&#32;&#32;&#32;glad_glStencilMask&#32;=&#32;(PFNGLSTENCILMASKPROC)load(<emphasis role="stringliteral">&quot;glStencilMask&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00665"/>00665 &#32;&#32;&#32;&#32;glad_glColorMask&#32;=&#32;(PFNGLCOLORMASKPROC)load(<emphasis role="stringliteral">&quot;glColorMask&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00666"/>00666 &#32;&#32;&#32;&#32;glad_glDepthMask&#32;=&#32;(PFNGLDEPTHMASKPROC)load(<emphasis role="stringliteral">&quot;glDepthMask&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00667"/>00667 &#32;&#32;&#32;&#32;glad_glDisable&#32;=&#32;(PFNGLDISABLEPROC)load(<emphasis role="stringliteral">&quot;glDisable&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00668"/>00668 &#32;&#32;&#32;&#32;glad_glEnable&#32;=&#32;(PFNGLENABLEPROC)load(<emphasis role="stringliteral">&quot;glEnable&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00669"/>00669 &#32;&#32;&#32;&#32;glad_glFinish&#32;=&#32;(PFNGLFINISHPROC)load(<emphasis role="stringliteral">&quot;glFinish&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00670"/>00670 &#32;&#32;&#32;&#32;glad_glFlush&#32;=&#32;(PFNGLFLUSHPROC)load(<emphasis role="stringliteral">&quot;glFlush&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00671"/>00671 &#32;&#32;&#32;&#32;glad_glBlendFunc&#32;=&#32;(PFNGLBLENDFUNCPROC)load(<emphasis role="stringliteral">&quot;glBlendFunc&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00672"/>00672 &#32;&#32;&#32;&#32;glad_glLogicOp&#32;=&#32;(PFNGLLOGICOPPROC)load(<emphasis role="stringliteral">&quot;glLogicOp&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00673"/>00673 &#32;&#32;&#32;&#32;glad_glStencilFunc&#32;=&#32;(PFNGLSTENCILFUNCPROC)load(<emphasis role="stringliteral">&quot;glStencilFunc&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00674"/>00674 &#32;&#32;&#32;&#32;glad_glStencilOp&#32;=&#32;(PFNGLSTENCILOPPROC)load(<emphasis role="stringliteral">&quot;glStencilOp&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00675"/>00675 &#32;&#32;&#32;&#32;glad_glDepthFunc&#32;=&#32;(PFNGLDEPTHFUNCPROC)load(<emphasis role="stringliteral">&quot;glDepthFunc&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00676"/>00676 &#32;&#32;&#32;&#32;glad_glPixelStoref&#32;=&#32;(PFNGLPIXELSTOREFPROC)load(<emphasis role="stringliteral">&quot;glPixelStoref&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00677"/>00677 &#32;&#32;&#32;&#32;glad_glPixelStorei&#32;=&#32;(PFNGLPIXELSTOREIPROC)load(<emphasis role="stringliteral">&quot;glPixelStorei&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00678"/>00678 &#32;&#32;&#32;&#32;glad_glReadBuffer&#32;=&#32;(PFNGLREADBUFFERPROC)load(<emphasis role="stringliteral">&quot;glReadBuffer&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00679"/>00679 &#32;&#32;&#32;&#32;glad_glReadPixels&#32;=&#32;(PFNGLREADPIXELSPROC)load(<emphasis role="stringliteral">&quot;glReadPixels&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00680"/>00680 &#32;&#32;&#32;&#32;glad_glGetBooleanv&#32;=&#32;(PFNGLGETBOOLEANVPROC)load(<emphasis role="stringliteral">&quot;glGetBooleanv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00681"/>00681 &#32;&#32;&#32;&#32;glad_glGetDoublev&#32;=&#32;(PFNGLGETDOUBLEVPROC)load(<emphasis role="stringliteral">&quot;glGetDoublev&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00682"/>00682 &#32;&#32;&#32;&#32;glad_glGetError&#32;=&#32;(PFNGLGETERRORPROC)load(<emphasis role="stringliteral">&quot;glGetError&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00683"/>00683 &#32;&#32;&#32;&#32;glad_glGetFloatv&#32;=&#32;(PFNGLGETFLOATVPROC)load(<emphasis role="stringliteral">&quot;glGetFloatv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00684"/>00684 &#32;&#32;&#32;&#32;glad_glGetIntegerv&#32;=&#32;(PFNGLGETINTEGERVPROC)load(<emphasis role="stringliteral">&quot;glGetIntegerv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00685"/>00685 &#32;&#32;&#32;&#32;glad_glGetString&#32;=&#32;(PFNGLGETSTRINGPROC)load(<emphasis role="stringliteral">&quot;glGetString&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00686"/>00686 &#32;&#32;&#32;&#32;glad_glGetTexImage&#32;=&#32;(PFNGLGETTEXIMAGEPROC)load(<emphasis role="stringliteral">&quot;glGetTexImage&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00687"/>00687 &#32;&#32;&#32;&#32;glad_glGetTexParameterfv&#32;=&#32;(PFNGLGETTEXPARAMETERFVPROC)load(<emphasis role="stringliteral">&quot;glGetTexParameterfv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00688"/>00688 &#32;&#32;&#32;&#32;glad_glGetTexParameteriv&#32;=&#32;(PFNGLGETTEXPARAMETERIVPROC)load(<emphasis role="stringliteral">&quot;glGetTexParameteriv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00689"/>00689 &#32;&#32;&#32;&#32;glad_glGetTexLevelParameterfv&#32;=&#32;(PFNGLGETTEXLEVELPARAMETERFVPROC)load(<emphasis role="stringliteral">&quot;glGetTexLevelParameterfv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00690"/>00690 &#32;&#32;&#32;&#32;glad_glGetTexLevelParameteriv&#32;=&#32;(PFNGLGETTEXLEVELPARAMETERIVPROC)load(<emphasis role="stringliteral">&quot;glGetTexLevelParameteriv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00691"/>00691 &#32;&#32;&#32;&#32;glad_glIsEnabled&#32;=&#32;(PFNGLISENABLEDPROC)load(<emphasis role="stringliteral">&quot;glIsEnabled&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00692"/>00692 &#32;&#32;&#32;&#32;glad_glDepthRange&#32;=&#32;(PFNGLDEPTHRANGEPROC)load(<emphasis role="stringliteral">&quot;glDepthRange&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00693"/>00693 &#32;&#32;&#32;&#32;glad_glViewport&#32;=&#32;(PFNGLVIEWPORTPROC)load(<emphasis role="stringliteral">&quot;glViewport&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00694"/>00694 }
+<anchor xml:id="_glad_8c_source_1l00695"/>00695 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">void</emphasis>&#32;load_GL_VERSION_1_1(GLADloadproc&#32;load)&#32;{
+<anchor xml:id="_glad_8c_source_1l00696"/>00696 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(!GLAD_GL_VERSION_1_1)&#32;<emphasis role="keywordflow">return</emphasis>;
+<anchor xml:id="_glad_8c_source_1l00697"/>00697 &#32;&#32;&#32;&#32;glad_glDrawArrays&#32;=&#32;(PFNGLDRAWARRAYSPROC)load(<emphasis role="stringliteral">&quot;glDrawArrays&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00698"/>00698 &#32;&#32;&#32;&#32;glad_glDrawElements&#32;=&#32;(PFNGLDRAWELEMENTSPROC)load(<emphasis role="stringliteral">&quot;glDrawElements&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00699"/>00699 &#32;&#32;&#32;&#32;glad_glPolygonOffset&#32;=&#32;(PFNGLPOLYGONOFFSETPROC)load(<emphasis role="stringliteral">&quot;glPolygonOffset&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00700"/>00700 &#32;&#32;&#32;&#32;glad_glCopyTexImage1D&#32;=&#32;(PFNGLCOPYTEXIMAGE1DPROC)load(<emphasis role="stringliteral">&quot;glCopyTexImage1D&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00701"/>00701 &#32;&#32;&#32;&#32;glad_glCopyTexImage2D&#32;=&#32;(PFNGLCOPYTEXIMAGE2DPROC)load(<emphasis role="stringliteral">&quot;glCopyTexImage2D&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00702"/>00702 &#32;&#32;&#32;&#32;glad_glCopyTexSubImage1D&#32;=&#32;(PFNGLCOPYTEXSUBIMAGE1DPROC)load(<emphasis role="stringliteral">&quot;glCopyTexSubImage1D&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00703"/>00703 &#32;&#32;&#32;&#32;glad_glCopyTexSubImage2D&#32;=&#32;(PFNGLCOPYTEXSUBIMAGE2DPROC)load(<emphasis role="stringliteral">&quot;glCopyTexSubImage2D&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00704"/>00704 &#32;&#32;&#32;&#32;glad_glTexSubImage1D&#32;=&#32;(PFNGLTEXSUBIMAGE1DPROC)load(<emphasis role="stringliteral">&quot;glTexSubImage1D&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00705"/>00705 &#32;&#32;&#32;&#32;glad_glTexSubImage2D&#32;=&#32;(PFNGLTEXSUBIMAGE2DPROC)load(<emphasis role="stringliteral">&quot;glTexSubImage2D&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00706"/>00706 &#32;&#32;&#32;&#32;glad_glBindTexture&#32;=&#32;(PFNGLBINDTEXTUREPROC)load(<emphasis role="stringliteral">&quot;glBindTexture&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00707"/>00707 &#32;&#32;&#32;&#32;glad_glDeleteTextures&#32;=&#32;(PFNGLDELETETEXTURESPROC)load(<emphasis role="stringliteral">&quot;glDeleteTextures&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00708"/>00708 &#32;&#32;&#32;&#32;glad_glGenTextures&#32;=&#32;(PFNGLGENTEXTURESPROC)load(<emphasis role="stringliteral">&quot;glGenTextures&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00709"/>00709 &#32;&#32;&#32;&#32;glad_glIsTexture&#32;=&#32;(PFNGLISTEXTUREPROC)load(<emphasis role="stringliteral">&quot;glIsTexture&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00710"/>00710 }
+<anchor xml:id="_glad_8c_source_1l00711"/>00711 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">void</emphasis>&#32;load_GL_VERSION_1_2(GLADloadproc&#32;load)&#32;{
+<anchor xml:id="_glad_8c_source_1l00712"/>00712 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(!GLAD_GL_VERSION_1_2)&#32;<emphasis role="keywordflow">return</emphasis>;
+<anchor xml:id="_glad_8c_source_1l00713"/>00713 &#32;&#32;&#32;&#32;glad_glDrawRangeElements&#32;=&#32;(PFNGLDRAWRANGEELEMENTSPROC)load(<emphasis role="stringliteral">&quot;glDrawRangeElements&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00714"/>00714 &#32;&#32;&#32;&#32;glad_glTexImage3D&#32;=&#32;(PFNGLTEXIMAGE3DPROC)load(<emphasis role="stringliteral">&quot;glTexImage3D&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00715"/>00715 &#32;&#32;&#32;&#32;glad_glTexSubImage3D&#32;=&#32;(PFNGLTEXSUBIMAGE3DPROC)load(<emphasis role="stringliteral">&quot;glTexSubImage3D&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00716"/>00716 &#32;&#32;&#32;&#32;glad_glCopyTexSubImage3D&#32;=&#32;(PFNGLCOPYTEXSUBIMAGE3DPROC)load(<emphasis role="stringliteral">&quot;glCopyTexSubImage3D&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00717"/>00717 }
+<anchor xml:id="_glad_8c_source_1l00718"/>00718 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">void</emphasis>&#32;load_GL_VERSION_1_3(GLADloadproc&#32;load)&#32;{
+<anchor xml:id="_glad_8c_source_1l00719"/>00719 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(!GLAD_GL_VERSION_1_3)&#32;<emphasis role="keywordflow">return</emphasis>;
+<anchor xml:id="_glad_8c_source_1l00720"/>00720 &#32;&#32;&#32;&#32;glad_glActiveTexture&#32;=&#32;(PFNGLACTIVETEXTUREPROC)load(<emphasis role="stringliteral">&quot;glActiveTexture&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00721"/>00721 &#32;&#32;&#32;&#32;glad_glSampleCoverage&#32;=&#32;(PFNGLSAMPLECOVERAGEPROC)load(<emphasis role="stringliteral">&quot;glSampleCoverage&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00722"/>00722 &#32;&#32;&#32;&#32;glad_glCompressedTexImage3D&#32;=&#32;(PFNGLCOMPRESSEDTEXIMAGE3DPROC)load(<emphasis role="stringliteral">&quot;glCompressedTexImage3D&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00723"/>00723 &#32;&#32;&#32;&#32;glad_glCompressedTexImage2D&#32;=&#32;(PFNGLCOMPRESSEDTEXIMAGE2DPROC)load(<emphasis role="stringliteral">&quot;glCompressedTexImage2D&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00724"/>00724 &#32;&#32;&#32;&#32;glad_glCompressedTexImage1D&#32;=&#32;(PFNGLCOMPRESSEDTEXIMAGE1DPROC)load(<emphasis role="stringliteral">&quot;glCompressedTexImage1D&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00725"/>00725 &#32;&#32;&#32;&#32;glad_glCompressedTexSubImage3D&#32;=&#32;(PFNGLCOMPRESSEDTEXSUBIMAGE3DPROC)load(<emphasis role="stringliteral">&quot;glCompressedTexSubImage3D&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00726"/>00726 &#32;&#32;&#32;&#32;glad_glCompressedTexSubImage2D&#32;=&#32;(PFNGLCOMPRESSEDTEXSUBIMAGE2DPROC)load(<emphasis role="stringliteral">&quot;glCompressedTexSubImage2D&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00727"/>00727 &#32;&#32;&#32;&#32;glad_glCompressedTexSubImage1D&#32;=&#32;(PFNGLCOMPRESSEDTEXSUBIMAGE1DPROC)load(<emphasis role="stringliteral">&quot;glCompressedTexSubImage1D&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00728"/>00728 &#32;&#32;&#32;&#32;glad_glGetCompressedTexImage&#32;=&#32;(PFNGLGETCOMPRESSEDTEXIMAGEPROC)load(<emphasis role="stringliteral">&quot;glGetCompressedTexImage&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00729"/>00729 }
+<anchor xml:id="_glad_8c_source_1l00730"/>00730 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">void</emphasis>&#32;load_GL_VERSION_1_4(GLADloadproc&#32;load)&#32;{
+<anchor xml:id="_glad_8c_source_1l00731"/>00731 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(!GLAD_GL_VERSION_1_4)&#32;<emphasis role="keywordflow">return</emphasis>;
+<anchor xml:id="_glad_8c_source_1l00732"/>00732 &#32;&#32;&#32;&#32;glad_glBlendFuncSeparate&#32;=&#32;(PFNGLBLENDFUNCSEPARATEPROC)load(<emphasis role="stringliteral">&quot;glBlendFuncSeparate&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00733"/>00733 &#32;&#32;&#32;&#32;glad_glMultiDrawArrays&#32;=&#32;(PFNGLMULTIDRAWARRAYSPROC)load(<emphasis role="stringliteral">&quot;glMultiDrawArrays&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00734"/>00734 &#32;&#32;&#32;&#32;glad_glMultiDrawElements&#32;=&#32;(PFNGLMULTIDRAWELEMENTSPROC)load(<emphasis role="stringliteral">&quot;glMultiDrawElements&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00735"/>00735 &#32;&#32;&#32;&#32;glad_glPointParameterf&#32;=&#32;(PFNGLPOINTPARAMETERFPROC)load(<emphasis role="stringliteral">&quot;glPointParameterf&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00736"/>00736 &#32;&#32;&#32;&#32;glad_glPointParameterfv&#32;=&#32;(PFNGLPOINTPARAMETERFVPROC)load(<emphasis role="stringliteral">&quot;glPointParameterfv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00737"/>00737 &#32;&#32;&#32;&#32;glad_glPointParameteri&#32;=&#32;(PFNGLPOINTPARAMETERIPROC)load(<emphasis role="stringliteral">&quot;glPointParameteri&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00738"/>00738 &#32;&#32;&#32;&#32;glad_glPointParameteriv&#32;=&#32;(PFNGLPOINTPARAMETERIVPROC)load(<emphasis role="stringliteral">&quot;glPointParameteriv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00739"/>00739 &#32;&#32;&#32;&#32;glad_glBlendColor&#32;=&#32;(PFNGLBLENDCOLORPROC)load(<emphasis role="stringliteral">&quot;glBlendColor&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00740"/>00740 &#32;&#32;&#32;&#32;glad_glBlendEquation&#32;=&#32;(PFNGLBLENDEQUATIONPROC)load(<emphasis role="stringliteral">&quot;glBlendEquation&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00741"/>00741 }
+<anchor xml:id="_glad_8c_source_1l00742"/>00742 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">void</emphasis>&#32;load_GL_VERSION_1_5(GLADloadproc&#32;load)&#32;{
+<anchor xml:id="_glad_8c_source_1l00743"/>00743 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(!GLAD_GL_VERSION_1_5)&#32;<emphasis role="keywordflow">return</emphasis>;
+<anchor xml:id="_glad_8c_source_1l00744"/>00744 &#32;&#32;&#32;&#32;glad_glGenQueries&#32;=&#32;(PFNGLGENQUERIESPROC)load(<emphasis role="stringliteral">&quot;glGenQueries&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00745"/>00745 &#32;&#32;&#32;&#32;glad_glDeleteQueries&#32;=&#32;(PFNGLDELETEQUERIESPROC)load(<emphasis role="stringliteral">&quot;glDeleteQueries&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00746"/>00746 &#32;&#32;&#32;&#32;glad_glIsQuery&#32;=&#32;(PFNGLISQUERYPROC)load(<emphasis role="stringliteral">&quot;glIsQuery&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00747"/>00747 &#32;&#32;&#32;&#32;glad_glBeginQuery&#32;=&#32;(PFNGLBEGINQUERYPROC)load(<emphasis role="stringliteral">&quot;glBeginQuery&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00748"/>00748 &#32;&#32;&#32;&#32;glad_glEndQuery&#32;=&#32;(PFNGLENDQUERYPROC)load(<emphasis role="stringliteral">&quot;glEndQuery&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00749"/>00749 &#32;&#32;&#32;&#32;glad_glGetQueryiv&#32;=&#32;(PFNGLGETQUERYIVPROC)load(<emphasis role="stringliteral">&quot;glGetQueryiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00750"/>00750 &#32;&#32;&#32;&#32;glad_glGetQueryObjectiv&#32;=&#32;(PFNGLGETQUERYOBJECTIVPROC)load(<emphasis role="stringliteral">&quot;glGetQueryObjectiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00751"/>00751 &#32;&#32;&#32;&#32;glad_glGetQueryObjectuiv&#32;=&#32;(PFNGLGETQUERYOBJECTUIVPROC)load(<emphasis role="stringliteral">&quot;glGetQueryObjectuiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00752"/>00752 &#32;&#32;&#32;&#32;glad_glBindBuffer&#32;=&#32;(PFNGLBINDBUFFERPROC)load(<emphasis role="stringliteral">&quot;glBindBuffer&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00753"/>00753 &#32;&#32;&#32;&#32;glad_glDeleteBuffers&#32;=&#32;(PFNGLDELETEBUFFERSPROC)load(<emphasis role="stringliteral">&quot;glDeleteBuffers&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00754"/>00754 &#32;&#32;&#32;&#32;glad_glGenBuffers&#32;=&#32;(PFNGLGENBUFFERSPROC)load(<emphasis role="stringliteral">&quot;glGenBuffers&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00755"/>00755 &#32;&#32;&#32;&#32;glad_glIsBuffer&#32;=&#32;(PFNGLISBUFFERPROC)load(<emphasis role="stringliteral">&quot;glIsBuffer&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00756"/>00756 &#32;&#32;&#32;&#32;glad_glBufferData&#32;=&#32;(PFNGLBUFFERDATAPROC)load(<emphasis role="stringliteral">&quot;glBufferData&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00757"/>00757 &#32;&#32;&#32;&#32;glad_glBufferSubData&#32;=&#32;(PFNGLBUFFERSUBDATAPROC)load(<emphasis role="stringliteral">&quot;glBufferSubData&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00758"/>00758 &#32;&#32;&#32;&#32;glad_glGetBufferSubData&#32;=&#32;(PFNGLGETBUFFERSUBDATAPROC)load(<emphasis role="stringliteral">&quot;glGetBufferSubData&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00759"/>00759 &#32;&#32;&#32;&#32;glad_glMapBuffer&#32;=&#32;(PFNGLMAPBUFFERPROC)load(<emphasis role="stringliteral">&quot;glMapBuffer&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00760"/>00760 &#32;&#32;&#32;&#32;glad_glUnmapBuffer&#32;=&#32;(PFNGLUNMAPBUFFERPROC)load(<emphasis role="stringliteral">&quot;glUnmapBuffer&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00761"/>00761 &#32;&#32;&#32;&#32;glad_glGetBufferParameteriv&#32;=&#32;(PFNGLGETBUFFERPARAMETERIVPROC)load(<emphasis role="stringliteral">&quot;glGetBufferParameteriv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00762"/>00762 &#32;&#32;&#32;&#32;glad_glGetBufferPointerv&#32;=&#32;(PFNGLGETBUFFERPOINTERVPROC)load(<emphasis role="stringliteral">&quot;glGetBufferPointerv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00763"/>00763 }
+<anchor xml:id="_glad_8c_source_1l00764"/>00764 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">void</emphasis>&#32;load_GL_VERSION_2_0(GLADloadproc&#32;load)&#32;{
+<anchor xml:id="_glad_8c_source_1l00765"/>00765 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(!GLAD_GL_VERSION_2_0)&#32;<emphasis role="keywordflow">return</emphasis>;
+<anchor xml:id="_glad_8c_source_1l00766"/>00766 &#32;&#32;&#32;&#32;glad_glBlendEquationSeparate&#32;=&#32;(PFNGLBLENDEQUATIONSEPARATEPROC)load(<emphasis role="stringliteral">&quot;glBlendEquationSeparate&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00767"/>00767 &#32;&#32;&#32;&#32;glad_glDrawBuffers&#32;=&#32;(PFNGLDRAWBUFFERSPROC)load(<emphasis role="stringliteral">&quot;glDrawBuffers&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00768"/>00768 &#32;&#32;&#32;&#32;glad_glStencilOpSeparate&#32;=&#32;(PFNGLSTENCILOPSEPARATEPROC)load(<emphasis role="stringliteral">&quot;glStencilOpSeparate&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00769"/>00769 &#32;&#32;&#32;&#32;glad_glStencilFuncSeparate&#32;=&#32;(PFNGLSTENCILFUNCSEPARATEPROC)load(<emphasis role="stringliteral">&quot;glStencilFuncSeparate&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00770"/>00770 &#32;&#32;&#32;&#32;glad_glStencilMaskSeparate&#32;=&#32;(PFNGLSTENCILMASKSEPARATEPROC)load(<emphasis role="stringliteral">&quot;glStencilMaskSeparate&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00771"/>00771 &#32;&#32;&#32;&#32;glad_glAttachShader&#32;=&#32;(PFNGLATTACHSHADERPROC)load(<emphasis role="stringliteral">&quot;glAttachShader&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00772"/>00772 &#32;&#32;&#32;&#32;glad_glBindAttribLocation&#32;=&#32;(PFNGLBINDATTRIBLOCATIONPROC)load(<emphasis role="stringliteral">&quot;glBindAttribLocation&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00773"/>00773 &#32;&#32;&#32;&#32;glad_glCompileShader&#32;=&#32;(PFNGLCOMPILESHADERPROC)load(<emphasis role="stringliteral">&quot;glCompileShader&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00774"/>00774 &#32;&#32;&#32;&#32;glad_glCreateProgram&#32;=&#32;(PFNGLCREATEPROGRAMPROC)load(<emphasis role="stringliteral">&quot;glCreateProgram&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00775"/>00775 &#32;&#32;&#32;&#32;glad_glCreateShader&#32;=&#32;(PFNGLCREATESHADERPROC)load(<emphasis role="stringliteral">&quot;glCreateShader&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00776"/>00776 &#32;&#32;&#32;&#32;glad_glDeleteProgram&#32;=&#32;(PFNGLDELETEPROGRAMPROC)load(<emphasis role="stringliteral">&quot;glDeleteProgram&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00777"/>00777 &#32;&#32;&#32;&#32;glad_glDeleteShader&#32;=&#32;(PFNGLDELETESHADERPROC)load(<emphasis role="stringliteral">&quot;glDeleteShader&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00778"/>00778 &#32;&#32;&#32;&#32;glad_glDetachShader&#32;=&#32;(PFNGLDETACHSHADERPROC)load(<emphasis role="stringliteral">&quot;glDetachShader&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00779"/>00779 &#32;&#32;&#32;&#32;glad_glDisableVertexAttribArray&#32;=&#32;(PFNGLDISABLEVERTEXATTRIBARRAYPROC)load(<emphasis role="stringliteral">&quot;glDisableVertexAttribArray&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00780"/>00780 &#32;&#32;&#32;&#32;glad_glEnableVertexAttribArray&#32;=&#32;(PFNGLENABLEVERTEXATTRIBARRAYPROC)load(<emphasis role="stringliteral">&quot;glEnableVertexAttribArray&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00781"/>00781 &#32;&#32;&#32;&#32;glad_glGetActiveAttrib&#32;=&#32;(PFNGLGETACTIVEATTRIBPROC)load(<emphasis role="stringliteral">&quot;glGetActiveAttrib&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00782"/>00782 &#32;&#32;&#32;&#32;glad_glGetActiveUniform&#32;=&#32;(PFNGLGETACTIVEUNIFORMPROC)load(<emphasis role="stringliteral">&quot;glGetActiveUniform&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00783"/>00783 &#32;&#32;&#32;&#32;glad_glGetAttachedShaders&#32;=&#32;(PFNGLGETATTACHEDSHADERSPROC)load(<emphasis role="stringliteral">&quot;glGetAttachedShaders&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00784"/>00784 &#32;&#32;&#32;&#32;glad_glGetAttribLocation&#32;=&#32;(PFNGLGETATTRIBLOCATIONPROC)load(<emphasis role="stringliteral">&quot;glGetAttribLocation&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00785"/>00785 &#32;&#32;&#32;&#32;glad_glGetProgramiv&#32;=&#32;(PFNGLGETPROGRAMIVPROC)load(<emphasis role="stringliteral">&quot;glGetProgramiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00786"/>00786 &#32;&#32;&#32;&#32;glad_glGetProgramInfoLog&#32;=&#32;(PFNGLGETPROGRAMINFOLOGPROC)load(<emphasis role="stringliteral">&quot;glGetProgramInfoLog&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00787"/>00787 &#32;&#32;&#32;&#32;glad_glGetShaderiv&#32;=&#32;(PFNGLGETSHADERIVPROC)load(<emphasis role="stringliteral">&quot;glGetShaderiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00788"/>00788 &#32;&#32;&#32;&#32;glad_glGetShaderInfoLog&#32;=&#32;(PFNGLGETSHADERINFOLOGPROC)load(<emphasis role="stringliteral">&quot;glGetShaderInfoLog&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00789"/>00789 &#32;&#32;&#32;&#32;glad_glGetShaderSource&#32;=&#32;(PFNGLGETSHADERSOURCEPROC)load(<emphasis role="stringliteral">&quot;glGetShaderSource&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00790"/>00790 &#32;&#32;&#32;&#32;glad_glGetUniformLocation&#32;=&#32;(PFNGLGETUNIFORMLOCATIONPROC)load(<emphasis role="stringliteral">&quot;glGetUniformLocation&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00791"/>00791 &#32;&#32;&#32;&#32;glad_glGetUniformfv&#32;=&#32;(PFNGLGETUNIFORMFVPROC)load(<emphasis role="stringliteral">&quot;glGetUniformfv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00792"/>00792 &#32;&#32;&#32;&#32;glad_glGetUniformiv&#32;=&#32;(PFNGLGETUNIFORMIVPROC)load(<emphasis role="stringliteral">&quot;glGetUniformiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00793"/>00793 &#32;&#32;&#32;&#32;glad_glGetVertexAttribdv&#32;=&#32;(PFNGLGETVERTEXATTRIBDVPROC)load(<emphasis role="stringliteral">&quot;glGetVertexAttribdv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00794"/>00794 &#32;&#32;&#32;&#32;glad_glGetVertexAttribfv&#32;=&#32;(PFNGLGETVERTEXATTRIBFVPROC)load(<emphasis role="stringliteral">&quot;glGetVertexAttribfv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00795"/>00795 &#32;&#32;&#32;&#32;glad_glGetVertexAttribiv&#32;=&#32;(PFNGLGETVERTEXATTRIBIVPROC)load(<emphasis role="stringliteral">&quot;glGetVertexAttribiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00796"/>00796 &#32;&#32;&#32;&#32;glad_glGetVertexAttribPointerv&#32;=&#32;(PFNGLGETVERTEXATTRIBPOINTERVPROC)load(<emphasis role="stringliteral">&quot;glGetVertexAttribPointerv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00797"/>00797 &#32;&#32;&#32;&#32;glad_glIsProgram&#32;=&#32;(PFNGLISPROGRAMPROC)load(<emphasis role="stringliteral">&quot;glIsProgram&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00798"/>00798 &#32;&#32;&#32;&#32;glad_glIsShader&#32;=&#32;(PFNGLISSHADERPROC)load(<emphasis role="stringliteral">&quot;glIsShader&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00799"/>00799 &#32;&#32;&#32;&#32;glad_glLinkProgram&#32;=&#32;(PFNGLLINKPROGRAMPROC)load(<emphasis role="stringliteral">&quot;glLinkProgram&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00800"/>00800 &#32;&#32;&#32;&#32;glad_glShaderSource&#32;=&#32;(PFNGLSHADERSOURCEPROC)load(<emphasis role="stringliteral">&quot;glShaderSource&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00801"/>00801 &#32;&#32;&#32;&#32;glad_glUseProgram&#32;=&#32;(PFNGLUSEPROGRAMPROC)load(<emphasis role="stringliteral">&quot;glUseProgram&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00802"/>00802 &#32;&#32;&#32;&#32;glad_glUniform1f&#32;=&#32;(PFNGLUNIFORM1FPROC)load(<emphasis role="stringliteral">&quot;glUniform1f&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00803"/>00803 &#32;&#32;&#32;&#32;glad_glUniform2f&#32;=&#32;(PFNGLUNIFORM2FPROC)load(<emphasis role="stringliteral">&quot;glUniform2f&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00804"/>00804 &#32;&#32;&#32;&#32;glad_glUniform3f&#32;=&#32;(PFNGLUNIFORM3FPROC)load(<emphasis role="stringliteral">&quot;glUniform3f&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00805"/>00805 &#32;&#32;&#32;&#32;glad_glUniform4f&#32;=&#32;(PFNGLUNIFORM4FPROC)load(<emphasis role="stringliteral">&quot;glUniform4f&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00806"/>00806 &#32;&#32;&#32;&#32;glad_glUniform1i&#32;=&#32;(PFNGLUNIFORM1IPROC)load(<emphasis role="stringliteral">&quot;glUniform1i&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00807"/>00807 &#32;&#32;&#32;&#32;glad_glUniform2i&#32;=&#32;(PFNGLUNIFORM2IPROC)load(<emphasis role="stringliteral">&quot;glUniform2i&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00808"/>00808 &#32;&#32;&#32;&#32;glad_glUniform3i&#32;=&#32;(PFNGLUNIFORM3IPROC)load(<emphasis role="stringliteral">&quot;glUniform3i&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00809"/>00809 &#32;&#32;&#32;&#32;glad_glUniform4i&#32;=&#32;(PFNGLUNIFORM4IPROC)load(<emphasis role="stringliteral">&quot;glUniform4i&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00810"/>00810 &#32;&#32;&#32;&#32;glad_glUniform1fv&#32;=&#32;(PFNGLUNIFORM1FVPROC)load(<emphasis role="stringliteral">&quot;glUniform1fv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00811"/>00811 &#32;&#32;&#32;&#32;glad_glUniform2fv&#32;=&#32;(PFNGLUNIFORM2FVPROC)load(<emphasis role="stringliteral">&quot;glUniform2fv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00812"/>00812 &#32;&#32;&#32;&#32;glad_glUniform3fv&#32;=&#32;(PFNGLUNIFORM3FVPROC)load(<emphasis role="stringliteral">&quot;glUniform3fv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00813"/>00813 &#32;&#32;&#32;&#32;glad_glUniform4fv&#32;=&#32;(PFNGLUNIFORM4FVPROC)load(<emphasis role="stringliteral">&quot;glUniform4fv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00814"/>00814 &#32;&#32;&#32;&#32;glad_glUniform1iv&#32;=&#32;(PFNGLUNIFORM1IVPROC)load(<emphasis role="stringliteral">&quot;glUniform1iv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00815"/>00815 &#32;&#32;&#32;&#32;glad_glUniform2iv&#32;=&#32;(PFNGLUNIFORM2IVPROC)load(<emphasis role="stringliteral">&quot;glUniform2iv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00816"/>00816 &#32;&#32;&#32;&#32;glad_glUniform3iv&#32;=&#32;(PFNGLUNIFORM3IVPROC)load(<emphasis role="stringliteral">&quot;glUniform3iv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00817"/>00817 &#32;&#32;&#32;&#32;glad_glUniform4iv&#32;=&#32;(PFNGLUNIFORM4IVPROC)load(<emphasis role="stringliteral">&quot;glUniform4iv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00818"/>00818 &#32;&#32;&#32;&#32;glad_glUniformMatrix2fv&#32;=&#32;(PFNGLUNIFORMMATRIX2FVPROC)load(<emphasis role="stringliteral">&quot;glUniformMatrix2fv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00819"/>00819 &#32;&#32;&#32;&#32;glad_glUniformMatrix3fv&#32;=&#32;(PFNGLUNIFORMMATRIX3FVPROC)load(<emphasis role="stringliteral">&quot;glUniformMatrix3fv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00820"/>00820 &#32;&#32;&#32;&#32;glad_glUniformMatrix4fv&#32;=&#32;(PFNGLUNIFORMMATRIX4FVPROC)load(<emphasis role="stringliteral">&quot;glUniformMatrix4fv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00821"/>00821 &#32;&#32;&#32;&#32;glad_glValidateProgram&#32;=&#32;(PFNGLVALIDATEPROGRAMPROC)load(<emphasis role="stringliteral">&quot;glValidateProgram&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00822"/>00822 &#32;&#32;&#32;&#32;glad_glVertexAttrib1d&#32;=&#32;(PFNGLVERTEXATTRIB1DPROC)load(<emphasis role="stringliteral">&quot;glVertexAttrib1d&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00823"/>00823 &#32;&#32;&#32;&#32;glad_glVertexAttrib1dv&#32;=&#32;(PFNGLVERTEXATTRIB1DVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttrib1dv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00824"/>00824 &#32;&#32;&#32;&#32;glad_glVertexAttrib1f&#32;=&#32;(PFNGLVERTEXATTRIB1FPROC)load(<emphasis role="stringliteral">&quot;glVertexAttrib1f&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00825"/>00825 &#32;&#32;&#32;&#32;glad_glVertexAttrib1fv&#32;=&#32;(PFNGLVERTEXATTRIB1FVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttrib1fv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00826"/>00826 &#32;&#32;&#32;&#32;glad_glVertexAttrib1s&#32;=&#32;(PFNGLVERTEXATTRIB1SPROC)load(<emphasis role="stringliteral">&quot;glVertexAttrib1s&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00827"/>00827 &#32;&#32;&#32;&#32;glad_glVertexAttrib1sv&#32;=&#32;(PFNGLVERTEXATTRIB1SVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttrib1sv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00828"/>00828 &#32;&#32;&#32;&#32;glad_glVertexAttrib2d&#32;=&#32;(PFNGLVERTEXATTRIB2DPROC)load(<emphasis role="stringliteral">&quot;glVertexAttrib2d&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00829"/>00829 &#32;&#32;&#32;&#32;glad_glVertexAttrib2dv&#32;=&#32;(PFNGLVERTEXATTRIB2DVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttrib2dv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00830"/>00830 &#32;&#32;&#32;&#32;glad_glVertexAttrib2f&#32;=&#32;(PFNGLVERTEXATTRIB2FPROC)load(<emphasis role="stringliteral">&quot;glVertexAttrib2f&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00831"/>00831 &#32;&#32;&#32;&#32;glad_glVertexAttrib2fv&#32;=&#32;(PFNGLVERTEXATTRIB2FVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttrib2fv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00832"/>00832 &#32;&#32;&#32;&#32;glad_glVertexAttrib2s&#32;=&#32;(PFNGLVERTEXATTRIB2SPROC)load(<emphasis role="stringliteral">&quot;glVertexAttrib2s&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00833"/>00833 &#32;&#32;&#32;&#32;glad_glVertexAttrib2sv&#32;=&#32;(PFNGLVERTEXATTRIB2SVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttrib2sv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00834"/>00834 &#32;&#32;&#32;&#32;glad_glVertexAttrib3d&#32;=&#32;(PFNGLVERTEXATTRIB3DPROC)load(<emphasis role="stringliteral">&quot;glVertexAttrib3d&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00835"/>00835 &#32;&#32;&#32;&#32;glad_glVertexAttrib3dv&#32;=&#32;(PFNGLVERTEXATTRIB3DVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttrib3dv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00836"/>00836 &#32;&#32;&#32;&#32;glad_glVertexAttrib3f&#32;=&#32;(PFNGLVERTEXATTRIB3FPROC)load(<emphasis role="stringliteral">&quot;glVertexAttrib3f&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00837"/>00837 &#32;&#32;&#32;&#32;glad_glVertexAttrib3fv&#32;=&#32;(PFNGLVERTEXATTRIB3FVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttrib3fv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00838"/>00838 &#32;&#32;&#32;&#32;glad_glVertexAttrib3s&#32;=&#32;(PFNGLVERTEXATTRIB3SPROC)load(<emphasis role="stringliteral">&quot;glVertexAttrib3s&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00839"/>00839 &#32;&#32;&#32;&#32;glad_glVertexAttrib3sv&#32;=&#32;(PFNGLVERTEXATTRIB3SVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttrib3sv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00840"/>00840 &#32;&#32;&#32;&#32;glad_glVertexAttrib4Nbv&#32;=&#32;(PFNGLVERTEXATTRIB4NBVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttrib4Nbv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00841"/>00841 &#32;&#32;&#32;&#32;glad_glVertexAttrib4Niv&#32;=&#32;(PFNGLVERTEXATTRIB4NIVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttrib4Niv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00842"/>00842 &#32;&#32;&#32;&#32;glad_glVertexAttrib4Nsv&#32;=&#32;(PFNGLVERTEXATTRIB4NSVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttrib4Nsv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00843"/>00843 &#32;&#32;&#32;&#32;glad_glVertexAttrib4Nub&#32;=&#32;(PFNGLVERTEXATTRIB4NUBPROC)load(<emphasis role="stringliteral">&quot;glVertexAttrib4Nub&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00844"/>00844 &#32;&#32;&#32;&#32;glad_glVertexAttrib4Nubv&#32;=&#32;(PFNGLVERTEXATTRIB4NUBVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttrib4Nubv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00845"/>00845 &#32;&#32;&#32;&#32;glad_glVertexAttrib4Nuiv&#32;=&#32;(PFNGLVERTEXATTRIB4NUIVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttrib4Nuiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00846"/>00846 &#32;&#32;&#32;&#32;glad_glVertexAttrib4Nusv&#32;=&#32;(PFNGLVERTEXATTRIB4NUSVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttrib4Nusv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00847"/>00847 &#32;&#32;&#32;&#32;glad_glVertexAttrib4bv&#32;=&#32;(PFNGLVERTEXATTRIB4BVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttrib4bv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00848"/>00848 &#32;&#32;&#32;&#32;glad_glVertexAttrib4d&#32;=&#32;(PFNGLVERTEXATTRIB4DPROC)load(<emphasis role="stringliteral">&quot;glVertexAttrib4d&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00849"/>00849 &#32;&#32;&#32;&#32;glad_glVertexAttrib4dv&#32;=&#32;(PFNGLVERTEXATTRIB4DVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttrib4dv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00850"/>00850 &#32;&#32;&#32;&#32;glad_glVertexAttrib4f&#32;=&#32;(PFNGLVERTEXATTRIB4FPROC)load(<emphasis role="stringliteral">&quot;glVertexAttrib4f&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00851"/>00851 &#32;&#32;&#32;&#32;glad_glVertexAttrib4fv&#32;=&#32;(PFNGLVERTEXATTRIB4FVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttrib4fv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00852"/>00852 &#32;&#32;&#32;&#32;glad_glVertexAttrib4iv&#32;=&#32;(PFNGLVERTEXATTRIB4IVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttrib4iv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00853"/>00853 &#32;&#32;&#32;&#32;glad_glVertexAttrib4s&#32;=&#32;(PFNGLVERTEXATTRIB4SPROC)load(<emphasis role="stringliteral">&quot;glVertexAttrib4s&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00854"/>00854 &#32;&#32;&#32;&#32;glad_glVertexAttrib4sv&#32;=&#32;(PFNGLVERTEXATTRIB4SVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttrib4sv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00855"/>00855 &#32;&#32;&#32;&#32;glad_glVertexAttrib4ubv&#32;=&#32;(PFNGLVERTEXATTRIB4UBVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttrib4ubv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00856"/>00856 &#32;&#32;&#32;&#32;glad_glVertexAttrib4uiv&#32;=&#32;(PFNGLVERTEXATTRIB4UIVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttrib4uiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00857"/>00857 &#32;&#32;&#32;&#32;glad_glVertexAttrib4usv&#32;=&#32;(PFNGLVERTEXATTRIB4USVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttrib4usv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00858"/>00858 &#32;&#32;&#32;&#32;glad_glVertexAttribPointer&#32;=&#32;(PFNGLVERTEXATTRIBPOINTERPROC)load(<emphasis role="stringliteral">&quot;glVertexAttribPointer&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00859"/>00859 }
+<anchor xml:id="_glad_8c_source_1l00860"/>00860 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">void</emphasis>&#32;load_GL_VERSION_2_1(GLADloadproc&#32;load)&#32;{
+<anchor xml:id="_glad_8c_source_1l00861"/>00861 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(!GLAD_GL_VERSION_2_1)&#32;<emphasis role="keywordflow">return</emphasis>;
+<anchor xml:id="_glad_8c_source_1l00862"/>00862 &#32;&#32;&#32;&#32;glad_glUniformMatrix2x3fv&#32;=&#32;(PFNGLUNIFORMMATRIX2X3FVPROC)load(<emphasis role="stringliteral">&quot;glUniformMatrix2x3fv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00863"/>00863 &#32;&#32;&#32;&#32;glad_glUniformMatrix3x2fv&#32;=&#32;(PFNGLUNIFORMMATRIX3X2FVPROC)load(<emphasis role="stringliteral">&quot;glUniformMatrix3x2fv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00864"/>00864 &#32;&#32;&#32;&#32;glad_glUniformMatrix2x4fv&#32;=&#32;(PFNGLUNIFORMMATRIX2X4FVPROC)load(<emphasis role="stringliteral">&quot;glUniformMatrix2x4fv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00865"/>00865 &#32;&#32;&#32;&#32;glad_glUniformMatrix4x2fv&#32;=&#32;(PFNGLUNIFORMMATRIX4X2FVPROC)load(<emphasis role="stringliteral">&quot;glUniformMatrix4x2fv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00866"/>00866 &#32;&#32;&#32;&#32;glad_glUniformMatrix3x4fv&#32;=&#32;(PFNGLUNIFORMMATRIX3X4FVPROC)load(<emphasis role="stringliteral">&quot;glUniformMatrix3x4fv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00867"/>00867 &#32;&#32;&#32;&#32;glad_glUniformMatrix4x3fv&#32;=&#32;(PFNGLUNIFORMMATRIX4X3FVPROC)load(<emphasis role="stringliteral">&quot;glUniformMatrix4x3fv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00868"/>00868 }
+<anchor xml:id="_glad_8c_source_1l00869"/>00869 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">void</emphasis>&#32;load_GL_VERSION_3_0(GLADloadproc&#32;load)&#32;{
+<anchor xml:id="_glad_8c_source_1l00870"/>00870 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(!GLAD_GL_VERSION_3_0)&#32;<emphasis role="keywordflow">return</emphasis>;
+<anchor xml:id="_glad_8c_source_1l00871"/>00871 &#32;&#32;&#32;&#32;glad_glColorMaski&#32;=&#32;(PFNGLCOLORMASKIPROC)load(<emphasis role="stringliteral">&quot;glColorMaski&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00872"/>00872 &#32;&#32;&#32;&#32;glad_glGetBooleani_v&#32;=&#32;(PFNGLGETBOOLEANI_VPROC)load(<emphasis role="stringliteral">&quot;glGetBooleani_v&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00873"/>00873 &#32;&#32;&#32;&#32;glad_glGetIntegeri_v&#32;=&#32;(PFNGLGETINTEGERI_VPROC)load(<emphasis role="stringliteral">&quot;glGetIntegeri_v&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00874"/>00874 &#32;&#32;&#32;&#32;glad_glEnablei&#32;=&#32;(PFNGLENABLEIPROC)load(<emphasis role="stringliteral">&quot;glEnablei&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00875"/>00875 &#32;&#32;&#32;&#32;glad_glDisablei&#32;=&#32;(PFNGLDISABLEIPROC)load(<emphasis role="stringliteral">&quot;glDisablei&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00876"/>00876 &#32;&#32;&#32;&#32;glad_glIsEnabledi&#32;=&#32;(PFNGLISENABLEDIPROC)load(<emphasis role="stringliteral">&quot;glIsEnabledi&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00877"/>00877 &#32;&#32;&#32;&#32;glad_glBeginTransformFeedback&#32;=&#32;(PFNGLBEGINTRANSFORMFEEDBACKPROC)load(<emphasis role="stringliteral">&quot;glBeginTransformFeedback&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00878"/>00878 &#32;&#32;&#32;&#32;glad_glEndTransformFeedback&#32;=&#32;(PFNGLENDTRANSFORMFEEDBACKPROC)load(<emphasis role="stringliteral">&quot;glEndTransformFeedback&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00879"/>00879 &#32;&#32;&#32;&#32;glad_glBindBufferRange&#32;=&#32;(PFNGLBINDBUFFERRANGEPROC)load(<emphasis role="stringliteral">&quot;glBindBufferRange&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00880"/>00880 &#32;&#32;&#32;&#32;glad_glBindBufferBase&#32;=&#32;(PFNGLBINDBUFFERBASEPROC)load(<emphasis role="stringliteral">&quot;glBindBufferBase&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00881"/>00881 &#32;&#32;&#32;&#32;glad_glTransformFeedbackVaryings&#32;=&#32;(PFNGLTRANSFORMFEEDBACKVARYINGSPROC)load(<emphasis role="stringliteral">&quot;glTransformFeedbackVaryings&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00882"/>00882 &#32;&#32;&#32;&#32;glad_glGetTransformFeedbackVarying&#32;=&#32;(PFNGLGETTRANSFORMFEEDBACKVARYINGPROC)load(<emphasis role="stringliteral">&quot;glGetTransformFeedbackVarying&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00883"/>00883 &#32;&#32;&#32;&#32;glad_glClampColor&#32;=&#32;(PFNGLCLAMPCOLORPROC)load(<emphasis role="stringliteral">&quot;glClampColor&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00884"/>00884 &#32;&#32;&#32;&#32;glad_glBeginConditionalRender&#32;=&#32;(PFNGLBEGINCONDITIONALRENDERPROC)load(<emphasis role="stringliteral">&quot;glBeginConditionalRender&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00885"/>00885 &#32;&#32;&#32;&#32;glad_glEndConditionalRender&#32;=&#32;(PFNGLENDCONDITIONALRENDERPROC)load(<emphasis role="stringliteral">&quot;glEndConditionalRender&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00886"/>00886 &#32;&#32;&#32;&#32;glad_glVertexAttribIPointer&#32;=&#32;(PFNGLVERTEXATTRIBIPOINTERPROC)load(<emphasis role="stringliteral">&quot;glVertexAttribIPointer&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00887"/>00887 &#32;&#32;&#32;&#32;glad_glGetVertexAttribIiv&#32;=&#32;(PFNGLGETVERTEXATTRIBIIVPROC)load(<emphasis role="stringliteral">&quot;glGetVertexAttribIiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00888"/>00888 &#32;&#32;&#32;&#32;glad_glGetVertexAttribIuiv&#32;=&#32;(PFNGLGETVERTEXATTRIBIUIVPROC)load(<emphasis role="stringliteral">&quot;glGetVertexAttribIuiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00889"/>00889 &#32;&#32;&#32;&#32;glad_glVertexAttribI1i&#32;=&#32;(PFNGLVERTEXATTRIBI1IPROC)load(<emphasis role="stringliteral">&quot;glVertexAttribI1i&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00890"/>00890 &#32;&#32;&#32;&#32;glad_glVertexAttribI2i&#32;=&#32;(PFNGLVERTEXATTRIBI2IPROC)load(<emphasis role="stringliteral">&quot;glVertexAttribI2i&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00891"/>00891 &#32;&#32;&#32;&#32;glad_glVertexAttribI3i&#32;=&#32;(PFNGLVERTEXATTRIBI3IPROC)load(<emphasis role="stringliteral">&quot;glVertexAttribI3i&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00892"/>00892 &#32;&#32;&#32;&#32;glad_glVertexAttribI4i&#32;=&#32;(PFNGLVERTEXATTRIBI4IPROC)load(<emphasis role="stringliteral">&quot;glVertexAttribI4i&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00893"/>00893 &#32;&#32;&#32;&#32;glad_glVertexAttribI1ui&#32;=&#32;(PFNGLVERTEXATTRIBI1UIPROC)load(<emphasis role="stringliteral">&quot;glVertexAttribI1ui&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00894"/>00894 &#32;&#32;&#32;&#32;glad_glVertexAttribI2ui&#32;=&#32;(PFNGLVERTEXATTRIBI2UIPROC)load(<emphasis role="stringliteral">&quot;glVertexAttribI2ui&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00895"/>00895 &#32;&#32;&#32;&#32;glad_glVertexAttribI3ui&#32;=&#32;(PFNGLVERTEXATTRIBI3UIPROC)load(<emphasis role="stringliteral">&quot;glVertexAttribI3ui&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00896"/>00896 &#32;&#32;&#32;&#32;glad_glVertexAttribI4ui&#32;=&#32;(PFNGLVERTEXATTRIBI4UIPROC)load(<emphasis role="stringliteral">&quot;glVertexAttribI4ui&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00897"/>00897 &#32;&#32;&#32;&#32;glad_glVertexAttribI1iv&#32;=&#32;(PFNGLVERTEXATTRIBI1IVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttribI1iv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00898"/>00898 &#32;&#32;&#32;&#32;glad_glVertexAttribI2iv&#32;=&#32;(PFNGLVERTEXATTRIBI2IVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttribI2iv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00899"/>00899 &#32;&#32;&#32;&#32;glad_glVertexAttribI3iv&#32;=&#32;(PFNGLVERTEXATTRIBI3IVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttribI3iv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00900"/>00900 &#32;&#32;&#32;&#32;glad_glVertexAttribI4iv&#32;=&#32;(PFNGLVERTEXATTRIBI4IVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttribI4iv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00901"/>00901 &#32;&#32;&#32;&#32;glad_glVertexAttribI1uiv&#32;=&#32;(PFNGLVERTEXATTRIBI1UIVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttribI1uiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00902"/>00902 &#32;&#32;&#32;&#32;glad_glVertexAttribI2uiv&#32;=&#32;(PFNGLVERTEXATTRIBI2UIVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttribI2uiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00903"/>00903 &#32;&#32;&#32;&#32;glad_glVertexAttribI3uiv&#32;=&#32;(PFNGLVERTEXATTRIBI3UIVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttribI3uiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00904"/>00904 &#32;&#32;&#32;&#32;glad_glVertexAttribI4uiv&#32;=&#32;(PFNGLVERTEXATTRIBI4UIVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttribI4uiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00905"/>00905 &#32;&#32;&#32;&#32;glad_glVertexAttribI4bv&#32;=&#32;(PFNGLVERTEXATTRIBI4BVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttribI4bv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00906"/>00906 &#32;&#32;&#32;&#32;glad_glVertexAttribI4sv&#32;=&#32;(PFNGLVERTEXATTRIBI4SVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttribI4sv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00907"/>00907 &#32;&#32;&#32;&#32;glad_glVertexAttribI4ubv&#32;=&#32;(PFNGLVERTEXATTRIBI4UBVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttribI4ubv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00908"/>00908 &#32;&#32;&#32;&#32;glad_glVertexAttribI4usv&#32;=&#32;(PFNGLVERTEXATTRIBI4USVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttribI4usv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00909"/>00909 &#32;&#32;&#32;&#32;glad_glGetUniformuiv&#32;=&#32;(PFNGLGETUNIFORMUIVPROC)load(<emphasis role="stringliteral">&quot;glGetUniformuiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00910"/>00910 &#32;&#32;&#32;&#32;glad_glBindFragDataLocation&#32;=&#32;(PFNGLBINDFRAGDATALOCATIONPROC)load(<emphasis role="stringliteral">&quot;glBindFragDataLocation&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00911"/>00911 &#32;&#32;&#32;&#32;glad_glGetFragDataLocation&#32;=&#32;(PFNGLGETFRAGDATALOCATIONPROC)load(<emphasis role="stringliteral">&quot;glGetFragDataLocation&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00912"/>00912 &#32;&#32;&#32;&#32;glad_glUniform1ui&#32;=&#32;(PFNGLUNIFORM1UIPROC)load(<emphasis role="stringliteral">&quot;glUniform1ui&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00913"/>00913 &#32;&#32;&#32;&#32;glad_glUniform2ui&#32;=&#32;(PFNGLUNIFORM2UIPROC)load(<emphasis role="stringliteral">&quot;glUniform2ui&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00914"/>00914 &#32;&#32;&#32;&#32;glad_glUniform3ui&#32;=&#32;(PFNGLUNIFORM3UIPROC)load(<emphasis role="stringliteral">&quot;glUniform3ui&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00915"/>00915 &#32;&#32;&#32;&#32;glad_glUniform4ui&#32;=&#32;(PFNGLUNIFORM4UIPROC)load(<emphasis role="stringliteral">&quot;glUniform4ui&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00916"/>00916 &#32;&#32;&#32;&#32;glad_glUniform1uiv&#32;=&#32;(PFNGLUNIFORM1UIVPROC)load(<emphasis role="stringliteral">&quot;glUniform1uiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00917"/>00917 &#32;&#32;&#32;&#32;glad_glUniform2uiv&#32;=&#32;(PFNGLUNIFORM2UIVPROC)load(<emphasis role="stringliteral">&quot;glUniform2uiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00918"/>00918 &#32;&#32;&#32;&#32;glad_glUniform3uiv&#32;=&#32;(PFNGLUNIFORM3UIVPROC)load(<emphasis role="stringliteral">&quot;glUniform3uiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00919"/>00919 &#32;&#32;&#32;&#32;glad_glUniform4uiv&#32;=&#32;(PFNGLUNIFORM4UIVPROC)load(<emphasis role="stringliteral">&quot;glUniform4uiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00920"/>00920 &#32;&#32;&#32;&#32;glad_glTexParameterIiv&#32;=&#32;(PFNGLTEXPARAMETERIIVPROC)load(<emphasis role="stringliteral">&quot;glTexParameterIiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00921"/>00921 &#32;&#32;&#32;&#32;glad_glTexParameterIuiv&#32;=&#32;(PFNGLTEXPARAMETERIUIVPROC)load(<emphasis role="stringliteral">&quot;glTexParameterIuiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00922"/>00922 &#32;&#32;&#32;&#32;glad_glGetTexParameterIiv&#32;=&#32;(PFNGLGETTEXPARAMETERIIVPROC)load(<emphasis role="stringliteral">&quot;glGetTexParameterIiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00923"/>00923 &#32;&#32;&#32;&#32;glad_glGetTexParameterIuiv&#32;=&#32;(PFNGLGETTEXPARAMETERIUIVPROC)load(<emphasis role="stringliteral">&quot;glGetTexParameterIuiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00924"/>00924 &#32;&#32;&#32;&#32;glad_glClearBufferiv&#32;=&#32;(PFNGLCLEARBUFFERIVPROC)load(<emphasis role="stringliteral">&quot;glClearBufferiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00925"/>00925 &#32;&#32;&#32;&#32;glad_glClearBufferuiv&#32;=&#32;(PFNGLCLEARBUFFERUIVPROC)load(<emphasis role="stringliteral">&quot;glClearBufferuiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00926"/>00926 &#32;&#32;&#32;&#32;glad_glClearBufferfv&#32;=&#32;(PFNGLCLEARBUFFERFVPROC)load(<emphasis role="stringliteral">&quot;glClearBufferfv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00927"/>00927 &#32;&#32;&#32;&#32;glad_glClearBufferfi&#32;=&#32;(PFNGLCLEARBUFFERFIPROC)load(<emphasis role="stringliteral">&quot;glClearBufferfi&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00928"/>00928 &#32;&#32;&#32;&#32;glad_glGetStringi&#32;=&#32;(PFNGLGETSTRINGIPROC)load(<emphasis role="stringliteral">&quot;glGetStringi&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00929"/>00929 &#32;&#32;&#32;&#32;glad_glIsRenderbuffer&#32;=&#32;(PFNGLISRENDERBUFFERPROC)load(<emphasis role="stringliteral">&quot;glIsRenderbuffer&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00930"/>00930 &#32;&#32;&#32;&#32;glad_glBindRenderbuffer&#32;=&#32;(PFNGLBINDRENDERBUFFERPROC)load(<emphasis role="stringliteral">&quot;glBindRenderbuffer&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00931"/>00931 &#32;&#32;&#32;&#32;glad_glDeleteRenderbuffers&#32;=&#32;(PFNGLDELETERENDERBUFFERSPROC)load(<emphasis role="stringliteral">&quot;glDeleteRenderbuffers&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00932"/>00932 &#32;&#32;&#32;&#32;glad_glGenRenderbuffers&#32;=&#32;(PFNGLGENRENDERBUFFERSPROC)load(<emphasis role="stringliteral">&quot;glGenRenderbuffers&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00933"/>00933 &#32;&#32;&#32;&#32;glad_glRenderbufferStorage&#32;=&#32;(PFNGLRENDERBUFFERSTORAGEPROC)load(<emphasis role="stringliteral">&quot;glRenderbufferStorage&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00934"/>00934 &#32;&#32;&#32;&#32;glad_glGetRenderbufferParameteriv&#32;=&#32;(PFNGLGETRENDERBUFFERPARAMETERIVPROC)load(<emphasis role="stringliteral">&quot;glGetRenderbufferParameteriv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00935"/>00935 &#32;&#32;&#32;&#32;glad_glIsFramebuffer&#32;=&#32;(PFNGLISFRAMEBUFFERPROC)load(<emphasis role="stringliteral">&quot;glIsFramebuffer&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00936"/>00936 &#32;&#32;&#32;&#32;glad_glBindFramebuffer&#32;=&#32;(PFNGLBINDFRAMEBUFFERPROC)load(<emphasis role="stringliteral">&quot;glBindFramebuffer&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00937"/>00937 &#32;&#32;&#32;&#32;glad_glDeleteFramebuffers&#32;=&#32;(PFNGLDELETEFRAMEBUFFERSPROC)load(<emphasis role="stringliteral">&quot;glDeleteFramebuffers&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00938"/>00938 &#32;&#32;&#32;&#32;glad_glGenFramebuffers&#32;=&#32;(PFNGLGENFRAMEBUFFERSPROC)load(<emphasis role="stringliteral">&quot;glGenFramebuffers&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00939"/>00939 &#32;&#32;&#32;&#32;glad_glCheckFramebufferStatus&#32;=&#32;(PFNGLCHECKFRAMEBUFFERSTATUSPROC)load(<emphasis role="stringliteral">&quot;glCheckFramebufferStatus&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00940"/>00940 &#32;&#32;&#32;&#32;glad_glFramebufferTexture1D&#32;=&#32;(PFNGLFRAMEBUFFERTEXTURE1DPROC)load(<emphasis role="stringliteral">&quot;glFramebufferTexture1D&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00941"/>00941 &#32;&#32;&#32;&#32;glad_glFramebufferTexture2D&#32;=&#32;(PFNGLFRAMEBUFFERTEXTURE2DPROC)load(<emphasis role="stringliteral">&quot;glFramebufferTexture2D&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00942"/>00942 &#32;&#32;&#32;&#32;glad_glFramebufferTexture3D&#32;=&#32;(PFNGLFRAMEBUFFERTEXTURE3DPROC)load(<emphasis role="stringliteral">&quot;glFramebufferTexture3D&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00943"/>00943 &#32;&#32;&#32;&#32;glad_glFramebufferRenderbuffer&#32;=&#32;(PFNGLFRAMEBUFFERRENDERBUFFERPROC)load(<emphasis role="stringliteral">&quot;glFramebufferRenderbuffer&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00944"/>00944 &#32;&#32;&#32;&#32;glad_glGetFramebufferAttachmentParameteriv&#32;=&#32;(PFNGLGETFRAMEBUFFERATTACHMENTPARAMETERIVPROC)load(<emphasis role="stringliteral">&quot;glGetFramebufferAttachmentParameteriv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00945"/>00945 &#32;&#32;&#32;&#32;glad_glGenerateMipmap&#32;=&#32;(PFNGLGENERATEMIPMAPPROC)load(<emphasis role="stringliteral">&quot;glGenerateMipmap&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00946"/>00946 &#32;&#32;&#32;&#32;glad_glBlitFramebuffer&#32;=&#32;(PFNGLBLITFRAMEBUFFERPROC)load(<emphasis role="stringliteral">&quot;glBlitFramebuffer&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00947"/>00947 &#32;&#32;&#32;&#32;glad_glRenderbufferStorageMultisample&#32;=&#32;(PFNGLRENDERBUFFERSTORAGEMULTISAMPLEPROC)load(<emphasis role="stringliteral">&quot;glRenderbufferStorageMultisample&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00948"/>00948 &#32;&#32;&#32;&#32;glad_glFramebufferTextureLayer&#32;=&#32;(PFNGLFRAMEBUFFERTEXTURELAYERPROC)load(<emphasis role="stringliteral">&quot;glFramebufferTextureLayer&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00949"/>00949 &#32;&#32;&#32;&#32;glad_glMapBufferRange&#32;=&#32;(PFNGLMAPBUFFERRANGEPROC)load(<emphasis role="stringliteral">&quot;glMapBufferRange&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00950"/>00950 &#32;&#32;&#32;&#32;glad_glFlushMappedBufferRange&#32;=&#32;(PFNGLFLUSHMAPPEDBUFFERRANGEPROC)load(<emphasis role="stringliteral">&quot;glFlushMappedBufferRange&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00951"/>00951 &#32;&#32;&#32;&#32;glad_glBindVertexArray&#32;=&#32;(PFNGLBINDVERTEXARRAYPROC)load(<emphasis role="stringliteral">&quot;glBindVertexArray&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00952"/>00952 &#32;&#32;&#32;&#32;glad_glDeleteVertexArrays&#32;=&#32;(PFNGLDELETEVERTEXARRAYSPROC)load(<emphasis role="stringliteral">&quot;glDeleteVertexArrays&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00953"/>00953 &#32;&#32;&#32;&#32;glad_glGenVertexArrays&#32;=&#32;(PFNGLGENVERTEXARRAYSPROC)load(<emphasis role="stringliteral">&quot;glGenVertexArrays&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00954"/>00954 &#32;&#32;&#32;&#32;glad_glIsVertexArray&#32;=&#32;(PFNGLISVERTEXARRAYPROC)load(<emphasis role="stringliteral">&quot;glIsVertexArray&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00955"/>00955 }
+<anchor xml:id="_glad_8c_source_1l00956"/>00956 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">void</emphasis>&#32;load_GL_VERSION_3_1(GLADloadproc&#32;load)&#32;{
+<anchor xml:id="_glad_8c_source_1l00957"/>00957 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(!GLAD_GL_VERSION_3_1)&#32;<emphasis role="keywordflow">return</emphasis>;
+<anchor xml:id="_glad_8c_source_1l00958"/>00958 &#32;&#32;&#32;&#32;glad_glDrawArraysInstanced&#32;=&#32;(PFNGLDRAWARRAYSINSTANCEDPROC)load(<emphasis role="stringliteral">&quot;glDrawArraysInstanced&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00959"/>00959 &#32;&#32;&#32;&#32;glad_glDrawElementsInstanced&#32;=&#32;(PFNGLDRAWELEMENTSINSTANCEDPROC)load(<emphasis role="stringliteral">&quot;glDrawElementsInstanced&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00960"/>00960 &#32;&#32;&#32;&#32;glad_glTexBuffer&#32;=&#32;(PFNGLTEXBUFFERPROC)load(<emphasis role="stringliteral">&quot;glTexBuffer&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00961"/>00961 &#32;&#32;&#32;&#32;glad_glPrimitiveRestartIndex&#32;=&#32;(PFNGLPRIMITIVERESTARTINDEXPROC)load(<emphasis role="stringliteral">&quot;glPrimitiveRestartIndex&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00962"/>00962 &#32;&#32;&#32;&#32;glad_glCopyBufferSubData&#32;=&#32;(PFNGLCOPYBUFFERSUBDATAPROC)load(<emphasis role="stringliteral">&quot;glCopyBufferSubData&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00963"/>00963 &#32;&#32;&#32;&#32;glad_glGetUniformIndices&#32;=&#32;(PFNGLGETUNIFORMINDICESPROC)load(<emphasis role="stringliteral">&quot;glGetUniformIndices&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00964"/>00964 &#32;&#32;&#32;&#32;glad_glGetActiveUniformsiv&#32;=&#32;(PFNGLGETACTIVEUNIFORMSIVPROC)load(<emphasis role="stringliteral">&quot;glGetActiveUniformsiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00965"/>00965 &#32;&#32;&#32;&#32;glad_glGetActiveUniformName&#32;=&#32;(PFNGLGETACTIVEUNIFORMNAMEPROC)load(<emphasis role="stringliteral">&quot;glGetActiveUniformName&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00966"/>00966 &#32;&#32;&#32;&#32;glad_glGetUniformBlockIndex&#32;=&#32;(PFNGLGETUNIFORMBLOCKINDEXPROC)load(<emphasis role="stringliteral">&quot;glGetUniformBlockIndex&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00967"/>00967 &#32;&#32;&#32;&#32;glad_glGetActiveUniformBlockiv&#32;=&#32;(PFNGLGETACTIVEUNIFORMBLOCKIVPROC)load(<emphasis role="stringliteral">&quot;glGetActiveUniformBlockiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00968"/>00968 &#32;&#32;&#32;&#32;glad_glGetActiveUniformBlockName&#32;=&#32;(PFNGLGETACTIVEUNIFORMBLOCKNAMEPROC)load(<emphasis role="stringliteral">&quot;glGetActiveUniformBlockName&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00969"/>00969 &#32;&#32;&#32;&#32;glad_glUniformBlockBinding&#32;=&#32;(PFNGLUNIFORMBLOCKBINDINGPROC)load(<emphasis role="stringliteral">&quot;glUniformBlockBinding&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00970"/>00970 &#32;&#32;&#32;&#32;glad_glBindBufferRange&#32;=&#32;(PFNGLBINDBUFFERRANGEPROC)load(<emphasis role="stringliteral">&quot;glBindBufferRange&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00971"/>00971 &#32;&#32;&#32;&#32;glad_glBindBufferBase&#32;=&#32;(PFNGLBINDBUFFERBASEPROC)load(<emphasis role="stringliteral">&quot;glBindBufferBase&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00972"/>00972 &#32;&#32;&#32;&#32;glad_glGetIntegeri_v&#32;=&#32;(PFNGLGETINTEGERI_VPROC)load(<emphasis role="stringliteral">&quot;glGetIntegeri_v&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00973"/>00973 }
+<anchor xml:id="_glad_8c_source_1l00974"/>00974 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">void</emphasis>&#32;load_GL_VERSION_3_2(GLADloadproc&#32;load)&#32;{
+<anchor xml:id="_glad_8c_source_1l00975"/>00975 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(!GLAD_GL_VERSION_3_2)&#32;<emphasis role="keywordflow">return</emphasis>;
+<anchor xml:id="_glad_8c_source_1l00976"/>00976 &#32;&#32;&#32;&#32;glad_glDrawElementsBaseVertex&#32;=&#32;(PFNGLDRAWELEMENTSBASEVERTEXPROC)load(<emphasis role="stringliteral">&quot;glDrawElementsBaseVertex&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00977"/>00977 &#32;&#32;&#32;&#32;glad_glDrawRangeElementsBaseVertex&#32;=&#32;(PFNGLDRAWRANGEELEMENTSBASEVERTEXPROC)load(<emphasis role="stringliteral">&quot;glDrawRangeElementsBaseVertex&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00978"/>00978 &#32;&#32;&#32;&#32;glad_glDrawElementsInstancedBaseVertex&#32;=&#32;(PFNGLDRAWELEMENTSINSTANCEDBASEVERTEXPROC)load(<emphasis role="stringliteral">&quot;glDrawElementsInstancedBaseVertex&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00979"/>00979 &#32;&#32;&#32;&#32;glad_glMultiDrawElementsBaseVertex&#32;=&#32;(PFNGLMULTIDRAWELEMENTSBASEVERTEXPROC)load(<emphasis role="stringliteral">&quot;glMultiDrawElementsBaseVertex&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00980"/>00980 &#32;&#32;&#32;&#32;glad_glProvokingVertex&#32;=&#32;(PFNGLPROVOKINGVERTEXPROC)load(<emphasis role="stringliteral">&quot;glProvokingVertex&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00981"/>00981 &#32;&#32;&#32;&#32;glad_glFenceSync&#32;=&#32;(PFNGLFENCESYNCPROC)load(<emphasis role="stringliteral">&quot;glFenceSync&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00982"/>00982 &#32;&#32;&#32;&#32;glad_glIsSync&#32;=&#32;(PFNGLISSYNCPROC)load(<emphasis role="stringliteral">&quot;glIsSync&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00983"/>00983 &#32;&#32;&#32;&#32;glad_glDeleteSync&#32;=&#32;(PFNGLDELETESYNCPROC)load(<emphasis role="stringliteral">&quot;glDeleteSync&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00984"/>00984 &#32;&#32;&#32;&#32;glad_glClientWaitSync&#32;=&#32;(PFNGLCLIENTWAITSYNCPROC)load(<emphasis role="stringliteral">&quot;glClientWaitSync&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00985"/>00985 &#32;&#32;&#32;&#32;glad_glWaitSync&#32;=&#32;(PFNGLWAITSYNCPROC)load(<emphasis role="stringliteral">&quot;glWaitSync&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00986"/>00986 &#32;&#32;&#32;&#32;glad_glGetInteger64v&#32;=&#32;(PFNGLGETINTEGER64VPROC)load(<emphasis role="stringliteral">&quot;glGetInteger64v&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00987"/>00987 &#32;&#32;&#32;&#32;glad_glGetSynciv&#32;=&#32;(PFNGLGETSYNCIVPROC)load(<emphasis role="stringliteral">&quot;glGetSynciv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00988"/>00988 &#32;&#32;&#32;&#32;glad_glGetInteger64i_v&#32;=&#32;(PFNGLGETINTEGER64I_VPROC)load(<emphasis role="stringliteral">&quot;glGetInteger64i_v&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00989"/>00989 &#32;&#32;&#32;&#32;glad_glGetBufferParameteri64v&#32;=&#32;(PFNGLGETBUFFERPARAMETERI64VPROC)load(<emphasis role="stringliteral">&quot;glGetBufferParameteri64v&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00990"/>00990 &#32;&#32;&#32;&#32;glad_glFramebufferTexture&#32;=&#32;(PFNGLFRAMEBUFFERTEXTUREPROC)load(<emphasis role="stringliteral">&quot;glFramebufferTexture&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00991"/>00991 &#32;&#32;&#32;&#32;glad_glTexImage2DMultisample&#32;=&#32;(PFNGLTEXIMAGE2DMULTISAMPLEPROC)load(<emphasis role="stringliteral">&quot;glTexImage2DMultisample&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00992"/>00992 &#32;&#32;&#32;&#32;glad_glTexImage3DMultisample&#32;=&#32;(PFNGLTEXIMAGE3DMULTISAMPLEPROC)load(<emphasis role="stringliteral">&quot;glTexImage3DMultisample&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00993"/>00993 &#32;&#32;&#32;&#32;glad_glGetMultisamplefv&#32;=&#32;(PFNGLGETMULTISAMPLEFVPROC)load(<emphasis role="stringliteral">&quot;glGetMultisamplefv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00994"/>00994 &#32;&#32;&#32;&#32;glad_glSampleMaski&#32;=&#32;(PFNGLSAMPLEMASKIPROC)load(<emphasis role="stringliteral">&quot;glSampleMaski&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00995"/>00995 }
+<anchor xml:id="_glad_8c_source_1l00996"/>00996 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">void</emphasis>&#32;load_GL_VERSION_3_3(GLADloadproc&#32;load)&#32;{
+<anchor xml:id="_glad_8c_source_1l00997"/>00997 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(!GLAD_GL_VERSION_3_3)&#32;<emphasis role="keywordflow">return</emphasis>;
+<anchor xml:id="_glad_8c_source_1l00998"/>00998 &#32;&#32;&#32;&#32;glad_glBindFragDataLocationIndexed&#32;=&#32;(PFNGLBINDFRAGDATALOCATIONINDEXEDPROC)load(<emphasis role="stringliteral">&quot;glBindFragDataLocationIndexed&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l00999"/>00999 &#32;&#32;&#32;&#32;glad_glGetFragDataIndex&#32;=&#32;(PFNGLGETFRAGDATAINDEXPROC)load(<emphasis role="stringliteral">&quot;glGetFragDataIndex&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01000"/>01000 &#32;&#32;&#32;&#32;glad_glGenSamplers&#32;=&#32;(PFNGLGENSAMPLERSPROC)load(<emphasis role="stringliteral">&quot;glGenSamplers&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01001"/>01001 &#32;&#32;&#32;&#32;glad_glDeleteSamplers&#32;=&#32;(PFNGLDELETESAMPLERSPROC)load(<emphasis role="stringliteral">&quot;glDeleteSamplers&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01002"/>01002 &#32;&#32;&#32;&#32;glad_glIsSampler&#32;=&#32;(PFNGLISSAMPLERPROC)load(<emphasis role="stringliteral">&quot;glIsSampler&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01003"/>01003 &#32;&#32;&#32;&#32;glad_glBindSampler&#32;=&#32;(PFNGLBINDSAMPLERPROC)load(<emphasis role="stringliteral">&quot;glBindSampler&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01004"/>01004 &#32;&#32;&#32;&#32;glad_glSamplerParameteri&#32;=&#32;(PFNGLSAMPLERPARAMETERIPROC)load(<emphasis role="stringliteral">&quot;glSamplerParameteri&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01005"/>01005 &#32;&#32;&#32;&#32;glad_glSamplerParameteriv&#32;=&#32;(PFNGLSAMPLERPARAMETERIVPROC)load(<emphasis role="stringliteral">&quot;glSamplerParameteriv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01006"/>01006 &#32;&#32;&#32;&#32;glad_glSamplerParameterf&#32;=&#32;(PFNGLSAMPLERPARAMETERFPROC)load(<emphasis role="stringliteral">&quot;glSamplerParameterf&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01007"/>01007 &#32;&#32;&#32;&#32;glad_glSamplerParameterfv&#32;=&#32;(PFNGLSAMPLERPARAMETERFVPROC)load(<emphasis role="stringliteral">&quot;glSamplerParameterfv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01008"/>01008 &#32;&#32;&#32;&#32;glad_glSamplerParameterIiv&#32;=&#32;(PFNGLSAMPLERPARAMETERIIVPROC)load(<emphasis role="stringliteral">&quot;glSamplerParameterIiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01009"/>01009 &#32;&#32;&#32;&#32;glad_glSamplerParameterIuiv&#32;=&#32;(PFNGLSAMPLERPARAMETERIUIVPROC)load(<emphasis role="stringliteral">&quot;glSamplerParameterIuiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01010"/>01010 &#32;&#32;&#32;&#32;glad_glGetSamplerParameteriv&#32;=&#32;(PFNGLGETSAMPLERPARAMETERIVPROC)load(<emphasis role="stringliteral">&quot;glGetSamplerParameteriv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01011"/>01011 &#32;&#32;&#32;&#32;glad_glGetSamplerParameterIiv&#32;=&#32;(PFNGLGETSAMPLERPARAMETERIIVPROC)load(<emphasis role="stringliteral">&quot;glGetSamplerParameterIiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01012"/>01012 &#32;&#32;&#32;&#32;glad_glGetSamplerParameterfv&#32;=&#32;(PFNGLGETSAMPLERPARAMETERFVPROC)load(<emphasis role="stringliteral">&quot;glGetSamplerParameterfv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01013"/>01013 &#32;&#32;&#32;&#32;glad_glGetSamplerParameterIuiv&#32;=&#32;(PFNGLGETSAMPLERPARAMETERIUIVPROC)load(<emphasis role="stringliteral">&quot;glGetSamplerParameterIuiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01014"/>01014 &#32;&#32;&#32;&#32;glad_glQueryCounter&#32;=&#32;(PFNGLQUERYCOUNTERPROC)load(<emphasis role="stringliteral">&quot;glQueryCounter&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01015"/>01015 &#32;&#32;&#32;&#32;glad_glGetQueryObjecti64v&#32;=&#32;(PFNGLGETQUERYOBJECTI64VPROC)load(<emphasis role="stringliteral">&quot;glGetQueryObjecti64v&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01016"/>01016 &#32;&#32;&#32;&#32;glad_glGetQueryObjectui64v&#32;=&#32;(PFNGLGETQUERYOBJECTUI64VPROC)load(<emphasis role="stringliteral">&quot;glGetQueryObjectui64v&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01017"/>01017 &#32;&#32;&#32;&#32;glad_glVertexAttribDivisor&#32;=&#32;(PFNGLVERTEXATTRIBDIVISORPROC)load(<emphasis role="stringliteral">&quot;glVertexAttribDivisor&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01018"/>01018 &#32;&#32;&#32;&#32;glad_glVertexAttribP1ui&#32;=&#32;(PFNGLVERTEXATTRIBP1UIPROC)load(<emphasis role="stringliteral">&quot;glVertexAttribP1ui&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01019"/>01019 &#32;&#32;&#32;&#32;glad_glVertexAttribP1uiv&#32;=&#32;(PFNGLVERTEXATTRIBP1UIVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttribP1uiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01020"/>01020 &#32;&#32;&#32;&#32;glad_glVertexAttribP2ui&#32;=&#32;(PFNGLVERTEXATTRIBP2UIPROC)load(<emphasis role="stringliteral">&quot;glVertexAttribP2ui&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01021"/>01021 &#32;&#32;&#32;&#32;glad_glVertexAttribP2uiv&#32;=&#32;(PFNGLVERTEXATTRIBP2UIVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttribP2uiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01022"/>01022 &#32;&#32;&#32;&#32;glad_glVertexAttribP3ui&#32;=&#32;(PFNGLVERTEXATTRIBP3UIPROC)load(<emphasis role="stringliteral">&quot;glVertexAttribP3ui&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01023"/>01023 &#32;&#32;&#32;&#32;glad_glVertexAttribP3uiv&#32;=&#32;(PFNGLVERTEXATTRIBP3UIVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttribP3uiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01024"/>01024 &#32;&#32;&#32;&#32;glad_glVertexAttribP4ui&#32;=&#32;(PFNGLVERTEXATTRIBP4UIPROC)load(<emphasis role="stringliteral">&quot;glVertexAttribP4ui&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01025"/>01025 &#32;&#32;&#32;&#32;glad_glVertexAttribP4uiv&#32;=&#32;(PFNGLVERTEXATTRIBP4UIVPROC)load(<emphasis role="stringliteral">&quot;glVertexAttribP4uiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01026"/>01026 &#32;&#32;&#32;&#32;glad_glVertexP2ui&#32;=&#32;(PFNGLVERTEXP2UIPROC)load(<emphasis role="stringliteral">&quot;glVertexP2ui&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01027"/>01027 &#32;&#32;&#32;&#32;glad_glVertexP2uiv&#32;=&#32;(PFNGLVERTEXP2UIVPROC)load(<emphasis role="stringliteral">&quot;glVertexP2uiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01028"/>01028 &#32;&#32;&#32;&#32;glad_glVertexP3ui&#32;=&#32;(PFNGLVERTEXP3UIPROC)load(<emphasis role="stringliteral">&quot;glVertexP3ui&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01029"/>01029 &#32;&#32;&#32;&#32;glad_glVertexP3uiv&#32;=&#32;(PFNGLVERTEXP3UIVPROC)load(<emphasis role="stringliteral">&quot;glVertexP3uiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01030"/>01030 &#32;&#32;&#32;&#32;glad_glVertexP4ui&#32;=&#32;(PFNGLVERTEXP4UIPROC)load(<emphasis role="stringliteral">&quot;glVertexP4ui&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01031"/>01031 &#32;&#32;&#32;&#32;glad_glVertexP4uiv&#32;=&#32;(PFNGLVERTEXP4UIVPROC)load(<emphasis role="stringliteral">&quot;glVertexP4uiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01032"/>01032 &#32;&#32;&#32;&#32;glad_glTexCoordP1ui&#32;=&#32;(PFNGLTEXCOORDP1UIPROC)load(<emphasis role="stringliteral">&quot;glTexCoordP1ui&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01033"/>01033 &#32;&#32;&#32;&#32;glad_glTexCoordP1uiv&#32;=&#32;(PFNGLTEXCOORDP1UIVPROC)load(<emphasis role="stringliteral">&quot;glTexCoordP1uiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01034"/>01034 &#32;&#32;&#32;&#32;glad_glTexCoordP2ui&#32;=&#32;(PFNGLTEXCOORDP2UIPROC)load(<emphasis role="stringliteral">&quot;glTexCoordP2ui&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01035"/>01035 &#32;&#32;&#32;&#32;glad_glTexCoordP2uiv&#32;=&#32;(PFNGLTEXCOORDP2UIVPROC)load(<emphasis role="stringliteral">&quot;glTexCoordP2uiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01036"/>01036 &#32;&#32;&#32;&#32;glad_glTexCoordP3ui&#32;=&#32;(PFNGLTEXCOORDP3UIPROC)load(<emphasis role="stringliteral">&quot;glTexCoordP3ui&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01037"/>01037 &#32;&#32;&#32;&#32;glad_glTexCoordP3uiv&#32;=&#32;(PFNGLTEXCOORDP3UIVPROC)load(<emphasis role="stringliteral">&quot;glTexCoordP3uiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01038"/>01038 &#32;&#32;&#32;&#32;glad_glTexCoordP4ui&#32;=&#32;(PFNGLTEXCOORDP4UIPROC)load(<emphasis role="stringliteral">&quot;glTexCoordP4ui&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01039"/>01039 &#32;&#32;&#32;&#32;glad_glTexCoordP4uiv&#32;=&#32;(PFNGLTEXCOORDP4UIVPROC)load(<emphasis role="stringliteral">&quot;glTexCoordP4uiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01040"/>01040 &#32;&#32;&#32;&#32;glad_glMultiTexCoordP1ui&#32;=&#32;(PFNGLMULTITEXCOORDP1UIPROC)load(<emphasis role="stringliteral">&quot;glMultiTexCoordP1ui&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01041"/>01041 &#32;&#32;&#32;&#32;glad_glMultiTexCoordP1uiv&#32;=&#32;(PFNGLMULTITEXCOORDP1UIVPROC)load(<emphasis role="stringliteral">&quot;glMultiTexCoordP1uiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01042"/>01042 &#32;&#32;&#32;&#32;glad_glMultiTexCoordP2ui&#32;=&#32;(PFNGLMULTITEXCOORDP2UIPROC)load(<emphasis role="stringliteral">&quot;glMultiTexCoordP2ui&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01043"/>01043 &#32;&#32;&#32;&#32;glad_glMultiTexCoordP2uiv&#32;=&#32;(PFNGLMULTITEXCOORDP2UIVPROC)load(<emphasis role="stringliteral">&quot;glMultiTexCoordP2uiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01044"/>01044 &#32;&#32;&#32;&#32;glad_glMultiTexCoordP3ui&#32;=&#32;(PFNGLMULTITEXCOORDP3UIPROC)load(<emphasis role="stringliteral">&quot;glMultiTexCoordP3ui&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01045"/>01045 &#32;&#32;&#32;&#32;glad_glMultiTexCoordP3uiv&#32;=&#32;(PFNGLMULTITEXCOORDP3UIVPROC)load(<emphasis role="stringliteral">&quot;glMultiTexCoordP3uiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01046"/>01046 &#32;&#32;&#32;&#32;glad_glMultiTexCoordP4ui&#32;=&#32;(PFNGLMULTITEXCOORDP4UIPROC)load(<emphasis role="stringliteral">&quot;glMultiTexCoordP4ui&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01047"/>01047 &#32;&#32;&#32;&#32;glad_glMultiTexCoordP4uiv&#32;=&#32;(PFNGLMULTITEXCOORDP4UIVPROC)load(<emphasis role="stringliteral">&quot;glMultiTexCoordP4uiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01048"/>01048 &#32;&#32;&#32;&#32;glad_glNormalP3ui&#32;=&#32;(PFNGLNORMALP3UIPROC)load(<emphasis role="stringliteral">&quot;glNormalP3ui&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01049"/>01049 &#32;&#32;&#32;&#32;glad_glNormalP3uiv&#32;=&#32;(PFNGLNORMALP3UIVPROC)load(<emphasis role="stringliteral">&quot;glNormalP3uiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01050"/>01050 &#32;&#32;&#32;&#32;glad_glColorP3ui&#32;=&#32;(PFNGLCOLORP3UIPROC)load(<emphasis role="stringliteral">&quot;glColorP3ui&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01051"/>01051 &#32;&#32;&#32;&#32;glad_glColorP3uiv&#32;=&#32;(PFNGLCOLORP3UIVPROC)load(<emphasis role="stringliteral">&quot;glColorP3uiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01052"/>01052 &#32;&#32;&#32;&#32;glad_glColorP4ui&#32;=&#32;(PFNGLCOLORP4UIPROC)load(<emphasis role="stringliteral">&quot;glColorP4ui&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01053"/>01053 &#32;&#32;&#32;&#32;glad_glColorP4uiv&#32;=&#32;(PFNGLCOLORP4UIVPROC)load(<emphasis role="stringliteral">&quot;glColorP4uiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01054"/>01054 &#32;&#32;&#32;&#32;glad_glSecondaryColorP3ui&#32;=&#32;(PFNGLSECONDARYCOLORP3UIPROC)load(<emphasis role="stringliteral">&quot;glSecondaryColorP3ui&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01055"/>01055 &#32;&#32;&#32;&#32;glad_glSecondaryColorP3uiv&#32;=&#32;(PFNGLSECONDARYCOLORP3UIVPROC)load(<emphasis role="stringliteral">&quot;glSecondaryColorP3uiv&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01056"/>01056 }
+<anchor xml:id="_glad_8c_source_1l01057"/>01057 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;find_extensionsGL(<emphasis role="keywordtype">void</emphasis>)&#32;{
+<anchor xml:id="_glad_8c_source_1l01058"/>01058 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(!get_exts())&#32;<emphasis role="keywordflow">return</emphasis>&#32;0;
+<anchor xml:id="_glad_8c_source_1l01059"/>01059 &#32;&#32;&#32;&#32;(void)&amp;has_ext;
+<anchor xml:id="_glad_8c_source_1l01060"/>01060 &#32;&#32;&#32;&#32;free_exts();
+<anchor xml:id="_glad_8c_source_1l01061"/>01061 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;1;
+<anchor xml:id="_glad_8c_source_1l01062"/>01062 }
+<anchor xml:id="_glad_8c_source_1l01063"/>01063 
+<anchor xml:id="_glad_8c_source_1l01064"/>01064 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">void</emphasis>&#32;find_coreGL(<emphasis role="keywordtype">void</emphasis>)&#32;{
+<anchor xml:id="_glad_8c_source_1l01065"/>01065 
+<anchor xml:id="_glad_8c_source_1l01066"/>01066 &#32;&#32;&#32;&#32;<emphasis role="comment">/*&#32;Thank&#32;you&#32;@elmindreda</emphasis>
+<anchor xml:id="_glad_8c_source_1l01067"/>01067 <emphasis role="comment">&#32;&#32;&#32;&#32;&#32;*&#32;https://github.com/elmindreda/greg/blob/master/templates/greg.c.in#L176</emphasis>
+<anchor xml:id="_glad_8c_source_1l01068"/>01068 <emphasis role="comment">&#32;&#32;&#32;&#32;&#32;*&#32;https://github.com/glfw/glfw/blob/master/src/context.c#L36</emphasis>
+<anchor xml:id="_glad_8c_source_1l01069"/>01069 <emphasis role="comment">&#32;&#32;&#32;&#32;&#32;*/</emphasis>
+<anchor xml:id="_glad_8c_source_1l01070"/>01070 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;i,&#32;major,&#32;minor;
+<anchor xml:id="_glad_8c_source_1l01071"/>01071 
+<anchor xml:id="_glad_8c_source_1l01072"/>01072 &#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>*&#32;version;
+<anchor xml:id="_glad_8c_source_1l01073"/>01073 &#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>*&#32;prefixes[]&#32;=&#32;{
+<anchor xml:id="_glad_8c_source_1l01074"/>01074 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;OpenGL&#32;ES-CM&#32;&quot;</emphasis>,
+<anchor xml:id="_glad_8c_source_1l01075"/>01075 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;OpenGL&#32;ES-CL&#32;&quot;</emphasis>,
+<anchor xml:id="_glad_8c_source_1l01076"/>01076 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;OpenGL&#32;ES&#32;&quot;</emphasis>,
+<anchor xml:id="_glad_8c_source_1l01077"/>01077 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;NULL
+<anchor xml:id="_glad_8c_source_1l01078"/>01078 &#32;&#32;&#32;&#32;};
+<anchor xml:id="_glad_8c_source_1l01079"/>01079 
+<anchor xml:id="_glad_8c_source_1l01080"/>01080 &#32;&#32;&#32;&#32;version&#32;=&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>*)&#32;glGetString(GL_VERSION);
+<anchor xml:id="_glad_8c_source_1l01081"/>01081 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(!version)&#32;<emphasis role="keywordflow">return</emphasis>;
+<anchor xml:id="_glad_8c_source_1l01082"/>01082 
+<anchor xml:id="_glad_8c_source_1l01083"/>01083 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(i&#32;=&#32;0;&#32;&#32;prefixes[i];&#32;&#32;i++)&#32;{
+<anchor xml:id="_glad_8c_source_1l01084"/>01084 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">size_t</emphasis>&#32;length&#32;=&#32;strlen(prefixes[i]);
+<anchor xml:id="_glad_8c_source_1l01085"/>01085 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(strncmp(version,&#32;prefixes[i],&#32;length)&#32;==&#32;0)&#32;{
+<anchor xml:id="_glad_8c_source_1l01086"/>01086 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;version&#32;+=&#32;length;
+<anchor xml:id="_glad_8c_source_1l01087"/>01087 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_glad_8c_source_1l01088"/>01088 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_glad_8c_source_1l01089"/>01089 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_glad_8c_source_1l01090"/>01090 
+<anchor xml:id="_glad_8c_source_1l01091"/>01091 <emphasis role="comment">/*&#32;PR&#32;#18&#32;*/</emphasis>
+<anchor xml:id="_glad_8c_source_1l01092"/>01092 <emphasis role="preprocessor">#ifdef&#32;_MSC_VER</emphasis>
+<anchor xml:id="_glad_8c_source_1l01093"/>01093 &#32;&#32;&#32;&#32;sscanf_s(version,&#32;<emphasis role="stringliteral">&quot;%d.%d&quot;</emphasis>,&#32;&amp;major,&#32;&amp;minor);
+<anchor xml:id="_glad_8c_source_1l01094"/>01094 <emphasis role="preprocessor">#else</emphasis>
+<anchor xml:id="_glad_8c_source_1l01095"/>01095 &#32;&#32;&#32;&#32;sscanf(version,&#32;<emphasis role="stringliteral">&quot;%d.%d&quot;</emphasis>,&#32;&amp;major,&#32;&amp;minor);
+<anchor xml:id="_glad_8c_source_1l01096"/>01096 <emphasis role="preprocessor">#endif</emphasis>
+<anchor xml:id="_glad_8c_source_1l01097"/>01097 
+<anchor xml:id="_glad_8c_source_1l01098"/>01098 &#32;&#32;&#32;&#32;GLVersion.major&#32;=&#32;major;&#32;GLVersion.minor&#32;=&#32;minor;
+<anchor xml:id="_glad_8c_source_1l01099"/>01099 &#32;&#32;&#32;&#32;max_loaded_major&#32;=&#32;major;&#32;max_loaded_minor&#32;=&#32;minor;
+<anchor xml:id="_glad_8c_source_1l01100"/>01100 &#32;&#32;&#32;&#32;GLAD_GL_VERSION_1_0&#32;=&#32;(major&#32;==&#32;1&#32;&amp;&amp;&#32;minor&#32;&gt;=&#32;0)&#32;||&#32;major&#32;&gt;&#32;1;
+<anchor xml:id="_glad_8c_source_1l01101"/>01101 &#32;&#32;&#32;&#32;GLAD_GL_VERSION_1_1&#32;=&#32;(major&#32;==&#32;1&#32;&amp;&amp;&#32;minor&#32;&gt;=&#32;1)&#32;||&#32;major&#32;&gt;&#32;1;
+<anchor xml:id="_glad_8c_source_1l01102"/>01102 &#32;&#32;&#32;&#32;GLAD_GL_VERSION_1_2&#32;=&#32;(major&#32;==&#32;1&#32;&amp;&amp;&#32;minor&#32;&gt;=&#32;2)&#32;||&#32;major&#32;&gt;&#32;1;
+<anchor xml:id="_glad_8c_source_1l01103"/>01103 &#32;&#32;&#32;&#32;GLAD_GL_VERSION_1_3&#32;=&#32;(major&#32;==&#32;1&#32;&amp;&amp;&#32;minor&#32;&gt;=&#32;3)&#32;||&#32;major&#32;&gt;&#32;1;
+<anchor xml:id="_glad_8c_source_1l01104"/>01104 &#32;&#32;&#32;&#32;GLAD_GL_VERSION_1_4&#32;=&#32;(major&#32;==&#32;1&#32;&amp;&amp;&#32;minor&#32;&gt;=&#32;4)&#32;||&#32;major&#32;&gt;&#32;1;
+<anchor xml:id="_glad_8c_source_1l01105"/>01105 &#32;&#32;&#32;&#32;GLAD_GL_VERSION_1_5&#32;=&#32;(major&#32;==&#32;1&#32;&amp;&amp;&#32;minor&#32;&gt;=&#32;5)&#32;||&#32;major&#32;&gt;&#32;1;
+<anchor xml:id="_glad_8c_source_1l01106"/>01106 &#32;&#32;&#32;&#32;GLAD_GL_VERSION_2_0&#32;=&#32;(major&#32;==&#32;2&#32;&amp;&amp;&#32;minor&#32;&gt;=&#32;0)&#32;||&#32;major&#32;&gt;&#32;2;
+<anchor xml:id="_glad_8c_source_1l01107"/>01107 &#32;&#32;&#32;&#32;GLAD_GL_VERSION_2_1&#32;=&#32;(major&#32;==&#32;2&#32;&amp;&amp;&#32;minor&#32;&gt;=&#32;1)&#32;||&#32;major&#32;&gt;&#32;2;
+<anchor xml:id="_glad_8c_source_1l01108"/>01108 &#32;&#32;&#32;&#32;GLAD_GL_VERSION_3_0&#32;=&#32;(major&#32;==&#32;3&#32;&amp;&amp;&#32;minor&#32;&gt;=&#32;0)&#32;||&#32;major&#32;&gt;&#32;3;
+<anchor xml:id="_glad_8c_source_1l01109"/>01109 &#32;&#32;&#32;&#32;GLAD_GL_VERSION_3_1&#32;=&#32;(major&#32;==&#32;3&#32;&amp;&amp;&#32;minor&#32;&gt;=&#32;1)&#32;||&#32;major&#32;&gt;&#32;3;
+<anchor xml:id="_glad_8c_source_1l01110"/>01110 &#32;&#32;&#32;&#32;GLAD_GL_VERSION_3_2&#32;=&#32;(major&#32;==&#32;3&#32;&amp;&amp;&#32;minor&#32;&gt;=&#32;2)&#32;||&#32;major&#32;&gt;&#32;3;
+<anchor xml:id="_glad_8c_source_1l01111"/>01111 &#32;&#32;&#32;&#32;GLAD_GL_VERSION_3_3&#32;=&#32;(major&#32;==&#32;3&#32;&amp;&amp;&#32;minor&#32;&gt;=&#32;3)&#32;||&#32;major&#32;&gt;&#32;3;
+<anchor xml:id="_glad_8c_source_1l01112"/>01112 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(GLVersion.major&#32;&gt;&#32;3&#32;||&#32;(GLVersion.major&#32;&gt;=&#32;3&#32;&amp;&amp;&#32;GLVersion.minor&#32;&gt;=&#32;3))&#32;{
+<anchor xml:id="_glad_8c_source_1l01113"/>01113 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_loaded_major&#32;=&#32;3;
+<anchor xml:id="_glad_8c_source_1l01114"/>01114 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_loaded_minor&#32;=&#32;3;
+<anchor xml:id="_glad_8c_source_1l01115"/>01115 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_glad_8c_source_1l01116"/>01116 }
+<anchor xml:id="_glad_8c_source_1l01117"/>01117 
+<anchor xml:id="_glad_8c_source_1l01118"/>01118 <emphasis role="keywordtype">int</emphasis>&#32;gladLoadGLLoader(GLADloadproc&#32;load)&#32;{
+<anchor xml:id="_glad_8c_source_1l01119"/>01119 &#32;&#32;&#32;&#32;GLVersion.major&#32;=&#32;0;&#32;GLVersion.minor&#32;=&#32;0;
+<anchor xml:id="_glad_8c_source_1l01120"/>01120 &#32;&#32;&#32;&#32;glGetString&#32;=&#32;(PFNGLGETSTRINGPROC)load(<emphasis role="stringliteral">&quot;glGetString&quot;</emphasis>);
+<anchor xml:id="_glad_8c_source_1l01121"/>01121 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(glGetString&#32;==&#32;NULL)&#32;<emphasis role="keywordflow">return</emphasis>&#32;0;
+<anchor xml:id="_glad_8c_source_1l01122"/>01122 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(glGetString(GL_VERSION)&#32;==&#32;NULL)&#32;<emphasis role="keywordflow">return</emphasis>&#32;0;
+<anchor xml:id="_glad_8c_source_1l01123"/>01123 &#32;&#32;&#32;&#32;find_coreGL();
+<anchor xml:id="_glad_8c_source_1l01124"/>01124 &#32;&#32;&#32;&#32;load_GL_VERSION_1_0(load);
+<anchor xml:id="_glad_8c_source_1l01125"/>01125 &#32;&#32;&#32;&#32;load_GL_VERSION_1_1(load);
+<anchor xml:id="_glad_8c_source_1l01126"/>01126 &#32;&#32;&#32;&#32;load_GL_VERSION_1_2(load);
+<anchor xml:id="_glad_8c_source_1l01127"/>01127 &#32;&#32;&#32;&#32;load_GL_VERSION_1_3(load);
+<anchor xml:id="_glad_8c_source_1l01128"/>01128 &#32;&#32;&#32;&#32;load_GL_VERSION_1_4(load);
+<anchor xml:id="_glad_8c_source_1l01129"/>01129 &#32;&#32;&#32;&#32;load_GL_VERSION_1_5(load);
+<anchor xml:id="_glad_8c_source_1l01130"/>01130 &#32;&#32;&#32;&#32;load_GL_VERSION_2_0(load);
+<anchor xml:id="_glad_8c_source_1l01131"/>01131 &#32;&#32;&#32;&#32;load_GL_VERSION_2_1(load);
+<anchor xml:id="_glad_8c_source_1l01132"/>01132 &#32;&#32;&#32;&#32;load_GL_VERSION_3_0(load);
+<anchor xml:id="_glad_8c_source_1l01133"/>01133 &#32;&#32;&#32;&#32;load_GL_VERSION_3_1(load);
+<anchor xml:id="_glad_8c_source_1l01134"/>01134 &#32;&#32;&#32;&#32;load_GL_VERSION_3_2(load);
+<anchor xml:id="_glad_8c_source_1l01135"/>01135 &#32;&#32;&#32;&#32;load_GL_VERSION_3_3(load);
+<anchor xml:id="_glad_8c_source_1l01136"/>01136 
+<anchor xml:id="_glad_8c_source_1l01137"/>01137 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(!find_extensionsGL())&#32;<emphasis role="keywordflow">return</emphasis>&#32;0;
+<anchor xml:id="_glad_8c_source_1l01138"/>01138 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;GLVersion.major&#32;!=&#32;0&#32;||&#32;GLVersion.minor&#32;!=&#32;0;
+<anchor xml:id="_glad_8c_source_1l01139"/>01139 }
+<anchor xml:id="_glad_8c_source_1l01140"/>01140 
+</programlisting></section>

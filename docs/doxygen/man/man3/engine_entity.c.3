@@ -1,0 +1,68 @@
+.TH "SpaceGame/engine_entity.c" 3 "Version 0.1.0" "Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SpaceGame/engine_entity.c
+.SH SYNOPSIS
+.br
+.PP
+\fR#include 'engine_entity\&.h'\fP
+.br
+\fR#include 'engine_components\&.h'\fP
+.br
+\fR#include <stdlib\&.h>\fP
+.br
+\fR#include <string\&.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "const \fBEBOOL\fP \fBengineCreateEntity\fP (\fBEngineContext\fP *ctx, vec2 pos, vec2 size, const \fBEngineEntityKey\fP key, const \fBEngineTextureKey\fP texkey)"
+.br
+.ti -1c
+.RI "void \fBengineDestroyAllEntities\fP (\fBEngineContext\fP *ctx)"
+.br
+.ti -1c
+.RI "void \fBengineDestroyEntity\fP (\fBEngineContext\fP *ctx, \fBEngineEntityKey\fP key)"
+.br
+.ti -1c
+.RI "\fBEngineEntity\fP * \fBengineGetEntity\fP (\fBEngineContext\fP *ctx, \fBEngineEntityKey\fP key)"
+.br
+.ti -1c
+.RI "void \fBengineInitEntityComponentList\fP (\fBEngineEntity\fP *ent)"
+.br
+.ti -1c
+.RI "void \fBengineProcessEntities\fP (\fBEngineContext\fP *ctx, float deltaTime)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "const \fBEBOOL\fP engineCreateEntity (\fBEngineContext\fP * ctx, vec2 pos, vec2 size, const \fBEngineEntityKey\fP key, const \fBEngineTextureKey\fP texkey)"
+
+.PP
+Definition at line \fB8\fP of file \fBengine_entity\&.c\fP\&.
+.SS "void engineDestroyAllEntities (\fBEngineContext\fP * ctx)"
+
+.PP
+Definition at line \fB27\fP of file \fBengine_entity\&.c\fP\&.
+.SS "void engineDestroyEntity (\fBEngineContext\fP * ctx, \fBEngineEntityKey\fP key)"
+
+.PP
+Definition at line \fB45\fP of file \fBengine_entity\&.c\fP\&.
+.SS "\fBEngineEntity\fP * engineGetEntity (\fBEngineContext\fP * ctx, \fBEngineEntityKey\fP key)"
+
+.PP
+Definition at line \fB59\fP of file \fBengine_entity\&.c\fP\&.
+.SS "void engineInitEntityComponentList (\fBEngineEntity\fP * ent)"
+
+.PP
+Definition at line \fB72\fP of file \fBengine_entity\&.c\fP\&.
+.SS "void engineProcessEntities (\fBEngineContext\fP * ctx, float deltaTime)"
+
+.PP
+Definition at line \fB88\fP of file \fBengine_entity\&.c\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Engine from the source code\&.

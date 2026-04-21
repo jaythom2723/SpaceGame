@@ -1,0 +1,62 @@
+.TH "SpaceGame/engine_textures.h" 3 "Version 0.1.0" "Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SpaceGame/engine_textures.h
+.SH SYNOPSIS
+.br
+.PP
+\fR#include 'engine_defs\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "const \fBEBOOL\fP \fBengineCreateTexture\fP (\fBEngineContext\fP *ctx, unsigned int key)"
+.br
+.ti -1c
+.RI "const \fBEBOOL\fP \fBengineGenerateTexture\fP (\fBEngineContext\fP *ctx, unsigned int key, const char *path, const \fBEBOOL\fP alpha)"
+.br
+.ti -1c
+.RI "void \fBengineGenTextureCheckMissing\fP (\fBEngineContext\fP *ctx, unsigned int key, const char *path, const \fBEBOOL\fP alpha)"
+.br
+.ti -1c
+.RI "void \fBengineBindTexture\fP (\fBEngineContext\fP *ctx, unsigned int id)"
+.br
+.ti -1c
+.RI "void \fBengineDestroyAllTextures\fP (\fBEngineContext\fP *ctx)"
+.br
+.ti -1c
+.RI "void \fBengineDestroyTexture\fP (\fBEngineContext\fP *ctx, unsigned int key)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "void engineBindTexture (\fBEngineContext\fP * ctx, unsigned int id)"
+
+.PP
+Definition at line \fB122\fP of file \fBengine_textures\&.c\fP\&.
+.SS "const \fBEBOOL\fP engineCreateTexture (\fBEngineContext\fP * ctx, unsigned int key)"
+
+.PP
+Definition at line \fB19\fP of file \fBengine_textures\&.c\fP\&.
+.SS "void engineDestroyAllTextures (\fBEngineContext\fP * ctx)"
+
+.PP
+Definition at line \fB132\fP of file \fBengine_textures\&.c\fP\&.
+.SS "void engineDestroyTexture (\fBEngineContext\fP * ctx, unsigned int key)"
+
+.PP
+Definition at line \fB151\fP of file \fBengine_textures\&.c\fP\&.
+.SS "const \fBEBOOL\fP engineGenerateTexture (\fBEngineContext\fP * ctx, unsigned int key, const char * path, const \fBEBOOL\fP alpha)"
+
+.PP
+Definition at line \fB62\fP of file \fBengine_textures\&.c\fP\&.
+.SS "void engineGenTextureCheckMissing (\fBEngineContext\fP * ctx, unsigned int key, const char * path, const \fBEBOOL\fP alpha)"
+
+.PP
+Definition at line \fB115\fP of file \fBengine_textures\&.c\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Engine from the source code\&.

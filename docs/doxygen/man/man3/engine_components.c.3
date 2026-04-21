@@ -1,0 +1,82 @@
+.TH "SpaceGame/engine_components.c" 3 "Version 0.1.0" "Engine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SpaceGame/engine_components.c
+.SH SYNOPSIS
+.br
+.PP
+\fR#include 'engine_components\&.h'\fP
+.br
+\fR#include 'engine_entity\&.h'\fP
+.br
+\fR#include <string\&.h>\fP
+.br
+\fR#include <assert\&.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fB__engine__defaultRendererComponentFunc\fP (\fBEngineEntity\fP *, \fBEngineContext\fP *, float)"
+.br
+.ti -1c
+.RI "void \fB__engine__defaultTickComponentFunc\fP (\fBEngineEntity\fP *, \fBEngineContext\fP *, float)"
+.br
+.ti -1c
+.RI "void \fB__engine__defaultControllerComponentFunc\fP (\fBEngineEntity\fP *, \fBEngineContext\fP *, float)"
+.br
+.ti -1c
+.RI "void \fBengineAddComponent\fP (\fBEngineContext\fP *ctx, \fBEngineEntityKey\fP key, \fBEngineComponentType\fP type)"
+.br
+.ti -1c
+.RI "void \fBengineSetComponentCallback\fP (\fBEngineContext\fP *ctx, \fBEngineEntityKey\fP key, \fBEngineComponentType\fP type, \fBEngineComponentFunc\fP func)"
+.br
+.ti -1c
+.RI "const \fBEBOOL\fP \fBengineRemoveComponent\fP (\fBEngineContext\fP *ctx, \fBEngineEntityKey\fP key, \fBEngineComponentType\fP type)"
+.br
+.ti -1c
+.RI "const \fBEBOOL\fP \fBengineHasComponent\fP (\fBEngineContext\fP *ctx, \fBEngineEntityKey\fP key, \fBEngineComponentType\fP type)"
+.br
+.ti -1c
+.RI "void \fBengineRunComponentFunc\fP (\fBEngineContext\fP *ctx, \fBEngineEntity\fP *ent, \fBEngineComponent\fP *comp, float deltaTime)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "void __engine__defaultControllerComponentFunc (\fBEngineEntity\fP * ent, \fBEngineContext\fP * ctx, float deltaTime)\fR [extern]\fP"
+
+.PP
+Definition at line \fB12\fP of file \fBengine_component_funcs\&.c\fP\&.
+.SS "void __engine__defaultRendererComponentFunc (\fBEngineEntity\fP * ent, \fBEngineContext\fP * ctx, float deltaTime)\fR [extern]\fP"
+
+.PP
+Definition at line \fB7\fP of file \fBengine_component_funcs\&.c\fP\&.
+.SS "void __engine__defaultTickComponentFunc (\fBEngineEntity\fP * ent, \fBEngineContext\fP * ctx, float deltaTime)\fR [extern]\fP"
+
+.PP
+Definition at line \fB28\fP of file \fBengine_component_funcs\&.c\fP\&.
+.SS "void engineAddComponent (\fBEngineContext\fP * ctx, \fBEngineEntityKey\fP key, \fBEngineComponentType\fP type)"
+
+.PP
+Definition at line \fB18\fP of file \fBengine_components\&.c\fP\&.
+.SS "const \fBEBOOL\fP engineHasComponent (\fBEngineContext\fP * ctx, \fBEngineEntityKey\fP key, \fBEngineComponentType\fP type)"
+
+.PP
+Definition at line \fB61\fP of file \fBengine_components\&.c\fP\&.
+.SS "const \fBEBOOL\fP engineRemoveComponent (\fBEngineContext\fP * ctx, \fBEngineEntityKey\fP key, \fBEngineComponentType\fP type)"
+
+.PP
+Definition at line \fB48\fP of file \fBengine_components\&.c\fP\&.
+.SS "void engineRunComponentFunc (\fBEngineContext\fP * ctx, \fBEngineEntity\fP * ent, \fBEngineComponent\fP * comp, float deltaTime)"
+
+.PP
+Definition at line \fB72\fP of file \fBengine_components\&.c\fP\&.
+.SS "void engineSetComponentCallback (\fBEngineContext\fP * ctx, \fBEngineEntityKey\fP key, \fBEngineComponentType\fP type, \fBEngineComponentFunc\fP func)"
+
+.PP
+Definition at line \fB37\fP of file \fBengine_components\&.c\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Engine from the source code\&.

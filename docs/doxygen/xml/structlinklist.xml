@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.16.1" xml:lang="en-US">
+  <compounddef id="structlinklist" kind="struct" language="C++" prot="public">
+    <compoundname>linklist</compoundname>
+    <includes refid="engine__defs_8h" local="no">engine_defs.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structlinklist_1a716c8ac9aea80a0165dd58045b106e38" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* lista</definition>
+        <argsstring></argsstring>
+        <name>lista</name>
+        <qualifiedname>linklist::lista</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="112" column="6" bodyfile="engine_defs.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlinklist_1a5ca621c4ac65382cf6cee22a6fa9f54a" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* listb</definition>
+        <argsstring></argsstring>
+        <name>listb</name>
+        <qualifiedname>linklist::listb</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="113" column="6" bodyfile="engine_defs.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlinklist_1aae15b6d77b58dbd6f21861d1320ec961" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t typesize</definition>
+        <argsstring></argsstring>
+        <name>typesize</name>
+        <qualifiedname>linklist::typesize</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="115" column="8" bodyfile="engine_defs.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlinklist_1ac2c93a22dd9699e34c0f6b3e9b34fb41" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t arrsize</definition>
+        <argsstring></argsstring>
+        <name>arrsize</name>
+        <qualifiedname>linklist::arrsize</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="116" column="8" bodyfile="engine_defs.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlinklist_1a384b507941cdab4b3f34797ec27944e4" prot="public" static="no" mutable="no">
+        <type>EBOOL</type>
+        <definition>EBOOL aalloc</definition>
+        <argsstring></argsstring>
+        <name>aalloc</name>
+        <qualifiedname>linklist::aalloc</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="118" column="7" bodyfile="engine_defs.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlinklist_1a16e4752e7ee97f015d9379bfc630512c" prot="public" static="no" mutable="no">
+        <type>EBOOL</type>
+        <definition>EBOOL balloc</definition>
+        <argsstring></argsstring>
+        <name>balloc</name>
+        <qualifiedname>linklist::balloc</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine_defs.h" line="119" column="7" bodyfile="engine_defs.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>A standard link list data structure. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="engine_defs.h" line="111" column="1" bodyfile="engine_defs.h" bodystart="111" bodyend="120"/>
+    <listofallmembers>
+      <member refid="structlinklist_1a384b507941cdab4b3f34797ec27944e4" prot="public" virt="non-virtual"><scope>linklist</scope><name>aalloc</name></member>
+      <member refid="structlinklist_1ac2c93a22dd9699e34c0f6b3e9b34fb41" prot="public" virt="non-virtual"><scope>linklist</scope><name>arrsize</name></member>
+      <member refid="structlinklist_1a16e4752e7ee97f015d9379bfc630512c" prot="public" virt="non-virtual"><scope>linklist</scope><name>balloc</name></member>
+      <member refid="structlinklist_1a716c8ac9aea80a0165dd58045b106e38" prot="public" virt="non-virtual"><scope>linklist</scope><name>lista</name></member>
+      <member refid="structlinklist_1a5ca621c4ac65382cf6cee22a6fa9f54a" prot="public" virt="non-virtual"><scope>linklist</scope><name>listb</name></member>
+      <member refid="structlinklist_1aae15b6d77b58dbd6f21861d1320ec961" prot="public" virt="non-virtual"><scope>linklist</scope><name>typesize</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

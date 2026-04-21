@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_structengine__texture" xml:lang="en-US">
+<title>engine_texture Struct Reference</title>
+<indexterm><primary>engine_texture</primary></indexterm>
+<para>
+
+<para>A texture handle that contains all necessary texture information. </para>
+ 
+</para>
+<para>
+<computeroutput>#include &lt;engine_defs.h&gt;</computeroutput>
+</para>
+<simplesect>
+    <title>Data Fields    </title>
+        <itemizedlist>
+            <listitem><para>unsigned int <link linkend="_structengine__texture_1ab7ce6f462afaf105224b0ca772a33c43">id</link></para>
+</listitem>
+            <listitem><para>unsigned int <link linkend="_structengine__texture_1aca34d28e3d8bcbcadb8edb4e3af24f8c">width</link></para>
+</listitem>
+            <listitem><para>unsigned int <link linkend="_structengine__texture_1ab2e78c61905b4419fcc7b4cfc500fe85">height</link></para>
+</listitem>
+            <listitem><para>unsigned int <link linkend="_structengine__texture_1a66b85a21c0d3547030ce4e41988b8595">internalformat</link></para>
+</listitem>
+            <listitem><para>unsigned int <link linkend="_structengine__texture_1aa0ad368bb9b12af5f43c8e7b107516b3">imageformat</link></para>
+</listitem>
+            <listitem><para>unsigned int <link linkend="_structengine__texture_1a929dcd7d419d99a9b8a62938b0aa17ad">wraps</link></para>
+</listitem>
+            <listitem><para>unsigned int <link linkend="_structengine__texture_1ad91f36fe2372d41e7e8f0a7660d4b826">wrapt</link></para>
+</listitem>
+            <listitem><para>unsigned int <link linkend="_structengine__texture_1acb5aa67692e5d863d4fa11b5ce1df356">filtermax</link></para>
+</listitem>
+            <listitem><para>unsigned int <link linkend="_structengine__texture_1a7e97601d7dde76271cac53cdd6049e8f">filtermin</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>A texture handle that contains all necessary texture information. </para>
+<para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00071">71</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<section>
+<title>Field Documentation</title>
+<anchor xml:id="_structengine__texture_1acb5aa67692e5d863d4fa11b5ce1df356"/><section>
+    <title>filtermax</title>
+<indexterm><primary>filtermax</primary><secondary>engine_texture</secondary></indexterm>
+<indexterm><primary>engine_texture</primary><secondary>filtermax</secondary></indexterm>
+<para><computeroutput>unsigned int filtermax</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00077">77</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_structengine__texture_1a7e97601d7dde76271cac53cdd6049e8f"/><section>
+    <title>filtermin</title>
+<indexterm><primary>filtermin</primary><secondary>engine_texture</secondary></indexterm>
+<indexterm><primary>engine_texture</primary><secondary>filtermin</secondary></indexterm>
+<para><computeroutput>unsigned int filtermin</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00077">77</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_structengine__texture_1ab2e78c61905b4419fcc7b4cfc500fe85"/><section>
+    <title>height</title>
+<indexterm><primary>height</primary><secondary>engine_texture</secondary></indexterm>
+<indexterm><primary>engine_texture</primary><secondary>height</secondary></indexterm>
+<para><computeroutput>unsigned int height</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00073">73</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_structengine__texture_1ab7ce6f462afaf105224b0ca772a33c43"/><section>
+    <title>id</title>
+<indexterm><primary>id</primary><secondary>engine_texture</secondary></indexterm>
+<indexterm><primary>engine_texture</primary><secondary>id</secondary></indexterm>
+<para><computeroutput>unsigned int id</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00072">72</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_structengine__texture_1aa0ad368bb9b12af5f43c8e7b107516b3"/><section>
+    <title>imageformat</title>
+<indexterm><primary>imageformat</primary><secondary>engine_texture</secondary></indexterm>
+<indexterm><primary>engine_texture</primary><secondary>imageformat</secondary></indexterm>
+<para><computeroutput>unsigned int imageformat</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00075">75</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_structengine__texture_1a66b85a21c0d3547030ce4e41988b8595"/><section>
+    <title>internalformat</title>
+<indexterm><primary>internalformat</primary><secondary>engine_texture</secondary></indexterm>
+<indexterm><primary>engine_texture</primary><secondary>internalformat</secondary></indexterm>
+<para><computeroutput>unsigned int internalformat</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00074">74</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_structengine__texture_1aca34d28e3d8bcbcadb8edb4e3af24f8c"/><section>
+    <title>width</title>
+<indexterm><primary>width</primary><secondary>engine_texture</secondary></indexterm>
+<indexterm><primary>engine_texture</primary><secondary>width</secondary></indexterm>
+<para><computeroutput>unsigned int width</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00073">73</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_structengine__texture_1a929dcd7d419d99a9b8a62938b0aa17ad"/><section>
+    <title>wraps</title>
+<indexterm><primary>wraps</primary><secondary>engine_texture</secondary></indexterm>
+<indexterm><primary>engine_texture</primary><secondary>wraps</secondary></indexterm>
+<para><computeroutput>unsigned int wraps</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00076">76</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_structengine__texture_1ad91f36fe2372d41e7e8f0a7660d4b826"/><section>
+    <title>wrapt</title>
+<indexterm><primary>wrapt</primary><secondary>engine_texture</secondary></indexterm>
+<indexterm><primary>engine_texture</primary><secondary>wrapt</secondary></indexterm>
+<para><computeroutput>unsigned int wrapt</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00076">76</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<para>
+The documentation for this struct was generated from the following file:</para>
+engine_defs.h</section>
+</section>

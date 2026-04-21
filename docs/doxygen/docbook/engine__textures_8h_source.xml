@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_engine__textures_8h_source" xml:lang="en-US">
+<title>engine_textures.h</title>
+<programlisting linenumbering="unnumbered"><anchor xml:id="_engine__textures_8h_source_1l00001"/>00001 <emphasis role="preprocessor">#ifndef&#32;ENGINE_TEXTURES_H</emphasis>
+<anchor xml:id="_engine__textures_8h_source_1l00002"/>00002 <emphasis role="preprocessor">#define&#32;ENGINE_TEXTURES_H</emphasis>
+<anchor xml:id="_engine__textures_8h_source_1l00003"/>00003 
+<anchor xml:id="_engine__textures_8h_source_1l00004"/>00004 <emphasis role="preprocessor">#include&#32;&quot;engine_defs.h&quot;</emphasis>
+<anchor xml:id="_engine__textures_8h_source_1l00005"/>00005 
+<anchor xml:id="_engine__textures_8h_source_1l00014"/>00014 <emphasis role="keyword">const</emphasis>&#32;EBOOL&#32;engineCreateTexture(EngineContext*&#32;ctx,&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;key);
+<anchor xml:id="_engine__textures_8h_source_1l00015"/>00015 
+<anchor xml:id="_engine__textures_8h_source_1l00026"/>00026 <emphasis role="keyword">const</emphasis>&#32;EBOOL&#32;engineGenerateTexture(EngineContext*&#32;ctx,&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;key,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>*&#32;path,&#32;<emphasis role="keyword">const</emphasis>&#32;EBOOL&#32;alpha);
+<anchor xml:id="_engine__textures_8h_source_1l00027"/>00027 
+<anchor xml:id="_engine__textures_8h_source_1l00038"/>00038 <emphasis role="keywordtype">void</emphasis>&#32;engineGenTextureCheckMissing(EngineContext*&#32;ctx,&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;key,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>*&#32;path,&#32;<emphasis role="keyword">const</emphasis>&#32;EBOOL&#32;alpha);
+<anchor xml:id="_engine__textures_8h_source_1l00039"/>00039 
+<anchor xml:id="_engine__textures_8h_source_1l00046"/>00046 <emphasis role="keywordtype">void</emphasis>&#32;engineBindTexture(EngineContext*&#32;ctx,&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;<emphasis role="keywordtype">id</emphasis>);
+<anchor xml:id="_engine__textures_8h_source_1l00047"/>00047 
+<anchor xml:id="_engine__textures_8h_source_1l00053"/>00053 <emphasis role="keywordtype">void</emphasis>&#32;engineDestroyAllTextures(EngineContext*&#32;ctx);
+<anchor xml:id="_engine__textures_8h_source_1l00054"/>00054 
+<anchor xml:id="_engine__textures_8h_source_1l00061"/>00061 <emphasis role="keywordtype">void</emphasis>&#32;engineDestroyTexture(EngineContext*&#32;ctx,&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;key);
+<anchor xml:id="_engine__textures_8h_source_1l00062"/>00062 
+<anchor xml:id="_engine__textures_8h_source_1l00063"/>00063 <emphasis role="preprocessor">#endif&#32;</emphasis><emphasis role="comment">//&#32;ENGINE_TEXTURES_H</emphasis>
+<anchor xml:id="_engine__textures_8h_source_1l00064"/>00064 
+<anchor xml:id="_engine__textures_8h_source_1l00065"/>00065 
+</programlisting></section>

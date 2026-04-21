@@ -1,0 +1,461 @@
+\doxysection{Space\+Game/\+engine\+\_\+defs.h File Reference}
+\hypertarget{engine__defs_8h}{}\label{engine__defs_8h}\index{SpaceGame/engine\_defs.h@{SpaceGame/engine\_defs.h}}
+{\ttfamily \+\#include $<$glad/\+glad.\+h$>$}\newline
+{\ttfamily \+\#include $<$GLFW/\+glfw3.\+h$>$}\newline
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{structwindow__config}{window\+\_\+config}}
+\item 
+struct \doxymbox{\hyperlink{structengine__texture}{engine\+\_\+texture}}
+\item 
+struct \doxymbox{\hyperlink{structengine__texture__pair}{engine\+\_\+texture\+\_\+pair}}
+\item 
+struct \doxymbox{\hyperlink{structengine__entity}{engine\+\_\+entity}}
+\item 
+struct \doxymbox{\hyperlink{structengine__component}{engine\+\_\+component}}
+\item 
+struct \doxymbox{\hyperlink{structlinklist}{linklist}}
+\item 
+struct \doxymbox{\hyperlink{structengine__context}{engine\+\_\+context}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{engine__defs_8h_a36f190ee08b08696d7e8d0277e366ebb}{ENGINE\+\_\+\+MAX\+\_\+\+TEXTURES}}~1024
+\item 
+\+\#define \doxymbox{\hyperlink{engine__defs_8h_a1ecd280a1b8f9ded11592607470280ac}{ENGINE\+\_\+\+MAX\+\_\+\+ENTITIES}}~0x\+FFFF
+\item 
+\+\#define \doxymbox{\hyperlink{engine__defs_8h_a1cea4428b12087f11597871d840ef91a}{ENGINE\+\_\+\+MAX\+\_\+\+COMPONENTS}}~0x10
+\item 
+\+\#define \doxymbox{\hyperlink{engine__defs_8h_a2d2393873df56debfeef8840b3fbc572}{ENGINE\+\_\+\+NUM\+\_\+\+KEYS}}~1024
+\item 
+\+\#define \doxymbox{\hyperlink{engine__defs_8h_aa116cf7d624db650672746e4ab5b4cfc}{ENGINE\+\_\+\+MISSING\+\_\+\+TEXTURE\+\_\+\+KEY}}~\doxymbox{\hyperlink{engine__defs_8h_a36f190ee08b08696d7e8d0277e366ebb}{ENGINE\+\_\+\+MAX\+\_\+\+TEXTURES}}-\/1
+\item 
+\+\#define \doxymbox{\hyperlink{engine__defs_8h_a4e3c39537b35c593b26b7ce8c48ab3d8}{MAKE\+\_\+\+ENT\+\_\+\+PAIR}}(k,  pos,  sz,  tk)
+\item 
+\+\#define \doxymbox{\hyperlink{engine__defs_8h_aaf69623c4723efcb269c2b9a0d33ba0b}{ETRUE}}~1
+\item 
+\+\#define \doxymbox{\hyperlink{engine__defs_8h_ade4ce8c6163449c210de16251f6bcda9}{EFALSE}}~0
+\item 
+\+\#define \doxymbox{\hyperlink{engine__defs_8h_a4df9eadfc43ac04551458c89fbc378bb}{EKEY\+\_\+\+ESCAPE}}~GLFW\+\_\+\+KEY\+\_\+\+ESCAPE
+\item 
+\+\#define \doxymbox{\hyperlink{engine__defs_8h_a67806a002bc1b671462a44804e6f805b}{EKEY\+\_\+W}}~GLFW\+\_\+\+KEY\+\_\+W
+\item 
+\+\#define \doxymbox{\hyperlink{engine__defs_8h_afaae5b7d03788dd4f712db652701c9c7}{EKEY\+\_\+S}}~GLFW\+\_\+\+KEY\+\_\+S
+\item 
+\+\#define \doxymbox{\hyperlink{engine__defs_8h_abe7c91296c5fc875c0b3688487985a3b}{EKEY\+\_\+A}}~GLFW\+\_\+\+KEY\+\_\+A
+\item 
+\+\#define \doxymbox{\hyperlink{engine__defs_8h_aa04ad1411deb015736e31cb1287fd63f}{EKEY\+\_\+D}}~GLFW\+\_\+\+KEY\+\_\+D
+\item 
+\+\#define \doxymbox{\hyperlink{engine__defs_8h_a736e2ea11e2584d889f302013d178098}{EKEY\+\_\+\+UP}}~GLFW\+\_\+\+KEY\+\_\+\+UP
+\item 
+\+\#define \doxymbox{\hyperlink{engine__defs_8h_a5cee394f9de509dea661d40b5a724ac6}{EKEY\+\_\+\+DOWN}}~GLFW\+\_\+\+KEY\+\_\+\+DOWN
+\item 
+\+\#define \doxymbox{\hyperlink{engine__defs_8h_ab3d6b1349a88522392413d719469ed7e}{EKEY\+\_\+\+RIGHT}}~GLFW\+\_\+\+KEY\+\_\+\+RIGHT
+\item 
+\+\#define \doxymbox{\hyperlink{engine__defs_8h_a7f78cf88d81a586b4eaf85db6b407d87}{EKEY\+\_\+\+LEFT}}~GLFW\+\_\+\+KEY\+\_\+\+LEFT
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef unsigned char \doxymbox{\hyperlink{engine__defs_8h_a4fe707fd7f0392a3c6d81cfc62f1686c}{EBOOL}}
+\item 
+typedef unsigned int \doxymbox{\hyperlink{engine__defs_8h_ad5bbadc2683f69c3cc216f456e83aef5}{Engine\+Shader}}
+\item 
+typedef unsigned int \doxymbox{\hyperlink{engine__defs_8h_a4089a7465fbba0988b4933eb318a7541}{Engine\+Program}}
+\item 
+typedef unsigned int \doxymbox{\hyperlink{engine__defs_8h_a0a29a026b82481d6384d6880a2b6b071}{Engine\+Texture\+Key}}
+\item 
+typedef unsigned int \doxymbox{\hyperlink{engine__defs_8h_a4471320c0db41d630bed66ecbfff9bb9}{Engine\+Entity\+Key}}
+\item 
+typedef unsigned int \doxymbox{\hyperlink{engine__defs_8h_a5f517ac8fe5b6213281fcf3e869014a3}{Engine\+Component\+ID}}
+\item 
+typedef enum gamestate \doxymbox{\hyperlink{engine__defs_8h_adbf6f00f51442de5cfeccabf6fe7009d}{Game\+State}}
+\item 
+typedef struct \doxymbox{\hyperlink{structengine__context}{engine\+\_\+context}} \doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}}
+\item 
+typedef struct \doxymbox{\hyperlink{structengine__component}{engine\+\_\+component}} \doxymbox{\hyperlink{engine__defs_8h_aa5d34c353188c6922fdb05c9cdf2f1f0}{Engine\+Component}}
+\item 
+typedef struct \doxymbox{\hyperlink{structengine__entity}{engine\+\_\+entity}} \doxymbox{\hyperlink{engine__defs_8h_a6c53f0b7ec3737ab96bcfea47dd18695}{Engine\+Entity}}
+\item 
+typedef void(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{engine__defs_8h_a25cd721674b601a381fb538f63193316}{Engine\+Component\+Func}}) (\doxymbox{\hyperlink{engine__defs_8h_a6c53f0b7ec3737ab96bcfea47dd18695}{Engine\+Entity}} \texorpdfstring{$\ast$}{*}, \doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}, float)
+\item 
+typedef enum \doxymbox{\hyperlink{engine__defs_8h_a4ca99c4435f534981c8f010a42399b8f}{component\+\_\+type}} \doxymbox{\hyperlink{engine__defs_8h_addaf8da9d811dea07390c134ec64e60e}{Engine\+Component\+Type}}
+\item 
+typedef struct \doxymbox{\hyperlink{structwindow__config}{window\+\_\+config}} \doxymbox{\hyperlink{engine__defs_8h_ace08f4d3a2b304b58e1719b16ba36a16}{Window\+Config}}
+\item 
+typedef struct \doxymbox{\hyperlink{structengine__texture}{engine\+\_\+texture}} \doxymbox{\hyperlink{engine__defs_8h_ab7190cb26ff0940aad30e42f4b863a65}{Engine\+Texture}}
+\item 
+typedef struct \doxymbox{\hyperlink{structengine__texture__pair}{engine\+\_\+texture\+\_\+pair}} \doxymbox{\hyperlink{engine__defs_8h_ab1b932d98fa15c9b0f3ca42807c8f319}{Engine\+Texture\+Pair}}
+\item 
+typedef struct \doxymbox{\hyperlink{structlinklist}{linklist}} \doxymbox{\hyperlink{engine__defs_8h_a09036c28461371d73a173aa18b119cd3}{Engine\+Linked\+List}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \doxymbox{\hyperlink{engine__defs_8h_a4ca99c4435f534981c8f010a42399b8f}{component\+\_\+type}} \{ \doxymbox{\hyperlink{engine__defs_8h_a4ca99c4435f534981c8f010a42399b8fa88e24b300b4fe0854e0aacf8ed46358d}{ENGINE\+\_\+\+COMPONENT\+\_\+\+RENDERER}}
+, \doxymbox{\hyperlink{engine__defs_8h_a4ca99c4435f534981c8f010a42399b8faedc80912a190108fb8024b04936d8305}{ENGINE\+\_\+\+COMPONENT\+\_\+\+TICK}}
+, \doxymbox{\hyperlink{engine__defs_8h_a4ca99c4435f534981c8f010a42399b8fac18d1186ab6639a28d072e5b40f7e955}{ENGINE\+\_\+\+COMPONENT\+\_\+\+CONTROLLER}}
+ \}
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{engine__defs_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{engine__defs_8h_ade4ce8c6163449c210de16251f6bcda9}\index{engine\_defs.h@{engine\_defs.h}!EFALSE@{EFALSE}}
+\index{EFALSE@{EFALSE}!engine\_defs.h@{engine\_defs.h}}
+\doxysubsubsection{\texorpdfstring{EFALSE}{EFALSE}}
+{\footnotesize\ttfamily \label{engine__defs_8h_ade4ce8c6163449c210de16251f6bcda9} 
+\+\#define EFALSE~0}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__defs_8h_source_l00018}{18}} of file \doxymbox{\hyperlink{engine__defs_8h_source}{engine\+\_\+defs.\+h}}.
+
+\Hypertarget{engine__defs_8h_abe7c91296c5fc875c0b3688487985a3b}\index{engine\_defs.h@{engine\_defs.h}!EKEY\_A@{EKEY\_A}}
+\index{EKEY\_A@{EKEY\_A}!engine\_defs.h@{engine\_defs.h}}
+\doxysubsubsection{\texorpdfstring{EKEY\_A}{EKEY\_A}}
+{\footnotesize\ttfamily \label{engine__defs_8h_abe7c91296c5fc875c0b3688487985a3b} 
+\+\#define EKEY\+\_\+A~GLFW\+\_\+\+KEY\+\_\+A}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__defs_8h_source_l00039}{39}} of file \doxymbox{\hyperlink{engine__defs_8h_source}{engine\+\_\+defs.\+h}}.
+
+\Hypertarget{engine__defs_8h_aa04ad1411deb015736e31cb1287fd63f}\index{engine\_defs.h@{engine\_defs.h}!EKEY\_D@{EKEY\_D}}
+\index{EKEY\_D@{EKEY\_D}!engine\_defs.h@{engine\_defs.h}}
+\doxysubsubsection{\texorpdfstring{EKEY\_D}{EKEY\_D}}
+{\footnotesize\ttfamily \label{engine__defs_8h_aa04ad1411deb015736e31cb1287fd63f} 
+\+\#define EKEY\+\_\+D~GLFW\+\_\+\+KEY\+\_\+D}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__defs_8h_source_l00040}{40}} of file \doxymbox{\hyperlink{engine__defs_8h_source}{engine\+\_\+defs.\+h}}.
+
+\Hypertarget{engine__defs_8h_a5cee394f9de509dea661d40b5a724ac6}\index{engine\_defs.h@{engine\_defs.h}!EKEY\_DOWN@{EKEY\_DOWN}}
+\index{EKEY\_DOWN@{EKEY\_DOWN}!engine\_defs.h@{engine\_defs.h}}
+\doxysubsubsection{\texorpdfstring{EKEY\_DOWN}{EKEY\_DOWN}}
+{\footnotesize\ttfamily \label{engine__defs_8h_a5cee394f9de509dea661d40b5a724ac6} 
+\+\#define EKEY\+\_\+\+DOWN~GLFW\+\_\+\+KEY\+\_\+\+DOWN}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__defs_8h_source_l00042}{42}} of file \doxymbox{\hyperlink{engine__defs_8h_source}{engine\+\_\+defs.\+h}}.
+
+\Hypertarget{engine__defs_8h_a4df9eadfc43ac04551458c89fbc378bb}\index{engine\_defs.h@{engine\_defs.h}!EKEY\_ESCAPE@{EKEY\_ESCAPE}}
+\index{EKEY\_ESCAPE@{EKEY\_ESCAPE}!engine\_defs.h@{engine\_defs.h}}
+\doxysubsubsection{\texorpdfstring{EKEY\_ESCAPE}{EKEY\_ESCAPE}}
+{\footnotesize\ttfamily \label{engine__defs_8h_a4df9eadfc43ac04551458c89fbc378bb} 
+\+\#define EKEY\+\_\+\+ESCAPE~GLFW\+\_\+\+KEY\+\_\+\+ESCAPE}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__defs_8h_source_l00036}{36}} of file \doxymbox{\hyperlink{engine__defs_8h_source}{engine\+\_\+defs.\+h}}.
+
+\Hypertarget{engine__defs_8h_a7f78cf88d81a586b4eaf85db6b407d87}\index{engine\_defs.h@{engine\_defs.h}!EKEY\_LEFT@{EKEY\_LEFT}}
+\index{EKEY\_LEFT@{EKEY\_LEFT}!engine\_defs.h@{engine\_defs.h}}
+\doxysubsubsection{\texorpdfstring{EKEY\_LEFT}{EKEY\_LEFT}}
+{\footnotesize\ttfamily \label{engine__defs_8h_a7f78cf88d81a586b4eaf85db6b407d87} 
+\+\#define EKEY\+\_\+\+LEFT~GLFW\+\_\+\+KEY\+\_\+\+LEFT}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__defs_8h_source_l00044}{44}} of file \doxymbox{\hyperlink{engine__defs_8h_source}{engine\+\_\+defs.\+h}}.
+
+\Hypertarget{engine__defs_8h_ab3d6b1349a88522392413d719469ed7e}\index{engine\_defs.h@{engine\_defs.h}!EKEY\_RIGHT@{EKEY\_RIGHT}}
+\index{EKEY\_RIGHT@{EKEY\_RIGHT}!engine\_defs.h@{engine\_defs.h}}
+\doxysubsubsection{\texorpdfstring{EKEY\_RIGHT}{EKEY\_RIGHT}}
+{\footnotesize\ttfamily \label{engine__defs_8h_ab3d6b1349a88522392413d719469ed7e} 
+\+\#define EKEY\+\_\+\+RIGHT~GLFW\+\_\+\+KEY\+\_\+\+RIGHT}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__defs_8h_source_l00043}{43}} of file \doxymbox{\hyperlink{engine__defs_8h_source}{engine\+\_\+defs.\+h}}.
+
+\Hypertarget{engine__defs_8h_afaae5b7d03788dd4f712db652701c9c7}\index{engine\_defs.h@{engine\_defs.h}!EKEY\_S@{EKEY\_S}}
+\index{EKEY\_S@{EKEY\_S}!engine\_defs.h@{engine\_defs.h}}
+\doxysubsubsection{\texorpdfstring{EKEY\_S}{EKEY\_S}}
+{\footnotesize\ttfamily \label{engine__defs_8h_afaae5b7d03788dd4f712db652701c9c7} 
+\+\#define EKEY\+\_\+S~GLFW\+\_\+\+KEY\+\_\+S}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__defs_8h_source_l00038}{38}} of file \doxymbox{\hyperlink{engine__defs_8h_source}{engine\+\_\+defs.\+h}}.
+
+\Hypertarget{engine__defs_8h_a736e2ea11e2584d889f302013d178098}\index{engine\_defs.h@{engine\_defs.h}!EKEY\_UP@{EKEY\_UP}}
+\index{EKEY\_UP@{EKEY\_UP}!engine\_defs.h@{engine\_defs.h}}
+\doxysubsubsection{\texorpdfstring{EKEY\_UP}{EKEY\_UP}}
+{\footnotesize\ttfamily \label{engine__defs_8h_a736e2ea11e2584d889f302013d178098} 
+\+\#define EKEY\+\_\+\+UP~GLFW\+\_\+\+KEY\+\_\+\+UP}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__defs_8h_source_l00041}{41}} of file \doxymbox{\hyperlink{engine__defs_8h_source}{engine\+\_\+defs.\+h}}.
+
+\Hypertarget{engine__defs_8h_a67806a002bc1b671462a44804e6f805b}\index{engine\_defs.h@{engine\_defs.h}!EKEY\_W@{EKEY\_W}}
+\index{EKEY\_W@{EKEY\_W}!engine\_defs.h@{engine\_defs.h}}
+\doxysubsubsection{\texorpdfstring{EKEY\_W}{EKEY\_W}}
+{\footnotesize\ttfamily \label{engine__defs_8h_a67806a002bc1b671462a44804e6f805b} 
+\+\#define EKEY\+\_\+W~GLFW\+\_\+\+KEY\+\_\+W}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__defs_8h_source_l00037}{37}} of file \doxymbox{\hyperlink{engine__defs_8h_source}{engine\+\_\+defs.\+h}}.
+
+\Hypertarget{engine__defs_8h_a1cea4428b12087f11597871d840ef91a}\index{engine\_defs.h@{engine\_defs.h}!ENGINE\_MAX\_COMPONENTS@{ENGINE\_MAX\_COMPONENTS}}
+\index{ENGINE\_MAX\_COMPONENTS@{ENGINE\_MAX\_COMPONENTS}!engine\_defs.h@{engine\_defs.h}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_MAX\_COMPONENTS}{ENGINE\_MAX\_COMPONENTS}}
+{\footnotesize\ttfamily \label{engine__defs_8h_a1cea4428b12087f11597871d840ef91a} 
+\+\#define ENGINE\+\_\+\+MAX\+\_\+\+COMPONENTS~0x10}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__defs_8h_source_l00009}{9}} of file \doxymbox{\hyperlink{engine__defs_8h_source}{engine\+\_\+defs.\+h}}.
+
+\Hypertarget{engine__defs_8h_a1ecd280a1b8f9ded11592607470280ac}\index{engine\_defs.h@{engine\_defs.h}!ENGINE\_MAX\_ENTITIES@{ENGINE\_MAX\_ENTITIES}}
+\index{ENGINE\_MAX\_ENTITIES@{ENGINE\_MAX\_ENTITIES}!engine\_defs.h@{engine\_defs.h}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_MAX\_ENTITIES}{ENGINE\_MAX\_ENTITIES}}
+{\footnotesize\ttfamily \label{engine__defs_8h_a1ecd280a1b8f9ded11592607470280ac} 
+\+\#define ENGINE\+\_\+\+MAX\+\_\+\+ENTITIES~0x\+FFFF}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__defs_8h_source_l00008}{8}} of file \doxymbox{\hyperlink{engine__defs_8h_source}{engine\+\_\+defs.\+h}}.
+
+\Hypertarget{engine__defs_8h_a36f190ee08b08696d7e8d0277e366ebb}\index{engine\_defs.h@{engine\_defs.h}!ENGINE\_MAX\_TEXTURES@{ENGINE\_MAX\_TEXTURES}}
+\index{ENGINE\_MAX\_TEXTURES@{ENGINE\_MAX\_TEXTURES}!engine\_defs.h@{engine\_defs.h}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_MAX\_TEXTURES}{ENGINE\_MAX\_TEXTURES}}
+{\footnotesize\ttfamily \label{engine__defs_8h_a36f190ee08b08696d7e8d0277e366ebb} 
+\+\#define ENGINE\+\_\+\+MAX\+\_\+\+TEXTURES~1024}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__defs_8h_source_l00007}{7}} of file \doxymbox{\hyperlink{engine__defs_8h_source}{engine\+\_\+defs.\+h}}.
+
+\Hypertarget{engine__defs_8h_aa116cf7d624db650672746e4ab5b4cfc}\index{engine\_defs.h@{engine\_defs.h}!ENGINE\_MISSING\_TEXTURE\_KEY@{ENGINE\_MISSING\_TEXTURE\_KEY}}
+\index{ENGINE\_MISSING\_TEXTURE\_KEY@{ENGINE\_MISSING\_TEXTURE\_KEY}!engine\_defs.h@{engine\_defs.h}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_MISSING\_TEXTURE\_KEY}{ENGINE\_MISSING\_TEXTURE\_KEY}}
+{\footnotesize\ttfamily \label{engine__defs_8h_aa116cf7d624db650672746e4ab5b4cfc} 
+\+\#define ENGINE\+\_\+\+MISSING\+\_\+\+TEXTURE\+\_\+\+KEY~\doxymbox{\hyperlink{engine__defs_8h_a36f190ee08b08696d7e8d0277e366ebb}{ENGINE\+\_\+\+MAX\+\_\+\+TEXTURES}}-\/1}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__defs_8h_source_l00012}{12}} of file \doxymbox{\hyperlink{engine__defs_8h_source}{engine\+\_\+defs.\+h}}.
+
+\Hypertarget{engine__defs_8h_a2d2393873df56debfeef8840b3fbc572}\index{engine\_defs.h@{engine\_defs.h}!ENGINE\_NUM\_KEYS@{ENGINE\_NUM\_KEYS}}
+\index{ENGINE\_NUM\_KEYS@{ENGINE\_NUM\_KEYS}!engine\_defs.h@{engine\_defs.h}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_NUM\_KEYS}{ENGINE\_NUM\_KEYS}}
+{\footnotesize\ttfamily \label{engine__defs_8h_a2d2393873df56debfeef8840b3fbc572} 
+\+\#define ENGINE\+\_\+\+NUM\+\_\+\+KEYS~1024}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__defs_8h_source_l00010}{10}} of file \doxymbox{\hyperlink{engine__defs_8h_source}{engine\+\_\+defs.\+h}}.
+
+\Hypertarget{engine__defs_8h_aaf69623c4723efcb269c2b9a0d33ba0b}\index{engine\_defs.h@{engine\_defs.h}!ETRUE@{ETRUE}}
+\index{ETRUE@{ETRUE}!engine\_defs.h@{engine\_defs.h}}
+\doxysubsubsection{\texorpdfstring{ETRUE}{ETRUE}}
+{\footnotesize\ttfamily \label{engine__defs_8h_aaf69623c4723efcb269c2b9a0d33ba0b} 
+\+\#define ETRUE~1}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__defs_8h_source_l00017}{17}} of file \doxymbox{\hyperlink{engine__defs_8h_source}{engine\+\_\+defs.\+h}}.
+
+\Hypertarget{engine__defs_8h_a4e3c39537b35c593b26b7ce8c48ab3d8}\index{engine\_defs.h@{engine\_defs.h}!MAKE\_ENT\_PAIR@{MAKE\_ENT\_PAIR}}
+\index{MAKE\_ENT\_PAIR@{MAKE\_ENT\_PAIR}!engine\_defs.h@{engine\_defs.h}}
+\doxysubsubsection{\texorpdfstring{MAKE\_ENT\_PAIR}{MAKE\_ENT\_PAIR}}
+{\footnotesize\ttfamily \label{engine__defs_8h_a4e3c39537b35c593b26b7ce8c48ab3d8} 
+\+\#define MAKE\+\_\+\+ENT\+\_\+\+PAIR(\begin{DoxyParamCaption}\item[{}]{k}{, }\item[{}]{pos}{, }\item[{}]{sz}{, }\item[{}]{tk}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{deprecated\ DO\ NOT\ USE.}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{engine__defs_8h_source_l00014}{14}} of file \doxymbox{\hyperlink{engine__defs_8h_source}{engine\+\_\+defs.\+h}}.
+
+
+
+\label{doc-typedef-members}
+\Hypertarget{engine__defs_8h_doc-typedef-members}
+\doxysubsection{Typedef Documentation}
+\Hypertarget{engine__defs_8h_a4fe707fd7f0392a3c6d81cfc62f1686c}\index{engine\_defs.h@{engine\_defs.h}!EBOOL@{EBOOL}}
+\index{EBOOL@{EBOOL}!engine\_defs.h@{engine\_defs.h}}
+\doxysubsubsection{\texorpdfstring{EBOOL}{EBOOL}}
+{\footnotesize\ttfamily \label{engine__defs_8h_a4fe707fd7f0392a3c6d81cfc62f1686c} 
+typedef unsigned char \doxymbox{\hyperlink{engine__defs_8h_a4fe707fd7f0392a3c6d81cfc62f1686c}{EBOOL}}}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__defs_8h_source_l00016}{16}} of file \doxymbox{\hyperlink{engine__defs_8h_source}{engine\+\_\+defs.\+h}}.
+
+\Hypertarget{engine__defs_8h_aa5d34c353188c6922fdb05c9cdf2f1f0}\index{engine\_defs.h@{engine\_defs.h}!EngineComponent@{EngineComponent}}
+\index{EngineComponent@{EngineComponent}!engine\_defs.h@{engine\_defs.h}}
+\doxysubsubsection{\texorpdfstring{EngineComponent}{EngineComponent}}
+{\footnotesize\ttfamily \label{engine__defs_8h_aa5d34c353188c6922fdb05c9cdf2f1f0} 
+typedef struct \doxymbox{\hyperlink{structengine__component}{engine\+\_\+component}} \doxymbox{\hyperlink{engine__defs_8h_aa5d34c353188c6922fdb05c9cdf2f1f0}{Engine\+Component}}}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__defs_8h_source_l00031}{31}} of file \doxymbox{\hyperlink{engine__defs_8h_source}{engine\+\_\+defs.\+h}}.
+
+\Hypertarget{engine__defs_8h_a25cd721674b601a381fb538f63193316}\index{engine\_defs.h@{engine\_defs.h}!EngineComponentFunc@{EngineComponentFunc}}
+\index{EngineComponentFunc@{EngineComponentFunc}!engine\_defs.h@{engine\_defs.h}}
+\doxysubsubsection{\texorpdfstring{EngineComponentFunc}{EngineComponentFunc}}
+{\footnotesize\ttfamily \label{engine__defs_8h_a25cd721674b601a381fb538f63193316} 
+typedef void(\texorpdfstring{$\ast$}{*} Engine\+Component\+Func) (\doxymbox{\hyperlink{engine__defs_8h_a6c53f0b7ec3737ab96bcfea47dd18695}{Engine\+Entity}} \texorpdfstring{$\ast$}{*}, \doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}, float)}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__defs_8h_source_l00034}{34}} of file \doxymbox{\hyperlink{engine__defs_8h_source}{engine\+\_\+defs.\+h}}.
+
+\Hypertarget{engine__defs_8h_a5f517ac8fe5b6213281fcf3e869014a3}\index{engine\_defs.h@{engine\_defs.h}!EngineComponentID@{EngineComponentID}}
+\index{EngineComponentID@{EngineComponentID}!engine\_defs.h@{engine\_defs.h}}
+\doxysubsubsection{\texorpdfstring{EngineComponentID}{EngineComponentID}}
+{\footnotesize\ttfamily \label{engine__defs_8h_a5f517ac8fe5b6213281fcf3e869014a3} 
+typedef unsigned int \doxymbox{\hyperlink{engine__defs_8h_a5f517ac8fe5b6213281fcf3e869014a3}{Engine\+Component\+ID}}}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__defs_8h_source_l00026}{26}} of file \doxymbox{\hyperlink{engine__defs_8h_source}{engine\+\_\+defs.\+h}}.
+
+\Hypertarget{engine__defs_8h_addaf8da9d811dea07390c134ec64e60e}\index{engine\_defs.h@{engine\_defs.h}!EngineComponentType@{EngineComponentType}}
+\index{EngineComponentType@{EngineComponentType}!engine\_defs.h@{engine\_defs.h}}
+\doxysubsubsection{\texorpdfstring{EngineComponentType}{EngineComponentType}}
+{\footnotesize\ttfamily \label{engine__defs_8h_addaf8da9d811dea07390c134ec64e60e} 
+typedef enum \doxymbox{\hyperlink{engine__defs_8h_a4ca99c4435f534981c8f010a42399b8f}{component\+\_\+type}} \doxymbox{\hyperlink{engine__defs_8h_addaf8da9d811dea07390c134ec64e60e}{Engine\+Component\+Type}}}
+
+\Hypertarget{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}\index{engine\_defs.h@{engine\_defs.h}!EngineContext@{EngineContext}}
+\index{EngineContext@{EngineContext}!engine\_defs.h@{engine\_defs.h}}
+\doxysubsubsection{\texorpdfstring{EngineContext}{EngineContext}}
+{\footnotesize\ttfamily \label{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58} 
+typedef struct \doxymbox{\hyperlink{structengine__context}{engine\+\_\+context}} \doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}}}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__defs_8h_source_l00030}{30}} of file \doxymbox{\hyperlink{engine__defs_8h_source}{engine\+\_\+defs.\+h}}.
+
+\Hypertarget{engine__defs_8h_a6c53f0b7ec3737ab96bcfea47dd18695}\index{engine\_defs.h@{engine\_defs.h}!EngineEntity@{EngineEntity}}
+\index{EngineEntity@{EngineEntity}!engine\_defs.h@{engine\_defs.h}}
+\doxysubsubsection{\texorpdfstring{EngineEntity}{EngineEntity}}
+{\footnotesize\ttfamily \label{engine__defs_8h_a6c53f0b7ec3737ab96bcfea47dd18695} 
+typedef struct \doxymbox{\hyperlink{structengine__entity}{engine\+\_\+entity}} \doxymbox{\hyperlink{engine__defs_8h_a6c53f0b7ec3737ab96bcfea47dd18695}{Engine\+Entity}}}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__defs_8h_source_l00032}{32}} of file \doxymbox{\hyperlink{engine__defs_8h_source}{engine\+\_\+defs.\+h}}.
+
+\Hypertarget{engine__defs_8h_a4471320c0db41d630bed66ecbfff9bb9}\index{engine\_defs.h@{engine\_defs.h}!EngineEntityKey@{EngineEntityKey}}
+\index{EngineEntityKey@{EngineEntityKey}!engine\_defs.h@{engine\_defs.h}}
+\doxysubsubsection{\texorpdfstring{EngineEntityKey}{EngineEntityKey}}
+{\footnotesize\ttfamily \label{engine__defs_8h_a4471320c0db41d630bed66ecbfff9bb9} 
+typedef unsigned int \doxymbox{\hyperlink{engine__defs_8h_a4471320c0db41d630bed66ecbfff9bb9}{Engine\+Entity\+Key}}}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__defs_8h_source_l00024}{24}} of file \doxymbox{\hyperlink{engine__defs_8h_source}{engine\+\_\+defs.\+h}}.
+
+\Hypertarget{engine__defs_8h_a09036c28461371d73a173aa18b119cd3}\index{engine\_defs.h@{engine\_defs.h}!EngineLinkedList@{EngineLinkedList}}
+\index{EngineLinkedList@{EngineLinkedList}!engine\_defs.h@{engine\_defs.h}}
+\doxysubsubsection{\texorpdfstring{EngineLinkedList}{EngineLinkedList}}
+{\footnotesize\ttfamily \label{engine__defs_8h_a09036c28461371d73a173aa18b119cd3} 
+typedef struct \doxymbox{\hyperlink{structlinklist}{linklist}} \doxymbox{\hyperlink{engine__defs_8h_a09036c28461371d73a173aa18b119cd3}{Engine\+Linked\+List}}}
+
+\Hypertarget{engine__defs_8h_a4089a7465fbba0988b4933eb318a7541}\index{engine\_defs.h@{engine\_defs.h}!EngineProgram@{EngineProgram}}
+\index{EngineProgram@{EngineProgram}!engine\_defs.h@{engine\_defs.h}}
+\doxysubsubsection{\texorpdfstring{EngineProgram}{EngineProgram}}
+{\footnotesize\ttfamily \label{engine__defs_8h_a4089a7465fbba0988b4933eb318a7541} 
+typedef unsigned int \doxymbox{\hyperlink{engine__defs_8h_a4089a7465fbba0988b4933eb318a7541}{Engine\+Program}}}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__defs_8h_source_l00021}{21}} of file \doxymbox{\hyperlink{engine__defs_8h_source}{engine\+\_\+defs.\+h}}.
+
+\Hypertarget{engine__defs_8h_ad5bbadc2683f69c3cc216f456e83aef5}\index{engine\_defs.h@{engine\_defs.h}!EngineShader@{EngineShader}}
+\index{EngineShader@{EngineShader}!engine\_defs.h@{engine\_defs.h}}
+\doxysubsubsection{\texorpdfstring{EngineShader}{EngineShader}}
+{\footnotesize\ttfamily \label{engine__defs_8h_ad5bbadc2683f69c3cc216f456e83aef5} 
+typedef unsigned int \doxymbox{\hyperlink{engine__defs_8h_ad5bbadc2683f69c3cc216f456e83aef5}{Engine\+Shader}}}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__defs_8h_source_l00020}{20}} of file \doxymbox{\hyperlink{engine__defs_8h_source}{engine\+\_\+defs.\+h}}.
+
+\Hypertarget{engine__defs_8h_ab7190cb26ff0940aad30e42f4b863a65}\index{engine\_defs.h@{engine\_defs.h}!EngineTexture@{EngineTexture}}
+\index{EngineTexture@{EngineTexture}!engine\_defs.h@{engine\_defs.h}}
+\doxysubsubsection{\texorpdfstring{EngineTexture}{EngineTexture}}
+{\footnotesize\ttfamily \label{engine__defs_8h_ab7190cb26ff0940aad30e42f4b863a65} 
+typedef struct \doxymbox{\hyperlink{structengine__texture}{engine\+\_\+texture}} \doxymbox{\hyperlink{engine__defs_8h_ab7190cb26ff0940aad30e42f4b863a65}{Engine\+Texture}}}
+
+\Hypertarget{engine__defs_8h_a0a29a026b82481d6384d6880a2b6b071}\index{engine\_defs.h@{engine\_defs.h}!EngineTextureKey@{EngineTextureKey}}
+\index{EngineTextureKey@{EngineTextureKey}!engine\_defs.h@{engine\_defs.h}}
+\doxysubsubsection{\texorpdfstring{EngineTextureKey}{EngineTextureKey}}
+{\footnotesize\ttfamily \label{engine__defs_8h_a0a29a026b82481d6384d6880a2b6b071} 
+typedef unsigned int \doxymbox{\hyperlink{engine__defs_8h_a0a29a026b82481d6384d6880a2b6b071}{Engine\+Texture\+Key}}}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__defs_8h_source_l00023}{23}} of file \doxymbox{\hyperlink{engine__defs_8h_source}{engine\+\_\+defs.\+h}}.
+
+\Hypertarget{engine__defs_8h_ab1b932d98fa15c9b0f3ca42807c8f319}\index{engine\_defs.h@{engine\_defs.h}!EngineTexturePair@{EngineTexturePair}}
+\index{EngineTexturePair@{EngineTexturePair}!engine\_defs.h@{engine\_defs.h}}
+\doxysubsubsection{\texorpdfstring{EngineTexturePair}{EngineTexturePair}}
+{\footnotesize\ttfamily \label{engine__defs_8h_ab1b932d98fa15c9b0f3ca42807c8f319} 
+typedef struct \doxymbox{\hyperlink{structengine__texture__pair}{engine\+\_\+texture\+\_\+pair}} \doxymbox{\hyperlink{engine__defs_8h_ab1b932d98fa15c9b0f3ca42807c8f319}{Engine\+Texture\+Pair}}}
+
+\Hypertarget{engine__defs_8h_adbf6f00f51442de5cfeccabf6fe7009d}\index{engine\_defs.h@{engine\_defs.h}!GameState@{GameState}}
+\index{GameState@{GameState}!engine\_defs.h@{engine\_defs.h}}
+\doxysubsubsection{\texorpdfstring{GameState}{GameState}}
+{\footnotesize\ttfamily \label{engine__defs_8h_adbf6f00f51442de5cfeccabf6fe7009d} 
+typedef enum gamestate \doxymbox{\hyperlink{engine__defs_8h_adbf6f00f51442de5cfeccabf6fe7009d}{Game\+State}}}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__defs_8h_source_l00028}{28}} of file \doxymbox{\hyperlink{engine__defs_8h_source}{engine\+\_\+defs.\+h}}.
+
+\Hypertarget{engine__defs_8h_ace08f4d3a2b304b58e1719b16ba36a16}\index{engine\_defs.h@{engine\_defs.h}!WindowConfig@{WindowConfig}}
+\index{WindowConfig@{WindowConfig}!engine\_defs.h@{engine\_defs.h}}
+\doxysubsubsection{\texorpdfstring{WindowConfig}{WindowConfig}}
+{\footnotesize\ttfamily \label{engine__defs_8h_ace08f4d3a2b304b58e1719b16ba36a16} 
+typedef struct \doxymbox{\hyperlink{structwindow__config}{window\+\_\+config}} \doxymbox{\hyperlink{engine__defs_8h_ace08f4d3a2b304b58e1719b16ba36a16}{Window\+Config}}}
+
+
+
+\label{doc-enum-members}
+\Hypertarget{engine__defs_8h_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{engine__defs_8h_a4ca99c4435f534981c8f010a42399b8f}\index{engine\_defs.h@{engine\_defs.h}!component\_type@{component\_type}}
+\index{component\_type@{component\_type}!engine\_defs.h@{engine\_defs.h}}
+\doxysubsubsection{\texorpdfstring{component\_type}{component\_type}}
+{\footnotesize\ttfamily \label{engine__defs_8h_a4ca99c4435f534981c8f010a42399b8f} 
+enum \doxymbox{\hyperlink{engine__defs_8h_a4ca99c4435f534981c8f010a42399b8f}{component\+\_\+type}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ENGINE\_COMPONENT\_RENDERER@{ENGINE\_COMPONENT\_RENDERER}!engine\_defs.h@{engine\_defs.h}}
+\index{engine\_defs.h@{engine\_defs.h}!ENGINE\_COMPONENT\_RENDERER@{ENGINE\_COMPONENT\_RENDERER}}
+}\Hypertarget{engine__defs_8h_a4ca99c4435f534981c8f010a42399b8fa88e24b300b4fe0854e0aacf8ed46358d}\label{engine__defs_8h_a4ca99c4435f534981c8f010a42399b8fa88e24b300b4fe0854e0aacf8ed46358d} 
+ENGINE\+\_\+\+COMPONENT\+\_\+\+RENDERER&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ENGINE\_COMPONENT\_TICK@{ENGINE\_COMPONENT\_TICK}!engine\_defs.h@{engine\_defs.h}}
+\index{engine\_defs.h@{engine\_defs.h}!ENGINE\_COMPONENT\_TICK@{ENGINE\_COMPONENT\_TICK}}
+}\Hypertarget{engine__defs_8h_a4ca99c4435f534981c8f010a42399b8faedc80912a190108fb8024b04936d8305}\label{engine__defs_8h_a4ca99c4435f534981c8f010a42399b8faedc80912a190108fb8024b04936d8305} 
+ENGINE\+\_\+\+COMPONENT\+\_\+\+TICK&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ENGINE\_COMPONENT\_CONTROLLER@{ENGINE\_COMPONENT\_CONTROLLER}!engine\_defs.h@{engine\_defs.h}}
+\index{engine\_defs.h@{engine\_defs.h}!ENGINE\_COMPONENT\_CONTROLLER@{ENGINE\_COMPONENT\_CONTROLLER}}
+}\Hypertarget{engine__defs_8h_a4ca99c4435f534981c8f010a42399b8fac18d1186ab6639a28d072e5b40f7e955}\label{engine__defs_8h_a4ca99c4435f534981c8f010a42399b8fac18d1186ab6639a28d072e5b40f7e955} 
+ENGINE\+\_\+\+COMPONENT\+\_\+\+CONTROLLER&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{engine__defs_8h_source_l00047}{47}} of file \doxymbox{\hyperlink{engine__defs_8h_source}{engine\+\_\+defs.\+h}}.
+

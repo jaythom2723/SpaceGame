@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_engine__component__funcs_8c" xml:lang="en-US">
+<title>SpaceGame/engine_component_funcs.c File Reference</title>
+<indexterm><primary>SpaceGame/engine_component_funcs.c</primary></indexterm>
+<programlisting linenumbering="unnumbered">#include &quot;engine_defs.h&quot;<?linebreak?>#include &quot;engine_components.h&quot;<?linebreak?>#include &quot;engine_renderer.h&quot;<?linebreak?>#include &lt;stdio.h&gt;<?linebreak?></programlisting><simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>void <link linkend="_engine__component__funcs_8c_1affc18aeda6a42fa1148030a9d7b387af">__engine__defaultRendererComponentFunc</link> (<link linkend="_engine__defs_8h_1a6c53f0b7ec3737ab96bcfea47dd18695">EngineEntity</link> *ent, <link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *ctx, float deltaTime)</para>
+</listitem>
+            <listitem><para>void <link linkend="_engine__component__funcs_8c_1a0d2d4471196cff3ea1db1b5754392a32">__engine__defaultControllerComponentFunc</link> (<link linkend="_engine__defs_8h_1a6c53f0b7ec3737ab96bcfea47dd18695">EngineEntity</link> *ent, <link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *ctx, float deltaTime)</para>
+</listitem>
+            <listitem><para>void <link linkend="_engine__component__funcs_8c_1a7be334fe61b4048391c1e7448a42994d">__engine__defaultTickComponentFunc</link> (<link linkend="_engine__defs_8h_1a6c53f0b7ec3737ab96bcfea47dd18695">EngineEntity</link> *ent, <link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *ctx, float deltaTime)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_engine__component__funcs_8c_1a0d2d4471196cff3ea1db1b5754392a32"/><section>
+    <title>__engine__defaultControllerComponentFunc()</title>
+<indexterm><primary>__engine__defaultControllerComponentFunc</primary><secondary>engine_component_funcs.c</secondary></indexterm>
+<indexterm><primary>engine_component_funcs.c</primary><secondary>__engine__defaultControllerComponentFunc</secondary></indexterm>
+<para><computeroutput>void __engine__defaultControllerComponentFunc (<link linkend="_engine__defs_8h_1a6c53f0b7ec3737ab96bcfea47dd18695">EngineEntity</link> * ent, <link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx, float deltaTime)</computeroutput></para><para>
+Definition at line <link linkend="_engine__component__funcs_8c_source_1l00012">12</link> of file <link linkend="_engine__component__funcs_8c_source">engine_component_funcs.c</link>.</para>
+</section>
+<anchor xml:id="_engine__component__funcs_8c_1affc18aeda6a42fa1148030a9d7b387af"/><section>
+    <title>__engine__defaultRendererComponentFunc()</title>
+<indexterm><primary>__engine__defaultRendererComponentFunc</primary><secondary>engine_component_funcs.c</secondary></indexterm>
+<indexterm><primary>engine_component_funcs.c</primary><secondary>__engine__defaultRendererComponentFunc</secondary></indexterm>
+<para><computeroutput>void __engine__defaultRendererComponentFunc (<link linkend="_engine__defs_8h_1a6c53f0b7ec3737ab96bcfea47dd18695">EngineEntity</link> * ent, <link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx, float deltaTime)</computeroutput></para><para>
+Definition at line <link linkend="_engine__component__funcs_8c_source_1l00007">7</link> of file <link linkend="_engine__component__funcs_8c_source">engine_component_funcs.c</link>.</para>
+</section>
+<anchor xml:id="_engine__component__funcs_8c_1a7be334fe61b4048391c1e7448a42994d"/><section>
+    <title>__engine__defaultTickComponentFunc()</title>
+<indexterm><primary>__engine__defaultTickComponentFunc</primary><secondary>engine_component_funcs.c</secondary></indexterm>
+<indexterm><primary>engine_component_funcs.c</primary><secondary>__engine__defaultTickComponentFunc</secondary></indexterm>
+<para><computeroutput>void __engine__defaultTickComponentFunc (<link linkend="_engine__defs_8h_1a6c53f0b7ec3737ab96bcfea47dd18695">EngineEntity</link> * ent, <link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx, float deltaTime)</computeroutput></para><para>
+Definition at line <link linkend="_engine__component__funcs_8c_source_1l00028">28</link> of file <link linkend="_engine__component__funcs_8c_source">engine_component_funcs.c</link>.</para>
+</section>
+</section>
+</section>

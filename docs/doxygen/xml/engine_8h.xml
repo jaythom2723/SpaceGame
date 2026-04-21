@@ -1,0 +1,490 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.16.1" xml:lang="en-US">
+  <compounddef id="engine_8h" kind="file" language="C++">
+    <compoundname>engine.h</compoundname>
+    <includes local="no">cglm/cglm.h</includes>
+    <includes refid="engine__defs_8h" local="yes">engine_defs.h</includes>
+    <includedby refid="engine_8c" local="yes">engine.c</includedby>
+    <includedby refid="game_8c" local="yes">game.c</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>engine.h</label>
+        <link refid="engine_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>engine_defs.h</label>
+        <link refid="engine__defs_8h_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>GLFW/glfw3.h</label>
+      </node>
+      <node id="2">
+        <label>cglm/cglm.h</label>
+      </node>
+      <node id="4">
+        <label>glad/glad.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>engine.c</label>
+        <link refid="engine_8c_source"/>
+      </node>
+      <node id="1">
+        <label>engine.h</label>
+        <link refid="engine_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>game.c</label>
+        <link refid="game_8c_source"/>
+      </node>
+    </invincdepgraph>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="engine_8h_1ab9e93380ee7d367ddb3d0abde7524037" prot="public" static="no">
+        <name>engineDrawSprite</name>
+        <initializer>renamed_engineRenderEntity(...)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine.h" line="39" column="9" bodyfile="engine.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="engine_8h_1a09c0d9b8e4a13eb3d83a856646bf4184" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>EngineContext *</type>
+        <definition>EngineContext * engineInit</definition>
+        <argsstring>(void)</argsstring>
+        <name>engineInit</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Initialize the engine and return the initialized context. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>The initialized context </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine.h" line="13" column="15" bodyfile="engine.c" bodystart="32" bodyend="58" declfile="engine.h" declline="13" declcolumn="15"/>
+      </memberdef>
+      <memberdef kind="function" id="engine_8h_1a5f06cacef6e02956551a8e56e9204728" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>EBOOL</type>
+        <definition>EBOOL engineCreateWindow</definition>
+        <argsstring>(EngineContext *ctx, WindowConfig config)</argsstring>
+        <name>engineCreateWindow</name>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>WindowConfig</type>
+          <declname>config</declname>
+        </param>
+        <briefdescription>
+<para>Create the window for the game via WindowConfig. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The context </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>config</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The config used to inform GLFW about how to create the window</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns EFALSE if unsuccessful in creating the window </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine.h" line="23" column="7" bodyfile="engine.c" bodystart="60" bodyend="88" declfile="engine.h" declline="23" declcolumn="7"/>
+      </memberdef>
+      <memberdef kind="function" id="engine_8h_1a8805b88be9ba3bc656cc58621794f340" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void engineClose</definition>
+        <argsstring>(EngineContext *ctx)</argsstring>
+        <name>engineClose</name>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Destroy everything the engine has created. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine.h" line="30" column="6" bodyfile="engine.c" bodystart="90" bodyend="101" declfile="engine.h" declline="30" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="engine_8h_1a76c6c27d6a38810d8dbeb12992a54eb3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void engineInitProjectionMatrix</definition>
+        <argsstring>(EngineContext *ctx)</argsstring>
+        <name>engineInitProjectionMatrix</name>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Initialize the projection matrix for rendering. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine.h" line="37" column="6" bodyfile="engine.c" bodystart="106" bodyend="117" declfile="engine.h" declline="37" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="engine_8h_1a4659b11ca96f5e32882b376b59abdb2c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>EBOOL</type>
+        <definition>EBOOL engineWindowShouldClose</definition>
+        <argsstring>(EngineContext *ctx)</argsstring>
+        <name>engineWindowShouldClose</name>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>wrapper for glfwWindowShouldClose(). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The context.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns whether or not the window should close. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine.h" line="50" column="7" bodyfile="engine.c" bodystart="120" bodyend="123" declfile="engine.h" declline="50" declcolumn="7"/>
+      </memberdef>
+      <memberdef kind="function" id="engine_8h_1abbb8cbacbec6636ad820ca444ec8dd95" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void engineSetWindowClose</definition>
+        <argsstring>(EngineContext *ctx, EBOOL value)</argsstring>
+        <name>engineSetWindowClose</name>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>EBOOL</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>wrapper for glfwSetWindowShouldClose(). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The context </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>true or false </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine.h" line="58" column="6" bodyfile="engine.c" bodystart="125" bodyend="128" declfile="engine.h" declline="58" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="engine_8h_1ad79160fed6518596986caaa89995fe5e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void engineWindowPollEvents</definition>
+        <argsstring>(EngineContext *ctx)</argsstring>
+        <name>engineWindowPollEvents</name>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>wrapper for glfwPollEvents(). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine.h" line="65" column="6" bodyfile="engine.c" bodystart="130" bodyend="134" declfile="engine.h" declline="65" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="engine_8h_1aeac24cd237463c0df0047bdf459f5199" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void engineWindowSwapBuffers</definition>
+        <argsstring>(EngineContext *ctx)</argsstring>
+        <name>engineWindowSwapBuffers</name>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>wrapper for glfwSwapBuffers(). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The context </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine.h" line="72" column="6" bodyfile="engine.c" bodystart="136" bodyend="139" declfile="engine.h" declline="72" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="engine_8h_1a39bdaedc61a1cfbedcb007c0474c1f1f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void engineWindowGetSize</definition>
+        <argsstring>(EngineContext *ctx, int *width, int *height)</argsstring>
+        <name>engineWindowGetSize</name>
+        <param>
+          <type>EngineContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>width</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>height</declname>
+        </param>
+        <briefdescription>
+<para>wrapper for glfwWindowGeSize(). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The context </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The width to return </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>height</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The height to return </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine.h" line="81" column="6" bodyfile="engine.c" bodystart="141" bodyend="144" declfile="engine.h" declline="81" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="engine_8h_1a03f11de433503a7c34298fb1f6217fcf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void engineSetClearColor</definition>
+        <argsstring>(float r, float g, float b, float a)</argsstring>
+        <name>engineSetClearColor</name>
+        <param>
+          <type>float</type>
+          <declname>r</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>g</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>a</declname>
+        </param>
+        <briefdescription>
+<para>wrapper for glClearColor(). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>r</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the red color (0-1) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>g</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the green color (0-1) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>b</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the blue color (0-1) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>a</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the alpha channel (0-1) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine.h" line="93" column="6" bodyfile="engine.c" bodystart="147" bodyend="150" declfile="engine.h" declline="93" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="engine_8h_1a21719fba0d02fdd08bf59fc1b4d4a1d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void engineClear</definition>
+        <argsstring>(void)</argsstring>
+        <name>engineClear</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>wrapper for glClear(). </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="engine.h" line="98" column="6" bodyfile="engine.c" bodystart="152" bodyend="155" declfile="engine.h" declline="98" declcolumn="6"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>ENGINE_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ENGINE_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cglm/cglm.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;engine_defs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal">EngineContext*<sp/>engineInit(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal">EBOOL<sp/>engineCreateWindow(EngineContext*<sp/>ctx,<sp/>WindowConfig<sp/>config);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>engineClose(EngineContext*<sp/>ctx);</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>engineInitProjectionMatrix(EngineContext*<sp/>ctx);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>engineDrawSprite<sp/>renamed_engineRenderEntity(...)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">//<sp/>glfw<sp/>wrapper<sp/>functions</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal">EBOOL<sp/>engineWindowShouldClose(EngineContext*<sp/>ctx);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>engineSetWindowClose(EngineContext*<sp/>ctx,<sp/>EBOOL<sp/>value);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>engineWindowPollEvents(EngineContext*<sp/>ctx);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>engineWindowSwapBuffers(EngineContext*<sp/>ctx);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>engineWindowGetSize(EngineContext*<sp/>ctx,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">*<sp/>width,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">*<sp/>height);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="comment">//<sp/>gl<sp/>wrapper<sp/>functions</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>engineSetClearColor(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>r,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>g,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>b,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>a);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>engineClear(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">//<sp/>ENGINE_H</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="engine.h"/>
+  </compounddef>
+</doxygen>

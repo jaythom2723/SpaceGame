@@ -1,0 +1,217 @@
+\doxysection{engine\+\_\+shaders.\+c}
+\hypertarget{engine__shaders_8c_source}{}\label{engine__shaders_8c_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}engine\_shaders.h"{}}}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00002}00002\ \textcolor{preprocessor}{\#include\ "{}engine\_utils.h"{}}}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <glad/glad.h>}}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <stdarg.h>}}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00010}00010\ EngineShader\ engineCreateShader(\textcolor{keywordtype}{int}\ shaderType)}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00011}00011\ \{}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00012}00012\ \ \ \ \ \textcolor{keywordflow}{return}\ glCreateShader((GLenum)shaderType);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00013}00013\ \}}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00015}00015\ \textcolor{keyword}{const}\ EBOOL\ engineCompileShader(EngineShader*\ shader,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ path)}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00016}00016\ \{}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00017}00017\ \ \ \ \ \textcolor{keywordtype}{char}*\ source\ =\ engineReadFile(path);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00018}00018\ \ \ \ \ \textcolor{keywordtype}{int}\ success;}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00019}00019\ \ \ \ \ \textcolor{keywordtype}{char}\ infoLog[512];}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00021}00021\ \ \ \ \ glShaderSource(*shader,\ 1,\ \&source,\ NULL);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00022}00022\ \ \ \ \ glCompileShader(*shader);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00023}00023\ \ \ \ \ glGetShaderiv(*shader,\ GL\_COMPILE\_STATUS,\ \&success);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00024}00024\ \ \ \ \ \textcolor{keywordflow}{if}\ (!success)}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00025}00025\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00026}00026\ \ \ \ \ \ \ \ \ glGetShaderInfoLog(*shader,\ 512,\ NULL,\ infoLog);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00027}00027\ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}\%s\(\backslash\)n"{}},\ infoLog);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00028}00028\ \ \ \ \ \ \ \ \ free(source);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00029}00029\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ EFALSE;}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00030}00030\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00032}00032\ \ \ \ \ free(source);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00033}00033\ \ \ \ \ \textcolor{keywordflow}{return}\ ETRUE;}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00034}00034\ \}}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00036}00036\ \textcolor{keywordtype}{void}\ engineDeleteShader(EngineShader*\ shader)}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00037}00037\ \{}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00038}00038\ \ \ \ \ glDeleteShader(*shader);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00039}00039\ \}}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00041}00041\ \textcolor{keywordtype}{void}\ engineCreateProgram(EngineContext*\ ctx)}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00042}00042\ \{}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00043}00043\ \ \ \ \ ctx-\/>program\ =\ glCreateProgram();}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00044}00044\ \}}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00046}00046\ \textcolor{keyword}{const}\ EBOOL\ engineAttachAndLink(EngineContext*\ ctx,\ EngineShader*\ vertex,\ EngineShader*\ fragment,\ EngineShader*\ geometry)}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00047}00047\ \{}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00048}00048\ \ \ \ \ \textcolor{comment}{//\ attach\ shaders}}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00049}00049\ \ \ \ \ glAttachShader(ctx-\/>program,\ *vertex);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00050}00050\ \ \ \ \ glAttachShader(ctx-\/>program,\ *fragment);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00052}00052\ \ \ \ \ \textcolor{keywordflow}{if}\ (geometry\ !=\ NULL)}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00053}00053\ \ \ \ \ \ \ \ \ glAttachShader(ctx-\/>program,\ *geometry);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00055}00055\ \ \ \ \ \textcolor{comment}{//\ link\ program}}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00056}00056\ \ \ \ \ \textcolor{keywordtype}{int}\ success;}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00057}00057\ \ \ \ \ \textcolor{keywordtype}{char}\ infoLog[512];}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00058}00058\ \ \ \ \ glLinkProgram(ctx-\/>program);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00059}00059\ \ \ \ \ glGetProgramiv(ctx-\/>program,\ GL\_LINK\_STATUS,\ \&success);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00060}00060\ \ \ \ \ \textcolor{keywordflow}{if}\ (!success)}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00061}00061\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00062}00062\ \ \ \ \ \ \ \ \ glGetProgramInfoLog(ctx-\/>program,\ 512,\ NULL,\ infoLog);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00063}00063\ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}\%s\(\backslash\)n"{}},\ infoLog);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00064}00064\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ EFALSE;}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00065}00065\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00067}00067\ \ \ \ \ glDeleteShader(*vertex);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00068}00068\ \ \ \ \ glDeleteShader(*fragment);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00070}00070\ \ \ \ \ \textcolor{keywordflow}{if}\ (geometry\ !=\ NULL)}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00071}00071\ \ \ \ \ \ \ \ \ glDeleteShader(*geometry);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00073}00073\ \ \ \ \ glUseProgram(ctx-\/>program);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00075}00075\ \ \ \ \ \textcolor{keywordflow}{return}\ ETRUE;}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00076}00076\ \}}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00078}00078\ \textcolor{keywordtype}{void}\ engineDeleteProgram(EngineContext*\ ctx)}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00079}00079\ \{}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00080}00080\ \ \ \ \ glDeleteProgram(ctx-\/>program);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00081}00081\ \}}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00083}00083\ \textcolor{keywordtype}{void}\ engineUseShader(EngineContext*\ ctx)}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00084}00084\ \{}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00085}00085\ \ \ \ \ glUseProgram(ctx-\/>program);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00086}00086\ \}}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00088}00088\ \textcolor{keywordtype}{void}\ engineSetFloat(EngineContext*\ ctx,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name,\ \textcolor{keywordtype}{float}\ value)}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00089}00089\ \{}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00090}00090\ \ \ \ \ engineUseShader(ctx);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00092}00092\ \ \ \ \ \textcolor{keywordtype}{int}\ loc\ =\ glGetUniformLocation(ctx-\/>program,\ name);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00093}00093\ \ \ \ \ \textcolor{keywordflow}{if}\ (loc\ ==\ -\/1)}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00094}00094\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00095}00095\ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Unknown\ '\%s'\ not\ found!\(\backslash\)n"{}},\ name);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00096}00096\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00097}00097\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00099}00099\ \ \ \ \ glUniform1f(loc,\ value);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00100}00100\ \}}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00102}00102\ \textcolor{keywordtype}{void}\ engineSetInteger(EngineContext*\ ctx,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name,\ \textcolor{keywordtype}{int}\ value)}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00103}00103\ \{}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00104}00104\ \ \ \ \ engineUseShader(ctx);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00106}00106\ \ \ \ \ \textcolor{keywordtype}{int}\ loc\ =\ glGetUniformLocation(ctx-\/>program,\ name);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00107}00107\ \ \ \ \ \textcolor{keywordflow}{if}\ (loc\ ==\ -\/1)}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00108}00108\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00109}00109\ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Unknown\ '\%s'\ not\ found!\(\backslash\)n"{}},\ name);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00110}00110\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00111}00111\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00112}00112\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00113}00113\ \ \ \ \ glUniform1i(loc,\ value);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00114}00114\ \}}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00115}00115\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00116}00116\ \textcolor{keywordtype}{void}\ engineSetVector2f(EngineContext*\ ctx,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name,\ \textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y)}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00117}00117\ \{}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00118}00118\ \ \ \ \ engineUseShader(ctx);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00119}00119\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00120}00120\ \ \ \ \ \textcolor{keywordtype}{int}\ loc\ =\ glGetUniformLocation(ctx-\/>program,\ name);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00121}00121\ \ \ \ \ \textcolor{keywordflow}{if}\ (loc\ ==\ -\/1)}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00122}00122\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00123}00123\ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Unknown\ '\%s'\ not\ found!\(\backslash\)n"{}},\ name);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00124}00124\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00125}00125\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00126}00126\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00127}00127\ \ \ \ \ glUniform2f(loc,\ x,\ y);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00128}00128\ \}}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00129}00129\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00130}00130\ \textcolor{keywordtype}{void}\ engineSetVector2fv(EngineContext*\ ctx,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name,\ vec2\ value)}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00131}00131\ \{}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00132}00132\ \ \ \ \ engineUseShader(ctx);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00133}00133\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00134}00134\ \ \ \ \ \textcolor{keywordtype}{int}\ loc\ =\ glGetUniformLocation(ctx-\/>program,\ name);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00135}00135\ \ \ \ \ \textcolor{keywordflow}{if}\ (loc\ ==\ -\/1)}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00136}00136\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00137}00137\ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Unknown\ '\%s'\ not\ found!\(\backslash\)n"{}},\ name);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00138}00138\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00139}00139\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00140}00140\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00141}00141\ \ \ \ \ glUniform2fv(loc,\ 1,\ value);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00142}00142\ \}}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00143}00143\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00144}00144\ \textcolor{keywordtype}{void}\ engineSetVector3f(EngineContext*\ ctx,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name,\ \textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y,\ \textcolor{keywordtype}{float}\ z)}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00145}00145\ \{}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00146}00146\ \ \ \ \ engineUseShader(ctx);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00147}00147\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00148}00148\ \ \ \ \ \textcolor{keywordtype}{int}\ loc\ =\ glGetUniformLocation(ctx-\/>program,\ name);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00149}00149\ \ \ \ \ \textcolor{keywordflow}{if}\ (loc\ ==\ -\/1)}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00150}00150\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00151}00151\ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Unknown\ '\%s'\ not\ found!\(\backslash\)n"{}},\ name);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00152}00152\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00153}00153\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00154}00154\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00155}00155\ \ \ \ \ glUniform3f(loc,\ x,\ y,\ z);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00156}00156\ \}}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00157}00157\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00158}00158\ \textcolor{keywordtype}{void}\ engineSetVector3fv(EngineContext*\ ctx,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name,\ vec3\ value)}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00159}00159\ \{}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00160}00160\ \ \ \ \ engineUseShader(ctx);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00161}00161\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00162}00162\ \ \ \ \ \textcolor{keywordtype}{int}\ loc\ =\ glGetUniformLocation(ctx-\/>program,\ name);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00163}00163\ \ \ \ \ \textcolor{keywordflow}{if}\ (loc\ ==\ -\/1)}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00164}00164\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00165}00165\ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Unknown\ '\%s'\ not\ found!\(\backslash\)n"{}},\ name);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00166}00166\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00167}00167\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00168}00168\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00169}00169\ \ \ \ \ glUniform3fv(loc,\ 1,\ value);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00170}00170\ \}}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00171}00171\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00172}00172\ \textcolor{keywordtype}{void}\ engineSetVector4f(EngineContext*\ ctx,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name,\ \textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y,\ \textcolor{keywordtype}{float}\ z,\ \textcolor{keywordtype}{float}\ w)}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00173}00173\ \{}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00174}00174\ \ \ \ \ engineUseShader(ctx);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00175}00175\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00176}00176\ \ \ \ \ \textcolor{keywordtype}{int}\ loc\ =\ glGetUniformLocation(ctx-\/>program,\ name);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00177}00177\ \ \ \ \ \textcolor{keywordflow}{if}\ (loc\ ==\ -\/1)}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00178}00178\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00179}00179\ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Unknown\ '\%s'\ not\ found!\(\backslash\)n"{}},\ name);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00180}00180\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00181}00181\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00182}00182\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00183}00183\ \ \ \ \ glUniform4f(loc,\ x,\ y,\ z,\ w);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00184}00184\ \}}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00185}00185\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00186}00186\ \textcolor{keywordtype}{void}\ engineSetVector4fv(EngineContext*\ ctx,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name,\ vec4\ value)}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00187}00187\ \{}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00188}00188\ \ \ \ \ engineUseShader(ctx);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00189}00189\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00190}00190\ \ \ \ \ \textcolor{keywordtype}{int}\ loc\ =\ glGetUniformLocation(ctx-\/>program,\ name);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00191}00191\ \ \ \ \ \textcolor{keywordflow}{if}\ (loc\ ==\ -\/1)}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00192}00192\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00193}00193\ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Unknown\ '\%s'\ not\ found!\(\backslash\)n"{}},\ name);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00194}00194\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00195}00195\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00196}00196\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00197}00197\ \ \ \ \ glUniform4fv(loc,\ 1,\ value);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00198}00198\ \}}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00199}00199\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00200}00200\ \textcolor{keywordtype}{void}\ engineSetMatrix4fv(EngineContext*\ ctx,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name,\ mat4\ value)}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00201}00201\ \{}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00202}00202\ \ \ \ \ engineUseShader(ctx);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00203}00203\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00204}00204\ \ \ \ \ \textcolor{keywordtype}{int}\ loc\ =\ glGetUniformLocation(ctx-\/>program,\ name);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00205}00205\ \ \ \ \ \textcolor{keywordflow}{if}\ (loc\ ==\ -\/1)}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00206}00206\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00207}00207\ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Unknown\ '\%s'\ not\ found!\(\backslash\)n"{}},\ name);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00208}00208\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00209}00209\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00210}00210\ }
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00211}00211\ \ \ \ \ glUniformMatrix4fv(loc,\ 1,\ GL\_FALSE,\ (\textcolor{keywordtype}{float}*)value);}
+\DoxyCodeLine{\Hypertarget{engine__shaders_8c_source_l00212}00212\ \}}
+
+\end{DoxyCode}

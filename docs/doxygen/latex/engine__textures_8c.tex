@@ -1,0 +1,108 @@
+\doxysection{Space\+Game/\+engine\+\_\+textures.c File Reference}
+\hypertarget{engine__textures_8c}{}\label{engine__textures_8c}\index{SpaceGame/engine\_textures.c@{SpaceGame/engine\_textures.c}}
+{\ttfamily \+\#include "{}engine\+\_\+textures.\+h"{}}\newline
+{\ttfamily \+\#include $<$stdio.\+h$>$}\newline
+{\ttfamily \+\#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \+\#include $<$string.\+h$>$}\newline
+{\ttfamily \+\#include $<$glad/\+glad.\+h$>$}\newline
+{\ttfamily \+\#include $<$stb\+\_\+image/\+stb\+\_\+image.\+h$>$}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{engine__textures_8c_a18372412ad2fc3ce1e3240b3cf0efe78}{STB\+\_\+\+IMAGE\+\_\+\+IMPLEMENTATION}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+const \doxymbox{\hyperlink{engine__defs_8h_a4fe707fd7f0392a3c6d81cfc62f1686c}{EBOOL}} \doxymbox{\hyperlink{engine__textures_8c_a1b3068ca241d9b3af9d5de08ad9127f0}{engine\+Create\+Texture}} (\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}ctx, unsigned int key)
+\item 
+const \doxymbox{\hyperlink{engine__defs_8h_a4fe707fd7f0392a3c6d81cfc62f1686c}{EBOOL}} \doxymbox{\hyperlink{engine__textures_8c_a7fe1ea4bf1edcb3a8caa0c7a22f669fc}{engine\+Generate\+Texture}} (\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}ctx, unsigned int key, const char \texorpdfstring{$\ast$}{*}path, const \doxymbox{\hyperlink{engine__defs_8h_a4fe707fd7f0392a3c6d81cfc62f1686c}{EBOOL}} alpha)
+\item 
+void \doxymbox{\hyperlink{engine__textures_8c_a34ff1219003d553114790d7353656989}{engine\+Gen\+Texture\+Check\+Missing}} (\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}ctx, unsigned int key, const char \texorpdfstring{$\ast$}{*}path, const \doxymbox{\hyperlink{engine__defs_8h_a4fe707fd7f0392a3c6d81cfc62f1686c}{EBOOL}} alpha)
+\item 
+void \doxymbox{\hyperlink{engine__textures_8c_a92918b2db1f8646edfc5e0bb36cff738}{engine\+Bind\+Texture}} (\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}ctx, unsigned int key)
+\item 
+void \doxymbox{\hyperlink{engine__textures_8c_a1efab9bd82206af0777f113350d9bfdb}{engine\+Destroy\+All\+Textures}} (\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}ctx)
+\item 
+void \doxymbox{\hyperlink{engine__textures_8c_a4337947cab60c424f5e764da1eb18500}{engine\+Destroy\+Texture}} (\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}ctx, unsigned int key)
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{engine__textures_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{engine__textures_8c_a18372412ad2fc3ce1e3240b3cf0efe78}\index{engine\_textures.c@{engine\_textures.c}!STB\_IMAGE\_IMPLEMENTATION@{STB\_IMAGE\_IMPLEMENTATION}}
+\index{STB\_IMAGE\_IMPLEMENTATION@{STB\_IMAGE\_IMPLEMENTATION}!engine\_textures.c@{engine\_textures.c}}
+\doxysubsubsection{\texorpdfstring{STB\_IMAGE\_IMPLEMENTATION}{STB\_IMAGE\_IMPLEMENTATION}}
+{\footnotesize\ttfamily \label{engine__textures_8c_a18372412ad2fc3ce1e3240b3cf0efe78} 
+\+\#define STB\+\_\+\+IMAGE\+\_\+\+IMPLEMENTATION}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__textures_8c_source_l00009}{9}} of file \doxymbox{\hyperlink{engine__textures_8c_source}{engine\+\_\+textures.\+c}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{engine__textures_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{engine__textures_8c_a92918b2db1f8646edfc5e0bb36cff738}\index{engine\_textures.c@{engine\_textures.c}!engineBindTexture@{engineBindTexture}}
+\index{engineBindTexture@{engineBindTexture}!engine\_textures.c@{engine\_textures.c}}
+\doxysubsubsection{\texorpdfstring{engineBindTexture()}{engineBindTexture()}}
+{\footnotesize\ttfamily \label{engine__textures_8c_a92918b2db1f8646edfc5e0bb36cff738} 
+void engine\+Bind\+Texture (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{unsigned int}]{key}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__textures_8c_source_l00122}{122}} of file \doxymbox{\hyperlink{engine__textures_8c_source}{engine\+\_\+textures.\+c}}.
+
+\Hypertarget{engine__textures_8c_a1b3068ca241d9b3af9d5de08ad9127f0}\index{engine\_textures.c@{engine\_textures.c}!engineCreateTexture@{engineCreateTexture}}
+\index{engineCreateTexture@{engineCreateTexture}!engine\_textures.c@{engine\_textures.c}}
+\doxysubsubsection{\texorpdfstring{engineCreateTexture()}{engineCreateTexture()}}
+{\footnotesize\ttfamily \label{engine__textures_8c_a1b3068ca241d9b3af9d5de08ad9127f0} 
+const \doxymbox{\hyperlink{engine__defs_8h_a4fe707fd7f0392a3c6d81cfc62f1686c}{EBOOL}} engine\+Create\+Texture (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{unsigned int}]{key}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__textures_8c_source_l00019}{19}} of file \doxymbox{\hyperlink{engine__textures_8c_source}{engine\+\_\+textures.\+c}}.
+
+\Hypertarget{engine__textures_8c_a1efab9bd82206af0777f113350d9bfdb}\index{engine\_textures.c@{engine\_textures.c}!engineDestroyAllTextures@{engineDestroyAllTextures}}
+\index{engineDestroyAllTextures@{engineDestroyAllTextures}!engine\_textures.c@{engine\_textures.c}}
+\doxysubsubsection{\texorpdfstring{engineDestroyAllTextures()}{engineDestroyAllTextures()}}
+{\footnotesize\ttfamily \label{engine__textures_8c_a1efab9bd82206af0777f113350d9bfdb} 
+void engine\+Destroy\+All\+Textures (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__textures_8c_source_l00132}{132}} of file \doxymbox{\hyperlink{engine__textures_8c_source}{engine\+\_\+textures.\+c}}.
+
+\Hypertarget{engine__textures_8c_a4337947cab60c424f5e764da1eb18500}\index{engine\_textures.c@{engine\_textures.c}!engineDestroyTexture@{engineDestroyTexture}}
+\index{engineDestroyTexture@{engineDestroyTexture}!engine\_textures.c@{engine\_textures.c}}
+\doxysubsubsection{\texorpdfstring{engineDestroyTexture()}{engineDestroyTexture()}}
+{\footnotesize\ttfamily \label{engine__textures_8c_a4337947cab60c424f5e764da1eb18500} 
+void engine\+Destroy\+Texture (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{unsigned int}]{key}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__textures_8c_source_l00151}{151}} of file \doxymbox{\hyperlink{engine__textures_8c_source}{engine\+\_\+textures.\+c}}.
+
+\Hypertarget{engine__textures_8c_a7fe1ea4bf1edcb3a8caa0c7a22f669fc}\index{engine\_textures.c@{engine\_textures.c}!engineGenerateTexture@{engineGenerateTexture}}
+\index{engineGenerateTexture@{engineGenerateTexture}!engine\_textures.c@{engine\_textures.c}}
+\doxysubsubsection{\texorpdfstring{engineGenerateTexture()}{engineGenerateTexture()}}
+{\footnotesize\ttfamily \label{engine__textures_8c_a7fe1ea4bf1edcb3a8caa0c7a22f669fc} 
+const \doxymbox{\hyperlink{engine__defs_8h_a4fe707fd7f0392a3c6d81cfc62f1686c}{EBOOL}} engine\+Generate\+Texture (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{unsigned int}]{key}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{path}{, }\item[{const \doxymbox{\hyperlink{engine__defs_8h_a4fe707fd7f0392a3c6d81cfc62f1686c}{EBOOL}}}]{alpha}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__textures_8c_source_l00062}{62}} of file \doxymbox{\hyperlink{engine__textures_8c_source}{engine\+\_\+textures.\+c}}.
+
+\Hypertarget{engine__textures_8c_a34ff1219003d553114790d7353656989}\index{engine\_textures.c@{engine\_textures.c}!engineGenTextureCheckMissing@{engineGenTextureCheckMissing}}
+\index{engineGenTextureCheckMissing@{engineGenTextureCheckMissing}!engine\_textures.c@{engine\_textures.c}}
+\doxysubsubsection{\texorpdfstring{engineGenTextureCheckMissing()}{engineGenTextureCheckMissing()}}
+{\footnotesize\ttfamily \label{engine__textures_8c_a34ff1219003d553114790d7353656989} 
+void engine\+Gen\+Texture\+Check\+Missing (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{engine__defs_8h_a384f7c13910ebe94dc393e766f962b58}{Engine\+Context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{unsigned int}]{key}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{path}{, }\item[{const \doxymbox{\hyperlink{engine__defs_8h_a4fe707fd7f0392a3c6d81cfc62f1686c}{EBOOL}}}]{alpha}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{engine__textures_8c_source_l00115}{115}} of file \doxymbox{\hyperlink{engine__textures_8c_source}{engine\+\_\+textures.\+c}}.
+

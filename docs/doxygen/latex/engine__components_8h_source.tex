@@ -1,0 +1,20 @@
+\doxysection{engine\+\_\+components.\+h}
+\hypertarget{engine__components_8h_source}{}\label{engine__components_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{engine__components_8h_source_l00001}00001\ \textcolor{preprocessor}{\#ifndef\ ENGINE\_COMPONENTS\_H}}
+\DoxyCodeLine{\Hypertarget{engine__components_8h_source_l00002}00002\ \textcolor{preprocessor}{\#define\ ENGINE\_COMPONENTS\_H}}
+\DoxyCodeLine{\Hypertarget{engine__components_8h_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{engine__components_8h_source_l00004}00004\ \textcolor{preprocessor}{\#include\ "{}engine\_defs.h"{}}}
+\DoxyCodeLine{\Hypertarget{engine__components_8h_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{engine__components_8h_source_l00006}00006\ \textcolor{keywordtype}{void}\ engineAddComponent(EngineContext*\ ctx,\ EngineEntityKey\ key,\ EngineComponentType\ type);}
+\DoxyCodeLine{\Hypertarget{engine__components_8h_source_l00007}00007\ \textcolor{keywordtype}{void}\ engineSetComponentCallback(EngineContext*\ ctx,\ EngineEntityKey\ key,\ EngineComponentType\ type,\ EngineComponentFunc\ func);}
+\DoxyCodeLine{\Hypertarget{engine__components_8h_source_l00008}00008\ \textcolor{keyword}{const}\ EBOOL\ engineRemoveComponent(EngineContext*\ ctx,\ EngineEntityKey\ key,\ EngineComponentType\ type);}
+\DoxyCodeLine{\Hypertarget{engine__components_8h_source_l00009}00009\ \textcolor{keyword}{const}\ EBOOL\ engineHasComponent(EngineContext*\ ctx,\ EngineEntityKey\ key,\ EngineComponentType\ type);}
+\DoxyCodeLine{\Hypertarget{engine__components_8h_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{engine__components_8h_source_l00011}00011\ \textcolor{keywordtype}{void}\ engineRunComponentFunc(EngineContext*\ ctx,\ EngineEntity*\ key,\ EngineComponent*\ comp,\ \textcolor{keywordtype}{float}\ deltaTime);}
+\DoxyCodeLine{\Hypertarget{engine__components_8h_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{engine__components_8h_source_l00013}00013\ \textcolor{comment}{//void\ engineRunComponentFunc(EngineContext*\ ctx,\ EngineEntityKey\ key,\ EngineComponentType\ type,\ float\ deltaTime);}}
+\DoxyCodeLine{\Hypertarget{engine__components_8h_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{engine__components_8h_source_l00015}00015\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ENGINE\_COMPONENTS\_H}}
+
+\end{DoxyCode}

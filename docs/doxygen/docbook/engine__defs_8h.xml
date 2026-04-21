@@ -1,0 +1,363 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_engine__defs_8h" xml:lang="en-US">
+<title>SpaceGame/engine_defs.h File Reference</title>
+<indexterm><primary>SpaceGame/engine_defs.h</primary></indexterm>
+<programlisting linenumbering="unnumbered">#include &lt;glad/glad.h&gt;<?linebreak?>#include &lt;GLFW/glfw3.h&gt;<?linebreak?></programlisting><simplesect>
+    <title>Data Structures    </title>
+        <itemizedlist>
+            <listitem><para>struct <link linkend="_structwindow__config">window_config</link></para>
+</listitem>
+            <listitem><para>struct <link linkend="_structengine__texture">engine_texture</link></para>
+</listitem>
+            <listitem><para>struct <link linkend="_structengine__texture__pair">engine_texture_pair</link></para>
+</listitem>
+            <listitem><para>struct <link linkend="_structengine__entity">engine_entity</link></para>
+</listitem>
+            <listitem><para>struct <link linkend="_structengine__component">engine_component</link></para>
+</listitem>
+            <listitem><para>struct <link linkend="_structlinklist">linklist</link></para>
+</listitem>
+            <listitem><para>struct <link linkend="_structengine__context">engine_context</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Macros    </title>
+        <itemizedlist>
+            <listitem><para>#define <link linkend="_engine__defs_8h_1a36f190ee08b08696d7e8d0277e366ebb">ENGINE_MAX_TEXTURES</link>&#160;&#160;&#160;1024</para>
+</listitem>
+            <listitem><para>#define <link linkend="_engine__defs_8h_1a1ecd280a1b8f9ded11592607470280ac">ENGINE_MAX_ENTITIES</link>&#160;&#160;&#160;0xFFFF</para>
+</listitem>
+            <listitem><para>#define <link linkend="_engine__defs_8h_1a1cea4428b12087f11597871d840ef91a">ENGINE_MAX_COMPONENTS</link>&#160;&#160;&#160;0x10</para>
+</listitem>
+            <listitem><para>#define <link linkend="_engine__defs_8h_1a2d2393873df56debfeef8840b3fbc572">ENGINE_NUM_KEYS</link>&#160;&#160;&#160;1024</para>
+</listitem>
+            <listitem><para>#define <link linkend="_engine__defs_8h_1aa116cf7d624db650672746e4ab5b4cfc">ENGINE_MISSING_TEXTURE_KEY</link>&#160;&#160;&#160;<link linkend="_engine__defs_8h_1a36f190ee08b08696d7e8d0277e366ebb">ENGINE_MAX_TEXTURES</link>-1</para>
+</listitem>
+            <listitem><para>#define <link linkend="_engine__defs_8h_1a4e3c39537b35c593b26b7ce8c48ab3d8">MAKE_ENT_PAIR</link>(k,  pos,  sz,  tk)</para>
+</listitem>
+            <listitem><para>#define <link linkend="_engine__defs_8h_1aaf69623c4723efcb269c2b9a0d33ba0b">ETRUE</link>&#160;&#160;&#160;1</para>
+</listitem>
+            <listitem><para>#define <link linkend="_engine__defs_8h_1ade4ce8c6163449c210de16251f6bcda9">EFALSE</link>&#160;&#160;&#160;0</para>
+</listitem>
+            <listitem><para>#define <link linkend="_engine__defs_8h_1a4df9eadfc43ac04551458c89fbc378bb">EKEY_ESCAPE</link>&#160;&#160;&#160;GLFW_KEY_ESCAPE</para>
+</listitem>
+            <listitem><para>#define <link linkend="_engine__defs_8h_1a67806a002bc1b671462a44804e6f805b">EKEY_W</link>&#160;&#160;&#160;GLFW_KEY_W</para>
+</listitem>
+            <listitem><para>#define <link linkend="_engine__defs_8h_1afaae5b7d03788dd4f712db652701c9c7">EKEY_S</link>&#160;&#160;&#160;GLFW_KEY_S</para>
+</listitem>
+            <listitem><para>#define <link linkend="_engine__defs_8h_1abe7c91296c5fc875c0b3688487985a3b">EKEY_A</link>&#160;&#160;&#160;GLFW_KEY_A</para>
+</listitem>
+            <listitem><para>#define <link linkend="_engine__defs_8h_1aa04ad1411deb015736e31cb1287fd63f">EKEY_D</link>&#160;&#160;&#160;GLFW_KEY_D</para>
+</listitem>
+            <listitem><para>#define <link linkend="_engine__defs_8h_1a736e2ea11e2584d889f302013d178098">EKEY_UP</link>&#160;&#160;&#160;GLFW_KEY_UP</para>
+</listitem>
+            <listitem><para>#define <link linkend="_engine__defs_8h_1a5cee394f9de509dea661d40b5a724ac6">EKEY_DOWN</link>&#160;&#160;&#160;GLFW_KEY_DOWN</para>
+</listitem>
+            <listitem><para>#define <link linkend="_engine__defs_8h_1ab3d6b1349a88522392413d719469ed7e">EKEY_RIGHT</link>&#160;&#160;&#160;GLFW_KEY_RIGHT</para>
+</listitem>
+            <listitem><para>#define <link linkend="_engine__defs_8h_1a7f78cf88d81a586b4eaf85db6b407d87">EKEY_LEFT</link>&#160;&#160;&#160;GLFW_KEY_LEFT</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Typedefs    </title>
+        <itemizedlist>
+            <listitem><para>typedef unsigned char <link linkend="_engine__defs_8h_1a4fe707fd7f0392a3c6d81cfc62f1686c">EBOOL</link></para>
+</listitem>
+            <listitem><para>typedef unsigned int <link linkend="_engine__defs_8h_1ad5bbadc2683f69c3cc216f456e83aef5">EngineShader</link></para>
+</listitem>
+            <listitem><para>typedef unsigned int <link linkend="_engine__defs_8h_1a4089a7465fbba0988b4933eb318a7541">EngineProgram</link></para>
+</listitem>
+            <listitem><para>typedef unsigned int <link linkend="_engine__defs_8h_1a0a29a026b82481d6384d6880a2b6b071">EngineTextureKey</link></para>
+</listitem>
+            <listitem><para>typedef unsigned int <link linkend="_engine__defs_8h_1a4471320c0db41d630bed66ecbfff9bb9">EngineEntityKey</link></para>
+</listitem>
+            <listitem><para>typedef unsigned int <link linkend="_engine__defs_8h_1a5f517ac8fe5b6213281fcf3e869014a3">EngineComponentID</link></para>
+</listitem>
+            <listitem><para>typedef enum gamestate <link linkend="_engine__defs_8h_1adbf6f00f51442de5cfeccabf6fe7009d">GameState</link></para>
+</listitem>
+            <listitem><para>typedef struct <link linkend="_structengine__context">engine_context</link> <link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link></para>
+</listitem>
+            <listitem><para>typedef struct <link linkend="_structengine__component">engine_component</link> <link linkend="_engine__defs_8h_1aa5d34c353188c6922fdb05c9cdf2f1f0">EngineComponent</link></para>
+</listitem>
+            <listitem><para>typedef struct <link linkend="_structengine__entity">engine_entity</link> <link linkend="_engine__defs_8h_1a6c53f0b7ec3737ab96bcfea47dd18695">EngineEntity</link></para>
+</listitem>
+            <listitem><para>typedef void(* <link linkend="_engine__defs_8h_1a25cd721674b601a381fb538f63193316">EngineComponentFunc</link>) (<link linkend="_engine__defs_8h_1a6c53f0b7ec3737ab96bcfea47dd18695">EngineEntity</link> *, <link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *, float)</para>
+</listitem>
+            <listitem><para>typedef enum <link linkend="_engine__defs_8h_1a4ca99c4435f534981c8f010a42399b8f">component_type</link> <link linkend="_engine__defs_8h_1addaf8da9d811dea07390c134ec64e60e">EngineComponentType</link></para>
+</listitem>
+            <listitem><para>typedef struct <link linkend="_structwindow__config">window_config</link> <link linkend="_engine__defs_8h_1ace08f4d3a2b304b58e1719b16ba36a16">WindowConfig</link></para>
+</listitem>
+            <listitem><para>typedef struct <link linkend="_structengine__texture">engine_texture</link> <link linkend="_engine__defs_8h_1ab7190cb26ff0940aad30e42f4b863a65">EngineTexture</link></para>
+</listitem>
+            <listitem><para>typedef struct <link linkend="_structengine__texture__pair">engine_texture_pair</link> <link linkend="_engine__defs_8h_1ab1b932d98fa15c9b0f3ca42807c8f319">EngineTexturePair</link></para>
+</listitem>
+            <listitem><para>typedef struct <link linkend="_structlinklist">linklist</link> <link linkend="_engine__defs_8h_1a09036c28461371d73a173aa18b119cd3">EngineLinkedList</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Enumerations    </title>
+        <itemizedlist>
+            <listitem><para>enum <link linkend="_engine__defs_8h_1a4ca99c4435f534981c8f010a42399b8f">component_type</link> { <link linkend="_engine__defs_8h_1a4ca99c4435f534981c8f010a42399b8fa88e24b300b4fe0854e0aacf8ed46358d">ENGINE_COMPONENT_RENDERER</link>
+, <link linkend="_engine__defs_8h_1a4ca99c4435f534981c8f010a42399b8faedc80912a190108fb8024b04936d8305">ENGINE_COMPONENT_TICK</link>
+, <link linkend="_engine__defs_8h_1a4ca99c4435f534981c8f010a42399b8fac18d1186ab6639a28d072e5b40f7e955">ENGINE_COMPONENT_CONTROLLER</link>
+ }</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Macro Definition Documentation</title>
+<anchor xml:id="_engine__defs_8h_1ade4ce8c6163449c210de16251f6bcda9"/><section>
+    <title>EFALSE</title>
+<indexterm><primary>EFALSE</primary><secondary>engine_defs.h</secondary></indexterm>
+<indexterm><primary>engine_defs.h</primary><secondary>EFALSE</secondary></indexterm>
+<para><computeroutput>#define EFALSE&#160;&#160;&#160;0</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00018">18</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_engine__defs_8h_1abe7c91296c5fc875c0b3688487985a3b"/><section>
+    <title>EKEY_A</title>
+<indexterm><primary>EKEY_A</primary><secondary>engine_defs.h</secondary></indexterm>
+<indexterm><primary>engine_defs.h</primary><secondary>EKEY_A</secondary></indexterm>
+<para><computeroutput>#define EKEY_A&#160;&#160;&#160;GLFW_KEY_A</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00039">39</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_engine__defs_8h_1aa04ad1411deb015736e31cb1287fd63f"/><section>
+    <title>EKEY_D</title>
+<indexterm><primary>EKEY_D</primary><secondary>engine_defs.h</secondary></indexterm>
+<indexterm><primary>engine_defs.h</primary><secondary>EKEY_D</secondary></indexterm>
+<para><computeroutput>#define EKEY_D&#160;&#160;&#160;GLFW_KEY_D</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00040">40</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_engine__defs_8h_1a5cee394f9de509dea661d40b5a724ac6"/><section>
+    <title>EKEY_DOWN</title>
+<indexterm><primary>EKEY_DOWN</primary><secondary>engine_defs.h</secondary></indexterm>
+<indexterm><primary>engine_defs.h</primary><secondary>EKEY_DOWN</secondary></indexterm>
+<para><computeroutput>#define EKEY_DOWN&#160;&#160;&#160;GLFW_KEY_DOWN</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00042">42</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_engine__defs_8h_1a4df9eadfc43ac04551458c89fbc378bb"/><section>
+    <title>EKEY_ESCAPE</title>
+<indexterm><primary>EKEY_ESCAPE</primary><secondary>engine_defs.h</secondary></indexterm>
+<indexterm><primary>engine_defs.h</primary><secondary>EKEY_ESCAPE</secondary></indexterm>
+<para><computeroutput>#define EKEY_ESCAPE&#160;&#160;&#160;GLFW_KEY_ESCAPE</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00036">36</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_engine__defs_8h_1a7f78cf88d81a586b4eaf85db6b407d87"/><section>
+    <title>EKEY_LEFT</title>
+<indexterm><primary>EKEY_LEFT</primary><secondary>engine_defs.h</secondary></indexterm>
+<indexterm><primary>engine_defs.h</primary><secondary>EKEY_LEFT</secondary></indexterm>
+<para><computeroutput>#define EKEY_LEFT&#160;&#160;&#160;GLFW_KEY_LEFT</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00044">44</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_engine__defs_8h_1ab3d6b1349a88522392413d719469ed7e"/><section>
+    <title>EKEY_RIGHT</title>
+<indexterm><primary>EKEY_RIGHT</primary><secondary>engine_defs.h</secondary></indexterm>
+<indexterm><primary>engine_defs.h</primary><secondary>EKEY_RIGHT</secondary></indexterm>
+<para><computeroutput>#define EKEY_RIGHT&#160;&#160;&#160;GLFW_KEY_RIGHT</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00043">43</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_engine__defs_8h_1afaae5b7d03788dd4f712db652701c9c7"/><section>
+    <title>EKEY_S</title>
+<indexterm><primary>EKEY_S</primary><secondary>engine_defs.h</secondary></indexterm>
+<indexterm><primary>engine_defs.h</primary><secondary>EKEY_S</secondary></indexterm>
+<para><computeroutput>#define EKEY_S&#160;&#160;&#160;GLFW_KEY_S</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00038">38</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_engine__defs_8h_1a736e2ea11e2584d889f302013d178098"/><section>
+    <title>EKEY_UP</title>
+<indexterm><primary>EKEY_UP</primary><secondary>engine_defs.h</secondary></indexterm>
+<indexterm><primary>engine_defs.h</primary><secondary>EKEY_UP</secondary></indexterm>
+<para><computeroutput>#define EKEY_UP&#160;&#160;&#160;GLFW_KEY_UP</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00041">41</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_engine__defs_8h_1a67806a002bc1b671462a44804e6f805b"/><section>
+    <title>EKEY_W</title>
+<indexterm><primary>EKEY_W</primary><secondary>engine_defs.h</secondary></indexterm>
+<indexterm><primary>engine_defs.h</primary><secondary>EKEY_W</secondary></indexterm>
+<para><computeroutput>#define EKEY_W&#160;&#160;&#160;GLFW_KEY_W</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00037">37</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_engine__defs_8h_1a1cea4428b12087f11597871d840ef91a"/><section>
+    <title>ENGINE_MAX_COMPONENTS</title>
+<indexterm><primary>ENGINE_MAX_COMPONENTS</primary><secondary>engine_defs.h</secondary></indexterm>
+<indexterm><primary>engine_defs.h</primary><secondary>ENGINE_MAX_COMPONENTS</secondary></indexterm>
+<para><computeroutput>#define ENGINE_MAX_COMPONENTS&#160;&#160;&#160;0x10</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00009">9</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_engine__defs_8h_1a1ecd280a1b8f9ded11592607470280ac"/><section>
+    <title>ENGINE_MAX_ENTITIES</title>
+<indexterm><primary>ENGINE_MAX_ENTITIES</primary><secondary>engine_defs.h</secondary></indexterm>
+<indexterm><primary>engine_defs.h</primary><secondary>ENGINE_MAX_ENTITIES</secondary></indexterm>
+<para><computeroutput>#define ENGINE_MAX_ENTITIES&#160;&#160;&#160;0xFFFF</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00008">8</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_engine__defs_8h_1a36f190ee08b08696d7e8d0277e366ebb"/><section>
+    <title>ENGINE_MAX_TEXTURES</title>
+<indexterm><primary>ENGINE_MAX_TEXTURES</primary><secondary>engine_defs.h</secondary></indexterm>
+<indexterm><primary>engine_defs.h</primary><secondary>ENGINE_MAX_TEXTURES</secondary></indexterm>
+<para><computeroutput>#define ENGINE_MAX_TEXTURES&#160;&#160;&#160;1024</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00007">7</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_engine__defs_8h_1aa116cf7d624db650672746e4ab5b4cfc"/><section>
+    <title>ENGINE_MISSING_TEXTURE_KEY</title>
+<indexterm><primary>ENGINE_MISSING_TEXTURE_KEY</primary><secondary>engine_defs.h</secondary></indexterm>
+<indexterm><primary>engine_defs.h</primary><secondary>ENGINE_MISSING_TEXTURE_KEY</secondary></indexterm>
+<para><computeroutput>#define ENGINE_MISSING_TEXTURE_KEY&#160;&#160;&#160;<link linkend="_engine__defs_8h_1a36f190ee08b08696d7e8d0277e366ebb">ENGINE_MAX_TEXTURES</link>-1</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00012">12</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_engine__defs_8h_1a2d2393873df56debfeef8840b3fbc572"/><section>
+    <title>ENGINE_NUM_KEYS</title>
+<indexterm><primary>ENGINE_NUM_KEYS</primary><secondary>engine_defs.h</secondary></indexterm>
+<indexterm><primary>engine_defs.h</primary><secondary>ENGINE_NUM_KEYS</secondary></indexterm>
+<para><computeroutput>#define ENGINE_NUM_KEYS&#160;&#160;&#160;1024</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00010">10</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_engine__defs_8h_1aaf69623c4723efcb269c2b9a0d33ba0b"/><section>
+    <title>ETRUE</title>
+<indexterm><primary>ETRUE</primary><secondary>engine_defs.h</secondary></indexterm>
+<indexterm><primary>engine_defs.h</primary><secondary>ETRUE</secondary></indexterm>
+<para><computeroutput>#define ETRUE&#160;&#160;&#160;1</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00017">17</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_engine__defs_8h_1a4e3c39537b35c593b26b7ce8c48ab3d8"/><section>
+    <title>MAKE_ENT_PAIR</title>
+<indexterm><primary>MAKE_ENT_PAIR</primary><secondary>engine_defs.h</secondary></indexterm>
+<indexterm><primary>engine_defs.h</primary><secondary>MAKE_ENT_PAIR</secondary></indexterm>
+<para><computeroutput>#define MAKE_ENT_PAIR( k,  pos,  sz,  tk)</computeroutput></para><emphasis role="strong">Value:</emphasis><programlisting linenumbering="unnumbered">deprecated&#32;DO&#32;NOT&#32;USE.
+</programlisting><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00014">14</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+</section>
+<section>
+<title>Typedef Documentation</title>
+<anchor xml:id="_engine__defs_8h_1a4fe707fd7f0392a3c6d81cfc62f1686c"/><section>
+    <title>EBOOL</title>
+<indexterm><primary>EBOOL</primary><secondary>engine_defs.h</secondary></indexterm>
+<indexterm><primary>engine_defs.h</primary><secondary>EBOOL</secondary></indexterm>
+<para><computeroutput>typedef unsigned char <link linkend="_engine__defs_8h_1a4fe707fd7f0392a3c6d81cfc62f1686c">EBOOL</link></computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00016">16</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_engine__defs_8h_1aa5d34c353188c6922fdb05c9cdf2f1f0"/><section>
+    <title>EngineComponent</title>
+<indexterm><primary>EngineComponent</primary><secondary>engine_defs.h</secondary></indexterm>
+<indexterm><primary>engine_defs.h</primary><secondary>EngineComponent</secondary></indexterm>
+<para><computeroutput>typedef struct <link linkend="_structengine__component">engine_component</link> <link linkend="_engine__defs_8h_1aa5d34c353188c6922fdb05c9cdf2f1f0">EngineComponent</link></computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00031">31</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_engine__defs_8h_1a25cd721674b601a381fb538f63193316"/><section>
+    <title>EngineComponentFunc</title>
+<indexterm><primary>EngineComponentFunc</primary><secondary>engine_defs.h</secondary></indexterm>
+<indexterm><primary>engine_defs.h</primary><secondary>EngineComponentFunc</secondary></indexterm>
+<para><computeroutput>typedef void(* EngineComponentFunc) (<link linkend="_engine__defs_8h_1a6c53f0b7ec3737ab96bcfea47dd18695">EngineEntity</link> *, <link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *, float)</computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00034">34</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_engine__defs_8h_1a5f517ac8fe5b6213281fcf3e869014a3"/><section>
+    <title>EngineComponentID</title>
+<indexterm><primary>EngineComponentID</primary><secondary>engine_defs.h</secondary></indexterm>
+<indexterm><primary>engine_defs.h</primary><secondary>EngineComponentID</secondary></indexterm>
+<para><computeroutput>typedef unsigned int <link linkend="_engine__defs_8h_1a5f517ac8fe5b6213281fcf3e869014a3">EngineComponentID</link></computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00026">26</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_engine__defs_8h_1addaf8da9d811dea07390c134ec64e60e"/><section>
+    <title>EngineComponentType</title>
+<indexterm><primary>EngineComponentType</primary><secondary>engine_defs.h</secondary></indexterm>
+<indexterm><primary>engine_defs.h</primary><secondary>EngineComponentType</secondary></indexterm>
+<para><computeroutput>typedef enum <link linkend="_engine__defs_8h_1a4ca99c4435f534981c8f010a42399b8f">component_type</link> <link linkend="_engine__defs_8h_1addaf8da9d811dea07390c134ec64e60e">EngineComponentType</link></computeroutput></para></section>
+<anchor xml:id="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58"/><section>
+    <title>EngineContext</title>
+<indexterm><primary>EngineContext</primary><secondary>engine_defs.h</secondary></indexterm>
+<indexterm><primary>engine_defs.h</primary><secondary>EngineContext</secondary></indexterm>
+<para><computeroutput>typedef struct <link linkend="_structengine__context">engine_context</link> <link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link></computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00030">30</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_engine__defs_8h_1a6c53f0b7ec3737ab96bcfea47dd18695"/><section>
+    <title>EngineEntity</title>
+<indexterm><primary>EngineEntity</primary><secondary>engine_defs.h</secondary></indexterm>
+<indexterm><primary>engine_defs.h</primary><secondary>EngineEntity</secondary></indexterm>
+<para><computeroutput>typedef struct <link linkend="_structengine__entity">engine_entity</link> <link linkend="_engine__defs_8h_1a6c53f0b7ec3737ab96bcfea47dd18695">EngineEntity</link></computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00032">32</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_engine__defs_8h_1a4471320c0db41d630bed66ecbfff9bb9"/><section>
+    <title>EngineEntityKey</title>
+<indexterm><primary>EngineEntityKey</primary><secondary>engine_defs.h</secondary></indexterm>
+<indexterm><primary>engine_defs.h</primary><secondary>EngineEntityKey</secondary></indexterm>
+<para><computeroutput>typedef unsigned int <link linkend="_engine__defs_8h_1a4471320c0db41d630bed66ecbfff9bb9">EngineEntityKey</link></computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00024">24</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_engine__defs_8h_1a09036c28461371d73a173aa18b119cd3"/><section>
+    <title>EngineLinkedList</title>
+<indexterm><primary>EngineLinkedList</primary><secondary>engine_defs.h</secondary></indexterm>
+<indexterm><primary>engine_defs.h</primary><secondary>EngineLinkedList</secondary></indexterm>
+<para><computeroutput>typedef struct <link linkend="_structlinklist">linklist</link> <link linkend="_engine__defs_8h_1a09036c28461371d73a173aa18b119cd3">EngineLinkedList</link></computeroutput></para></section>
+<anchor xml:id="_engine__defs_8h_1a4089a7465fbba0988b4933eb318a7541"/><section>
+    <title>EngineProgram</title>
+<indexterm><primary>EngineProgram</primary><secondary>engine_defs.h</secondary></indexterm>
+<indexterm><primary>engine_defs.h</primary><secondary>EngineProgram</secondary></indexterm>
+<para><computeroutput>typedef unsigned int <link linkend="_engine__defs_8h_1a4089a7465fbba0988b4933eb318a7541">EngineProgram</link></computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00021">21</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_engine__defs_8h_1ad5bbadc2683f69c3cc216f456e83aef5"/><section>
+    <title>EngineShader</title>
+<indexterm><primary>EngineShader</primary><secondary>engine_defs.h</secondary></indexterm>
+<indexterm><primary>engine_defs.h</primary><secondary>EngineShader</secondary></indexterm>
+<para><computeroutput>typedef unsigned int <link linkend="_engine__defs_8h_1ad5bbadc2683f69c3cc216f456e83aef5">EngineShader</link></computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00020">20</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_engine__defs_8h_1ab7190cb26ff0940aad30e42f4b863a65"/><section>
+    <title>EngineTexture</title>
+<indexterm><primary>EngineTexture</primary><secondary>engine_defs.h</secondary></indexterm>
+<indexterm><primary>engine_defs.h</primary><secondary>EngineTexture</secondary></indexterm>
+<para><computeroutput>typedef struct <link linkend="_structengine__texture">engine_texture</link> <link linkend="_engine__defs_8h_1ab7190cb26ff0940aad30e42f4b863a65">EngineTexture</link></computeroutput></para></section>
+<anchor xml:id="_engine__defs_8h_1a0a29a026b82481d6384d6880a2b6b071"/><section>
+    <title>EngineTextureKey</title>
+<indexterm><primary>EngineTextureKey</primary><secondary>engine_defs.h</secondary></indexterm>
+<indexterm><primary>engine_defs.h</primary><secondary>EngineTextureKey</secondary></indexterm>
+<para><computeroutput>typedef unsigned int <link linkend="_engine__defs_8h_1a0a29a026b82481d6384d6880a2b6b071">EngineTextureKey</link></computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00023">23</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_engine__defs_8h_1ab1b932d98fa15c9b0f3ca42807c8f319"/><section>
+    <title>EngineTexturePair</title>
+<indexterm><primary>EngineTexturePair</primary><secondary>engine_defs.h</secondary></indexterm>
+<indexterm><primary>engine_defs.h</primary><secondary>EngineTexturePair</secondary></indexterm>
+<para><computeroutput>typedef struct <link linkend="_structengine__texture__pair">engine_texture_pair</link> <link linkend="_engine__defs_8h_1ab1b932d98fa15c9b0f3ca42807c8f319">EngineTexturePair</link></computeroutput></para></section>
+<anchor xml:id="_engine__defs_8h_1adbf6f00f51442de5cfeccabf6fe7009d"/><section>
+    <title>GameState</title>
+<indexterm><primary>GameState</primary><secondary>engine_defs.h</secondary></indexterm>
+<indexterm><primary>engine_defs.h</primary><secondary>GameState</secondary></indexterm>
+<para><computeroutput>typedef enum gamestate <link linkend="_engine__defs_8h_1adbf6f00f51442de5cfeccabf6fe7009d">GameState</link></computeroutput></para><para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00028">28</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+<anchor xml:id="_engine__defs_8h_1ace08f4d3a2b304b58e1719b16ba36a16"/><section>
+    <title>WindowConfig</title>
+<indexterm><primary>WindowConfig</primary><secondary>engine_defs.h</secondary></indexterm>
+<indexterm><primary>engine_defs.h</primary><secondary>WindowConfig</secondary></indexterm>
+<para><computeroutput>typedef struct <link linkend="_structwindow__config">window_config</link> <link linkend="_engine__defs_8h_1ace08f4d3a2b304b58e1719b16ba36a16">WindowConfig</link></computeroutput></para></section>
+</section>
+<section>
+<title>Enumeration Type Documentation</title>
+<anchor xml:id="_engine__defs_8h_1a4ca99c4435f534981c8f010a42399b8f"/><section>
+    <title>component_type</title>
+<indexterm><primary>component_type</primary><secondary>engine_defs.h</secondary></indexterm>
+<indexterm><primary>engine_defs.h</primary><secondary>component_type</secondary></indexterm>
+<para><computeroutput>enum <link linkend="_engine__defs_8h_1a4ca99c4435f534981c8f010a42399b8f">component_type</link></computeroutput></para><informaltable frame="all">
+<title>Enumerator</title>
+    <tgroup cols="2" align="left" colsep="1" rowsep="1">
+      <colspec colname='c1'/>
+      <colspec colname='c2'/>
+<tbody>
+<row><entry><indexterm><primary>ENGINE_COMPONENT_RENDERER</primary><secondary>engine_defs.h</secondary></indexterm>
+<indexterm><primary>engine_defs.h</primary><secondary>ENGINE_COMPONENT_RENDERER</secondary></indexterm>
+<anchor xml:id="_engine__defs_8h_1a4ca99c4435f534981c8f010a42399b8fa88e24b300b4fe0854e0aacf8ed46358d"/>ENGINE_COMPONENT_RENDERER</entry><entry></entry></row><row><entry><indexterm><primary>ENGINE_COMPONENT_TICK</primary><secondary>engine_defs.h</secondary></indexterm>
+<indexterm><primary>engine_defs.h</primary><secondary>ENGINE_COMPONENT_TICK</secondary></indexterm>
+<anchor xml:id="_engine__defs_8h_1a4ca99c4435f534981c8f010a42399b8faedc80912a190108fb8024b04936d8305"/>ENGINE_COMPONENT_TICK</entry><entry></entry></row><row><entry><indexterm><primary>ENGINE_COMPONENT_CONTROLLER</primary><secondary>engine_defs.h</secondary></indexterm>
+<indexterm><primary>engine_defs.h</primary><secondary>ENGINE_COMPONENT_CONTROLLER</secondary></indexterm>
+<anchor xml:id="_engine__defs_8h_1a4ca99c4435f534981c8f010a42399b8fac18d1186ab6639a28d072e5b40f7e955"/>ENGINE_COMPONENT_CONTROLLER</entry><entry></entry></row>    </tbody>
+    </tgroup>
+</informaltable>
+<para>
+Definition at line <link linkend="_engine__defs_8h_source_1l00047">47</link> of file <link linkend="_engine__defs_8h_source">engine_defs.h</link>.</para>
+</section>
+</section>
+</section>

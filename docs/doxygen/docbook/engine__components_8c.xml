@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_engine__components_8c" xml:lang="en-US">
+<title>SpaceGame/engine_components.c File Reference</title>
+<indexterm><primary>SpaceGame/engine_components.c</primary></indexterm>
+<programlisting linenumbering="unnumbered">#include &quot;engine_components.h&quot;<?linebreak?>#include &quot;engine_entity.h&quot;<?linebreak?>#include &lt;string.h&gt;<?linebreak?>#include &lt;assert.h&gt;<?linebreak?></programlisting><simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>void <link linkend="_engine__components_8c_1aaf7ed842f65c361c2d8996d20135201b">__engine__defaultRendererComponentFunc</link> (<link linkend="_engine__defs_8h_1a6c53f0b7ec3737ab96bcfea47dd18695">EngineEntity</link> *, <link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *, float)</para>
+</listitem>
+            <listitem><para>void <link linkend="_engine__components_8c_1a506dceaeb4da220f682ac8c9dd410296">__engine__defaultTickComponentFunc</link> (<link linkend="_engine__defs_8h_1a6c53f0b7ec3737ab96bcfea47dd18695">EngineEntity</link> *, <link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *, float)</para>
+</listitem>
+            <listitem><para>void <link linkend="_engine__components_8c_1ab80993a4e1d065a6e12b555ecbedcf42">__engine__defaultControllerComponentFunc</link> (<link linkend="_engine__defs_8h_1a6c53f0b7ec3737ab96bcfea47dd18695">EngineEntity</link> *, <link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *, float)</para>
+</listitem>
+            <listitem><para>void <link linkend="_engine__components_8c_1ab9a835e838ea4a7bd5d4610507f254ed">engineAddComponent</link> (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *ctx, <link linkend="_engine__defs_8h_1a4471320c0db41d630bed66ecbfff9bb9">EngineEntityKey</link> key, <link linkend="_engine__defs_8h_1addaf8da9d811dea07390c134ec64e60e">EngineComponentType</link> type)</para>
+</listitem>
+            <listitem><para>void <link linkend="_engine__components_8c_1a72b83a59fda5ca9d8b12dec7bf29076a">engineSetComponentCallback</link> (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *ctx, <link linkend="_engine__defs_8h_1a4471320c0db41d630bed66ecbfff9bb9">EngineEntityKey</link> key, <link linkend="_engine__defs_8h_1addaf8da9d811dea07390c134ec64e60e">EngineComponentType</link> type, <link linkend="_engine__defs_8h_1a25cd721674b601a381fb538f63193316">EngineComponentFunc</link> func)</para>
+</listitem>
+            <listitem><para>const <link linkend="_engine__defs_8h_1a4fe707fd7f0392a3c6d81cfc62f1686c">EBOOL</link> <link linkend="_engine__components_8c_1a9b953d599b77c05686083469e14aa362">engineRemoveComponent</link> (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *ctx, <link linkend="_engine__defs_8h_1a4471320c0db41d630bed66ecbfff9bb9">EngineEntityKey</link> key, <link linkend="_engine__defs_8h_1addaf8da9d811dea07390c134ec64e60e">EngineComponentType</link> type)</para>
+</listitem>
+            <listitem><para>const <link linkend="_engine__defs_8h_1a4fe707fd7f0392a3c6d81cfc62f1686c">EBOOL</link> <link linkend="_engine__components_8c_1a8b10324c2eb0287786117a22a4fe71a7">engineHasComponent</link> (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *ctx, <link linkend="_engine__defs_8h_1a4471320c0db41d630bed66ecbfff9bb9">EngineEntityKey</link> key, <link linkend="_engine__defs_8h_1addaf8da9d811dea07390c134ec64e60e">EngineComponentType</link> type)</para>
+</listitem>
+            <listitem><para>void <link linkend="_engine__components_8c_1a89a2f174b1a8c0821b290dd4df0c973e">engineRunComponentFunc</link> (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> *ctx, <link linkend="_engine__defs_8h_1a6c53f0b7ec3737ab96bcfea47dd18695">EngineEntity</link> *ent, <link linkend="_engine__defs_8h_1aa5d34c353188c6922fdb05c9cdf2f1f0">EngineComponent</link> *comp, float deltaTime)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_engine__components_8c_1ab80993a4e1d065a6e12b555ecbedcf42"/><section>
+    <title>__engine__defaultControllerComponentFunc()</title>
+<indexterm><primary>__engine__defaultControllerComponentFunc</primary><secondary>engine_components.c</secondary></indexterm>
+<indexterm><primary>engine_components.c</primary><secondary>__engine__defaultControllerComponentFunc</secondary></indexterm>
+<para><computeroutput>void __engine__defaultControllerComponentFunc (<link linkend="_engine__defs_8h_1a6c53f0b7ec3737ab96bcfea47dd18695">EngineEntity</link> * ent, <link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx, float deltaTime)<computeroutput>[extern]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_engine__component__funcs_8c_source_1l00012">12</link> of file <link linkend="_engine__component__funcs_8c_source">engine_component_funcs.c</link>.</para>
+</section>
+<anchor xml:id="_engine__components_8c_1aaf7ed842f65c361c2d8996d20135201b"/><section>
+    <title>__engine__defaultRendererComponentFunc()</title>
+<indexterm><primary>__engine__defaultRendererComponentFunc</primary><secondary>engine_components.c</secondary></indexterm>
+<indexterm><primary>engine_components.c</primary><secondary>__engine__defaultRendererComponentFunc</secondary></indexterm>
+<para><computeroutput>void __engine__defaultRendererComponentFunc (<link linkend="_engine__defs_8h_1a6c53f0b7ec3737ab96bcfea47dd18695">EngineEntity</link> * ent, <link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx, float deltaTime)<computeroutput>[extern]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_engine__component__funcs_8c_source_1l00007">7</link> of file <link linkend="_engine__component__funcs_8c_source">engine_component_funcs.c</link>.</para>
+</section>
+<anchor xml:id="_engine__components_8c_1a506dceaeb4da220f682ac8c9dd410296"/><section>
+    <title>__engine__defaultTickComponentFunc()</title>
+<indexterm><primary>__engine__defaultTickComponentFunc</primary><secondary>engine_components.c</secondary></indexterm>
+<indexterm><primary>engine_components.c</primary><secondary>__engine__defaultTickComponentFunc</secondary></indexterm>
+<para><computeroutput>void __engine__defaultTickComponentFunc (<link linkend="_engine__defs_8h_1a6c53f0b7ec3737ab96bcfea47dd18695">EngineEntity</link> * ent, <link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx, float deltaTime)<computeroutput>[extern]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_engine__component__funcs_8c_source_1l00028">28</link> of file <link linkend="_engine__component__funcs_8c_source">engine_component_funcs.c</link>.</para>
+</section>
+<anchor xml:id="_engine__components_8c_1ab9a835e838ea4a7bd5d4610507f254ed"/><section>
+    <title>engineAddComponent()</title>
+<indexterm><primary>engineAddComponent</primary><secondary>engine_components.c</secondary></indexterm>
+<indexterm><primary>engine_components.c</primary><secondary>engineAddComponent</secondary></indexterm>
+<para><computeroutput>void engineAddComponent (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx, <link linkend="_engine__defs_8h_1a4471320c0db41d630bed66ecbfff9bb9">EngineEntityKey</link> key, <link linkend="_engine__defs_8h_1addaf8da9d811dea07390c134ec64e60e">EngineComponentType</link> type)</computeroutput></para><para>
+Definition at line <link linkend="_engine__components_8c_source_1l00018">18</link> of file <link linkend="_engine__components_8c_source">engine_components.c</link>.</para>
+</section>
+<anchor xml:id="_engine__components_8c_1a8b10324c2eb0287786117a22a4fe71a7"/><section>
+    <title>engineHasComponent()</title>
+<indexterm><primary>engineHasComponent</primary><secondary>engine_components.c</secondary></indexterm>
+<indexterm><primary>engine_components.c</primary><secondary>engineHasComponent</secondary></indexterm>
+<para><computeroutput>const <link linkend="_engine__defs_8h_1a4fe707fd7f0392a3c6d81cfc62f1686c">EBOOL</link> engineHasComponent (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx, <link linkend="_engine__defs_8h_1a4471320c0db41d630bed66ecbfff9bb9">EngineEntityKey</link> key, <link linkend="_engine__defs_8h_1addaf8da9d811dea07390c134ec64e60e">EngineComponentType</link> type)</computeroutput></para><para>
+Definition at line <link linkend="_engine__components_8c_source_1l00061">61</link> of file <link linkend="_engine__components_8c_source">engine_components.c</link>.</para>
+</section>
+<anchor xml:id="_engine__components_8c_1a9b953d599b77c05686083469e14aa362"/><section>
+    <title>engineRemoveComponent()</title>
+<indexterm><primary>engineRemoveComponent</primary><secondary>engine_components.c</secondary></indexterm>
+<indexterm><primary>engine_components.c</primary><secondary>engineRemoveComponent</secondary></indexterm>
+<para><computeroutput>const <link linkend="_engine__defs_8h_1a4fe707fd7f0392a3c6d81cfc62f1686c">EBOOL</link> engineRemoveComponent (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx, <link linkend="_engine__defs_8h_1a4471320c0db41d630bed66ecbfff9bb9">EngineEntityKey</link> key, <link linkend="_engine__defs_8h_1addaf8da9d811dea07390c134ec64e60e">EngineComponentType</link> type)</computeroutput></para><para>
+Definition at line <link linkend="_engine__components_8c_source_1l00048">48</link> of file <link linkend="_engine__components_8c_source">engine_components.c</link>.</para>
+</section>
+<anchor xml:id="_engine__components_8c_1a89a2f174b1a8c0821b290dd4df0c973e"/><section>
+    <title>engineRunComponentFunc()</title>
+<indexterm><primary>engineRunComponentFunc</primary><secondary>engine_components.c</secondary></indexterm>
+<indexterm><primary>engine_components.c</primary><secondary>engineRunComponentFunc</secondary></indexterm>
+<para><computeroutput>void engineRunComponentFunc (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx, <link linkend="_engine__defs_8h_1a6c53f0b7ec3737ab96bcfea47dd18695">EngineEntity</link> * ent, <link linkend="_engine__defs_8h_1aa5d34c353188c6922fdb05c9cdf2f1f0">EngineComponent</link> * comp, float deltaTime)</computeroutput></para><para>
+Definition at line <link linkend="_engine__components_8c_source_1l00072">72</link> of file <link linkend="_engine__components_8c_source">engine_components.c</link>.</para>
+</section>
+<anchor xml:id="_engine__components_8c_1a72b83a59fda5ca9d8b12dec7bf29076a"/><section>
+    <title>engineSetComponentCallback()</title>
+<indexterm><primary>engineSetComponentCallback</primary><secondary>engine_components.c</secondary></indexterm>
+<indexterm><primary>engine_components.c</primary><secondary>engineSetComponentCallback</secondary></indexterm>
+<para><computeroutput>void engineSetComponentCallback (<link linkend="_engine__defs_8h_1a384f7c13910ebe94dc393e766f962b58">EngineContext</link> * ctx, <link linkend="_engine__defs_8h_1a4471320c0db41d630bed66ecbfff9bb9">EngineEntityKey</link> key, <link linkend="_engine__defs_8h_1addaf8da9d811dea07390c134ec64e60e">EngineComponentType</link> type, <link linkend="_engine__defs_8h_1a25cd721674b601a381fb538f63193316">EngineComponentFunc</link> func)</computeroutput></para><para>
+Definition at line <link linkend="_engine__components_8c_source_1l00037">37</link> of file <link linkend="_engine__components_8c_source">engine_components.c</link>.</para>
+</section>
+</section>
+</section>
