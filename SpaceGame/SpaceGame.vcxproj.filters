@@ -104,6 +104,9 @@
     <None Include="..\docs\docs.md">
       <Filter>Resource Files\documentation</Filter>
     </None>
+    <None Include="..\README.md">
+      <Filter>Resource Files\documentation</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine.h">

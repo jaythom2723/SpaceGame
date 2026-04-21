@@ -35,7 +35,6 @@ int main(void)
 	if (ctx == NULL)
 		return -2;
 
-
 	load();
 
 	int winwidth, winheight;
@@ -113,18 +112,5 @@ void load(void)
 
 void input_controller(EngineEntity* ent, EngineContext* ctx, float deltaTime)
 {
-	if (ctx->keys[EKEY_ESCAPE] == ETRUE)
-		engineSetWindowClose(ctx, ETRUE);
 
-	const float DBG_SPEED = 250.0f;
-
-	if (ctx->keys[EKEY_W] == ETRUE)
-		ent->y -= DBG_SPEED * deltaTime;
-	else if (ctx->keys[EKEY_S] == ETRUE)
-		ent->y += DBG_SPEED * deltaTime;
-
-	if (ctx->keys[EKEY_A] == ETRUE)
-		ent->x -= DBG_SPEED * deltaTime;
-	else if (ctx->keys[EKEY_D] == ETRUE)
-		ent->x += DBG_SPEED * deltaTime;
 }

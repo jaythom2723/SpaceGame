@@ -37,6 +37,7 @@
     <None Include="..\docs\architecture.md" />
     <None Include="..\docs\docs.md" />
     <None Include="..\docs\getting_started.md" />
+    <None Include="..\README.md" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine.h" />
