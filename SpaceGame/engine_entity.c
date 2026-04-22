@@ -10,6 +10,9 @@ const EBOOL engineCreateEntity(EngineContext* ctx, vec2 pos, vec2 size, const En
 	EngineEntity tmp = {
 		.x = pos[0],
 		.y = pos[1],
+		.r = 1.0f,
+		.g = 1.0f,
+		.b = 1.0f,
 		.width = size[0],
 		.height = size[1],
 		.texkey = texkey,
@@ -103,4 +106,14 @@ void engineProcessEntities(EngineContext* ctx, float deltaTime)
 			engineRunComponentFunc(ctx, cur, (cur->components + j), deltaTime);
 		}
 	}
+}
+
+void engineEntitySetDrawColor(EngineContext* ctx, EngineEntityKey key, float r, float g, float b)
+{
+	EngineEntity* ent = engineGetEntity(ctx, key);
+	assert(ent != NULL);
+
+	ent->r = r;
+	ent->g = g;
+	ent->b = b;
 }

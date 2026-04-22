@@ -10,13 +10,13 @@
 #include <stdio.h>
 
 float vertices[] = {
-	// pos			color				tex
-	0.0f, 1.0f,		1.0f, 1.0f, 1.0f,	0.0f, 1.0f,
-	1.0f, 0.0f,		1.0f, 1.0f, 1.0f,	1.0f, 0.0f,
-	0.0f, 0.0f,		1.0f, 1.0f, 1.0f,	0.0f, 0.0f,
-	0.0f, 1.0f,		1.0f, 1.0f, 1.0f,	0.0f, 1.0f,
-	1.0f, 1.0f,		1.0f, 1.0f, 1.0f,	1.0f, 1.0f,
-	1.0f, 0.0f,		1.0f, 1.0f, 1.0f,	1.0f, 0.0f,
+	// pos			tex
+	0.0f, 1.0f,		0.0f, 1.0f,
+	1.0f, 0.0f,		1.0f, 0.0f,
+	0.0f, 0.0f,		0.0f, 0.0f,
+	0.0f, 1.0f,		0.0f, 1.0f,
+	1.0f, 1.0f,		1.0f, 1.0f,
+	1.0f, 0.0f,		1.0f, 0.0f,
 };
 
 static void init(void);
@@ -27,7 +27,9 @@ static void input_controller(EngineEntity* ent, EngineContext* ctx, float deltaT
 static EngineContext* ctx = NULL;
 
 static const unsigned int DBG_PLANET_TEXTURE_KEY = 1;
+static const unsigned int DBG_STAR_TEXTURE_KEY = 2;
 static const unsigned int DBG_PLANET_ENTITY_KEY = 1;
+static const unsigned int DBG_STAR_ENTITY_KEY = 2;
 
 int main(void)
 {
@@ -44,6 +46,10 @@ int main(void)
 	vec2 pos = { winwidth / 2 - size[0] / 2, winheight / 2 - size[1] / 2 };
 	engineCreateEntity(ctx, pos, size, DBG_PLANET_ENTITY_KEY, DBG_PLANET_TEXTURE_KEY);
 	engineAddComponent(ctx, DBG_PLANET_ENTITY_KEY, ENGINE_COMPONENT_RENDERER);
+
+	engineCreateEntity(ctx, (vec2) { 0.0f, 0.0f }, size, DBG_STAR_ENTITY_KEY, DBG_STAR_TEXTURE_KEY);
+	engineAddComponent(ctx, DBG_STAR_ENTITY_KEY, ENGINE_COMPONENT_RENDERER);
+	engineEntitySetDrawColor(ctx, DBG_STAR_ENTITY_KEY, 1.0f, 1.0f, 0.0f);
 
 	float oldtime = 0.0f;
 	float time = 0.0f;
@@ -108,6 +114,7 @@ void init(void)
 void load(void) 
 {
 	engineGenTextureCheckMissing(ctx, DBG_PLANET_TEXTURE_KEY, "Textures/planet.png", ETRUE);
+	engineGenTextureCheckMissing(ctx, DBG_STAR_TEXTURE_KEY, "Textures/star.png", ETRUE);
 }
 
 void input_controller(EngineEntity* ent, EngineContext* ctx, float deltaTime)

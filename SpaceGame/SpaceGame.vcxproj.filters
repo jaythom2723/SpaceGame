@@ -141,5 +141,14 @@
     <Image Include="..\Debug\Textures\dbg_smile.png">
       <Filter>Resource Files\Textures</Filter>
     </Image>
+    <Image Include="..\Debug\Textures\_missing_texture.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="..\Debug\Textures\planet.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="..\Debug\Textures\star.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -58,6 +58,17 @@ void engineInitEntityComponentList(EngineEntity* ent);
  */
 void engineProcessEntities(EngineContext* ctx, float deltaTime);
 
+/**
+ * \brief Set the draw color for an entity.
+ * 
+ * \param ctx A valid context
+ * \param key A valid entity
+ * \param r Red normalizezd
+ * \param g Green normalized
+ * \param b Blue normalized
+ */
+void engineEntitySetDrawColor(EngineContext* ctx, EngineEntityKey key, float r, float g, float b);
+
 #endif // ENGINE_ENTITY_H
 
 

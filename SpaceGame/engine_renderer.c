@@ -36,3 +36,8 @@ void engineRenderEntity(EngineContext* ctx, EngineEntityKey key)
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 	engineBindVAO(0);
 }
+
+void engineSetDrawColor(EngineContext* ctx, float r, float g, float b)
+{
+	engineSetVector3f(ctx, "spriteColor", r, g, b);
+}

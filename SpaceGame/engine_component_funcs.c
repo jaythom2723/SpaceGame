@@ -6,6 +6,7 @@
 
 void __engine__defaultRendererComponentFunc(EngineEntity* ent, EngineContext* ctx, float deltaTime)
 {
+	engineSetDrawColor(ctx, ent->r, ent->g, ent->b);
 	engineRenderEntity(ctx, ent->key);
 }
 

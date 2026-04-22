@@ -12,4 +12,14 @@
  */
 void engineRenderEntity(EngineContext* ctx, EngineEntityKey key);
 
+/**
+ * \brief set the spriteColor uniform in the shader program (if available).
+ * 
+ * \param ctx A valid context
+ * \param r Red normalized
+ * \param g Green normalized
+ * \param b Blue normalized
+ */
+void engineSetDrawColor(EngineContext* ctx, float r, float g, float b);
+
 #endif // ENGINE_RENDERER_H

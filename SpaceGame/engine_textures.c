@@ -61,15 +61,8 @@ const EBOOL engineCreateTexture(EngineContext* ctx, unsigned int key)
 
 const EBOOL engineGenerateTexture(EngineContext* ctx, unsigned int key, const char* path, const EBOOL alpha)
 {
-	EngineTexturePair* pair = NULL;
-
-	for (int i = 0; i < (int)(ptr - ctx->textures); i++)
-	{
-		if (ctx->textures[i].key != key)
-			continue;
-		pair = &ctx->textures[i];
-		break;
-	}
+	int index;
+	EngineTexturePair* pair = _engineGetTexturePair(ctx, key, &index);
 
 	if (pair == NULL)
 		return EFALSE;
@@ -116,7 +109,7 @@ void engineGenTextureCheckMissing(EngineContext* ctx, unsigned int key, const ch
 {
 	if (engineCreateTexture(ctx, key) != EFALSE)
 		if (engineGenerateTexture(ctx, key, path, alpha) == EFALSE)
-			engineGenerateTexture(ctx, ENGINE_MISSING_TEXTURE_KEY, "Textures/_missing_texture.png", EFALSE);
+			engineGenerateTexture(ctx, key, "Textures/_missing_texture.png", EFALSE);
 }
 
 void engineBindTexture(EngineContext* ctx, unsigned int key)
@@ -152,6 +145,7 @@ void engineDestroyTexture(EngineContext* ctx, unsigned int key)
 {
 	int index;
 	EngineTexturePair* pair = _engineGetTexturePair(ctx, key, &index);
+	assert(pair != NULL);
 
 	glDeleteTextures(1, &pair->value->id);
 	free(pair->value);
@@ -172,6 +166,14 @@ void engineDestroyTexture(EngineContext* ctx, unsigned int key)
 }
 
 // internal functions
+/**
+ * \brief Get a texture pair from the engine context.
+ * 
+ * \param ctx A valid context
+ * \param key The texture key
+ * \param index The returned index of the texture
+ * \return The texture if found. If not found, returns NULL
+ */
 EngineTexturePair* _engineGetTexturePair(EngineContext* ctx, unsigned int key, unsigned int* index)
 {
 	for (int i = 0; i < (int)(ptr - ctx->textures); i++)

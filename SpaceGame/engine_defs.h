@@ -91,6 +91,7 @@ typedef struct engine_texture_pair {
 struct engine_entity {
 	float x, y;
 	float width, height;
+	float r, g, b;
 	EngineEntityKey key;
 	EngineTextureKey texkey;
 	EngineComponent* components;

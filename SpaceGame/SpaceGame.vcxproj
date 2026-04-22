@@ -52,6 +52,9 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Debug\Textures\dbg_smile.png" />
+    <Image Include="..\Debug\Textures\planet.png" />
+    <Image Include="..\Debug\Textures\star.png" />
+    <Image Include="..\Debug\Textures\_missing_texture.png" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>18.0</VCProjectVersion>
