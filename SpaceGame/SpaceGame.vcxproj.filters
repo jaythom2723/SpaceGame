@@ -54,41 +54,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="glad.c">
-      <Filter>Source Files\engine\glad</Filter>
-    </ClCompile>
-    <ClCompile Include="game.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="engine.c">
-      <Filter>Source Files\engine</Filter>
-    </ClCompile>
-    <ClCompile Include="engine_utils.c">
-      <Filter>Source Files\engine</Filter>
-    </ClCompile>
-    <ClCompile Include="engine_buffers.c">
-      <Filter>Source Files\engine\opengl</Filter>
-    </ClCompile>
-    <ClCompile Include="engine_shaders.c">
-      <Filter>Source Files\engine\opengl</Filter>
-    </ClCompile>
-    <ClCompile Include="engine_textures.c">
-      <Filter>Source Files\engine\opengl</Filter>
-    </ClCompile>
-    <ClCompile Include="engine_renderer.c">
-      <Filter>Source Files\engine</Filter>
-    </ClCompile>
-    <ClCompile Include="engine_components.c">
-      <Filter>Source Files\engine\entity</Filter>
-    </ClCompile>
-    <ClCompile Include="engine_entity.c">
-      <Filter>Source Files\engine\entity</Filter>
-    </ClCompile>
-    <ClCompile Include="engine_component_funcs.c">
-      <Filter>Source Files\engine\entity</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\Debug\Shaders\fragment.glsl">
       <Filter>Resource Files\Shaders</Filter>
     </None>
@@ -109,35 +74,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="engine.h">
-      <Filter>Header Files\engine</Filter>
-    </ClInclude>
-    <ClInclude Include="engine_defs.h">
-      <Filter>Header Files\engine</Filter>
-    </ClInclude>
-    <ClInclude Include="engine_utils.h">
-      <Filter>Header Files\engine</Filter>
-    </ClInclude>
-    <ClInclude Include="engine_shaders.h">
-      <Filter>Header Files\engine\opengl</Filter>
-    </ClInclude>
-    <ClInclude Include="engine_buffers.h">
-      <Filter>Header Files\engine\opengl</Filter>
-    </ClInclude>
-    <ClInclude Include="engine_textures.h">
-      <Filter>Header Files\engine\opengl</Filter>
-    </ClInclude>
-    <ClInclude Include="engine_renderer.h">
-      <Filter>Header Files\engine</Filter>
-    </ClInclude>
-    <ClInclude Include="engine_components.h">
-      <Filter>Header Files\engine\entity</Filter>
-    </ClInclude>
-    <ClInclude Include="engine_entity.h">
-      <Filter>Header Files\engine\entity</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
     <Image Include="..\Debug\Textures\dbg_smile.png">
       <Filter>Resource Files\Textures</Filter>
     </Image>
@@ -150,5 +86,75 @@
     <Image Include="..\Debug\Textures\star.png">
       <Filter>Resource Files\Textures</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\engine\engine.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\engine_defs.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\engine_scene.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\engine_utils.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\opengl\engine_buffers.h">
+      <Filter>Header Files\engine\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\opengl\engine_renderer.h">
+      <Filter>Header Files\engine\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\opengl\engine_shaders.h">
+      <Filter>Header Files\engine\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\opengl\engine_textures.h">
+      <Filter>Header Files\engine\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\entity\engine_components.h">
+      <Filter>Header Files\engine\entity</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\entity\engine_entity.h">
+      <Filter>Header Files\engine\entity</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\engine\entity\engine_component_funcs.c">
+      <Filter>Source Files\engine\entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\entity\engine_components.c">
+      <Filter>Source Files\engine\entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\entity\engine_entity.c">
+      <Filter>Source Files\engine\entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\glad\glad.c">
+      <Filter>Source Files\engine\glad</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\opengl\engine_buffers.c">
+      <Filter>Source Files\engine\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\opengl\engine_renderer.c">
+      <Filter>Source Files\engine\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\opengl\engine_shaders.c">
+      <Filter>Source Files\engine\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\opengl\engine_textures.c">
+      <Filter>Source Files\engine\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\engine.c">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\engine_scene.c">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\engine_utils.c">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game.c">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

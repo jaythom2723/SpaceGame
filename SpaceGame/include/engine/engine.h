@@ -13,9 +13,26 @@
 EngineContext* engineInit(void);
 
 /**
+ * \brief Bootstrap the engine to handle all boilerplater initialization.
+ * 
+ * This function is for users who do not wish to implement their own shaders
+ * Be sure to have Shaders/vertex.glsl and Fragment/fragment.glsl, as they are
+ * required for the function to work properly.
+ * 
+ * If they do not exist, a default shader source will be provided to the shaders
+ * 
+ * \param cfg The window configuration
+ * \param vertBytes The size of vertices in bytes
+ * \param vertices The vertex data to assign to a VBO and VAO pair
+ * 
+ * \return Returns the fully initialized context
+ */
+EngineContext* engineBootstrap(WindowConfig cfg, size_t vertBytes, float* vertices);
+
+/**
  * \brief Create the window for the game via WindowConfig.
  * 
- * \param ctx The context
+ * \param ctx A valid context
  * \param config The config used to inform GLFW about how to create the window
  * 
  * \return Returns EFALSE if unsuccessful in creating the window
@@ -25,16 +42,33 @@ EBOOL engineCreateWindow(EngineContext* ctx, WindowConfig config);
 /**
  * \brief Destroy everything the engine has created.
  * 
- * \param ctx The context
+ * \param ctx A valid context
  */
 void engineClose(EngineContext* ctx);
 
 /**
  * \brief Initialize the projection matrix for rendering.
  * 
- * \param ctx The context
+ * \param ctx A valid context
  */
 void engineInitProjectionMatrix(EngineContext* ctx);
+
+/**
+ * \brief Set the engine's internal reference to the gamestate.
+ * 
+ * \param ctx A valid context
+ * \param state The gamestate to set
+ */
+void engineSetGameState(EngineContext* ctx, const GameState state);
+
+/**
+ * \brief Get the engine's internal reference to the gamestate.
+ * 
+ * \param ctx A valid context
+ * 
+ * \return Returns the gamestate as a pointer
+ */
+const GameState engineGetGameState(EngineContext* ctx);
 
 #define engineDrawSprite renamed_engineRenderEntity(...)
 

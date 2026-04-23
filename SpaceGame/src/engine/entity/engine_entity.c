@@ -1,6 +1,7 @@
 #include "engine_entity.h"
 
 #include "engine_components.h"
+#include "engine_scene.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -20,18 +21,36 @@ const EBOOL engineCreateEntity(EngineContext* ctx, vec2 pos, vec2 size, const En
 		.components = NULL
 	};
 
-	memcpy(ctx->entities + ctx->nentities, &tmp, sizeof(EngineEntity));
+	if (ctx->state == -1 || ctx->scenes[ctx->state] == NULL)
+		return EFALSE;
 
-	ctx->nentities++;
+	EngineScene* curscene = engineGetCurrentScene(ctx);
+	assert(curscene != NULL);
+	memcpy(curscene->entities + curscene->nentities, &tmp, sizeof(EngineEntity));
+	curscene->nentities++;
 
 	return ETRUE;
 }
 
 void engineDestroyAllEntities(EngineContext* ctx)
 {
-	for (unsigned i = 0; i < ctx->nentities; i++)
+	if (ctx->state == -1)
+		return;
+
+	engineDestroyAllEntitiesScene(ctx, ctx->state);
+}
+
+void engineDestroyAllEntitiesScene(EngineContext* ctx, GameState state)
+{
+	if (ctx->scenes[ctx->state] == NULL)
+		return;
+
+	EngineScene* scene = engineGetScene(ctx, state);
+	assert(scene != NULL);
+
+	for (unsigned i = 0; i < scene->nentities; i++)
 	{
-		EngineEntity* cur = &ctx->entities[i];
+		EngineEntity* cur = &(scene->entities[i]);
 
 		if (cur->components != NULL)
 		{
@@ -42,12 +61,23 @@ void engineDestroyAllEntities(EngineContext* ctx)
 		(*cur) = (EngineEntity){ 0 };
 		cur = NULL;
 	}
-	ctx->nentities = 0;
+	scene->nentities = 0;
 }
 
 void engineDestroyEntity(EngineContext* ctx, EngineEntityKey key)
 {
-	EngineEntity* ent = engineGetEntity(ctx, key);
+	if (ctx->state == -1)
+		return;
+
+	engineDestroyEntityScene(ctx, ctx->state, key);
+}
+
+void engineDestroyEntityScene(EngineContext* ctx, GameState state, EngineEntityKey key)
+{
+	if (ctx->scenes[ctx->state] == NULL)
+		return;
+
+	EngineEntity* ent = engineGetEntityScene(ctx, state, key);
 
 	if (ent->components != NULL)
 	{
@@ -55,18 +85,33 @@ void engineDestroyEntity(EngineContext* ctx, EngineEntityKey key)
 		ent->components = NULL;
 	}
 
+	ctx->scenes[state]->nentities--;
 	(*ent) = (EngineEntity){ 0 };
 	ent = NULL;
 }
 
 EngineEntity* engineGetEntity(EngineContext* ctx, EngineEntityKey key)
 {
-	for (unsigned i = 0; i < ctx->nentities; i++)
-	{
-		if (ctx->entities[i].key != key)
-			continue;
+	if (ctx->state == -1)
+		return NULL;
 
-		return &ctx->entities[i];
+	EngineEntity* ent = engineGetEntityScene(ctx, ctx->state, key);
+	return ent;
+}
+
+EngineEntity* engineGetEntityScene(EngineContext* ctx, GameState state, EngineEntityKey key)
+{
+	if (ctx->scenes[ctx->state] == NULL)
+		return NULL;
+
+	EngineScene* scene = engineGetScene(ctx, state);
+	assert(scene != NULL);
+
+	for (unsigned i = 0; i < scene->nentities; i++)
+	{
+		if (scene->entities[i].key != key)
+			continue;
+		return &scene->entities[i];
 	}
 
 	return NULL;
@@ -90,9 +135,12 @@ void engineInitEntityComponentList(EngineEntity* ent)
 
 void engineProcessEntities(EngineContext* ctx, float deltaTime)
 {
-	for (unsigned i = 0; i < ctx->nentities; i++)
+	EngineScene* curscene = engineGetCurrentScene(ctx);
+	assert(curscene != NULL);
+
+	for (unsigned i = 0; i < curscene->nentities; i++)
 	{
-		EngineEntity* cur = &ctx->entities[i];
+		EngineEntity* cur = &curscene->entities[i];
 		assert(cur != NULL);
 
 		if (cur->components == NULL)

@@ -49,12 +49,41 @@ EngineContext* engineInit(void)
 	engine->program = 0;
 	memset(engine->textures, 0, ENGINE_MAX_TEXTURES * sizeof(EngineTexturePair));
 	engine->ntextures = 0;
-	engine->nentities = 0;
+	engine->state = -1;
+
+	memset(engine->scenes, NULL, ENGINE_MAX_SCENES * sizeof(EngineScene*));
 
 	keylist = engineCreateLinkedList(engine->keys, NULL, ENGINE_NUM_KEYS, sizeof(EBOOL));
 	assert(keylist != NULL);
 
 	return engine;
+}
+
+EngineContext* engineBootstrap(WindowConfig cfg, size_t vertBytes, float* vertices)
+{
+	EngineContext* ctx = engineInit();
+	if (ctx == NULL)
+		return NULL;
+
+	engineCreateWindow(ctx, cfg);
+
+	EngineShader vertex, fragment;
+	vertex = engineCreateShader(ENGINE_VERTEX_SHADER);
+	fragment = engineCreateShader(ENGINE_FRAGMENT_SHADER);
+	const EBOOL a = engineCompileShader(&vertex, "Shaders/vertex.glsl");
+	const EBOOL b = engineCompileShader(&fragment, "Shaders/fragment.glsl");
+	if (a == EFALSE || b == EFALSE)
+	{
+		engineClose(ctx);
+		return NULL;
+	}
+
+	engineCreateProgram(ctx);
+	engineAttachAndLink(ctx, &vertex, &fragment, NULL);
+	engineInitProjectionMatrix(ctx);
+	engineInitVBOVAOPair(ctx, vertBytes, vertices);
+	
+	return ctx;
 }
 
 EBOOL engineCreateWindow(EngineContext* ctx, const WindowConfig config)
@@ -114,6 +143,16 @@ void engineInitProjectionMatrix(EngineContext* ctx)
 	engineUseShader(ctx);
 	engineSetMatrix4fv(ctx, "projection", projection);
 	engineSetInteger(ctx, "image", 0);
+}
+
+void engineSetGameState(EngineContext* ctx, const GameState state)
+{
+	ctx->state = state;
+}
+
+const GameState engineGetGameState(EngineContext* ctx)
+{
+	return ctx->state;
 }
 
 // glfw wrapper functions

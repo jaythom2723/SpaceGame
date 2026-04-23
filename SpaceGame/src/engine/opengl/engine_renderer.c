@@ -4,6 +4,7 @@
 #include "engine_shaders.h"
 #include "engine_textures.h"
 #include "engine_entity.h"
+#include "engine_components.h"
 
 #include <cglm/cglm.h>
 
@@ -18,6 +19,9 @@ static inline void getModelMatrix(vec2 pos, vec2 size, float rotation, mat4 mode
 
 void engineRenderEntity(EngineContext* ctx, EngineEntityKey key)
 {
+	if (engineHasComponent(ctx, key, ENGINE_COMPONENT_RENDERER) == EFALSE)
+		return;
+
 	mat4 model;
 	EngineEntity* ent = engineGetEntity(ctx, key);
 	assert(ent != NULL);

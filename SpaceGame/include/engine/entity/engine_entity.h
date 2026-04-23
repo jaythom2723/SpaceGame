@@ -19,14 +19,22 @@
 const EBOOL engineCreateEntity(EngineContext* ctx, vec2 pos, vec2 size, const EngineEntityKey key, const EngineTextureKey texkey);
 
 /**
- * \brief Destroy all entities created by the engine at runtime.
+ * \brief Destroy all entities from the current scene
  * 
  * \param ctx A valid context
  */
 void engineDestroyAllEntities(EngineContext* ctx);
 
 /**
- * \brief Destroy a single entity created by the engine at runtime.
+ * \brief Destroy all entities from a specific scene
+ * 
+ * \param ctx A valid context
+ * \param state The state associated with a valid scene
+ */
+void engineDestroyAllEntitiesScene(EngineContext* ctx, GameState state);
+
+/**
+ * \brief Destroy a single entity from the current scene
  * 
  * \param ctx A valid context
  * \param key An entity
@@ -34,7 +42,16 @@ void engineDestroyAllEntities(EngineContext* ctx);
 void engineDestroyEntity(EngineContext* ctx, EngineEntityKey key);
 
 /**
- * \brief Get a single entity from the engine and return it as a pointer.
+ * \brief Destroy a single entity from a specific scene
+ * 
+ * \param ctx A valid context
+ * \param The state associated with a valid scene
+ * \param An entity
+ */
+void engineDestroyEntityScene(EngineContext* ctx, GameState state, EngineEntityKey key);
+
+/**
+ * \brief Get a single entity from the current scene and return it as a pointer.
  * 
  * \param ctx A valid context
  * \param key An entity
@@ -44,6 +61,17 @@ void engineDestroyEntity(EngineContext* ctx, EngineEntityKey key);
 EngineEntity* engineGetEntity(EngineContext* ctx, EngineEntityKey key);
 
 /**
+ * \brief Get a single entity from a specific scene and return it as a pointer.
+ * 
+ * \param ctx A valid context
+ * \param state The state associated with a valid scene
+ * \param An entity
+ * 
+ * \return Returns the entity or NULL if unsuccessful
+ */
+EngineEntity* engineGetEntityScene(EngineContext* ctx, GameState state, EngineEntityKey key);
+
+/**
  * \brief Initialize a entities component list, priming it for components.
  * 
  * \param ent The entity
@@ -51,7 +79,7 @@ EngineEntity* engineGetEntity(EngineContext* ctx, EngineEntityKey key);
 void engineInitEntityComponentList(EngineEntity* ent);
 
 /**
- * \brief Process all entities created by the engine.
+ * \brief Process all entities for the current scene
  * 
  * \param ctx A valid context
  * \param deltaTime The difference in time between frames
@@ -59,7 +87,7 @@ void engineInitEntityComponentList(EngineEntity* ent);
 void engineProcessEntities(EngineContext* ctx, float deltaTime);
 
 /**
- * \brief Set the draw color for an entity.
+ * \brief Set the draw color for an entity on the current scene.
  * 
  * \param ctx A valid context
  * \param key A valid entity

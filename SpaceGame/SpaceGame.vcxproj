@@ -19,19 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="engine.c" />
-    <ClCompile Include="engine_buffers.c" />
-    <ClCompile Include="engine_components.c" />
-    <ClCompile Include="engine_component_funcs.c" />
-    <ClCompile Include="engine_entity.c" />
-    <ClCompile Include="engine_renderer.c" />
-    <ClCompile Include="engine_shaders.c" />
-    <ClCompile Include="engine_textures.c" />
-    <ClCompile Include="engine_utils.c" />
-    <ClCompile Include="game.c" />
-    <ClCompile Include="glad.c" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\Debug\Shaders\fragment.glsl" />
     <None Include="..\Debug\Shaders\vertex.glsl" />
     <None Include="..\docs\architecture.md" />
@@ -40,21 +27,36 @@
     <None Include="..\README.md" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="engine.h" />
-    <ClInclude Include="engine_buffers.h" />
-    <ClInclude Include="engine_components.h" />
-    <ClInclude Include="engine_defs.h" />
-    <ClInclude Include="engine_entity.h" />
-    <ClInclude Include="engine_renderer.h" />
-    <ClInclude Include="engine_shaders.h" />
-    <ClInclude Include="engine_textures.h" />
-    <ClInclude Include="engine_utils.h" />
-  </ItemGroup>
-  <ItemGroup>
     <Image Include="..\Debug\Textures\dbg_smile.png" />
     <Image Include="..\Debug\Textures\planet.png" />
     <Image Include="..\Debug\Textures\star.png" />
     <Image Include="..\Debug\Textures\_missing_texture.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\engine\engine.h" />
+    <ClInclude Include="include\engine\engine_defs.h" />
+    <ClInclude Include="include\engine\engine_scene.h" />
+    <ClInclude Include="include\engine\engine_utils.h" />
+    <ClInclude Include="include\engine\entity\engine_components.h" />
+    <ClInclude Include="include\engine\entity\engine_entity.h" />
+    <ClInclude Include="include\engine\opengl\engine_buffers.h" />
+    <ClInclude Include="include\engine\opengl\engine_renderer.h" />
+    <ClInclude Include="include\engine\opengl\engine_shaders.h" />
+    <ClInclude Include="include\engine\opengl\engine_textures.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\engine\engine.c" />
+    <ClCompile Include="src\engine\engine_scene.c" />
+    <ClCompile Include="src\engine\engine_utils.c" />
+    <ClCompile Include="src\engine\entity\engine_components.c" />
+    <ClCompile Include="src\engine\entity\engine_component_funcs.c" />
+    <ClCompile Include="src\engine\entity\engine_entity.c" />
+    <ClCompile Include="src\engine\glad\glad.c" />
+    <ClCompile Include="src\engine\opengl\engine_buffers.c" />
+    <ClCompile Include="src\engine\opengl\engine_renderer.c" />
+    <ClCompile Include="src\engine\opengl\engine_shaders.c" />
+    <ClCompile Include="src\engine\opengl\engine_textures.c" />
+    <ClCompile Include="src\game.c" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>18.0</VCProjectVersion>
@@ -115,7 +117,7 @@
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>E:\Programming\c\SpaceGame\vendor\glfw-3.4.bin.WIN32\include;E:\Programming\c\SpaceGame\vendor\glm-1.0.3\include;E:\Programming\c\SpaceGame\vendor\stb_image\include;E:\Programming\c\SpaceGame\vendor\SDL3-3.2.14\include;E:\Programming\c\SpaceGame\vendor\glad\include;E:\Programming\c\SpaceGame\vendor\cglm-0.9.6\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\Programming\c\SpaceGame\vendor\glfw-3.4.bin.WIN32\include;E:\Programming\c\SpaceGame\vendor\glm-1.0.3\include;E:\Programming\c\SpaceGame\vendor\stb_image\include;E:\Programming\c\SpaceGame\vendor\SDL3-3.2.14\include;E:\Programming\c\SpaceGame\vendor\glad\include;E:\Programming\c\SpaceGame\vendor\cglm-0.9.6\include;E:\Programming\c\SpaceGame\SpaceGame\include\engine\opengl;E:\Programming\c\SpaceGame\SpaceGame\include\engine\entity;E:\Programming\c\SpaceGame\SpaceGame\include\engine;E:\Programming\c\SpaceGame\SpaceGame\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -137,7 +139,7 @@ xcopy /y/q $(solutiondir)vendor\glfw-3.4.bin.WIN32\glfw3.dll $(solutiondir)$(int
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>E:\Programming\c\SpaceGame\vendor\glfw-3.4.bin.WIN32\include;E:\Programming\c\SpaceGame\vendor\glm-1.0.3\include;E:\Programming\c\SpaceGame\vendor\stb_image\include;E:\Programming\c\SpaceGame\vendor\SDL3-3.2.14\include;E:\Programming\c\SpaceGame\vendor\glad\include;E:\Programming\c\SpaceGame\vendor\cglm-0.9.6\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\Programming\c\SpaceGame\vendor\glfw-3.4.bin.WIN32\include;E:\Programming\c\SpaceGame\vendor\glm-1.0.3\include;E:\Programming\c\SpaceGame\vendor\stb_image\include;E:\Programming\c\SpaceGame\vendor\SDL3-3.2.14\include;E:\Programming\c\SpaceGame\vendor\glad\include;E:\Programming\c\SpaceGame\vendor\cglm-0.9.6\include;E:\Programming\c\SpaceGame\SpaceGame\include\engine\opengl;E:\Programming\c\SpaceGame\SpaceGame\include\engine\entity;E:\Programming\c\SpaceGame\SpaceGame\include\engine;E:\Programming\c\SpaceGame\SpaceGame\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
