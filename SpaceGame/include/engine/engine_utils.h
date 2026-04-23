@@ -57,4 +57,26 @@ void engineGetValues(EngineLinkedList* list, char* desta, char* destb);
  */
 char* engineReadFile(const char* path);
 
+/**
+ * \brief Generate a random number inclusively (int).
+ * 
+ * \param min The minimum value
+ * \param max The maximum value
+ * 
+ * \return Returns the number generated
+ */
+int engineGetRandomRangeI(int min, int max);
+
+/**
+ * \brief Generate a random number inclusively (double).
+ * 
+ * \param min The minimum value
+ * \param max The maximum value
+ * 
+ * \return Returns the number generated
+ */
+double engineGetRandomRangeD(double min, double max);
+
 #endif // ENGINE_H
+
+

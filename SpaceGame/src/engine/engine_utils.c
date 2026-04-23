@@ -110,3 +110,13 @@ char* engineReadFile(const char* path)
 
 	return source;
 }
+
+int engineGetRandomRangeI(int min, int max)
+{
+	return (rand() % (max - min + 1) + min);
+}
+
+double engineGetRandomRangeD(double min, double max)
+{
+	return min + ((double)rand() / (double)RAND_MAX) * (max - min);
+}

@@ -17,14 +17,22 @@ static EngineComponentFunc defaultfuncs[ENGINE_MAX_COMPONENTS] = {
 
 void engineAddComponent(EngineContext* ctx, EngineEntityKey key, EngineComponentType type)
 {
-	EngineEntity* ent = engineGetEntity(ctx, key);
+	if (ctx->state == -1)
+		return;
+
+	engineAddComponentScene(ctx, key, type, ctx->state);
+}
+
+void engineAddComponentScene(EngineContext* ctx, EngineEntityKey key, EngineComponentType type, GameState state)
+{
+	EngineEntity* ent = engineGetEntityScene(ctx, state, key);
 	assert(ent != NULL);
 
 	if (ent->components == NULL)
 		engineInitEntityComponentList(ent);
-	
+
 	if (ent->components == NULL)
-		return; // if ent->components continues to be NULL, just return
+		return;
 
 	EngineComponent comp = {
 		.id = ((int)(ent->components + type) % 100),
@@ -60,7 +68,15 @@ const EBOOL engineRemoveComponent(EngineContext* ctx, EngineEntityKey key, Engin
 
 const EBOOL engineHasComponent(EngineContext* ctx, EngineEntityKey key, EngineComponentType type)
 {
-	EngineEntity* ent = engineGetEntity(ctx, key);
+	if (ctx->state == -1)
+		return EFALSE;
+
+	return engineHasComponentScene(ctx, key, type, ctx->state);
+}
+
+const EBOOL engineHasComponentScene(EngineContext* ctx, EngineEntityKey key, EngineComponentType type, GameState state)
+{
+	EngineEntity* ent = engineGetEntityScene(ctx, state, key);
 	assert(ent != NULL);
 
 	if (ent->components == NULL)

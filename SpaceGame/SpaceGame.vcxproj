@@ -43,8 +43,13 @@
     <ClInclude Include="include\engine\opengl\engine_renderer.h" />
     <ClInclude Include="include\engine\opengl\engine_shaders.h" />
     <ClInclude Include="include\engine\opengl\engine_textures.h" />
+    <ClInclude Include="include\game_defs.h" />
+    <ClInclude Include="include\generator.h" />
+    <ClInclude Include="include\scene_funcs.h" />
+    <ClInclude Include="include\star.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="include\generator.c" />
     <ClCompile Include="src\engine\engine.c" />
     <ClCompile Include="src\engine\engine_scene.c" />
     <ClCompile Include="src\engine\engine_utils.c" />
@@ -57,6 +62,7 @@
     <ClCompile Include="src\engine\opengl\engine_shaders.c" />
     <ClCompile Include="src\engine\opengl\engine_textures.c" />
     <ClCompile Include="src\game.c" />
+    <ClCompile Include="src\scene_funcs.c" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>18.0</VCProjectVersion>

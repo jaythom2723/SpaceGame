@@ -10,12 +10,8 @@
 
 #include <stdio.h>
 
-enum gamestate {
-	GAME_GENERATE_GALAXY_MAP,
-	GAME_GENERATE_SOLAR_SYSTEM_MAP,
-	GAME_GENERATE_PLANET_MAP,
-	GAME_DEBUG_TEST_STATE
-};
+#include "game_defs.h"
+#include "scene_funcs.h"
 
 float vertices[] = {
 	// pos			tex
@@ -31,6 +27,9 @@ static void load(void);
 
 static EngineContext* ctx = NULL;
 
+EngineTextureKey STAR_TEXTURE = 0x9669;
+GameStar stars[GAME_MAX_STARS] = { 0 };
+
 int main(void)
 {
 	WindowConfig cfg = {
@@ -44,6 +43,7 @@ int main(void)
 	assert(ctx != NULL);
 
 	load();
+	engineSetGameState(ctx, GAME_GENERATE_GALAXY_MAP);
 
 	float oldtime = 0.0f;
 	float time = 0.0f;
@@ -75,7 +75,13 @@ int main(void)
 
 void load(void) 
 {
+	engineRegisterScene(ctx, GAME_GENERATE_GALAXY_MAP, game_generate_galaxy_map_init, NULL, NULL);
+	engineRegisterScene(ctx, GAME_GENERATE_SOLAR_SYSTEM_MAP, game_generate_solar_system_init, NULL, NULL);
+	engineRegisterScene(ctx, GAME_GENERATE_PLANET_MAP, game_generate_planet_map_init, NULL, NULL);
+	engineRegisterScene(ctx, GAME_GALAXY_MAP, game_galaxy_map_init, game_galaxy_map_update, game_galaxy_map_draw);
 
+	engineCreateTexture(ctx, STAR_TEXTURE);
+	engineGenerateTexture(ctx, STAR_TEXTURE, "Textures/star.png", ETRUE);
 }
 
 void input_controller(EngineEntity* ent, EngineContext* ctx, float deltaTime)

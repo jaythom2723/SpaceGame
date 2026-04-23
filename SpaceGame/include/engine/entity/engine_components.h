@@ -13,6 +13,16 @@
 void engineAddComponent(EngineContext* ctx, EngineEntityKey key, EngineComponentType type);
 
 /**
+ * \brief Add a component to an entity on another scene.
+ * 
+ * \param ctx A valid context
+ * \param key The entity
+ * \param type The type of component to add
+ * \param state The state associated with a valid scene
+ */
+void engineAddComponentScene(EngineContext* ctx, EngineEntityKey key, EngineComponentType type, GameState state);
+
+/**
  * \brief Set a component's callback function.
  * 
  * \param ctx A valid context
@@ -34,7 +44,7 @@ void engineSetComponentCallback(EngineContext* ctx, EngineEntityKey key, EngineC
 const EBOOL engineRemoveComponent(EngineContext* ctx, EngineEntityKey key, EngineComponentType type);
 
 /**
- * \brief Check if an entity has a component of a specific type.
+ * \brief Check if an entity has a component of a specific type on the current scene.
  * 
  * \param ctx A valid context
  * \param key The entity
@@ -43,6 +53,18 @@ const EBOOL engineRemoveComponent(EngineContext* ctx, EngineEntityKey key, Engin
  * \return Returns ETRUE if the entity has the component, otherwise EFALSE
  */
 const EBOOL engineHasComponent(EngineContext* ctx, EngineEntityKey key, EngineComponentType type);
+
+/**
+ * \brief Check if an entity has a component of a specific type on a specific scene.
+ * 
+ * \param ctx A valid context
+ * \param key The entity
+ * \param type The component type to check for
+ * \param state The state associated with a valid scene
+ * 
+ * \return Returns ETRUE if the entity has the component, EFALSE if not.
+ */
+const EBOOL engineHasComponentScene(EngineContext* ctx, EngineEntityKey key, EngineComponentType type, GameState state);
 
 /**
  * \brief Run a component's set callback function or default callback function.

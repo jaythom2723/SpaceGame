@@ -72,6 +72,9 @@ void engineRunScene(EngineContext* ctx, float deltaTime)
 		curscene->initialized = ETRUE;
 	}
 
-	(*curscene->update)(curscene, ctx, deltaTime);
-	(*curscene->draw)(curscene, ctx, deltaTime);
+	if (curscene->update != NULL)
+		(*curscene->update)(curscene, ctx, deltaTime);
+
+	if (curscene->draw != NULL)
+		(*curscene->draw)(curscene, ctx, deltaTime);
 }

@@ -19,6 +19,20 @@
 const EBOOL engineCreateEntity(EngineContext* ctx, vec2 pos, vec2 size, const EngineEntityKey key, const EngineTextureKey texkey);
 
 /**
+ * \brief Create an entity for a specific scene.
+ * 
+ * \param ctx
+ * \param pos
+ * \param size
+ * \param key
+ * \param texkey
+ * \param state
+ * 
+ * \return Returns EFALSE if unsuccessful, ETRUE if successful
+ */
+const EBOOL engineCreateEntityScene(EngineContext* ctx, vec2 pos, vec2 size, const EngineEntityKey key, const EngineTextureKey texkey, GameState state);
+
+/**
  * \brief Destroy all entities from the current scene
  * 
  * \param ctx A valid context

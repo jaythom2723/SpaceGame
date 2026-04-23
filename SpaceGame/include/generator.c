@@ -1,0 +1,114 @@
+#include "generator.h"
+
+#include "engine_utils.h"
+#include "engine_entity.h"
+#include "engine_components.h"
+
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
+#include <math.h>
+
+extern EngineTextureKey STAR_TEXTURE;
+
+const char* STAR_CLASS_TRANSLATIONS[STAR_CLASS_M + 1] = {
+	"O", "B", "A", "F", "G", "K", "M"
+};
+
+void _generateStar(GameStar* stars, int index, int* occurrences);
+double _generateMass(double chance);
+void _determineSpectralClass(GameStar* star);
+
+void _generateStarEntity(EngineContext* ctx, GameStar* stars, int index);
+
+void generateStars(EngineContext* ctx, GameStar* stars)
+{
+	srand(time(NULL));
+
+	// TODO: make a logging system for the engine
+	int occurrences[STAR_CLASS_M + 1] = { 0 };
+
+	for (int i = 0; i < GAME_MAX_STARS; i++)
+	{
+		_generateStar(stars, i, occurrences);
+		_generateStarEntity(ctx, stars, i);
+	}
+
+	//for (int i = 0; i < STAR_CLASS_M + 1; i++)
+	//	printf("[%s] > %d\n", STAR_CLASS_TRANSLATIONS[i], occurrences[i]);
+
+	//printf("Spectral Class Generation Percentage Values\n");
+	//for (int i = 0; i < STAR_CLASS_M + 1; i++)
+	//	printf("\t[%s] > %%%.2f\n", STAR_CLASS_TRANSLATIONS[i], ((float)occurrences[i] / (float)GAME_MAX_STARS)*100.0f);
+}
+
+void _generateStarEntity(EngineContext* ctx, GameStar* stars, int index)
+{
+	GameStar* cur = stars + index;
+
+	vec2 pos = {
+		engineGetRandomRangeD(GAME_GALAXY_X, GAME_GALAXY_WIDTH),
+		engineGetRandomRangeD(GAME_GALAXY_Y, GAME_GALAXY_HEIGHT)
+	};
+	vec2 size = { 8.0f, 8.0f };
+	engineCreateEntityScene(ctx, pos, size, cur->entity, STAR_TEXTURE, GAME_GALAXY_MAP);
+	engineAddComponentScene(ctx, cur->entity, ENGINE_COMPONENT_RENDERER, GAME_GALAXY_MAP);
+}
+
+void _generateStar(GameStar* stars, int index, int* occurrences)
+{
+	GameStar tmp = { 0 };
+
+	// TODO: prototype a star mass generation weight setting that can be configurable by the user
+	double starmasschance = (double)rand() / (double)RAND_MAX;
+	tmp.mass = _generateMass(pow(starmasschance, 0.25));
+	
+	tmp.luminosity = pow(tmp.mass, 3.5);
+	tmp.diameter = pow(tmp.mass, 0.74);
+	tmp.surfaceTemp = pow(tmp.mass, 0.505);
+	tmp.lifetime = pow(tmp.mass, -2.5);
+	tmp.habitableZoneInner = sqrt(tmp.luminosity) * 0.95;
+	tmp.habitableZoneOuter = sqrt(tmp.luminosity) * 1.37;
+
+	_determineSpectralClass(&tmp);
+	(*(occurrences + tmp.class))++;
+
+	tmp.entity = index;
+
+	memcpy(stars + index, &tmp, sizeof(GameStar));
+}
+
+double _generateMass(double chance)
+{
+	if (chance < 0.6)
+		return engineGetRandomRangeD(0.08, 0.5); // M
+	else if (chance < 0.8)
+		return engineGetRandomRangeD(0.5, 0.8);	// K
+	else if (chance < 0.92)
+		return engineGetRandomRangeD(0.8, 1.04); // G
+	else if (chance < 0.97)
+		return engineGetRandomRangeD(1.04, 1.4); // F
+	else if (chance < 0.995)
+		return engineGetRandomRangeD(1.4, 3.0); // A/B
+	else
+		return engineGetRandomRangeD(3.0, 50.0); // big rare giants
+}
+
+void _determineSpectralClass(GameStar* star)
+{
+	if (star->luminosity >= 30000 && star->luminosity <= 1000000)
+		star->class = STAR_CLASS_O;
+	if (star->luminosity >= 25 && star->luminosity < 30000)
+		star->class = STAR_CLASS_B;
+	if (star->luminosity >= 5 && star->luminosity < 25)
+		star->class = STAR_CLASS_A;
+	if (star->luminosity >= 1.5 && star->luminosity < 5)
+		star->class = STAR_CLASS_F;
+	if (star->luminosity >= 0.6 && star->luminosity < 1.5)
+		star->class = STAR_CLASS_G;
+	if (star->luminosity >= 0.08 && star->luminosity < 0.6)
+		star->class = STAR_CLASS_K;
+	if (star->luminosity >= 0.0001 && star->luminosity < 0.08)
+		star->class = STAR_CLASS_M;
+}

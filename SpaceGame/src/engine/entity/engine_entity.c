@@ -7,6 +7,14 @@
 #include <string.h>
 
 const EBOOL engineCreateEntity(EngineContext* ctx, vec2 pos, vec2 size, const EngineEntityKey key, const EngineTextureKey texkey)
+{	
+	if (ctx->state == -1 || ctx->scenes[ctx->state] == NULL)
+		return EFALSE;
+
+	return engineCreateEntityScene(ctx, pos, size, key, texkey, ctx->state);
+}
+
+const EBOOL engineCreateEntityScene(EngineContext* ctx, vec2 pos, vec2 size, const EngineEntityKey key, const EngineTextureKey texkey, GameState state)
 {
 	EngineEntity tmp = {
 		.x = pos[0],
@@ -21,13 +29,13 @@ const EBOOL engineCreateEntity(EngineContext* ctx, vec2 pos, vec2 size, const En
 		.components = NULL
 	};
 
-	if (ctx->state == -1 || ctx->scenes[ctx->state] == NULL)
+	if (ctx->scenes[state] == NULL)
 		return EFALSE;
 
-	EngineScene* curscene = engineGetCurrentScene(ctx);
-	assert(curscene != NULL);
-	memcpy(curscene->entities + curscene->nentities, &tmp, sizeof(EngineEntity));
-	curscene->nentities++;
+	EngineScene* scene = engineGetScene(ctx, state);
+	assert(scene != NULL);
+	memcpy(scene->entities + scene->nentities, &tmp, sizeof(EngineEntity));
+	scene->nentities++;
 
 	return ETRUE;
 }

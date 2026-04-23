@@ -52,6 +52,15 @@
     <Filter Include="Resource Files\changelogs">
       <UniqueIdentifier>{bf950d66-05b9-409f-85f7-59526c1febc2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\game\generation">
+      <UniqueIdentifier>{8c7a5a2e-1593-445e-af66-432f8d6aea4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\generation">
+      <UniqueIdentifier>{c42c4cc0-da1d-4829-8055-514b1cbb4d6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\game\entities">
+      <UniqueIdentifier>{bd394ca8-cfff-485c-8942-1f65f309b0ff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Debug\Shaders\fragment.glsl">
@@ -118,6 +127,18 @@
     <ClInclude Include="include\engine\entity\engine_entity.h">
       <Filter>Header Files\engine\entity</Filter>
     </ClInclude>
+    <ClInclude Include="include\scene_funcs.h">
+      <Filter>Header Files\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\game_defs.h">
+      <Filter>Header Files\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\generator.h">
+      <Filter>Header Files\game\generation</Filter>
+    </ClInclude>
+    <ClInclude Include="include\star.h">
+      <Filter>Header Files\game\entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\engine\entity\engine_component_funcs.c">
@@ -155,6 +176,12 @@
     </ClCompile>
     <ClCompile Include="src\game.c">
       <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene_funcs.c">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="include\generator.c">
+      <Filter>Source Files\game\generation</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
