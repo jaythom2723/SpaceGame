@@ -1,0 +1,14 @@
+#ifndef GENERATOR_DEFS_H
+#define GENERATOR_DEFS_H
+
+// DELME: remove this piece of shit temp const
+#define STAR_RAND_MASS_CHANCE			0.25
+
+#define STAR_LUMINOSITY_POWER			3.5
+#define STAR_DIAMETER_POWER				0.74
+#define STAR_SURFACE_POWER				0.505
+#define STAR_LIFETIME_POWER				-2.5
+#define STAR_HABITABLE_INNER_COEFF		0.95
+#define STAR_HABITABLE_OUTER_COEFF		1.37
+
+#endif // GENERATOR_DEFS_H

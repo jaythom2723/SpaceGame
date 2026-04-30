@@ -51,7 +51,7 @@ EngineContext* engineInit(void)
 	engine->ntextures = 0;
 	engine->state = -1;
 
-	memset(engine->scenes, NULL, ENGINE_MAX_SCENES * sizeof(EngineScene*));
+	memset(engine->scenes, 0, ENGINE_MAX_SCENES * sizeof(EngineScene*));
 
 	keylist = engineCreateLinkedList(engine->keys, NULL, ENGINE_NUM_KEYS, sizeof(EBOOL));
 	assert(keylist != NULL);
@@ -79,7 +79,7 @@ EngineContext* engineBootstrap(WindowConfig cfg, size_t vertBytes, float* vertic
 	}
 
 	engineCreateProgram(ctx);
-	engineAttachAndLink(ctx, &vertex, &fragment, NULL);
+	engineAttachAndLinkv(ctx, 2, &vertex, &fragment);
 	engineInitProjectionMatrix(ctx);
 	engineInitVBOVAOPair(ctx, vertBytes, vertices);
 	
@@ -90,7 +90,7 @@ EBOOL engineCreateWindow(EngineContext* ctx, const WindowConfig config)
 {
 	glfwWindowHint(GLFW_RESIZABLE, config.resizable);
 	glfwWindowHint(GLFW_DOUBLEBUFFER, config.doublebuffer);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	ctx->window = glfwCreateWindow(config.width, config.height, config.title, NULL, NULL);

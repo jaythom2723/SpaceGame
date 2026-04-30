@@ -41,7 +41,7 @@ int main(void)
 	};
 	ctx = engineBootstrap(cfg, sizeof(vertices), vertices);
 	assert(ctx != NULL);
-
+	
 	load();
 	engineSetGameState(ctx, GAME_GENERATE_GALAXY_MAP);
 
@@ -61,9 +61,12 @@ int main(void)
 		engineClear();
 
 		engineRunScene(ctx, deltaTime);
+		assert(ctx != NULL);
 
 		engineWindowSwapBuffers(ctx);
 	}
+
+	enginePerlinClose();
 
 	engineDestroyAllScenes(ctx);
 	engineDestroyAllEntities(ctx);
@@ -81,6 +84,7 @@ void load(void)
 	engineRegisterScene(ctx, GAME_GALAXY_MAP, game_galaxy_map_init, game_galaxy_map_update, game_galaxy_map_draw);
 
 	engineCreateTexture(ctx, STAR_TEXTURE);
+
 	engineGenerateTexture(ctx, STAR_TEXTURE, "Textures/star.png", ETRUE);
 }
 

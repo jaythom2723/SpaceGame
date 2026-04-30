@@ -4,6 +4,6 @@
 #include "game_defs.h"
 
 // TODO: prototype
-void generateStars(EngineContext* ctx, GameStar* stars);
+void generateStars(EngineContext* ctx, GameStar* stars, float* noise);
 
 #endif // GENERATOR_H

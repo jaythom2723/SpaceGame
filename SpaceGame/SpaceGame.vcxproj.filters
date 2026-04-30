@@ -61,6 +61,12 @@
     <Filter Include="Header Files\game\entities">
       <UniqueIdentifier>{bd394ca8-cfff-485c-8942-1f65f309b0ff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\engine\utility">
+      <UniqueIdentifier>{e826a1ec-7267-4f95-934c-6ff172eea04b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\engine\utility">
+      <UniqueIdentifier>{6e0933fe-c52a-4fc9-b17a-cdf83de77c53}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Debug\Shaders\fragment.glsl">
@@ -80,6 +86,9 @@
     </None>
     <None Include="..\README.md">
       <Filter>Resource Files\documentation</Filter>
+    </None>
+    <None Include="..\Debug\Shaders\noise_perlin.glsl">
+      <Filter>Resource Files\Shaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -104,9 +113,6 @@
       <Filter>Header Files\engine</Filter>
     </ClInclude>
     <ClInclude Include="include\engine\engine_scene.h">
-      <Filter>Header Files\engine</Filter>
-    </ClInclude>
-    <ClInclude Include="include\engine\engine_utils.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
     <ClInclude Include="include\engine\opengl\engine_buffers.h">
@@ -138,6 +144,15 @@
     </ClInclude>
     <ClInclude Include="include\star.h">
       <Filter>Header Files\game\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\utility\engine_perlin.h">
+      <Filter>Header Files\engine\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\utility\engine_utils.h">
+      <Filter>Header Files\engine\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="include\generator_defs.h">
+      <Filter>Header Files\game\generation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -171,17 +186,20 @@
     <ClCompile Include="src\engine\engine_scene.c">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\engine_utils.c">
-      <Filter>Source Files\engine</Filter>
-    </ClCompile>
     <ClCompile Include="src\game.c">
       <Filter>Source Files\game</Filter>
     </ClCompile>
     <ClCompile Include="src\scene_funcs.c">
       <Filter>Source Files\game</Filter>
     </ClCompile>
-    <ClCompile Include="include\generator.c">
+    <ClCompile Include="src\generator.c">
       <Filter>Source Files\game\generation</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\utility\engine_perlin.c">
+      <Filter>Source Files\engine\utility</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\utility\engine_utils.c">
+      <Filter>Source Files\engine\utility</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

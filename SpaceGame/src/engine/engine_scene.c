@@ -1,4 +1,5 @@
 #include "engine_scene.h"
+#include "engine_components.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -31,11 +32,26 @@ void engineRegisterScene(EngineContext* ctx, GameState state, EngineSceneFunc in
 
 void engineDestroyScene(EngineContext* ctx, GameState state)
 {
+	// TODO: make this honky ah function more readable
 	if (ctx->scenes[state] == NULL)
 		return;
 
-	free(ctx->scenes[state]->entities);
-	ctx->scenes[state]->entities = NULL;
+	EngineScene* scene = engineGetScene(ctx, state);
+
+	// loop through entity component lists and make sure they are not null
+	for (int i = 0; i < scene->nentities; i++)
+	{
+		if (scene->entities[i].components == NULL)
+			continue;
+
+		free(scene->entities[i].components);
+		scene->entities[i].components = NULL;
+	}
+
+	free(scene->entities);
+	scene->entities = NULL;
+
+	scene = NULL;
 
 	free(ctx->scenes[state]);
 	ctx->scenes[state] = NULL;

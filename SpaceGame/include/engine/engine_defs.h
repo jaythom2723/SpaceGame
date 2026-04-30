@@ -49,6 +49,7 @@ typedef void (*EngineSceneFunc)(EngineScene*,EngineContext*,float);
 #define ENGINE_VERTEX_SHADER	GL_VERTEX_SHADER
 #define ENGINE_FRAGMENT_SHADER	GL_FRAGMENT_SHADER
 #define ENGINE_GEOEMTRY_SHADER	GL_GEOMETRY_SHADER
+#define ENGINE_COMPUTE_SHADER	GL_COMPUTE_SHADER
 
 // offsets the component ptr by the values assigned by the compiler
 /**

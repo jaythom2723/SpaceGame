@@ -38,17 +38,12 @@ void engineDeleteShader(EngineShader* shader);
  */
 void engineCreateProgram(EngineContext* ctx);
 
-/**
- * \brief Attach shaders and link the shader program.
- * 
- * \param ctx A valid context
- * \param vertex The vertex shader (required)
- * \param fragment The fragment shader (required)
- * \param geometry The geometry shader (or NULL)
- * 
- * \return Returns EFALSE if unsuccessful, ETRUE if successful
- */
-const EBOOL engineAttachAndLink(EngineContext* ctx, EngineShader* vertex, EngineShader* fragment, EngineShader* geometry);
+EngineProgram engineCreateLocalProgram(void);
+
+const EBOOL engineAttachAndLinkv(EngineContext* ctx, int numShaders, ...);
+const EBOOL engineAttachAndLinklv(EngineProgram program, int numShaders, ...);
+
+#define engineAttachAndLink(ctx,vrt,frg,geo) engine_renamed_engineAttachAndLinkv
 
 /**
  * \brief Delete the shader program.
@@ -63,6 +58,8 @@ void engineDeleteProgram(EngineContext* ctx);
  * \param ctx A valid context
  */
 void engineUseShader(EngineContext* ctx);
+
+void engineUseShaderl(EngineProgram program);
 
 /**
  * \brief Set a Shader Uniform of type Float.

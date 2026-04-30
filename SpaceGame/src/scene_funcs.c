@@ -4,6 +4,8 @@
 #include "engine_entity.h"
 #include "engine_components.h"
 #include "engine_renderer.h"
+#include "engine_perlin.h"
+#include "engine_utils.h"
 
 #include "game_defs.h"
 #include "generator.h"
@@ -15,9 +17,16 @@ void game_generate_galaxy_map_init(EngineScene* scene, EngineContext* ctx, float
 {
 	printf("Generating Galaxy Map!\n");
 
-	generateStars(ctx, stars);
+	enginePerlinInit(GAME_GALAXY_WIDTH, GAME_GALAXY_HEIGHT);
+	float* noise = enginePerlinGenerate();
 
-	engineSetGameState(ctx, GAME_GENERATE_SOLAR_SYSTEM_MAP);
+	generateStars(ctx, stars, noise);
+
+	free(noise);
+	noise = NULL;
+	enginePerlinClose();
+
+	engineSetGameState(ctx, GAME_GALAXY_MAP);
 }
 
 void game_generate_solar_system_init(EngineScene* scene, EngineContext* ctx, float deltaTime)

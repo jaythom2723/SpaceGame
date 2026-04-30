@@ -1,4 +1,5 @@
 #include "generator.h"
+#include "generator_defs.h"
 
 #include "engine_utils.h"
 #include "engine_entity.h"
@@ -20,19 +21,30 @@ void _generateStar(GameStar* stars, int index, int* occurrences);
 double _generateMass(double chance);
 void _determineSpectralClass(GameStar* star);
 
-void _generateStarEntity(EngineContext* ctx, GameStar* stars, int index);
+void _generateStarEntity(EngineContext* ctx, GameStar* stars, int index, int x, int y);
 
-void generateStars(EngineContext* ctx, GameStar* stars)
+void generateStars(EngineContext* ctx, GameStar* stars, float* noise)
 {
 	srand(time(NULL));
 
 	// TODO: make a logging system for the engine
 	int occurrences[STAR_CLASS_M + 1] = { 0 };
 
-	for (int i = 0; i < GAME_MAX_STARS; i++)
+	int numStars = 0;
+	int x, y, index;
+
+	while (numStars < 0x1000)
 	{
-		_generateStar(stars, i, occurrences);
-		_generateStarEntity(ctx, stars, i);
+		x = engineGetRandomRangeI(0, 0x1000);
+		y = engineGetRandomRangeI(0, 0x1000);
+		index = y * (GAME_GALAXY_WIDTH/8) + x;
+
+		if (noise[index] > 0.5f)
+		{
+			_generateStar(stars, numStars, occurrences);
+			_generateStarEntity(ctx, stars, numStars, x, y);
+			numStars++;
+		}
 	}
 
 	//for (int i = 0; i < STAR_CLASS_M + 1; i++)
@@ -43,13 +55,13 @@ void generateStars(EngineContext* ctx, GameStar* stars)
 	//	printf("\t[%s] > %%%.2f\n", STAR_CLASS_TRANSLATIONS[i], ((float)occurrences[i] / (float)GAME_MAX_STARS)*100.0f);
 }
 
-void _generateStarEntity(EngineContext* ctx, GameStar* stars, int index)
+void _generateStarEntity(EngineContext* ctx, GameStar* stars, int index, int x, int y)
 {
 	GameStar* cur = stars + index;
 
 	vec2 pos = {
-		engineGetRandomRangeD(GAME_GALAXY_X, GAME_GALAXY_WIDTH),
-		engineGetRandomRangeD(GAME_GALAXY_Y, GAME_GALAXY_HEIGHT)
+		(float)x,
+		(float)y
 	};
 	vec2 size = { 8.0f, 8.0f };
 	engineCreateEntityScene(ctx, pos, size, cur->entity, STAR_TEXTURE, GAME_GALAXY_MAP);
@@ -62,14 +74,14 @@ void _generateStar(GameStar* stars, int index, int* occurrences)
 
 	// TODO: prototype a star mass generation weight setting that can be configurable by the user
 	double starmasschance = (double)rand() / (double)RAND_MAX;
-	tmp.mass = _generateMass(pow(starmasschance, 0.25));
+	tmp.mass = _generateMass(pow(starmasschance, STAR_RAND_MASS_CHANCE));
 	
-	tmp.luminosity = pow(tmp.mass, 3.5);
-	tmp.diameter = pow(tmp.mass, 0.74);
-	tmp.surfaceTemp = pow(tmp.mass, 0.505);
-	tmp.lifetime = pow(tmp.mass, -2.5);
-	tmp.habitableZoneInner = sqrt(tmp.luminosity) * 0.95;
-	tmp.habitableZoneOuter = sqrt(tmp.luminosity) * 1.37;
+	tmp.luminosity = pow(tmp.mass, STAR_LUMINOSITY_POWER);
+	tmp.diameter = pow(tmp.mass, STAR_DIAMETER_POWER);
+	tmp.surfaceTemp = pow(tmp.mass, STAR_SURFACE_POWER);
+	tmp.lifetime = pow(tmp.mass, STAR_LIFETIME_POWER);
+	tmp.habitableZoneInner = sqrt(tmp.luminosity) * STAR_HABITABLE_INNER_COEFF;
+	tmp.habitableZoneOuter = sqrt(tmp.luminosity) * STAR_HABITABLE_OUTER_COEFF;
 
 	_determineSpectralClass(&tmp);
 	(*(occurrences + tmp.class))++;

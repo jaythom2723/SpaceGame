@@ -43,34 +43,58 @@ void engineCreateProgram(EngineContext* ctx)
 	ctx->program = glCreateProgram();
 }
 
-const EBOOL engineAttachAndLink(EngineContext* ctx, EngineShader* vertex, EngineShader* fragment, EngineShader* geometry)
+EngineProgram engineCreateLocalProgram(void)
 {
-	// attach shaders
-	glAttachShader(ctx->program, *vertex);
-	glAttachShader(ctx->program, *fragment);
+	return glCreateProgram();
+}
 
-	if (geometry != NULL)
-		glAttachShader(ctx->program, *geometry);
+const EBOOL engineAttachAndLinkv(EngineContext* ctx, int numShaders, ...)
+{
+	EngineShader* shaders[0x4] = { 0 };
+
+	va_list args;
+	va_start(args, numShaders);
+
+	for (int i = 0; i < numShaders; i++)
+	{
+		shaders[i] = va_arg(args, EngineShader*);
+	}
+
+	va_end(args);
+
+	return engineAttachAndLinklv(ctx->program, numShaders, shaders[0], shaders[1], shaders[2], shaders[3]);
+}
+
+const EBOOL engineAttachAndLinklv(EngineProgram program, int numShaders, ...)
+{
+	va_list args, arg2;
+
+	va_start(args, numShaders);
+	va_start(arg2, numShaders);
+
+	for (int i = 0; i < numShaders; i++)
+		glAttachShader(program, *va_arg(args, EngineShader*));
+
+	va_end(args);
 
 	// link program
 	int success;
 	char infoLog[512];
-	glLinkProgram(ctx->program);
-	glGetProgramiv(ctx->program, GL_LINK_STATUS, &success);
+	glLinkProgram(program);
+	glGetProgramiv(program, GL_LINK_STATUS, &success);
 	if (!success)
 	{
-		glGetProgramInfoLog(ctx->program, 512, NULL, infoLog);
+		glGetProgramInfoLog(program, 512, NULL, infoLog);
 		fprintf(stderr, "%s\n", infoLog);
 		return EFALSE;
 	}
 
-	glDeleteShader(*vertex);
-	glDeleteShader(*fragment);
+	for (int i = 0; i < numShaders; i++)
+		glDeleteShader(*va_arg(arg2, EngineShader*));
 
-	if (geometry != NULL)
-		glDeleteShader(*geometry);
+	glUseProgram(program);
 
-	glUseProgram(ctx->program);
+	va_end(arg2);
 
 	return ETRUE;
 }
@@ -82,7 +106,12 @@ void engineDeleteProgram(EngineContext* ctx)
 
 void engineUseShader(EngineContext* ctx)
 {
-	glUseProgram(ctx->program);
+	engineUseShaderl(ctx->program);
+}
+
+void engineUseShaderl(EngineProgram program)
+{
+	glUseProgram(program);
 }
 
 void engineSetFloat(EngineContext* ctx, const char* name, float value)
