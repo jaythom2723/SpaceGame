@@ -32,19 +32,29 @@ void generateStars(EngineContext* ctx, GameStar* stars, float* noise)
 
 	int numStars = 0;
 	int x, y, index;
+	int attempts = 0;
+	int maxAttempts = GAME_GALAXY_WIDTH * GAME_GALAXY_HEIGHT;
 
-	while (numStars < 0x1000)
+	while (numStars < 0x1000 && attempts < maxAttempts)
 	{
-		x = engineGetRandomRangeI(0, 0x1000);
-		y = engineGetRandomRangeI(0, 0x1000);
-		index = y * (GAME_GALAXY_WIDTH/8) + x;
+		x = engineGetRandomRangeI(0, GAME_GALAXY_WIDTH);
+		y = engineGetRandomRangeI(0, GAME_GALAXY_HEIGHT);
+		index = y * GAME_GALAXY_WIDTH + x;
 
-		if (noise[index] > 0.5f)
+		if (index >= 0 && index < (GAME_GALAXY_WIDTH * GAME_GALAXY_HEIGHT))
 		{
-			_generateStar(stars, numStars, occurrences);
-			_generateStarEntity(ctx, stars, numStars, x, y);
-			numStars++;
+			if (noise[index] > 0.5f)
+			{
+				_generateStar(stars, numStars, occurrences);
+				_generateStarEntity(ctx, stars, numStars, x, y);
+				numStars++;
+			}
 		}
+		attempts++;
+	}
+	if (attempts >= maxAttempts)
+	{
+		printf("Warning: could not place all stars! Threshold might be too high!\n");
 	}
 
 	//for (int i = 0; i < STAR_CLASS_M + 1; i++)

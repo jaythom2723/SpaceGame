@@ -59,7 +59,23 @@ void engineDeleteProgram(EngineContext* ctx);
  */
 void engineUseShader(EngineContext* ctx);
 
+/**
+ * \brief Use a locally created shader program, as opposed to a valid context's.
+ * 
+ * \param program A valid OpenGL Shader Program
+ */
 void engineUseShaderl(EngineProgram program);
+
+/**
+ * \brief Invoke a compute shader, return the data as a specified type array.
+ * 
+ * \param width The width of the noise texture to generate
+ * \param height The height of the noise texture to generate
+ * \param ptr The destination for all of the data
+ * \param tsize The size of the type returned in bytes.
+ * \param ssbo Shader Storage Buffer Object
+ */
+void engineInvokeComputeShader(int width, int height, void** ptr, size_t tsize, int ssbo);
 
 /**
  * \brief Set a Shader Uniform of type Float.
@@ -69,6 +85,7 @@ void engineUseShaderl(EngineProgram program);
  * \param value The value to set
  */
 void engineSetFloat(EngineContext* ctx, const char* name, float value);
+void engineSetFloatl(EngineProgram program, const char* name, float value);
 
 /**
  * \brief Set a Shader Uniform of type Integer.
@@ -78,6 +95,7 @@ void engineSetFloat(EngineContext* ctx, const char* name, float value);
  * \param value The value to set
  */
 void engineSetInteger(EngineContext* ctx, const char* name, int value);
+void engineSetIntegerl(EngineProgram program, const char* name, int value);
 
 /**
  * \brief Set a Shader Uniform of type Vector2f.
@@ -88,6 +106,7 @@ void engineSetInteger(EngineContext* ctx, const char* name, int value);
  * \param y The y value
  */
 void engineSetVector2f(EngineContext* ctx, const char* name, float x, float y);
+void engineSetVector2fl(EngineProgram program, const char* name, float x, float y);
 
 /**
  * \brief Set a Shader Uniform of type Vector2fv.
@@ -97,6 +116,7 @@ void engineSetVector2f(EngineContext* ctx, const char* name, float x, float y);
  * \param value The value to set
  */
 void engineSetVector2fv(EngineContext* ctx, const char* name, vec2 value);
+void engineSetVector2fvl(EngineProgram program, const char* name, vec2 value);
 
 /**
  * \brief Set a Shader Uniform of type Vector3f.
@@ -108,6 +128,7 @@ void engineSetVector2fv(EngineContext* ctx, const char* name, vec2 value);
  * \param z The z value
  */
 void engineSetVector3f(EngineContext* ctx, const char* name, float x, float y, float z);
+void engineSetVector3fl(EngineProgram program, const char* name, float x, float y, float z);
 
 /**
  * \brief Set a Shader Uniform of type Vector3fv.
@@ -117,6 +138,7 @@ void engineSetVector3f(EngineContext* ctx, const char* name, float x, float y, f
  * \param value The value to set
  */
 void engineSetVector3fv(EngineContext* ctx, const char* name, vec3 value);
+void engineSetVector3fvl(EngineProgram program, const char* name, vec3 value);
 
 /**
  * \brief Set a Shader Uniform of type Vector4f.
@@ -129,6 +151,7 @@ void engineSetVector3fv(EngineContext* ctx, const char* name, vec3 value);
  * \param w The w value
  */
 void engineSetVector4f(EngineContext* ctx, const char* name, float x, float y, float z, float w);
+void engineSetVector4fl(EngineProgram program, const char* name, float x, float y, float z, float w);
 
 /**
  * \brief Set a Shader Uniform of type Vector4fv.
@@ -138,6 +161,7 @@ void engineSetVector4f(EngineContext* ctx, const char* name, float x, float y, f
  * \param value The value to set
  */
 void engineSetVector4fv(EngineContext* ctx, const char* name, vec4 value);
+void engineSetVector4fvl(EngineProgram program, const char* name, vec4 value);
 
 /**
  * \brief Set a Shader Uniform of type Matrix4fv.
@@ -147,6 +171,7 @@ void engineSetVector4fv(EngineContext* ctx, const char* name, vec4 value);
  * \param value The value to set
  */
 void engineSetMatrix4fv(EngineContext* ctx, const char* name, mat4 value);
+void engineSetMatrix4fvl(EngineProgram program, const char* name, mat4 value);
 
 #endif // SHADER_H
 

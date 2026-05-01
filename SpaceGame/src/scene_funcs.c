@@ -48,7 +48,7 @@ void game_galaxy_map_init(EngineScene* scene, EngineContext* ctx, float deltaTim
 
 void game_galaxy_map_update(EngineScene* scene, EngineContext* ctx, float deltaTime)
 {
-
+	
 }
 
 void _setDrawColorFromStarClass(EngineContext* ctx, int index);

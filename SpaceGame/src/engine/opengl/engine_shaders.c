@@ -4,6 +4,7 @@
 #include <glad/glad.h>
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>
 
@@ -114,128 +115,154 @@ void engineUseShaderl(EngineProgram program)
 	glUseProgram(program);
 }
 
-void engineSetFloat(EngineContext* ctx, const char* name, float value)
+void engineInvokeComputeShader(int width, int height, void** ptr, size_t tsize, int ssbo)
 {
-	engineUseShader(ctx);
+	glDispatchCompute(width / 8, height / 8, 1);
+	glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
 
-	int loc = glGetUniformLocation(ctx->program, name);
-	if (loc == -1)
-	{
-		fprintf(stderr, "Unknown '%s' not found!\n", name);
-		return;
-	}
+	glBindBuffer(GL_SHADER_STORAGE_BUFFER, ssbo);
+	
+	*ptr = malloc(width * height * tsize);
+	assert(*ptr != NULL);
+
+	void* tmp = glMapBuffer(GL_SHADER_STORAGE_BUFFER, GL_READ_ONLY);
+	memcpy(*ptr, tmp, width * height * tsize);
+	tmp = NULL;
+}
+
+#define LOC_ERROR(l,n) if (l == -1) { fprintf(stderr, "Unknown '%s' not found!\n", n); return; }
+
+void engineSetFloatl(EngineProgram program, const char* name, float value)
+{
+	engineUseShaderl(program);
+
+	int loc = glGetUniformLocation(program, name);
+	LOC_ERROR(loc, name);
 
 	glUniform1f(loc, value);
 }
 
-void engineSetInteger(EngineContext* ctx, const char* name, int value)
+void engineSetIntegerl(EngineProgram program, const char* name, int value)
 {
-	engineUseShader(ctx);
+	engineUseShaderl(program);
 
-	int loc = glGetUniformLocation(ctx->program, name);
-	if (loc == -1)
-	{
-		fprintf(stderr, "Unknown '%s' not found!\n", name);
-		return;
-	}
+	int loc = glGetUniformLocation(program, name);
+	LOC_ERROR(loc, name);
 
 	glUniform1i(loc, value);
 }
 
-void engineSetVector2f(EngineContext* ctx, const char* name, float x, float y)
+void engineSetVector2fl(EngineProgram program, const char* name, float x, float y)
 {
-	engineUseShader(ctx);
+	engineUseShaderl(program);
 
-	int loc = glGetUniformLocation(ctx->program, name);
-	if (loc == -1)
-	{
-		fprintf(stderr, "Unknown '%s' not found!\n", name);
-		return;
-	}
+	int loc = glGetUniformLocation(program, name);
+	LOC_ERROR(loc, name);
 
 	glUniform2f(loc, x, y);
 }
 
-void engineSetVector2fv(EngineContext* ctx, const char* name, vec2 value)
+void engineSetVector2fvl(EngineProgram program, const char* name, vec2 value)
 {
-	engineUseShader(ctx);
+	engineUseShaderl(program);
 
-	int loc = glGetUniformLocation(ctx->program, name);
-	if (loc == -1)
-	{
-		fprintf(stderr, "Unknown '%s' not found!\n", name);
-		return;
-	}
+	int loc = glGetUniformLocation(program, name);
+	LOC_ERROR(loc, name);
 
 	glUniform2fv(loc, 1, value);
 }
 
-void engineSetVector3f(EngineContext* ctx, const char* name, float x, float y, float z)
+void engineSetVector3fl(EngineProgram program, const char* name, float x, float y, float z)
 {
-	engineUseShader(ctx);
+	engineUseShaderl(program);
 
-	int loc = glGetUniformLocation(ctx->program, name);
-	if (loc == -1)
-	{
-		fprintf(stderr, "Unknown '%s' not found!\n", name);
-		return;
-	}
+	int loc = glGetUniformLocation(program, name);
+	LOC_ERROR(loc, name);
 
 	glUniform3f(loc, x, y, z);
 }
 
-void engineSetVector3fv(EngineContext* ctx, const char* name, vec3 value)
+void engineSetVector3fvl(EngineProgram program, const char* name, vec3 value)
 {
-	engineUseShader(ctx);
-
-	int loc = glGetUniformLocation(ctx->program, name);
-	if (loc == -1)
-	{
-		fprintf(stderr, "Unknown '%s' not found!\n", name);
-		return;
-	}
+	engineUseShaderl(program);
+	
+	int loc = glGetUniformLocation(program, name);
+	LOC_ERROR(loc, name);
 
 	glUniform3fv(loc, 1, value);
 }
 
-void engineSetVector4f(EngineContext* ctx, const char* name, float x, float y, float z, float w)
+void engineSetVector4fl(EngineProgram program, const char* name, float x, float y, float z, float w)
 {
-	engineUseShader(ctx);
+	engineUseShaderl(program);
 
-	int loc = glGetUniformLocation(ctx->program, name);
-	if (loc == -1)
-	{
-		fprintf(stderr, "Unknown '%s' not found!\n", name);
-		return;
-	}
+	int loc = glGetUniformLocation(program, name);
+	LOC_ERROR(loc, name);
 
 	glUniform4f(loc, x, y, z, w);
 }
 
-void engineSetVector4fv(EngineContext* ctx, const char* name, vec4 value)
+void engineSetVector4fvl(EngineProgram program, const char* name, vec4 value)
 {
-	engineUseShader(ctx);
+	engineUseShaderl(program);
 
-	int loc = glGetUniformLocation(ctx->program, name);
-	if (loc == -1)
-	{
-		fprintf(stderr, "Unknown '%s' not found!\n", name);
-		return;
-	}
+	int loc = glGetUniformLocation(program, name);
+	LOC_ERROR(loc, name);
 
 	glUniform4fv(loc, 1, value);
 }
 
-void engineSetMatrix4fv(EngineContext* ctx, const char* name, mat4 value)
+void engineSetMatrix4fvl(EngineProgram program, const char* name, mat4 value)
 {
-	engineUseShader(ctx);
+	engineUseShaderl(program);
 
-	int loc = glGetUniformLocation(ctx->program, name);
-	if (loc == -1)
-	{
-		fprintf(stderr, "Unknown '%s' not found!\n", name);
-		return;
-	}
+	int loc = glGetUniformLocation(program, name);
+	LOC_ERROR(loc, name);
 
 	glUniformMatrix4fv(loc, 1, GL_FALSE, (float*)value);
+}
+
+void engineSetFloat(EngineContext* ctx, const char* name, float value)
+{
+	engineSetFloatl(ctx->program, name, value);
+}
+
+void engineSetInteger(EngineContext* ctx, const char* name, int value)
+{
+	engineSetIntegerl(ctx->program, name, value);
+}
+
+void engineSetVector2f(EngineContext* ctx, const char* name, float x, float y)
+{
+	engineSetVector2fl(ctx->program, name, x, y);
+}
+
+void engineSetVector2fv(EngineContext* ctx, const char* name, vec2 value)
+{
+	engineSetVector2fvl(ctx->program, name, value);
+}
+
+void engineSetVector3f(EngineContext* ctx, const char* name, float x, float y, float z)
+{
+	engineSetVector3fl(ctx->program, name, x, y, z);
+}
+
+void engineSetVector3fv(EngineContext* ctx, const char* name, vec3 value)
+{
+	engineSetVector3fvl(ctx->program, name, value);
+}
+
+void engineSetVector4f(EngineContext* ctx, const char* name, float x, float y, float z, float w)
+{
+	engineSetVector4fl(ctx->program, name, x, y, z, w);
+}
+
+void engineSetVector4fv(EngineContext* ctx, const char* name, vec4 value)
+{
+	engineSetVector4fvl(ctx->program, name, value);
+}
+
+void engineSetMatrix4fv(EngineContext* ctx, const char* name, mat4 value)
+{
+	engineSetMatrix4fvl(ctx->program, name, value);
 }

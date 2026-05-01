@@ -11,11 +11,15 @@
 #include <stdlib.h>
 #include <string.h>
 
+static EngineContext* int_ctx = NULL;
 static EngineLinkedList* keylist = NULL;
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height);
+	mat4 projection;
+	glm_ortho(0.0f, (float)width, (float)height, 0.0f, -1.f, 1.f, projection);
+	engineSetMatrix4fv(int_ctx, "projection", projection);
 }
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
@@ -57,6 +61,8 @@ EngineContext* engineInit(void)
 	assert(keylist != NULL);
 
 	engine->camera = NULL;
+
+	int_ctx = engine;
 
 	return engine;
 }
@@ -120,6 +126,7 @@ EBOOL engineCreateWindow(EngineContext* ctx, const WindowConfig config)
 
 void engineClose(EngineContext* ctx)
 {
+	int_ctx = NULL;
 	if (glIsProgram(ctx->program))
 		engineDeleteProgram(ctx);
 	if (ctx->window != NULL)

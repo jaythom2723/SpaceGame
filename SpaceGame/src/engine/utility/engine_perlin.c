@@ -47,21 +47,14 @@ float* enginePerlinGenerate(void)
 {
 	engineUseShaderl(program);
 
-	glUniform1i(glGetUniformLocation(program, "width"), _engine_perlinwidth);
-	glUniform1i(glGetUniformLocation(program, "height"), _engine_perlinheight);
-	glUniform1f(glGetUniformLocation(program, "u_scale"), 5.0);
+	engineSetFloatl(program, "u_scale", 5.0f);
+	engineSetIntegerl(program, "width", _engine_perlinwidth);
+	engineSetIntegerl(program, "height", _engine_perlinheight);
 
-	glDispatchCompute(_engine_perlinwidth / 8, _engine_perlinheight / 8, 1);
-	glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
-
-	glBindBuffer(GL_SHADER_STORAGE_BUFFER, _engine_perlinssbo);
-
-	float* ptr = malloc(_engine_perlinwidth * _engine_perlinheight * sizeof(float));
-	assert(ptr != NULL);
-
-	float* tmp = (float*)glMapBuffer(GL_SHADER_STORAGE_BUFFER, GL_READ_ONLY);
-	memcpy(ptr, tmp, _engine_perlinwidth * _engine_perlinheight * sizeof(float));
-	tmp = NULL;
+	float* ptr = NULL;
+	engineInvokeComputeShader(_engine_perlinwidth, _engine_perlinheight, &ptr, sizeof(float), _engine_perlinssbo);
+	if (ptr == NULL)
+		return NULL;
 
 	return ptr;
 }
