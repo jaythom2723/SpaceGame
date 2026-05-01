@@ -32,6 +32,7 @@ typedef struct engine_context EngineContext;
 typedef struct engine_component EngineComponent;
 typedef struct engine_entity EngineEntity;
 typedef struct engine_scene EngineScene;
+typedef struct engine_camera EngineCamera;
 
 typedef void (*EngineComponentFunc)(EngineEntity*,EngineContext*,float);
 typedef void (*EngineSceneFunc)(EngineScene*,EngineContext*,float);
@@ -105,6 +106,16 @@ struct engine_entity {
 };
 
 /**
+ * \brief The camera for a game.
+ */
+struct engine_camera {
+	float vx, vy;
+	float speed;
+
+	EBOOL control;
+};
+
+/**
  * \brief A component used for the functionality of entities
  */
 struct engine_component {
@@ -152,6 +163,7 @@ struct engine_context {
 	EBOOL keys[ENGINE_NUM_KEYS];
 	EngineScene* scenes[ENGINE_MAX_SCENES];
 
+	EngineCamera* camera;
 	EngineProgram program;
 
 	unsigned int vao;

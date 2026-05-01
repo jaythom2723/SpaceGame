@@ -44,6 +44,8 @@ int main(void)
 	
 	load();
 	engineSetGameState(ctx, GAME_GENERATE_GALAXY_MAP);
+	engineSetupCamera(ctx, 150.0f);
+	engineSetCameraControl(ctx, ETRUE);
 
 	float oldtime = 0.0f;
 	float time = 0.0f;
@@ -66,7 +68,7 @@ int main(void)
 		engineWindowSwapBuffers(ctx);
 	}
 
-	enginePerlinClose();
+	engineDestroyCamera(ctx);
 
 	engineDestroyAllScenes(ctx);
 	engineDestroyAllEntities(ctx);

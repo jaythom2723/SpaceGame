@@ -56,6 +56,8 @@ EngineContext* engineInit(void)
 	keylist = engineCreateLinkedList(engine->keys, NULL, ENGINE_NUM_KEYS, sizeof(EBOOL));
 	assert(keylist != NULL);
 
+	engine->camera = NULL;
+
 	return engine;
 }
 
@@ -143,6 +145,36 @@ void engineInitProjectionMatrix(EngineContext* ctx)
 	engineUseShader(ctx);
 	engineSetMatrix4fv(ctx, "projection", projection);
 	engineSetInteger(ctx, "image", 0);
+}
+
+const EBOOL engineSetupCamera(EngineContext* ctx, float speed)
+{
+	if (ctx->camera != NULL)
+		return EFALSE;
+
+	ctx->camera = malloc(sizeof(EngineCamera));
+	assert(ctx->camera != NULL);
+
+	ctx->camera->speed = speed;
+	ctx->camera->vx = 0.f;
+	ctx->camera->vy = 0.f;
+	ctx->camera->control = EFALSE;
+
+	return ETRUE;
+}
+
+void engineDestroyCamera(EngineContext* ctx)
+{
+	if (ctx->camera == NULL)
+		return;
+
+	free(ctx->camera);
+	ctx->camera = NULL;
+}
+
+void engineSetCameraControl(EngineContext* ctx, EBOOL value)
+{
+	ctx->camera->control = value;
 }
 
 void engineSetGameState(EngineContext* ctx, const GameState state)

@@ -54,6 +54,30 @@ void engineClose(EngineContext* ctx);
 void engineInitProjectionMatrix(EngineContext* ctx);
 
 /**
+ * \brief Setup a game camera.
+ * 
+ * \param ctx A valid context
+ * 
+ * \return Returns ETRUE if able to create a camera, EFALSE if otherwise
+ */
+const EBOOL engineSetupCamera(EngineContext* ctx, float speed);
+
+/**
+ * \brief Destroy the game camera.
+ * 
+ * \param ctx A valid context
+ */
+void engineDestroyCamera(EngineContext* ctx);
+
+/**
+ * \brief Set if the camera should be in control or not.
+ * 
+ * \param ctx A valid context
+ * \param value The value to set
+ */
+void engineSetCameraControl(EngineContext* ctx, EBOOL value);
+
+/**
  * \brief Set the engine's internal reference to the gamestate.
  * 
  * \param ctx A valid context
