@@ -4,6 +4,7 @@
 #include "engine_utils.h"
 #include "engine_entity.h"
 #include "engine_components.h"
+#include "engine_perlin.h"
 
 #include <string.h>
 #include <stdlib.h>
@@ -23,11 +24,39 @@ void _determineSpectralClass(GameStar* star);
 
 void _generateStarEntity(EngineContext* ctx, GameStar* stars, int index, int x, int y);
 
+void generationStepOne(EngineContext* ctx, GameStar* stars, const EngineTextureKey key)
+{
+	EngineNoiseMask mask = {
+		.type = ENGINE_NOISEMASK_GALAXY,
+		.width = GAME_GALAXY_WIDTH,
+		.height = GAME_GALAXY_HEIGHT,
+		.mask_galaxy = {
+			.bulgeintensity = 1,
+			.bulgecenter = -1,
+			.armcurve = 12.5,
+			.arms = 4.0,
+			.armthickness = -1,
+			.inradius = -1,
+			.outradius = -1
+		}
+	};
+	engineSetNoiseMask(ctx, &mask, key);
+	enginePerlinInit(GAME_GALAXY_WIDTH, GAME_GALAXY_HEIGHT);
+	float* noise = enginePerlinGenerateMask(ctx, key);
+	generateStars(ctx, stars, noise);
+	free(noise);
+	enginePerlinClose(ctx, key);
+}
+
+void generationStepTwo(EngineContext* ctx, GameStar* stars)
+{
+	// TODO: prototype
+}
+
 void generateStars(EngineContext* ctx, GameStar* stars, float* noise)
 {
 	srand(time(NULL));
 
-	// TODO: make a logging system for the engine
 	int occurrences[STAR_CLASS_M + 1] = { 0 };
 
 	int numStars = 0;
@@ -43,26 +72,33 @@ void generateStars(EngineContext* ctx, GameStar* stars, float* noise)
 
 		if (index >= 0 && index < (GAME_GALAXY_WIDTH * GAME_GALAXY_HEIGHT))
 		{
-			if (noise[index] > 0.05f)
+			if (noise[index] > 0.075f)
 			{
-				_generateStar(stars, numStars, occurrences);
-				_generateStarEntity(ctx, stars, numStars, x, y);
-				numStars++;
+				if (((float)rand() / (float)RAND_MAX) < noise[index])
+				{
+					if (numStars >= GAME_MAX_STARS)
+						break;
+					_generateStar(stars, numStars, occurrences);
+					_generateStarEntity(ctx, stars, numStars, x, y);
+					numStars++;
+					attempts = 0;
+				}
 			}
 		}
 		attempts++;
 	}
+
 	if (attempts >= maxAttempts)
 	{
 		printf("Warning: could not place all stars! Threshold might be too high!\n");
 	}
 
-	//for (int i = 0; i < STAR_CLASS_M + 1; i++)
-	//	printf("[%s] > %d\n", STAR_CLASS_TRANSLATIONS[i], occurrences[i]);
+	////for (int i = 0; i < STAR_CLASS_M + 1; i++)
+	////	printf("[%s] > %d\n", STAR_CLASS_TRANSLATIONS[i], occurrences[i]);
 
-	//printf("Spectral Class Generation Percentage Values\n");
-	//for (int i = 0; i < STAR_CLASS_M + 1; i++)
-	//	printf("\t[%s] > %%%.2f\n", STAR_CLASS_TRANSLATIONS[i], ((float)occurrences[i] / (float)GAME_MAX_STARS)*100.0f);
+	////printf("Spectral Class Generation Percentage Values\n");
+	////for (int i = 0; i < STAR_CLASS_M + 1; i++)
+	////	printf("\t[%s] > %%%.2f\n", STAR_CLASS_TRANSLATIONS[i], ((float)occurrences[i] / (float)GAME_MAX_STARS)*100.0f);
 }
 
 void _generateStarEntity(EngineContext* ctx, GameStar* stars, int index, int x, int y)

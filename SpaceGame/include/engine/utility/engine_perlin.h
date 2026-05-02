@@ -6,7 +6,9 @@
 #include <cglm/cglm.h>
 
 void enginePerlinInit(const int width, const int height);
+void engineSetNoiseMask(EngineContext* ctx, const EngineNoiseMask* const mask, const EngineTextureKey texkey);
 float* enginePerlinGenerate(void);
-void enginePerlinClose(void);
+float* enginePerlinGenerateMask(EngineContext* ctx, EngineTextureKey texkey);
+void enginePerlinClose(EngineContext* ctx, EngineTextureKey texkey);
 
 #endif // ENGINE_PERLIN_H

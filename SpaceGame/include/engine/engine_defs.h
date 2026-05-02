@@ -33,6 +33,7 @@ typedef struct engine_component EngineComponent;
 typedef struct engine_entity EngineEntity;
 typedef struct engine_scene EngineScene;
 typedef struct engine_camera EngineCamera;
+typedef struct engine_noise_mask EngineNoiseMask;
 
 typedef void (*EngineComponentFunc)(EngineEntity*,EngineContext*,float);
 typedef void (*EngineSceneFunc)(EngineScene*,EngineContext*,float);
@@ -69,6 +70,13 @@ typedef enum component_type {
 } EngineComponentType;
 
 /**
+ * \brief The type of noise mask.
+ */
+typedef enum noise_type {
+	ENGINE_NOISEMASK_GALAXY,
+} EngineNoiseType;
+
+/**
  * \brief The window config tells the engine how to setup the window
  */
 typedef struct window_config {
@@ -96,6 +104,27 @@ typedef struct engine_texture_pair {
 	EngineTextureKey key;
 	EngineTexture* value;
 } EngineTexturePair;
+
+/**
+ * \brief Perlin noise mask.
+ */
+struct engine_noise_mask {
+	EngineNoiseType type;
+	int width;
+	int height;
+
+	union {
+		struct {
+			float bulgeintensity;
+			float bulgecenter;
+			float armcurve;
+			float arms;
+			float armthickness;
+			float inradius;
+			float outradius;
+		} mask_galaxy;
+	};
+};
 
 /**
  * \brief An entity, contains position, size, texture, and component data
