@@ -3,13 +3,12 @@
 
 #include "engine_defs.h"
 
+// FIXME: Locate and find a bug related to being unable to generate more than 4096 stars
 #define GAME_MAX_STARS 0x1000
 #define GAME_GALAXY_WIDTH 1000
 #define GAME_GALAXY_HEIGHT 1000
 #define GAME_GALAXY_X -(GAME_GALAXY_WIDTH/2)
 #define GAME_GALAXY_Y -(GAME_GALAXY_HEIGHT/2)
-
-#define SOLAR_MASS 
 
 typedef enum game_starclass {
 	STAR_CLASS_O, // HOTTEST

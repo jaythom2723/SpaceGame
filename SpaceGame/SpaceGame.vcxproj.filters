@@ -90,6 +90,9 @@
     <None Include="..\Debug\Shaders\noise_perlin.glsl">
       <Filter>Resource Files\Shaders</Filter>
     </None>
+    <None Include="..\Debug\Shaders\noise_starmask.glsl">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Debug\Textures\dbg_smile.png">

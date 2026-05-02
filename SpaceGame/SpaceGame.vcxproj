@@ -21,6 +21,7 @@
   <ItemGroup>
     <None Include="..\Debug\Shaders\fragment.glsl" />
     <None Include="..\Debug\Shaders\noise_perlin.glsl" />
+    <None Include="..\Debug\Shaders\noise_starmask.glsl" />
     <None Include="..\Debug\Shaders\vertex.glsl" />
     <None Include="..\docs\architecture.md" />
     <None Include="..\docs\docs.md" />

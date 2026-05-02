@@ -28,11 +28,35 @@ void engineRenderEntity(EngineContext* ctx, EngineEntityKey key)
 
 	glm_mat4_identity(model);
 	engineUseShader(ctx);
-	getModelMatrix((vec2) { ent->x, ent->y }, (vec2) { ent->width, ent->height }, 0.0f, model);
+	getModelMatrix((vec2) { ent->x * ctx->zoomfac, ent->y * ctx->zoomfac }, (vec2) { ent->width* ctx->zoomfac, ent->height* ctx->zoomfac }, 0.0f, model);
 	engineSetMatrix4fv(ctx, "model", model);
 
 	glActiveTexture(GL_TEXTURE0);
 	engineBindTexture(ctx, ent->texkey);
+
+	assert(glIsVertexArray(ctx->vao) != 0);
+
+	engineBindVAO(ctx->vao);
+	glDrawArrays(GL_TRIANGLES, 0, 6);
+	engineBindVAO(0);
+}
+
+void engineRenderTexture(EngineContext* ctx, EngineTextureKey key, vec2 pos, vec2 size)
+{
+	extern EngineTexturePair* _engineGetTexturePair(EngineContext*,EngineTextureKey,unsigned int*);
+	
+	int index = 0;
+	mat4 model;
+	EngineTexturePair* pair = _engineGetTexturePair(ctx, key, &index);
+	assert(pair != NULL);
+
+	glm_mat4_identity(model);
+	engineUseShader(ctx);
+	getModelMatrix(pos, size, 0.0f, model);
+	engineSetMatrix4fv(ctx, "model", model);
+
+	glActiveTexture(GL_TEXTURE0);
+	engineBindTexture(ctx, key);
 
 	assert(glIsVertexArray(ctx->vao) != 0);
 

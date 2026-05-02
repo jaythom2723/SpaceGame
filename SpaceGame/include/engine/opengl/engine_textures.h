@@ -11,7 +11,7 @@
  * 
  * \return Returns EFALSE if the operation was unsuccessful
  */
-const EBOOL engineCreateTexture(EngineContext* ctx, unsigned int key);
+const EBOOL engineCreateTexture(EngineContext* ctx, EngineTextureKey key);
 
 /**
  * \brief Generate a texture from a file.
@@ -23,7 +23,7 @@ const EBOOL engineCreateTexture(EngineContext* ctx, unsigned int key);
  * 
  * \return Returns EFALSE if the operation was unsuccessful
  */
-const EBOOL engineGenerateTexture(EngineContext* ctx, unsigned int key, const char* path, const EBOOL alpha);
+const EBOOL engineGenerateTexture(EngineContext* ctx, EngineTextureKey key, const char* path, const EBOOL alpha);
 
 /**
  * \brief Generate a texture and replace if missing.
@@ -35,7 +35,18 @@ const EBOOL engineGenerateTexture(EngineContext* ctx, unsigned int key, const ch
  * \param path The file path
  * \param alpha Should the texture have transparency?
  */
-void engineGenTextureCheckMissing(EngineContext* ctx, unsigned int key, const char* path, const EBOOL alpha);
+void engineGenTextureCheckMissing(EngineContext* ctx, EngineTextureKey key, const char* path, const EBOOL alpha);
+
+/**
+ * \brief Generate an empty texture.
+ * 
+ * \param ctx A valid context
+ * \param key The texture's key
+ * \param alpha Should the texture have transparency
+ * \param width The width of the texture in pixels
+ * \param height The height of the texture in pixels
+ */
+void engineGenEmptyTexture(EngineContext* ctx, EngineTextureKey key, const EBOOL alpha, const int width, const int height);
 
 /**
  * \brief Wrapper for glBindTexture().
@@ -43,7 +54,9 @@ void engineGenTextureCheckMissing(EngineContext* ctx, unsigned int key, const ch
  * \param ctx The context
  * \param id The texture to bind's ID
  */
-void engineBindTexture(EngineContext* ctx, unsigned int id);
+void engineBindTexture(EngineContext* ctx, EngineTextureKey id);
+
+void engineBindImageTexture(EngineContext* ctx, EngineTextureKey key, int access, int colordepth);
 
 /**
  * \brief Destroy all textures created at runtime.
@@ -58,7 +71,7 @@ void engineDestroyAllTextures(EngineContext* ctx);
  * \param ctx The context
  * \param key The texture to destroy's key
 */
-void engineDestroyTexture(EngineContext* ctx, unsigned int key);
+void engineDestroyTexture(EngineContext* ctx, EngineTextureKey key);
 
 #endif // ENGINE_TEXTURES_H
 

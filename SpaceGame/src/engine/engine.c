@@ -22,6 +22,21 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 	engineSetMatrix4fv(int_ctx, "projection", projection);
 }
 
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+	if (yoffset < 0)
+	{
+		int_ctx->zoomin = EFALSE;
+		int_ctx->zoomout = ETRUE;
+	}
+	else if (yoffset > 0)
+	{
+		int_ctx->zoomin = ETRUE;
+		int_ctx->zoomout = EFALSE;
+	}
+	int_ctx->scroll_debounce_timer = 0.05f;
+}
+
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
 	if (key >= 0 && key <= ENGINE_NUM_KEYS)
@@ -54,6 +69,10 @@ EngineContext* engineInit(void)
 	memset(engine->textures, 0, ENGINE_MAX_TEXTURES * sizeof(EngineTexturePair));
 	engine->ntextures = 0;
 	engine->state = -1;
+	engine->zoomfac = 1.f;
+	engine->zoomin = EFALSE;
+	engine->zoomout = EFALSE;
+	engine->scroll_debounce_timer = 0.0f;
 
 	memset(engine->scenes, 0, ENGINE_MAX_SCENES * sizeof(EngineScene*));
 
@@ -112,6 +131,7 @@ EBOOL engineCreateWindow(EngineContext* ctx, const WindowConfig config)
 
 	glfwSetFramebufferSizeCallback(ctx->window, framebuffer_size_callback);
 	glfwSetKeyCallback(ctx->window, key_callback);
+	glfwSetScrollCallback(ctx->window, scroll_callback);
 
 	glfwMakeContextCurrent(ctx->window);
 	if (gladLoadGLLoader((GLADloadproc)glfwGetProcAddress) != ETRUE)

@@ -13,10 +13,10 @@ static EngineTexturePair* ptr = NULL;
 static EngineTexturePair* lastElem = NULL;
 static EngineTexturePair* end = NULL;
 
-static EngineTexturePair* _engineGetTexturePair(EngineContext* ctx, unsigned int key, unsigned int* index);
-static EngineTexturePair* _engineGetTexturePairIndex(EngineContext* ctx, unsigned int index);
+EngineTexturePair* _engineGetTexturePair(EngineContext* ctx, EngineTextureKey key, unsigned int* index);
+EngineTexturePair* _engineGetTexturePairIndex(EngineContext* ctx, unsigned int index);
 
-const EBOOL engineCreateTexture(EngineContext* ctx, unsigned int key)
+const EBOOL engineCreateTexture(EngineContext* ctx, EngineTextureKey key)
 {
 	if (ptr == NULL)
 	{
@@ -59,7 +59,7 @@ const EBOOL engineCreateTexture(EngineContext* ctx, unsigned int key)
 	return ETRUE;
 }
 
-const EBOOL engineGenerateTexture(EngineContext* ctx, unsigned int key, const char* path, const EBOOL alpha)
+const EBOOL engineGenerateTexture(EngineContext* ctx, EngineTextureKey key, const char* path, const EBOOL alpha)
 {
 	int index;
 	EngineTexturePair* pair = _engineGetTexturePair(ctx, key, &index);
@@ -105,14 +105,47 @@ const EBOOL engineGenerateTexture(EngineContext* ctx, unsigned int key, const ch
 	return ETRUE;
 }
 
-void engineGenTextureCheckMissing(EngineContext* ctx, unsigned int key, const char* path, const EBOOL alpha)
+void engineGenTextureCheckMissing(EngineContext* ctx, EngineTextureKey key, const char* path, const EBOOL alpha)
 {
 	if (engineCreateTexture(ctx, key) != EFALSE)
 		if (engineGenerateTexture(ctx, key, path, alpha) == EFALSE)
 			engineGenerateTexture(ctx, key, "Textures/_missing_texture.png", EFALSE);
 }
 
-void engineBindTexture(EngineContext* ctx, unsigned int key)
+void engineGenEmptyTexture(EngineContext* ctx, EngineTextureKey key, const EBOOL alpha, const int width, const int height)
+{
+	int index = 0;
+	EngineTexturePair* pair = _engineGetTexturePair(ctx, key, &index);
+	assert(pair != NULL);
+
+	pair->value->imageformat = GL_RGB;
+	pair->value->internalformat = GL_RGB;
+
+	if (alpha == ETRUE)
+	{
+		pair->value->imageformat = GL_RGBA;
+		pair->value->internalformat = GL_RGBA;
+	}
+
+	pair->value->filtermax = GL_LINEAR;
+	pair->value->filtermin = GL_LINEAR;
+	pair->value->wraps = GL_CLAMP_TO_EDGE;
+	pair->value->wrapt = GL_CLAMP_TO_EDGE;
+	pair->value->width = width;
+	pair->value->height = height;
+
+	glBindTexture(GL_TEXTURE_2D, pair->value->id);
+	glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA32F, width, height);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, pair->value->filtermin);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, pair->value->filtermax);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, pair->value->wraps);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, pair->value->wrapt);
+
+	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void engineBindTexture(EngineContext* ctx, EngineTextureKey key)
 {
 	int index;
 	EngineTexturePair* pair = _engineGetTexturePair(ctx, key, &index);
@@ -120,6 +153,13 @@ void engineBindTexture(EngineContext* ctx, unsigned int key)
 	assert(pair->value != NULL);
 	assert(glIsTexture(pair->value->id) != 0);
 	glBindTexture(GL_TEXTURE_2D, pair->value->id);
+}
+
+void engineBindImageTexture(EngineContext* ctx, EngineTextureKey key, int access, int colordepth)
+{
+	int index = 0;
+	EngineTexturePair* pair = _engineGetTexturePair(ctx, key, &index);
+	glBindImageTexture(0, pair->value->id, 0, GL_FALSE, 0, access, colordepth);
 }
 
 void engineDestroyAllTextures(EngineContext* ctx)
@@ -141,7 +181,7 @@ void engineDestroyAllTextures(EngineContext* ctx)
 	ctx->ntextures = 0;
 }
 
-void engineDestroyTexture(EngineContext* ctx, unsigned int key)
+void engineDestroyTexture(EngineContext* ctx, EngineTextureKey key)
 {
 	int index;
 	EngineTexturePair* pair = _engineGetTexturePair(ctx, key, &index);
@@ -174,7 +214,7 @@ void engineDestroyTexture(EngineContext* ctx, unsigned int key)
  * \param index The returned index of the texture
  * \return The texture if found. If not found, returns NULL
  */
-EngineTexturePair* _engineGetTexturePair(EngineContext* ctx, unsigned int key, unsigned int* index)
+EngineTexturePair* _engineGetTexturePair(EngineContext* ctx, EngineTextureKey key, unsigned int* index)
 {
 	for (int i = 0; i < (int)(ptr - ctx->textures); i++)
 	{

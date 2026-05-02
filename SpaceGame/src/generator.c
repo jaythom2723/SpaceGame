@@ -35,7 +35,7 @@ void generateStars(EngineContext* ctx, GameStar* stars, float* noise)
 	int attempts = 0;
 	int maxAttempts = GAME_GALAXY_WIDTH * GAME_GALAXY_HEIGHT;
 
-	while (numStars < 0x1000 && attempts < maxAttempts)
+	while (numStars < GAME_MAX_STARS && attempts < maxAttempts)
 	{
 		x = engineGetRandomRangeI(0, GAME_GALAXY_WIDTH);
 		y = engineGetRandomRangeI(0, GAME_GALAXY_HEIGHT);
@@ -43,7 +43,7 @@ void generateStars(EngineContext* ctx, GameStar* stars, float* noise)
 
 		if (index >= 0 && index < (GAME_GALAXY_WIDTH * GAME_GALAXY_HEIGHT))
 		{
-			if (noise[index] > 0.5f)
+			if (noise[index] > 0.05f)
 			{
 				_generateStar(stars, numStars, occurrences);
 				_generateStarEntity(ctx, stars, numStars, x, y);
@@ -73,7 +73,7 @@ void _generateStarEntity(EngineContext* ctx, GameStar* stars, int index, int x, 
 		(float)x,
 		(float)y
 	};
-	vec2 size = { 8.0f, 8.0f };
+	vec2 size = { 2.0f, 2.0f };
 	engineCreateEntityScene(ctx, pos, size, cur->entity, STAR_TEXTURE, GAME_GALAXY_MAP);
 	engineAddComponentScene(ctx, cur->entity, ENGINE_COMPONENT_RENDERER, GAME_GALAXY_MAP);
 }

@@ -52,6 +52,10 @@ typedef void (*EngineSceneFunc)(EngineScene*,EngineContext*,float);
 #define ENGINE_GEOEMTRY_SHADER	GL_GEOMETRY_SHADER
 #define ENGINE_COMPUTE_SHADER	GL_COMPUTE_SHADER
 
+#define ENGINE_IMG_READ_ONLY	GL_READ_ONLY
+#define ENGINE_IMG_WRITE_ONLY	GL_WRITE_ONLY
+#define ENGINE_RGBA32F			GL_RGBA32F
+
 // offsets the component ptr by the values assigned by the compiler
 /**
  * \brief Types of components embedded into the engine
@@ -168,6 +172,10 @@ struct engine_context {
 
 	unsigned int vao;
 	unsigned int ntextures;
+
+	float scroll_debounce_timer;
+	EBOOL zoomin, zoomout;
+	float zoomfac;
 };
 
 #endif // ENGINE_DEFS_H

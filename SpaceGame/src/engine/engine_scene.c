@@ -26,6 +26,22 @@ void _engine_docamerainput(EngineContext* ctx, float deltaTime)
 		camera->vx = camera->speed * deltaTime;
 }
 
+void _engine_dozoom(EngineContext* ctx, float deltaTime)
+{
+	if (ctx->zoomin == ETRUE)
+		ctx->zoomfac += 1 * deltaTime;
+
+	if (ctx->zoomout == ETRUE)
+		ctx->zoomfac -= 1 * deltaTime;
+
+	if (ctx->scroll_debounce_timer > 0.0f)
+	{
+		ctx->scroll_debounce_timer -= deltaTime;
+		ctx->zoomin = EFALSE;
+		ctx->zoomout = EFALSE;
+	}
+}
+
 void _engine_update(EngineContext* ctx, float deltaTime)
 {
 	if (ctx->camera == NULL)
@@ -35,6 +51,7 @@ void _engine_update(EngineContext* ctx, float deltaTime)
 		return;
 
 	_engine_docamerainput(ctx, deltaTime);
+	_engine_dozoom(ctx, deltaTime);
 
 	// propogate the movement of the camera to all entities
 	EngineScene* curscene = engineGetCurrentScene(ctx);

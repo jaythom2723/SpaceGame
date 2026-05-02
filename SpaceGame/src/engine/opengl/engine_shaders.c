@@ -130,6 +130,12 @@ void engineInvokeComputeShader(int width, int height, void** ptr, size_t tsize, 
 	tmp = NULL;
 }
 
+void engineInvokeComputeShaderImage(int width, int height)
+{
+	glDispatchCompute(width / 8, height / 8, 1);
+	glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
+}
+
 #define LOC_ERROR(l,n) if (l == -1) { fprintf(stderr, "Unknown '%s' not found!\n", n); return; }
 
 void engineSetFloatl(EngineProgram program, const char* name, float value)

@@ -77,6 +77,8 @@ void engineUseShaderl(EngineProgram program);
  */
 void engineInvokeComputeShader(int width, int height, void** ptr, size_t tsize, int ssbo);
 
+void engineInvokeComputeShaderImage(int width, int height);
+
 /**
  * \brief Set a Shader Uniform of type Float.
  * 
