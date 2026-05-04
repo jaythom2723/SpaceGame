@@ -58,7 +58,7 @@ void engineSetNoiseMask(EngineContext* ctx, const EngineNoiseMask* const mask, c
 			engineSetFloatl(maskProgram, "bulgeIntensity", mask->mask_galaxy.bulgeintensity);
 
 		if (mask->mask_galaxy.bulgecenter != -1)
-			engineSetFloatl(maskProgram, "bulgeCenter", mask->mask_galaxy.bulgecenter);
+			engineSetFloatl(maskProgram, "centerBulge", mask->mask_galaxy.bulgecenter);
 
 		if (mask->mask_galaxy.armcurve != -1)
 			engineSetFloatl(maskProgram, "armCurve", mask->mask_galaxy.armcurve);

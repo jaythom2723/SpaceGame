@@ -77,6 +77,18 @@ int engineGetRandomRangeI(int min, int max);
  */
 double engineGetRandomRangeD(double min, double max);
 
+/**
+ * \brief Sort an array using quick sort.
+ * 
+ * \param src The array to sort
+ * \param sorted The sorted array
+ * \param arrSize The array's size in elements
+ * \param tsize The size of a single element in bytes
+ */
+void engineQuickSort(int* arr, size_t arrSize, size_t tsize);
+
+void engineQuickSortF(float* arr, size_t arrSize, size_t tsize);
+
 #endif // ENGINE_H
 
 

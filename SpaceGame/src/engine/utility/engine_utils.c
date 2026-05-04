@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <assert.h>
 
 EngineLinkedList* engineCreateLinkedList(char* lista, char* listb, size_t arrsize, size_t typesize)
 {
@@ -119,4 +120,24 @@ int engineGetRandomRangeI(int min, int max)
 double engineGetRandomRangeD(double min, double max)
 {
 	return min + ((double)rand() / (double)RAND_MAX) * (max - min);
+}
+
+int _engineQuickSortCompare(const void* a, const void* b)
+{
+	return (*(int*)a - *(int*)b);
+}
+
+int _engineQuickSortCompareF(const void* a, const void* b)
+{
+	return (int)((*(float*)a - *(float*)b));
+}
+
+void engineQuickSort(int* arr, size_t arrSize, size_t tsize)
+{
+	qsort(arr, arrSize, tsize, _engineQuickSortCompare);
+}
+
+void engineQuickSortF(float* arr, size_t arrSize, size_t tsize)
+{
+	qsort(arr, arrSize, tsize, _engineQuickSortCompareF);
 }

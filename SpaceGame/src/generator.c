@@ -1,10 +1,12 @@
 #include "generator.h"
 #include "generator_defs.h"
 
+#include "engine.h"
 #include "engine_utils.h"
 #include "engine_entity.h"
 #include "engine_components.h"
 #include "engine_perlin.h"
+#include "engine_scene.h"
 
 #include <string.h>
 #include <stdlib.h>
@@ -18,7 +20,7 @@ const char* STAR_CLASS_TRANSLATIONS[STAR_CLASS_M + 1] = {
 	"O", "B", "A", "F", "G", "K", "M"
 };
 
-void _generateStar(GameStar* stars, int index, int* occurrences);
+void _generateStar(GameStar* stars, int index);
 double _generateMass(double chance);
 void _determineSpectralClass(GameStar* star);
 
@@ -31,8 +33,8 @@ void generationStepOne(EngineContext* ctx, GameStar* stars, const EngineTextureK
 		.width = GAME_GALAXY_WIDTH,
 		.height = GAME_GALAXY_HEIGHT,
 		.mask_galaxy = {
-			.bulgeintensity = 1,
-			.bulgecenter = -1,
+			.bulgeintensity = 1.25,
+			.bulgecenter = 10,
 			.armcurve = 12.5,
 			.arms = 4.0,
 			.armthickness = -1,
@@ -48,16 +50,249 @@ void generationStepOne(EngineContext* ctx, GameStar* stars, const EngineTextureK
 	enginePerlinClose(ctx, key);
 }
 
-void generationStepTwo(EngineContext* ctx, GameStar* stars)
+struct stardata* _cachePositionAndEntityData(EngineContext* ctx, GameStar* stars)
 {
-	// TODO: prototype
+	struct stardata* data = malloc(GAME_MAX_STARS * sizeof(struct stardata));
+	assert(data != NULL);
+
+	for (int i = 0; i < GAME_MAX_STARS; i++)
+	{
+		EngineEntity* ent = engineGetEntityScene(ctx, GAME_GALAXY_MAP, stars[i].entity);
+		if (ent != NULL)
+		{
+			data[i].id = ent->key;
+			data[i].x = ent->x;
+			data[i].y = ent->y;
+			data[i].w = ent->width;
+			data[i].h = ent->height;
+		}
+		else
+		{
+			data[i].id = -1;
+			data[i].x = -9999.0f;
+			data[i].y = -9999.0f;
+			data[i].w = -9999.0f;
+			data[i].h = -9999.0f;
+		}
+	}
+
+	return data;
+}
+
+int* _checkToDestroy(struct stardata* data, int* numToDestroy)
+{
+	int* destroy = malloc(GAME_MAX_STARS * sizeof(int));
+	assert(destroy != NULL);
+	memset(destroy, 0, GAME_MAX_STARS * sizeof(int));
+	int* tmp = destroy;
+
+	for (int i = 0; i < GAME_MAX_STARS; i++)
+	{
+		if (data[i].id == -1) continue;
+
+		for (int j = i + 1; j < GAME_MAX_STARS; j++)
+		{
+			if (data[j].id == -1) continue;
+
+			float dx = data[j].x - data[i].x;
+			float dy = data[j].y - data[i].y;
+			float dist = (dx * dx) + (dy * dy);
+			float collr = (data[i].w * data[i].h);
+
+			if (dist <= collr)
+			{
+				(*tmp) = data[j].id;
+				tmp++;
+				(*numToDestroy)++;
+			}
+		}
+	}
+
+	return destroy;
+}
+
+// TODO: remove all asserts in favor of a logger and error handler
+struct stardata* generationStepTwo(EngineContext* ctx, GameStar* stars)
+{
+	int numToDestroy = 0;
+	struct stardata* data = _cachePositionAndEntityData(ctx, stars);
+	int* destroy = _checkToDestroy(data, &numToDestroy);
+	assert(data != NULL);
+	assert(destroy != NULL);
+
+	for (int i = 0; i < numToDestroy; i++)
+	{
+		EngineEntity* ent = engineGetEntityScene(ctx, GAME_GALAXY_MAP, destroy[i]);
+		
+		if (ent == NULL)
+			continue;
+
+		if (ent->components != NULL)
+		{
+			free(ent->components);
+			ent->components = NULL;
+		}
+
+		(*ent) = (EngineEntity){ 0 };
+		stars[i].entity = -1;
+	}
+
+	EngineScene* map = engineGetScene(ctx, GAME_GALAXY_MAP);
+	assert(map != NULL);
+
+	map->nentities -= numToDestroy;
+
+	free(destroy);
+
+	destroy = NULL;
+
+	return data;
+}
+
+static const long maxes[6] = {
+	GALAXY_GIANT_MAX,
+	GALAXY_SGIANT_MAX,
+	GALAXY_BHOLE_MAX,
+	GALAXY_WDWARF_MAX,
+	GALAXY_NEUTRON_MAX,
+	GALAXY_PULSAR_MAX
+};
+
+static const GameStarClass classes[6] = {
+	STAR_CLASS_GIANT,
+	STAR_CLASS_SUPER_GIANT,
+	STAR_CLASS_BLACK_HOLE,
+	STAR_CLASS_WHITE_DWARF,
+	STAR_CLASS_NEUTRON,
+	STAR_CLASS_PULSAR
+};
+
+void generationStepThree(EngineContext* ctx, GameStar* stars, struct stardata* data)
+{
+	srand(time(NULL));
+
+	// keep track of all stars swapped to a different spectral class
+	int swappedStars = 0;
+	int curMax = 0;
+	int i = 0;
+
+	float quasarProb = engineGetRandomRangeD(0, 1);
+	int coreIndex = -1;
+
+	// engineGetRandomRangeD(1000000, 1000000000) - quasar
+	
+	// TODO: look into encapsulating this bs
+	while (curMax < 6)
+	{
+		if (swappedStars >= maxes[curMax])
+		{
+			curMax++;
+			swappedStars = 0;
+		}
+
+		if (stars[i].entity == -1)
+		{
+			if (coreIndex < 0)
+				coreIndex = i;
+			i++;
+			continue;
+		}
+
+		stars[i].class = classes[curMax];
+
+		if (classes[curMax] == STAR_CLASS_GIANT || classes[curMax] == STAR_CLASS_SUPER_GIANT)
+		{
+			stars[i].mass = engineGetRandomRangeD(1.0, 20.0);
+			stars[i].diameter = engineGetRandomRangeD(200, 2000);
+			stars[i].surfaceTemp = engineGetRandomRangeD(0.5, 1.0);
+			stars[i].lifetime = engineGetRandomRangeD(10000000, 100000000);
+
+			double radii = stars[i].diameter / 2;
+			stars[i].luminosity = pow(radii, 2) * pow(stars[i].surfaceTemp, 4);
+		}
+
+		if (classes[curMax] == STAR_CLASS_NEUTRON || classes[curMax] == STAR_CLASS_PULSAR)
+		{
+			stars[i].mass = engineGetRandomRangeD(1.4, 2.1);
+			stars[i].luminosity = engineGetRandomRangeD(0.1, 1000);
+			stars[i].diameter = 0.00003;
+			stars[i].surfaceTemp = engineGetRandomRangeD(100, 200);
+			stars[i].lifetime = 100000000000;
+		}
+
+		if (classes[curMax] == STAR_CLASS_WHITE_DWARF)
+		{
+			stars[i].mass = engineGetRandomRangeD(0.5, 1.44);
+			stars[i].luminosity = 0.0001;
+			stars[i].diameter = 0.01;
+			stars[i].surfaceTemp = engineGetRandomRangeD(2, 17);
+			stars[i].lifetime = engineGetRandomRangeD(10000000000, 1000000000000);
+		}
+
+		if (classes[curMax] == STAR_CLASS_BLACK_HOLE)
+		{
+			stars[i].mass = engineGetRandomRangeD(3, 20);
+			stars[i].luminosity = -1;
+			stars[i].diameter = stars[i].mass * GALAXY_BHOLE_DIAMETER_SCALE;
+			stars[i].surfaceTemp = -1;
+			stars[i].lifetime = -1;
+			stars[i].habitableZoneInner = 0;
+			stars[i].habitableZoneOuter = 0;
+		}
+
+		if (classes[curMax] != STAR_CLASS_BLACK_HOLE)
+		{
+			stars[i].habitableZoneInner = sqrt(stars[i].luminosity) * 0.95;
+			stars[i].habitableZoneOuter = sqrt(stars[i].luminosity) * 1.37;
+		}
+
+		swappedStars++;
+		i++;
+	}
+
+	// generate the galactic core
+	if (quasarProb <= 0.325f)
+	{
+		// core is a chad ah quasar
+		stars[coreIndex].class = STAR_CLASS_QUASAR;
+		stars[coreIndex].mass = engineGetRandomRangeD(1000000, 1000000000);
+		stars[coreIndex].luminosity = 1000000000;
+		stars[coreIndex].diameter = engineGetRandomRangeD(100000, 10000000);
+		stars[coreIndex].surfaceTemp = engineGetRandomRangeD(30, 30);
+		stars[coreIndex].lifetime = engineGetRandomRangeD(10000000, 100000000);
+		stars[coreIndex].habitableZoneInner = -1;
+		stars[coreIndex].habitableZoneOuter = -1;
+	}
+	else
+	{
+		// core is a regular ah super massive black hole
+		stars[coreIndex].class = STAR_CLASS_BLACK_HOLE;
+		stars[coreIndex].mass = engineGetRandomRangeD(21, 100);
+		stars[coreIndex].luminosity = -1;
+		stars[coreIndex].diameter = stars[i].mass * GALAXY_BHOLE_DIAMETER_SCALE;
+		stars[coreIndex].surfaceTemp = -1;
+		stars[coreIndex].lifetime = -1;
+		stars[coreIndex].habitableZoneInner = 0;
+		stars[coreIndex].habitableZoneOuter = 0;
+	}
+
+	stars[coreIndex].entity = coreIndex;
+	EngineEntity* ent = &(ctx->scenes[GAME_GALAXY_MAP]->entities[coreIndex]);
+	ent->x = (float)(GAME_GALAXY_WIDTH / 2);
+	ent->y = (float)(GAME_GALAXY_HEIGHT / 2);
+	ent->width = 2.0f;
+	ent->height = 2.0f;
+	ent->r = 1.0f;
+	ent->g = 1.0f;
+	ent->b = 1.0f;
+	ent->key = coreIndex;
+	ent->texkey = STAR_TEXTURE;
+	engineAddComponentScene(ctx, coreIndex, ENGINE_COMPONENT_RENDERER, GAME_GALAXY_MAP);
 }
 
 void generateStars(EngineContext* ctx, GameStar* stars, float* noise)
 {
 	srand(time(NULL));
-
-	int occurrences[STAR_CLASS_M + 1] = { 0 };
 
 	int numStars = 0;
 	int x, y, index;
@@ -72,13 +307,14 @@ void generateStars(EngineContext* ctx, GameStar* stars, float* noise)
 
 		if (index >= 0 && index < (GAME_GALAXY_WIDTH * GAME_GALAXY_HEIGHT))
 		{
-			if (noise[index] > 0.075f)
+			float prob = (float)engineGetRandomRangeD(0, 1);
+			if (prob < noise[index])
 			{
 				if (((float)rand() / (float)RAND_MAX) < noise[index])
 				{
 					if (numStars >= GAME_MAX_STARS)
 						break;
-					_generateStar(stars, numStars, occurrences);
+					_generateStar(stars, numStars);
 					_generateStarEntity(ctx, stars, numStars, x, y);
 					numStars++;
 					attempts = 0;
@@ -92,13 +328,6 @@ void generateStars(EngineContext* ctx, GameStar* stars, float* noise)
 	{
 		printf("Warning: could not place all stars! Threshold might be too high!\n");
 	}
-
-	////for (int i = 0; i < STAR_CLASS_M + 1; i++)
-	////	printf("[%s] > %d\n", STAR_CLASS_TRANSLATIONS[i], occurrences[i]);
-
-	////printf("Spectral Class Generation Percentage Values\n");
-	////for (int i = 0; i < STAR_CLASS_M + 1; i++)
-	////	printf("\t[%s] > %%%.2f\n", STAR_CLASS_TRANSLATIONS[i], ((float)occurrences[i] / (float)GAME_MAX_STARS)*100.0f);
 }
 
 void _generateStarEntity(EngineContext* ctx, GameStar* stars, int index, int x, int y)
@@ -114,13 +343,13 @@ void _generateStarEntity(EngineContext* ctx, GameStar* stars, int index, int x, 
 	engineAddComponentScene(ctx, cur->entity, ENGINE_COMPONENT_RENDERER, GAME_GALAXY_MAP);
 }
 
-void _generateStar(GameStar* stars, int index, int* occurrences)
+void _generateStar(GameStar* stars, int index)
 {
 	GameStar tmp = { 0 };
 
 	// TODO: prototype a star mass generation weight setting that can be configurable by the user
 	double starmasschance = (double)rand() / (double)RAND_MAX;
-	tmp.mass = _generateMass(pow(starmasschance, STAR_RAND_MASS_CHANCE));
+	tmp.mass = _generateMass(pow(starmasschance, STAR_RAND_MASS_BIAS));
 	
 	tmp.luminosity = pow(tmp.mass, STAR_LUMINOSITY_POWER);
 	tmp.diameter = pow(tmp.mass, STAR_DIAMETER_POWER);
@@ -130,7 +359,6 @@ void _generateStar(GameStar* stars, int index, int* occurrences)
 	tmp.habitableZoneOuter = sqrt(tmp.luminosity) * STAR_HABITABLE_OUTER_COEFF;
 
 	_determineSpectralClass(&tmp);
-	(*(occurrences + tmp.class))++;
 
 	tmp.entity = index;
 

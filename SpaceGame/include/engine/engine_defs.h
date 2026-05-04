@@ -22,7 +22,7 @@ typedef unsigned int EngineShader;
 typedef unsigned int EngineProgram;
 
 typedef unsigned int EngineTextureKey;
-typedef unsigned int EngineEntityKey;
+typedef int EngineEntityKey;
 
 typedef unsigned int EngineComponentID;
 
@@ -175,7 +175,7 @@ typedef struct linklist {
  * \brief A scene that gets run based off of GameState.
  */
 struct engine_scene {
-	EngineEntity* entities;
+	EngineEntity* entities; 
 	unsigned int nentities;
 	EBOOL initialized;
 

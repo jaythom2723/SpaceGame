@@ -86,6 +86,7 @@ void engineDestroyEntityScene(EngineContext* ctx, GameState state, EngineEntityK
 		return;
 
 	EngineEntity* ent = engineGetEntityScene(ctx, state, key);
+	assert(ent != NULL);
 
 	if (ent->components != NULL)
 	{
