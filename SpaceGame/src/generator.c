@@ -7,8 +7,10 @@
 #include "engine_components.h"
 #include "engine_perlin.h"
 #include "engine_scene.h"
+#include "engine_math.h"
 
 #include <string.h>
+#include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
@@ -20,24 +22,41 @@ const char* STAR_CLASS_TRANSLATIONS[STAR_CLASS_M + 1] = {
 	"O", "B", "A", "F", "G", "K", "M"
 };
 
+static const char* classStrings[STAR_CLASS_M + 1] = {
+		"Giant",
+		"SGiant",
+		"BHole",
+		"WDwarf",
+		"Neutron",
+		"Pulsar",
+		"Quasar",
+		"O",
+		"B",
+		"A",
+		"F",
+		"G",
+		"K",
+		"M",
+};
+
 void _generateStar(GameStar* stars, int index);
 double _generateMass(double chance);
 void _determineSpectralClass(GameStar* star);
 
 void _generateStarEntity(EngineContext* ctx, GameStar* stars, int index, int x, int y);
 
-void generationStepOne(EngineContext* ctx, GameStar* stars, const EngineTextureKey key)
+void generateGalaxyStepOne(EngineContext* ctx, GameStar* stars, const EngineTextureKey key)
 {
 	EngineNoiseMask mask = {
 		.type = ENGINE_NOISEMASK_GALAXY,
 		.width = GAME_GALAXY_WIDTH,
 		.height = GAME_GALAXY_HEIGHT,
 		.mask_galaxy = {
-			.bulgeintensity = 1.25,
-			.bulgecenter = 10,
+			.bulgeintensity = 0.95,
+			.bulgecenter = 14,
 			.armcurve = 12.5,
-			.arms = 4.0,
-			.armthickness = -1,
+			.arms = 2.0,
+			.armthickness = 10.0,
 			.inradius = -1,
 			.outradius = -1
 		}
@@ -55,7 +74,7 @@ struct stardata* _cachePositionAndEntityData(EngineContext* ctx, GameStar* stars
 	struct stardata* data = malloc(GAME_MAX_STARS * sizeof(struct stardata));
 	assert(data != NULL);
 
-	for (int i = 0; i < GAME_MAX_STARS; i++)
+	for (int i = 0; i < GAME_MAX_STARS-1; i++)
 	{
 		EngineEntity* ent = engineGetEntityScene(ctx, GAME_GALAXY_MAP, stars[i].entity);
 		if (ent != NULL)
@@ -86,11 +105,11 @@ int* _checkToDestroy(struct stardata* data, int* numToDestroy)
 	memset(destroy, 0, GAME_MAX_STARS * sizeof(int));
 	int* tmp = destroy;
 
-	for (int i = 0; i < GAME_MAX_STARS; i++)
+	for (int i = 0; i < GAME_MAX_STARS-1; i++)
 	{
 		if (data[i].id == -1) continue;
 
-		for (int j = i + 1; j < GAME_MAX_STARS; j++)
+		for (int j = i + 1; j < GAME_MAX_STARS-1; j++)
 		{
 			if (data[j].id == -1) continue;
 
@@ -112,7 +131,7 @@ int* _checkToDestroy(struct stardata* data, int* numToDestroy)
 }
 
 // TODO: remove all asserts in favor of a logger and error handler
-struct stardata* generationStepTwo(EngineContext* ctx, GameStar* stars)
+struct stardata* generateGalaxyStepTwo(EngineContext* ctx, GameStar* stars)
 {
 	int numToDestroy = 0;
 	struct stardata* data = _cachePositionAndEntityData(ctx, stars);
@@ -167,21 +186,12 @@ static const GameStarClass classes[6] = {
 	STAR_CLASS_PULSAR
 };
 
-void generationStepThree(EngineContext* ctx, GameStar* stars, struct stardata* data)
+void _stepthree_generateNonMainSequence(EngineContext* ctx, GameStar* stars, struct stardata* data, int* coreIndex)
 {
-	srand(time(NULL));
-
-	// keep track of all stars swapped to a different spectral class
-	int swappedStars = 0;
 	int curMax = 0;
+	int swappedStars = 0;
 	int i = 0;
 
-	float quasarProb = engineGetRandomRangeD(0, 1);
-	int coreIndex = -1;
-
-	// engineGetRandomRangeD(1000000, 1000000000) - quasar
-	
-	// TODO: look into encapsulating this bs
 	while (curMax < 6)
 	{
 		if (swappedStars >= maxes[curMax])
@@ -192,8 +202,8 @@ void generationStepThree(EngineContext* ctx, GameStar* stars, struct stardata* d
 
 		if (stars[i].entity == -1)
 		{
-			if (coreIndex < 0)
-				coreIndex = i;
+			if ((*coreIndex) < 0)
+				(*coreIndex) = i;
 			i++;
 			continue;
 		}
@@ -249,8 +259,11 @@ void generationStepThree(EngineContext* ctx, GameStar* stars, struct stardata* d
 		swappedStars++;
 		i++;
 	}
+}
 
-	// generate the galactic core
+void _stepthree_generateGalacticCore(EngineContext* ctx, GameStar* stars, struct stardata* data, const int coreIndex)
+{
+	float quasarProb = (float)engineGetRandomRangeD(0, 1);
 	if (quasarProb <= 0.325f)
 	{
 		// core is a chad ah quasar
@@ -269,7 +282,7 @@ void generationStepThree(EngineContext* ctx, GameStar* stars, struct stardata* d
 		stars[coreIndex].class = STAR_CLASS_BLACK_HOLE;
 		stars[coreIndex].mass = engineGetRandomRangeD(21, 100);
 		stars[coreIndex].luminosity = -1;
-		stars[coreIndex].diameter = stars[i].mass * GALAXY_BHOLE_DIAMETER_SCALE;
+		stars[coreIndex].diameter = stars[coreIndex].mass * GALAXY_BHOLE_DIAMETER_SCALE;
 		stars[coreIndex].surfaceTemp = -1;
 		stars[coreIndex].lifetime = -1;
 		stars[coreIndex].habitableZoneInner = 0;
@@ -287,7 +300,20 @@ void generationStepThree(EngineContext* ctx, GameStar* stars, struct stardata* d
 	ent->b = 1.0f;
 	ent->key = coreIndex;
 	ent->texkey = STAR_TEXTURE;
+	ctx->scenes[GAME_GALAXY_MAP]->nentities++;
 	engineAddComponentScene(ctx, coreIndex, ENGINE_COMPONENT_RENDERER, GAME_GALAXY_MAP);
+
+}
+
+void generateGalaxyStepThree(EngineContext* ctx, GameStar* stars, struct stardata* data)
+{
+	srand(time(NULL));
+
+	// keep track of all stars swapped to a different spectral class
+	int coreIndex = -1;
+
+	_stepthree_generateNonMainSequence(ctx, stars, data, &coreIndex);
+	_stepthree_generateGalacticCore(ctx, stars, data, coreIndex);
 }
 
 void generateStars(EngineContext* ctx, GameStar* stars, float* noise)
@@ -310,24 +336,19 @@ void generateStars(EngineContext* ctx, GameStar* stars, float* noise)
 			float prob = (float)engineGetRandomRangeD(0, 1);
 			if (prob < noise[index])
 			{
-				if (((float)rand() / (float)RAND_MAX) < noise[index])
-				{
-					if (numStars >= GAME_MAX_STARS)
-						break;
-					_generateStar(stars, numStars);
-					_generateStarEntity(ctx, stars, numStars, x, y);
-					numStars++;
-					attempts = 0;
-				}
+				if (numStars >= GAME_MAX_STARS)
+					break;
+				_generateStar(stars, numStars);
+				_generateStarEntity(ctx, stars, numStars, x, y);
+				numStars++;
+				attempts = 0;
 			}
 		}
 		attempts++;
 	}
 
 	if (attempts >= maxAttempts)
-	{
 		printf("Warning: could not place all stars! Threshold might be too high!\n");
-	}
 }
 
 void _generateStarEntity(EngineContext* ctx, GameStar* stars, int index, int x, int y)
@@ -357,6 +378,7 @@ void _generateStar(GameStar* stars, int index)
 	tmp.lifetime = pow(tmp.mass, STAR_LIFETIME_POWER);
 	tmp.habitableZoneInner = sqrt(tmp.luminosity) * STAR_HABITABLE_INNER_COEFF;
 	tmp.habitableZoneOuter = sqrt(tmp.luminosity) * STAR_HABITABLE_OUTER_COEFF;
+	tmp.numJumpPoints = 0;
 
 	_determineSpectralClass(&tmp);
 

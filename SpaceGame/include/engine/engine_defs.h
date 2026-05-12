@@ -3,16 +3,29 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <cglm/cglm.h>
+
+#define CGLM_VERSION_MAJOR			0
+#define CGLM_VERSION_MINOR			9
+#define GL_VERSION_MAJOR			4
+#define GL_VERSION_MINOR			3
+#define ENGINE_VERSION_MAJOR		0
+#define ENGINE_VERSION_MINOR		1
+#define ENGINE_VERSION_PATCH		0
+
+#define ENGINE_NUM_KEYS				1024
+#define ENGINE_NUM_MOUSE_BUTTONS	2
 
 #define ENGINE_MAX_TEXTURES			1024
 #define ENGINE_MAX_ENTITIES			0x1000
 #define ENGINE_MAX_COMPONENTS		0x10
-#define ENGINE_NUM_KEYS				1024
 #define ENGINE_MAX_SCENES			0xFF
 
 #define ENGINE_MISSING_TEXTURE_KEY ENGINE_MAX_TEXTURES-1
 
 #define MAKE_ENT_PAIR(k,pos,sz,tk) deprecated DO NOT USE.
+
+#define ENGINE_DEFAULT_ZOOM_FACTOR 1.0
 
 typedef unsigned char EBOOL;
 #define ETRUE 1
@@ -34,9 +47,11 @@ typedef struct engine_entity EngineEntity;
 typedef struct engine_scene EngineScene;
 typedef struct engine_camera EngineCamera;
 typedef struct engine_noise_mask EngineNoiseMask;
+typedef struct engine_ui_element EngineUIElement;
 
 typedef void (*EngineComponentFunc)(EngineEntity*,EngineContext*,float);
 typedef void (*EngineSceneFunc)(EngineScene*,EngineContext*,float);
+typedef void (*EngineUIButtonFunc)(EngineUIElement*,EngineContext*,EngineScene*,float);
 
 #define EKEY_ESCAPE		GLFW_KEY_ESCAPE
 #define EKEY_W			GLFW_KEY_W
@@ -68,6 +83,15 @@ typedef enum component_type {
 	ENGINE_COMPONENT_TICK,			// 1
 	ENGINE_COMPONENT_CONTROLLER,	// ...
 } EngineComponentType;
+
+typedef enum engine_ui_type {
+	ENGINE_UI_PANEL,
+	ENGINE_UI_TEXT,
+	ENGINE_UI_BUTTON,
+	ENGINE_UI_TEXT_INPUT,
+	ENGINE_UI_CHECK_BUTTON,
+	ENGINE_UI_RADIAL_BUTTON
+} EngineUIElementType;
 
 /**
  * \brief The type of noise mask.
@@ -142,6 +166,7 @@ struct engine_entity {
  * \brief The camera for a game.
  */
 struct engine_camera {
+	float x, y;
 	float vx, vy;
 	float speed;
 
@@ -184,6 +209,27 @@ struct engine_scene {
 	EngineSceneFunc draw;
 };
 
+struct engine_ui_element
+{
+	EngineUIElementType type;
+	union {
+		char* text;
+		char* inputbuffer;
+		EBOOL enabled;
+		EngineUIButtonFunc func;
+	};
+
+	float x, y;
+	float w, h;
+	float padding;
+	float margin;
+	float border;
+
+	vec3 bgcol;			// background color
+	vec3 fgcol;			// foreground color
+	vec3 borcol;		// border color
+};
+
 /** 
  * \brief The engine itself, nothing can function without this being initialized!
  */
@@ -194,10 +240,13 @@ struct engine_context {
 
 	EngineTexturePair textures[ENGINE_MAX_TEXTURES];
 	EBOOL keys[ENGINE_NUM_KEYS];
+	EBOOL mousebtns[ENGINE_NUM_MOUSE_BUTTONS];
 	EngineScene* scenes[ENGINE_MAX_SCENES];
 
 	EngineCamera* camera;
 	EngineProgram program;
+
+	FILE* logfile;
 
 	unsigned int vao;
 	unsigned int ntextures;
@@ -205,6 +254,8 @@ struct engine_context {
 	float scroll_debounce_timer;
 	EBOOL zoomin, zoomout;
 	float zoomfac;
+
+	float mousex, mousey;
 };
 
 #endif // ENGINE_DEFS_H

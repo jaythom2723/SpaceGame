@@ -3,8 +3,11 @@
 
 #include "engine_defs.h"
 
+#define ONE_LIGHTYEAR_PIXELS 100
+
 // FIXME: Locate and find a bug related to being unable to generate more than 4096 stars
 #define GAME_MAX_STARS 0x1000
+#define GAME_MAX_JPTS_PER_STAR 0xF
 #define GAME_GALAXY_WIDTH 1000
 #define GAME_GALAXY_HEIGHT 1000
 #define GAME_GALAXY_X -(GAME_GALAXY_WIDTH/2)
@@ -38,6 +41,7 @@ enum gamestate {
 typedef struct game_star {
 	GameStarClass class;
 	EngineEntityKey entity;
+	int numJumpPoints;
 
 	double mass;
 	double luminosity;			// L = M^3.5
@@ -47,5 +51,13 @@ typedef struct game_star {
 	double habitableZoneInner;	// R = sqrt(L)*0.95
 	double habitableZoneOuter;	// R = sqrt(L)*1.37
 } GameStar;
+
+struct stardata {
+	float x;
+	float y;
+	float w;
+	float h;
+	int id;
+};
 
 #endif // GAME_DEFS_H

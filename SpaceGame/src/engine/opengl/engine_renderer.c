@@ -28,7 +28,7 @@ void engineRenderEntity(EngineContext* ctx, EngineEntityKey key)
 
 	glm_mat4_identity(model);
 	engineUseShader(ctx);
-	getModelMatrix((vec2) { ent->x * ctx->zoomfac, ent->y * ctx->zoomfac }, (vec2) { ent->width* ctx->zoomfac, ent->height* ctx->zoomfac }, 0.0f, model);
+	getModelMatrix((vec2) { ent->x * ctx->zoomfac, ent->y * ctx->zoomfac }, (vec2) { ent->width * ctx->zoomfac, ent->height * ctx->zoomfac }, 0.0f, model);
 	engineSetMatrix4fv(ctx, "model", model);
 
 	glActiveTexture(GL_TEXTURE0);

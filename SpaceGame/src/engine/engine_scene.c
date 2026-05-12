@@ -1,10 +1,37 @@
 #include "engine_scene.h"
 #include "engine_components.h"
 #include "engine_entity.h"
+#include "engine_math.h"
 
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
+
+void _engine_resetcamera(EngineContext* ctx, float deltaTime)
+{
+	ctx->zoomfac = ENGINE_DEFAULT_ZOOM_FACTOR;
+	ctx->camera->vx = 0;
+	ctx->camera->vy = 0;
+
+	EngineCamera* camera = ctx->camera;
+	EngineScene* curscene = engineGetCurrentScene(ctx);
+	assert(curscene != NULL);
+	assert(curscene->entities != NULL);
+
+	for (int i = 0; i < curscene->nentities; i++)
+	{
+		EngineEntity* ent = &(curscene->entities[i]);
+
+		if (ctx->camera->x != 0 || ctx->camera->y != 0)
+		{
+			ent->x = ent->x - ctx->camera->x;
+			ent->y = ent->y - ctx->camera->y;
+		}
+	}
+
+	ctx->camera->x = 0;
+	ctx->camera->y = 0;
+}
 
 void _engine_docamerainput(EngineContext* ctx, float deltaTime)
 {
@@ -24,6 +51,12 @@ void _engine_docamerainput(EngineContext* ctx, float deltaTime)
 		camera->vx = -(camera->speed) * deltaTime;
 	else if (ctx->keys[EKEY_D] == ETRUE)
 		camera->vx = camera->speed * deltaTime;
+
+	camera->x += camera->vx;
+	camera->y += camera->vy;
+
+	if (ctx->keys[EKEY_ESCAPE] == ETRUE)
+		_engine_resetcamera(ctx, deltaTime);
 }
 
 void _engine_dozoom(EngineContext* ctx, float deltaTime)
@@ -100,7 +133,6 @@ void engineRegisterScene(EngineContext* ctx, GameState state, EngineSceneFunc in
 
 void engineDestroyScene(EngineContext* ctx, GameState state)
 {
-	// TODO: make this honky ah function more readable
 	if (ctx->scenes[state] == NULL)
 		return;
 

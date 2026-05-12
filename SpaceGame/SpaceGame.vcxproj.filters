@@ -67,6 +67,12 @@
     <Filter Include="Source Files\engine\utility">
       <UniqueIdentifier>{6e0933fe-c52a-4fc9-b17a-cdf83de77c53}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\engine\ui">
+      <UniqueIdentifier>{6a8c4548-3882-4a5b-87f4-ccb73959b9a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\engine\ui">
+      <UniqueIdentifier>{b78e922c-a45d-41c1-93e1-a4bafe3dfa63}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Debug\Shaders\fragment.glsl">
@@ -157,6 +163,15 @@
     <ClInclude Include="include\generator_defs.h">
       <Filter>Header Files\game\generation</Filter>
     </ClInclude>
+    <ClInclude Include="include\engine\utility\engine_math.h">
+      <Filter>Header Files\engine\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\ui\engine_ui.h">
+      <Filter>Header Files\engine\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\utility\engine_logger.h">
+      <Filter>Header Files\engine\utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\engine\entity\engine_component_funcs.c">
@@ -202,6 +217,18 @@
       <Filter>Source Files\engine\utility</Filter>
     </ClCompile>
     <ClCompile Include="src\engine\utility\engine_utils.c">
+      <Filter>Source Files\engine\utility</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\utility\engine_math.c">
+      <Filter>Source Files\engine\utility</Filter>
+    </ClCompile>
+    <ClCompile Include="src\galaxy_scene.c">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\ui\engine_ui.c">
+      <Filter>Source Files\engine\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\utility\engine_logger.c">
       <Filter>Source Files\engine\utility</Filter>
     </ClCompile>
   </ItemGroup>

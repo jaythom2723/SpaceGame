@@ -28,7 +28,7 @@ static void load(void);
 static EngineContext* ctx = NULL;
 
 EngineTextureKey STAR_TEXTURE = 0x9669;
-GameStar stars[GAME_MAX_STARS] = { 0 };
+GameStar* stars = NULL;
 
 int main(void)
 {
@@ -68,8 +68,10 @@ int main(void)
 		engineWindowSwapBuffers(ctx);
 	}
 
-	engineDestroyCamera(ctx);
+	free(stars);
+	stars = NULL;
 
+	engineDestroyCamera(ctx);
 	engineDestroyAllScenes(ctx);
 	engineDestroyAllEntities(ctx);
 	engineDestroyAllTextures(ctx);
@@ -88,6 +90,9 @@ void load(void)
 	engineCreateTexture(ctx, STAR_TEXTURE);
 
 	engineGenerateTexture(ctx, STAR_TEXTURE, "Textures/star.png", ETRUE);
+
+	stars = calloc(GAME_MAX_STARS, sizeof(GameStar));
+	assert(stars != NULL);
 }
 
 void input_controller(EngineEntity* ent, EngineContext* ctx, float deltaTime)

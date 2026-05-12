@@ -4,6 +4,7 @@
 #include "engine_buffers.h"
 #include "engine_textures.h"
 #include "engine_utils.h"
+#include "engine_logger.h"
 
 #include <cglm/cglm.h>
 
@@ -48,6 +49,23 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	}
 }
 
+void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
+{
+	if (glfwWindowShouldClose(window) == GLFW_TRUE)
+		return;
+
+	if (action == GLFW_PRESS)
+		int_ctx->mousebtns[button] = ETRUE;
+	else
+		int_ctx->mousebtns[button] = EFALSE;
+}
+
+void cursor_pos_callback(GLFWwindow* window, double x, double y)
+{
+	int_ctx->mousex = (float)x;
+	int_ctx->mousey = (float)y;
+}
+
 EngineContext* engineInit(void)
 {
 	EngineContext* engine = malloc(sizeof(EngineContext));
@@ -56,6 +74,11 @@ EngineContext* engineInit(void)
 		fprintf(stderr, "Failed to initialize the engine!\n");
 		return NULL;
 	}
+
+	// initialize logger above all else
+	// TODO: error handler
+	// engineInitializeLogger(engine);
+	// engineWriteMessage(engine, "Engine logger has been successfully initialized!\n", ELOG_MSGTYPE_INFORM);
 
 	if (glfwInit() != GLFW_TRUE)
 	{
@@ -69,10 +92,12 @@ EngineContext* engineInit(void)
 	memset(engine->textures, 0, ENGINE_MAX_TEXTURES * sizeof(EngineTexturePair));
 	engine->ntextures = 0;
 	engine->state = -1;
-	engine->zoomfac = 1.f;
+	engine->zoomfac = ENGINE_DEFAULT_ZOOM_FACTOR;
 	engine->zoomin = EFALSE;
 	engine->zoomout = EFALSE;
 	engine->scroll_debounce_timer = 0.0f;
+	engine->mousex = 0.0f;
+	engine->mousey = 0.0f;
 
 	memset(engine->scenes, 0, ENGINE_MAX_SCENES * sizeof(EngineScene*));
 
@@ -132,6 +157,8 @@ EBOOL engineCreateWindow(EngineContext* ctx, const WindowConfig config)
 	glfwSetFramebufferSizeCallback(ctx->window, framebuffer_size_callback);
 	glfwSetKeyCallback(ctx->window, key_callback);
 	glfwSetScrollCallback(ctx->window, scroll_callback);
+	glfwSetMouseButtonCallback(ctx->window, mouse_button_callback);
+	glfwSetCursorPosCallback(ctx->window, cursor_pos_callback);
 
 	glfwMakeContextCurrent(ctx->window);
 	if (gladLoadGLLoader((GLADloadproc)glfwGetProcAddress) != ETRUE)
@@ -185,6 +212,8 @@ const EBOOL engineSetupCamera(EngineContext* ctx, float speed)
 	ctx->camera->speed = speed;
 	ctx->camera->vx = 0.f;
 	ctx->camera->vy = 0.f;
+	ctx->camera->x = 0.f;
+	ctx->camera->y = 0.f;
 	ctx->camera->control = EFALSE;
 
 	return ETRUE;

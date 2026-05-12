@@ -44,6 +44,9 @@
     <ClInclude Include="include\engine\opengl\engine_renderer.h" />
     <ClInclude Include="include\engine\opengl\engine_shaders.h" />
     <ClInclude Include="include\engine\opengl\engine_textures.h" />
+    <ClInclude Include="include\engine\ui\engine_ui.h" />
+    <ClInclude Include="include\engine\utility\engine_logger.h" />
+    <ClInclude Include="include\engine\utility\engine_math.h" />
     <ClInclude Include="include\engine\utility\engine_perlin.h" />
     <ClInclude Include="include\engine\utility\engine_utils.h" />
     <ClInclude Include="include\game_defs.h" />
@@ -63,8 +66,12 @@
     <ClCompile Include="src\engine\opengl\engine_renderer.c" />
     <ClCompile Include="src\engine\opengl\engine_shaders.c" />
     <ClCompile Include="src\engine\opengl\engine_textures.c" />
+    <ClCompile Include="src\engine\ui\engine_ui.c" />
+    <ClCompile Include="src\engine\utility\engine_logger.c" />
+    <ClCompile Include="src\engine\utility\engine_math.c" />
     <ClCompile Include="src\engine\utility\engine_perlin.c" />
     <ClCompile Include="src\engine\utility\engine_utils.c" />
+    <ClCompile Include="src\galaxy_scene.c" />
     <ClCompile Include="src\game.c" />
     <ClCompile Include="src\generator.c" />
     <ClCompile Include="src\scene_funcs.c" />
@@ -128,7 +135,7 @@
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>E:\Programming\c\SpaceGame\vendor\glfw-3.4.bin.WIN32\include;E:\Programming\c\SpaceGame\vendor\glm-1.0.3\include;E:\Programming\c\SpaceGame\vendor\stb_image\include;E:\Programming\c\SpaceGame\vendor\SDL3-3.2.14\include;E:\Programming\c\SpaceGame\vendor\glad\include;E:\Programming\c\SpaceGame\vendor\cglm-0.9.6\include;E:\Programming\c\SpaceGame\SpaceGame\include\engine\opengl;E:\Programming\c\SpaceGame\SpaceGame\include\engine\entity;E:\Programming\c\SpaceGame\SpaceGame\include\engine;E:\Programming\c\SpaceGame\SpaceGame\include;E:\Programming\c\SpaceGame\SpaceGame\include\engine\utility;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\Programming\c\SpaceGame\SpaceGame\include\engine\ui;E:\Programming\c\SpaceGame\vendor\glfw-3.4.bin.WIN32\include;E:\Programming\c\SpaceGame\vendor\glm-1.0.3\include;E:\Programming\c\SpaceGame\vendor\stb_image\include;E:\Programming\c\SpaceGame\vendor\SDL3-3.2.14\include;E:\Programming\c\SpaceGame\vendor\glad\include;E:\Programming\c\SpaceGame\vendor\cglm-0.9.6\include;E:\Programming\c\SpaceGame\SpaceGame\include\engine\opengl;E:\Programming\c\SpaceGame\SpaceGame\include\engine\entity;E:\Programming\c\SpaceGame\SpaceGame\include\engine;E:\Programming\c\SpaceGame\SpaceGame\include;E:\Programming\c\SpaceGame\SpaceGame\include\engine\utility;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -150,7 +157,7 @@ xcopy /y/q $(solutiondir)vendor\glfw-3.4.bin.WIN32\glfw3.dll $(solutiondir)$(int
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>E:\Programming\c\SpaceGame\vendor\glfw-3.4.bin.WIN32\include;E:\Programming\c\SpaceGame\vendor\glm-1.0.3\include;E:\Programming\c\SpaceGame\vendor\stb_image\include;E:\Programming\c\SpaceGame\vendor\SDL3-3.2.14\include;E:\Programming\c\SpaceGame\vendor\glad\include;E:\Programming\c\SpaceGame\vendor\cglm-0.9.6\include;E:\Programming\c\SpaceGame\SpaceGame\include\engine\opengl;E:\Programming\c\SpaceGame\SpaceGame\include\engine\entity;E:\Programming\c\SpaceGame\SpaceGame\include\engine;E:\Programming\c\SpaceGame\SpaceGame\include;E:\Programming\c\SpaceGame\SpaceGame\include\engine\utility;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\Programming\c\SpaceGame\SpaceGame\include\engine\ui;E:\Programming\c\SpaceGame\vendor\glfw-3.4.bin.WIN32\include;E:\Programming\c\SpaceGame\vendor\glm-1.0.3\include;E:\Programming\c\SpaceGame\vendor\stb_image\include;E:\Programming\c\SpaceGame\vendor\SDL3-3.2.14\include;E:\Programming\c\SpaceGame\vendor\glad\include;E:\Programming\c\SpaceGame\vendor\cglm-0.9.6\include;E:\Programming\c\SpaceGame\SpaceGame\include\engine\opengl;E:\Programming\c\SpaceGame\SpaceGame\include\engine\entity;E:\Programming\c\SpaceGame\SpaceGame\include\engine;E:\Programming\c\SpaceGame\SpaceGame\include;E:\Programming\c\SpaceGame\SpaceGame\include\engine\utility;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
