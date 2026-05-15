@@ -77,12 +77,13 @@ EngineContext* engineInit(void)
 
 	// initialize logger above all else
 	// TODO: error handler
-	// engineInitializeLogger(engine);
-	// engineWriteMessage(engine, "Engine logger has been successfully initialized!\n", ELOG_MSGTYPE_INFORM);
+	engineInitializeLogger(engine);
+	engineWriteMessage(engine, "Engine logger has been successfully initialized!", ELOG_MSGTYPE_INFORM);
 
 	if (glfwInit() != GLFW_TRUE)
 	{
 		fprintf(stderr, "Failed to initialize GLFW!\n");
+		engineWriteMessage(engine, "Failed to initialize GLFW!\n", ELOG_MSGTYPE_ERROR);
 		engineClose(engine);
 		return NULL;
 	}
@@ -107,6 +108,7 @@ EngineContext* engineInit(void)
 	engine->camera = NULL;
 
 	int_ctx = engine;
+	engineWriteMessage(engine, "Engine is initialized!", ELOG_MSGTYPE_INFORM);
 
 	return engine;
 }
@@ -114,11 +116,15 @@ EngineContext* engineInit(void)
 EngineContext* engineBootstrap(WindowConfig cfg, size_t vertBytes, float* vertices)
 {
 	EngineContext* ctx = engineInit();
+	engineWriteMessage(ctx, "Bootstrapping engine context...", ELOG_MSGTYPE_INFORM);
 	if (ctx == NULL)
+	{
 		return NULL;
+	}
 
 	engineCreateWindow(ctx, cfg);
 
+	engineWriteMessage(ctx, "Initializing OpenGL Shader Program", ELOG_MSGTYPE_INFORM);
 	EngineShader vertex, fragment;
 	vertex = engineCreateShader(ENGINE_VERTEX_SHADER);
 	fragment = engineCreateShader(ENGINE_FRAGMENT_SHADER);
@@ -126,6 +132,7 @@ EngineContext* engineBootstrap(WindowConfig cfg, size_t vertBytes, float* vertic
 	const EBOOL b = engineCompileShader(&fragment, "Shaders/fragment.glsl");
 	if (a == EFALSE || b == EFALSE)
 	{
+		engineWriteMessage(ctx, "Failed to compile one or both shaders. (engne.c>engineBootstrap())", ELOG_MSGTYPE_ERROR);
 		engineClose(ctx);
 		return NULL;
 	}
@@ -133,6 +140,8 @@ EngineContext* engineBootstrap(WindowConfig cfg, size_t vertBytes, float* vertic
 	engineCreateProgram(ctx);
 	engineAttachAndLinkv(ctx, 2, &vertex, &fragment);
 	engineInitProjectionMatrix(ctx);
+
+	engineWriteMessage(ctx, "Initializing the Vertex Buffer Object and Vertex Array Object pair.", ELOG_MSGTYPE_INFORM);
 	engineInitVBOVAOPair(ctx, vertBytes, vertices);
 	
 	return ctx;
@@ -140,17 +149,21 @@ EngineContext* engineBootstrap(WindowConfig cfg, size_t vertBytes, float* vertic
 
 EBOOL engineCreateWindow(EngineContext* ctx, const WindowConfig config)
 {
+	engineWriteMessage(ctx, "Initializing GLFW and the window...", ELOG_MSGTYPE_INFORM);
 	glfwWindowHint(GLFW_RESIZABLE, config.resizable);
 	glfwWindowHint(GLFW_DOUBLEBUFFER, config.doublebuffer);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	engineWriteMessage(ctx, "Successfully initialized GLFW...", ELOG_MSGTYPE_INFORM);
+	engineWriteMessage(ctx, "Creating GLFW Window...", ELOG_MSGTYPE_INFORM);
 	ctx->window = glfwCreateWindow(config.width, config.height, config.title, NULL, NULL);
 	if (ctx->window == NULL)
 	{
 		char* err;
 		glfwGetError(&err);
-		fprintf(stderr, "Could not create a GLFW window!\n\t%s\n", err);
+		engineWriteMessage(ctx, "Failed to create a GLFW window!", ELOG_MSGTYPE_ERROR);
+		engineWriteMessage(ctx, err, ELOG_MSGTYPE_ERROR);
 		return EFALSE;
 	}
 
@@ -160,10 +173,12 @@ EBOOL engineCreateWindow(EngineContext* ctx, const WindowConfig config)
 	glfwSetMouseButtonCallback(ctx->window, mouse_button_callback);
 	glfwSetCursorPosCallback(ctx->window, cursor_pos_callback);
 
+	engineWriteMessage(ctx, "Initialing OpenGL...", ELOG_MSGTYPE_INFORM);
 	glfwMakeContextCurrent(ctx->window);
 	if (gladLoadGLLoader((GLADloadproc)glfwGetProcAddress) != ETRUE)
 	{
 		fprintf(stderr, "Could not initialize GLAD!\n");
+		engineWriteMessage(ctx, "Failed to initialize GLAD and/or OpenGL!", ELOG_MSGTYPE_ERROR);
 		engineClose(ctx);
 		return EFALSE;
 	}
@@ -174,6 +189,7 @@ EBOOL engineCreateWindow(EngineContext* ctx, const WindowConfig config)
 void engineClose(EngineContext* ctx)
 {
 	int_ctx = NULL;
+	engineCloseLogger(ctx);
 	if (glIsProgram(ctx->program))
 		engineDeleteProgram(ctx);
 	if (ctx->window != NULL)
@@ -190,6 +206,8 @@ void engineClose(EngineContext* ctx)
 // woohoo
 void engineInitProjectionMatrix(EngineContext* ctx)
 {
+	engineWriteMessage(ctx, "Initializing Projection Matrix!", ELOG_MSGTYPE_INFORM);
+
 	int width, height;
 	glfwGetWindowSize(ctx->window, &width, &height);
 	
@@ -199,15 +217,26 @@ void engineInitProjectionMatrix(EngineContext* ctx)
 	engineUseShader(ctx);
 	engineSetMatrix4fv(ctx, "projection", projection);
 	engineSetInteger(ctx, "image", 0);
+
+	engineWriteMessage(ctx, "Projection Matrix initialized.", ELOG_MSGTYPE_INFORM);
 }
 
 const EBOOL engineSetupCamera(EngineContext* ctx, float speed)
 {
+	engineWriteMessage(ctx, "Initializing Camera.", ELOG_MSGTYPE_INFORM);
+
 	if (ctx->camera != NULL)
+	{
+		engineWriteMessage(ctx, "Cannot create more than one camera at a time!", ELOG_MSGTYPE_WARN);
 		return EFALSE;
+	}
 
 	ctx->camera = malloc(sizeof(EngineCamera));
-	assert(ctx->camera != NULL);
+	if (ctx->camera == NULL)
+	{
+		engineWriteMessage(ctx, "Allocation Failure (engine.c>engineSetupCamera())", ELOG_MSGTYPE_WARN);
+		return EFALSE;
+	}
 
 	ctx->camera->speed = speed;
 	ctx->camera->vx = 0.f;
@@ -222,7 +251,10 @@ const EBOOL engineSetupCamera(EngineContext* ctx, float speed)
 void engineDestroyCamera(EngineContext* ctx)
 {
 	if (ctx->camera == NULL)
+	{
+		engineWriteMessage(ctx, "No camera exists.", ELOG_MSGTYPE_INFORM);
 		return;
+	}
 
 	free(ctx->camera);
 	ctx->camera = NULL;

@@ -35,6 +35,13 @@ typedef struct engine_logger_file_metadata {
 #define ELOGGER_META_DATEMONTH ELOGGER_META_DATEYEAR + 0x04
 #define ELOGGER_META_DATEDAY ELOGGER_META_DATEMONTH + 0x04
 
+#define ELOG_ENGVER_STEMP	"\nEngine Version: %s.%s.%s\n"
+#define ELOG_OGLVER_STEMP	"OpenGL Version: %s.%s\n"
+#define ELOG_CGLMVR_STEMP	"CGLM Version: %s.%s\n"
+#define ELOG_DATE_STEMP		"DD.MM.YYYY\n"
+
+#define ELOG_HDRSEP_WIDTH	258
+
 void engineInitializeLogger(EngineContext* ctx);
 void engineCloseLogger(EngineContext* ctx);
 
