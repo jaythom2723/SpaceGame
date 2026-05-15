@@ -2,6 +2,7 @@
 #include "engine_components.h"
 #include "engine_entity.h"
 #include "engine_math.h"
+#include "engine_logger.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -108,13 +109,31 @@ void _engine_draw(EngineContext* ctx, float deltaTime)
 void engineRegisterScene(EngineContext* ctx, GameState state, EngineSceneFunc init, EngineSceneFunc update, EngineSceneFunc draw)
 {
 	if (ctx->scenes[state] != NULL)
+	{
+		engineWriteMessage(ctx, "Cannot register more than one scene for a given state!", ELOG_MSGTYPE_WARN);
 		return;
-	
+	}
+	engineWriteMesssage(ctx, "Registering a new scene!", ELOG_MSGTYPE_INFORM);
+
+
 	// NOTE: wtf is this shit? Why did I do this?
 	EngineScene* tmp = malloc(sizeof(EngineScene));
 	ctx->scenes[state] = malloc(sizeof(EngineScene));
-	if (ctx->scenes[state] == NULL || tmp == NULL)
+	if (ctx->scenes[state] == NULL)
+	{
+		engineWriteMessaage(ctx, "Failed to allocate memory! (engine_scene.c>engineRegisterScene())");
+		free(tmp);
+		tmp = NULL;
 		return;
+	}
+
+	if (tmp == NULL)
+	{
+		engineWriteMessaage(ctx, "Failed to allocate memory! (engine_scene.c>engineRegisterScene())");
+		free(ctx->scenes[state]);
+		ctx->scenes[state] = NULL;
+		return;
+	}
 
 	tmp->initialized = EFALSE;
 	tmp->init = init;
@@ -129,6 +148,8 @@ void engineRegisterScene(EngineContext* ctx, GameState state, EngineSceneFunc in
 
 	free(tmp);
 	tmp = NULL;
+
+	engineWriteMessage(ctx, "Scene registered successfully!", ELOG_MSGTYPE_INFORM);
 }
 
 void engineDestroyScene(EngineContext* ctx, GameState state)

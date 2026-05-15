@@ -144,7 +144,6 @@
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y/q $(solutiondir)vendor\cglm-0.9.6\cglm.dll $(solutiondir)$(intdir)
-xcopy /y/q $(solutiondir)vendor\SDL3-3.2.14\SDL3.dll $(solutiondir)$(intdir)
 xcopy /y/q $(solutiondir)vendor\glfw-3.4.bin.WIN32\glfw3.dll $(solutiondir)$(intdir)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -166,7 +165,6 @@ xcopy /y/q $(solutiondir)vendor\glfw-3.4.bin.WIN32\glfw3.dll $(solutiondir)$(int
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y/q $(solutiondir)vendor\cglm-0.9.6\cglm.dll $(solutiondir)$(intdir)
-xcopy /y/q $(solutiondir)vendor\SDL3-3.2.14\SDL3.dll $(solutiondir)$(intdir)
 xcopy /y/q $(solutiondir)vendor\glfw-3.4.bin.WIN32\glfw3.dll $(solutiondir)$(intdir)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
