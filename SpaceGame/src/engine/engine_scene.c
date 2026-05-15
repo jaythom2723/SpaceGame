@@ -16,9 +16,18 @@ void _engine_resetcamera(EngineContext* ctx, float deltaTime)
 
 	EngineCamera* camera = ctx->camera;
 	EngineScene* curscene = engineGetCurrentScene(ctx);
-	assert(curscene != NULL);
-	assert(curscene->entities != NULL);
+	if (curscene == NULL)
+	{
+		engineWriteMessage(ctx, "Cannot reset the camera if the scene does not exist!", ELOG_MSGTYPE_WARN);
+		return;
+	}
 
+	if (curscene->entities == NULL)
+	{
+		engineWriteMessage(ctx, "Cannot reset the camera if the scene does not have any entities!", ELOG_MSGTYPE_WARN);
+		return;
+	}
+	
 	for (int i = 0; i < curscene->nentities; i++)
 	{
 		EngineEntity* ent = &(curscene->entities[i]);
@@ -89,8 +98,11 @@ void _engine_update(EngineContext* ctx, float deltaTime)
 
 	// propogate the movement of the camera to all entities
 	EngineScene* curscene = engineGetCurrentScene(ctx);
-	assert(curscene != NULL);
-	assert(curscene->entities != NULL);
+	if (curscene == NULL)
+		return;
+
+	if (curscene->entities == NULL)
+		return;
 
 	// emulating the camera movement
 	for (int i = 0; i < curscene->nentities; i++)
@@ -113,7 +125,7 @@ void engineRegisterScene(EngineContext* ctx, GameState state, EngineSceneFunc in
 		engineWriteMessage(ctx, "Cannot register more than one scene for a given state!", ELOG_MSGTYPE_WARN);
 		return;
 	}
-	engineWriteMesssage(ctx, "Registering a new scene!", ELOG_MSGTYPE_INFORM);
+	engineWriteMessage(ctx, "Registering a new scene!", ELOG_MSGTYPE_INFORM);
 
 
 	// NOTE: wtf is this shit? Why did I do this?
@@ -121,7 +133,7 @@ void engineRegisterScene(EngineContext* ctx, GameState state, EngineSceneFunc in
 	ctx->scenes[state] = malloc(sizeof(EngineScene));
 	if (ctx->scenes[state] == NULL)
 	{
-		engineWriteMessaage(ctx, "Failed to allocate memory! (engine_scene.c>engineRegisterScene())");
+		engineWriteMessage(ctx, "Failed to allocate memory! (engine_scene.c>engineRegisterScene():136)", ELOG_MSGTYPE_ERROR);
 		free(tmp);
 		tmp = NULL;
 		return;
@@ -129,7 +141,7 @@ void engineRegisterScene(EngineContext* ctx, GameState state, EngineSceneFunc in
 
 	if (tmp == NULL)
 	{
-		engineWriteMessaage(ctx, "Failed to allocate memory! (engine_scene.c>engineRegisterScene())");
+		engineWriteMessage(ctx, "Failed to allocate memory! (engine_scene.c>engineRegisterScene():144)", ELOG_MSGTYPE_ERROR);
 		free(ctx->scenes[state]);
 		ctx->scenes[state] = NULL;
 		return;
@@ -144,7 +156,13 @@ void engineRegisterScene(EngineContext* ctx, GameState state, EngineSceneFunc in
 	memcpy(ctx->scenes[state], tmp, sizeof(EngineScene));
 
 	ctx->scenes[state]->entities = calloc(ENGINE_MAX_ENTITIES, sizeof(EngineEntity));
-	assert(ctx->scenes[state]->entities != NULL);
+	if (ctx->scenes[state]->entities == NULL)
+	{
+		engineWriteMessage(ctx, "Failed to allocate memory! (engine_scene.c>engineRegisterScene():161)", ELOG_MSGTYPE_ERROR);
+		free(ctx->scenes[state]);
+		ctx->scenes[state] = NULL;
+		return;
+	}
 
 	free(tmp);
 	tmp = NULL;
@@ -155,9 +173,13 @@ void engineRegisterScene(EngineContext* ctx, GameState state, EngineSceneFunc in
 void engineDestroyScene(EngineContext* ctx, GameState state)
 {
 	if (ctx->scenes[state] == NULL)
+	{
+		engineWriteMessage(ctx, "Cannot destroy a NULL scene!", ELOG_MSGTYPE_WARN);
 		return;
+	}
 
 	EngineScene* scene = engineGetScene(ctx, state);
+	engineWriteMessage(ctx, "Destroying a scene...", ELOG_MSGTYPE_INFORM);
 
 	// loop through entity component lists and make sure they are not null
 	for (int i = 0; i < scene->nentities; i++)
@@ -180,8 +202,16 @@ void engineDestroyScene(EngineContext* ctx, GameState state)
 
 void engineDestroyAllScenes(EngineContext* ctx)
 {
+	int numNulls = 0;
 	for (int i = 0; i < ENGINE_MAX_SCENES; i++)
-		engineDestroyScene(ctx, i);
+	{
+		if (numNulls >= 3)
+			break;
+		
+		numNulls = ctx->scenes[i] == NULL ? numNulls + 1 : 0;
+		if (ctx->scenes[i] != NULL)
+			engineDestroyScene(ctx, i);
+	}
 }
 
 EngineScene* engineGetScene(EngineContext* ctx, GameState state)

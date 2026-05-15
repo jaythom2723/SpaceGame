@@ -4,6 +4,7 @@
 #include "engine_utils.h"
 #include "engine_shaders.h"
 #include "engine_textures.h"
+#include "engine_logger.h"
 
 #include <glad/glad.h>
 
@@ -40,6 +41,7 @@ void enginePerlinInit(const int width, const int height)
 
 void engineSetNoiseMask(EngineContext* ctx, const EngineNoiseMask* const mask, const EngineTextureKey texkey)
 {
+	engineWriteMessage(ctx, "Setting Perlin Noise Mask...", ELOG_MSGTYPE_INFORM);
 	if (mask->type == ENGINE_NOISEMASK_GALAXY)
 	{
 		maskProgram = engineCreateLocalProgram();
@@ -103,6 +105,7 @@ float* enginePerlinGenerate(void)
 
 float* enginePerlinGenerateMask(EngineContext* ctx, EngineTextureKey texkey)
 {
+	engineWriteMessage(ctx, "Generating perlin noise!", ELOG_MSGTYPE_INFORM);
 	engineUseShaderl(maskProgram);
 	engineBindImageTexture(ctx, texkey, ENGINE_IMG_WRITE_ONLY, ENGINE_RGBA32F);
 	engineInvokeComputeShaderImage(_engine_perlinwidth, _engine_perlinheight);
@@ -113,6 +116,7 @@ float* enginePerlinGenerateMask(EngineContext* ctx, EngineTextureKey texkey)
 
 void enginePerlinClose(EngineContext* ctx, EngineTextureKey texkey)
 {
+	engineWriteMessage(ctx, "Destroying perlin noise data", ELOG_MSGTYPE_INFORM);
 	extern EngineTexturePair* _engineGetTexturePair(EngineContext*, EngineTextureKey,unsigned int*);
 
 	int index = 0;
