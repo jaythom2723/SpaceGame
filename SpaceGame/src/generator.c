@@ -8,6 +8,7 @@
 #include "engine_perlin.h"
 #include "engine_scene.h"
 #include "engine_math.h"
+#include "engine_logger.h"
 
 #include <string.h>
 #include <assert.h>
@@ -23,20 +24,20 @@ const char* STAR_CLASS_TRANSLATIONS[STAR_CLASS_M + 1] = {
 };
 
 static const char* classStrings[STAR_CLASS_M + 1] = {
-		"Giant",
-		"SGiant",
-		"BHole",
-		"WDwarf",
-		"Neutron",
-		"Pulsar",
-		"Quasar",
-		"O",
-		"B",
-		"A",
-		"F",
-		"G",
-		"K",
-		"M",
+	"Giant",
+	"SGiant",
+	"BHole",
+	"WDwarf",
+	"Neutron",
+	"Pulsar",
+	"Quasar",
+	"O",
+	"B",
+	"A",
+	"F",
+	"G",
+	"K",
+	"M",
 };
 
 void _generateStar(GameStar* stars, int index);
@@ -348,7 +349,7 @@ void generateStars(EngineContext* ctx, GameStar* stars, float* noise)
 	}
 
 	if (attempts >= maxAttempts)
-		printf("Warning: could not place all stars! Threshold might be too high!\n");
+		engineWriteMessage(ctx, "Could not place all the stars  (4096)! Threshold might be too high!", ELOG_MSGTYPE_WARN);
 }
 
 void _generateStarEntity(EngineContext* ctx, GameStar* stars, int index, int x, int y)

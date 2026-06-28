@@ -14,22 +14,23 @@
 
 extern EngineTextureKey STAR_TEXTURE;
 extern GameStar* stars;
+extern GameSolarSystem* systems;
 
 static const char* classStrings[STAR_CLASS_M + 1] = {
-		"Giant",
-		"SGiant",
-		"BHole",
-		"WDwarf",
-		"Neutron",
-		"Pulsar",
-		"Quasar",
-		"O",
-		"B",
-		"A",
-		"F",
-		"G",
-		"K",
-		"M",
+	"Giant",
+	"SGiant",
+	"BHole",
+	"WDwarf",
+	"Neutron",
+	"Pulsar",
+	"Quasar",
+	"O",
+	"B",
+	"A",
+	"F",
+	"G",
+	"K",
+	"M",
 };
 
 void game_galaxy_map_init(EngineScene* scene, EngineContext* ctx, float deltaTime)
@@ -56,6 +57,17 @@ void game_galaxy_map_update(EngineScene* scene, EngineContext* ctx, float deltaT
 
 			if (dist <= area)
 			{
+				// TODO: solar system bullshit here please
+				// TODO: move this into another function please
+				for (int j = 0; j < GAME_MAX_STARS; j++)
+				{
+					if (systems[j].stars == NULL || systems[j].planets == NULL)
+					{
+						printf("The star you clicked has no solar system generated!\n");
+						break;
+					}
+				}
+
 				printf("Mouse Pos: (%f, %f)\n", ctx->mousex, ctx->mousey);
 				printf("Entity Pos: (%f, %f)\n", ent->x, ent->y);
 				printf("Clicked on a star of class: %s!\n", classStrings[stars[i].class]);

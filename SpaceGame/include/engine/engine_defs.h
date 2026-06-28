@@ -211,12 +211,16 @@ struct engine_scene {
 
 struct engine_ui_element
 {
+	EngineUIElement** parent;
+
 	EngineUIElementType type;
+	EBOOL visible;
+
 	union {
 		char* text;
 		char* inputbuffer;
-		EBOOL enabled;
 		EngineUIButtonFunc func;
+		EBOOL enabled;
 	};
 
 	float x, y;

@@ -28,7 +28,9 @@ static void load(void);
 static EngineContext* ctx = NULL;
 
 EngineTextureKey STAR_TEXTURE = 0x9669;
+
 GameStar* stars = NULL;
+GameSolarSystem* systems = NULL;
 
 int main(void)
 {
@@ -88,11 +90,13 @@ void load(void)
 	engineRegisterScene(ctx, GAME_GALAXY_MAP, game_galaxy_map_init, game_galaxy_map_update, game_galaxy_map_draw);
 
 	engineCreateTexture(ctx, STAR_TEXTURE);
-
 	engineGenerateTexture(ctx, STAR_TEXTURE, "Textures/star.png", ETRUE);
 
 	stars = calloc(GAME_MAX_STARS, sizeof(GameStar));
 	assert(stars != NULL);
+
+	systems = calloc(GAME_MAX_STARS, sizeof(GameSolarSystem));
+	assert(systems != NULL);
 }
 
 void input_controller(EngineEntity* ent, EngineContext* ctx, float deltaTime)

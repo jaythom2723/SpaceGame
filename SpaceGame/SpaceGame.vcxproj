@@ -44,7 +44,6 @@
     <ClInclude Include="include\engine\opengl\engine_renderer.h" />
     <ClInclude Include="include\engine\opengl\engine_shaders.h" />
     <ClInclude Include="include\engine\opengl\engine_textures.h" />
-    <ClInclude Include="include\engine\ui\engine_ui.h" />
     <ClInclude Include="include\engine\utility\engine_logger.h" />
     <ClInclude Include="include\engine\utility\engine_math.h" />
     <ClInclude Include="include\engine\utility\engine_perlin.h" />
@@ -66,7 +65,6 @@
     <ClCompile Include="src\engine\opengl\engine_renderer.c" />
     <ClCompile Include="src\engine\opengl\engine_shaders.c" />
     <ClCompile Include="src\engine\opengl\engine_textures.c" />
-    <ClCompile Include="src\engine\ui\engine_ui.c" />
     <ClCompile Include="src\engine\utility\engine_logger.c" />
     <ClCompile Include="src\engine\utility\engine_math.c" />
     <ClCompile Include="src\engine\utility\engine_perlin.c" />

@@ -8,12 +8,14 @@
 #include "engine_utils.h"
 #include "engine_shaders.h"
 #include "engine_textures.h"
+#include "engine_scene.h"
 
 #include "game_defs.h"
 #include "generator.h"
 
 extern EngineTextureKey STAR_TEXTURE;
 extern GameStar* stars;
+extern GameSolarSystem* systems;
 
 static EngineTextureKey MAP_TEXTURE_KEY = 0xFADA;
 
@@ -41,6 +43,10 @@ void game_generate_galaxy_map_init(EngineScene* scene, EngineContext* ctx, float
 	generateGalaxyStepOne(ctx, stars, MAP_TEXTURE_KEY);
 	struct stardata* data = generateGalaxyStepTwo(ctx, stars);
 	generateGalaxyStepThree(ctx, stars, data);
+
+	EngineScene* map = engineGetScene(ctx, GAME_GALAXY_MAP);
+	for (int i = 0; i < map->nentities; i++) // generate the solar system linkage between galaxy map and solar system map
+		systems[i].stars = &map->entities[i].key;
 
 	int sums[STAR_CLASS_M + 1] = { 0 };
 

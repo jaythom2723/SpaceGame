@@ -13,6 +13,11 @@
 #define GAME_GALAXY_X -(GAME_GALAXY_WIDTH/2)
 #define GAME_GALAXY_Y -(GAME_GALAXY_HEIGHT/2)
 
+#define GAME_SOLAR_SYSTEM_MAX_WIDTH 1000
+#define GAME_SOLAR_SYSTEM_MAX_HEIGHT 1000
+#define GAME_MAX_PLANETS_PER_SYSTEM 25					// Hard-cap max of num planets to spawn at any point
+#define GAME_NUM_PLANETS_TO_SPAWN_WEIGHT 0.25f			// A weight used to control the minimum and maximum planets to spawn in a solar system
+
 typedef enum game_starclass {
 	STAR_CLASS_GIANT, // NON-MAIN SEQUENCE
 	STAR_CLASS_SUPER_GIANT,
@@ -29,6 +34,13 @@ typedef enum game_starclass {
 	STAR_CLASS_K,
 	STAR_CLASS_M, // MAIN SEQUENCE [COLDEST]
 } GameStarClass;
+
+// TODO: add some more bullshit to this perchance?
+typedef enum game_planetclass
+{
+	PLANET_CLASS_TERRESTRIAL,
+	PLANET_CLASS_GAS_GIANT
+} GamePlanetClass;
 
 enum gamestate {
 	GAME_GENERATE_GALAXY_MAP,
@@ -51,6 +63,19 @@ typedef struct game_star {
 	double habitableZoneInner;	// R = sqrt(L)*0.95
 	double habitableZoneOuter;	// R = sqrt(L)*1.37
 } GameStar;
+
+typedef struct game_planet
+{
+	GamePlanetClass class;
+	EngineEntityKey entity;
+} GamePlanet;
+
+// TODO: work on binary and trinary star systems (could rework generation steps for this)
+typedef struct game_solar_system
+{
+	int* stars;
+	int* planets;
+} GameSolarSystem;
 
 struct stardata {
 	float x;
