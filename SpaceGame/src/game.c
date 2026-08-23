@@ -95,8 +95,14 @@ void load(void)
 	stars = calloc(GAME_MAX_STARS, sizeof(GameStar));
 	assert(stars != NULL);
 
-	systems = calloc(GAME_MAX_STARS, sizeof(GameSolarSystem));
+	systems = calloc(GAME_MAX_SOLAR_SYSTEMS, sizeof(GameSolarSystem));
 	assert(systems != NULL);
+	
+	for (int i = 0; i < GAME_MAX_SOLAR_SYSTEMS; i++)
+	{
+		systems[i].stars = NULL;
+		systems[i].planets = NULL;
+	}
 }
 
 void input_controller(EngineEntity* ent, EngineContext* ctx, float deltaTime)

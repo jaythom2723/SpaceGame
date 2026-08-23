@@ -8,6 +8,7 @@
 #include "engine_utils.h"
 #include "engine_shaders.h"
 #include "engine_textures.h"
+#include "engine_math.h"
 
 #include "game_defs.h"
 #include "generator.h"
@@ -49,30 +50,19 @@ void game_galaxy_map_update(EngineScene* scene, EngineContext* ctx, float deltaT
 			if (ent == NULL)
 				continue;
 
-			float x, y, dist;
-			x = (ent->x * ctx->zoomfac) - ctx->mousex;
-			y = (ent->y * ctx->zoomfac) - ctx->mousey;
-			dist = (x * x) + (y * y);
+			float dist = engineGetDistance(ctx->mousex, ent->x * ctx->zoomfac, ctx->mousey, ent->y * ctx->zoomfac);
 			float area = (ent->width * ctx->zoomfac) * (ent->height * ctx->zoomfac);
+			if (dist >= area)
+				continue;
 
-			if (dist <= area)
-			{
-				// TODO: solar system bullshit here please
-				// TODO: move this into another function please
-				for (int j = 0; j < GAME_MAX_STARS; j++)
-				{
-					if (systems[j].stars == NULL || systems[j].planets == NULL)
-					{
-						printf("The star you clicked has no solar system generated!\n");
-						break;
-					}
-				}
+			// need to generate a new solar system here!
+			if (*(systems[i].stars) == ent->key && systems[i].planets == NULL)
+				printf("Time to generate a new solar system at i: %d\n", i);
 
-				printf("Mouse Pos: (%f, %f)\n", ctx->mousex, ctx->mousey);
-				printf("Entity Pos: (%f, %f)\n", ent->x, ent->y);
-				printf("Clicked on a star of class: %s!\n", classStrings[stars[i].class]);
-				break;
-			}
+			printf("Mouse Pos: (%f, %f)\n", ctx->mousex, ctx->mousey);
+			printf("Entity Pos: (%f, %f)\n", ent->x, ent->y);
+			printf("Clicked on a star of class: %s!\n", classStrings[stars[i].class]);
+			break;
 		}
 	}
 }

@@ -5,6 +5,7 @@
 #include "engine_textures.h"
 #include "engine_utils.h"
 #include "engine_logger.h"
+#include "../game_defs.h"
 
 #include <cglm/cglm.h>
 
@@ -278,7 +279,7 @@ const GameState engineGetGameState(EngineContext* ctx)
 // glfw wrapper functions
 EBOOL engineWindowShouldClose(EngineContext* ctx)
 {
-	return glfwWindowShouldClose(ctx->window);
+	return glfwWindowShouldClose(ctx->window) || ctx->state == GAME_ABORT_FATAL_ERROR_STATE;
 }
 
 void engineSetWindowClose(EngineContext* ctx, EBOOL value)
