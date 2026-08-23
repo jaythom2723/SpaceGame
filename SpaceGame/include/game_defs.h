@@ -47,7 +47,8 @@ enum gamestate {
 	GAME_GENERATE_SOLAR_SYSTEM_MAP,
 	GAME_GENERATE_PLANET_MAP,
 	GAME_GALAXY_MAP,
-	GAME_DEBUG_TEST_STATE
+	GAME_DEBUG_TEST_STATE,
+	GAME_ABORT_FATAL_ERROR_STATE,
 };
 
 typedef struct game_star {
@@ -73,8 +74,8 @@ typedef struct game_planet
 // TODO: work on binary and trinary star systems (could rework generation steps for this)
 typedef struct game_solar_system
 {
-	int* stars;
-	int* planets;
+	EngineEntityKey* stars;
+	EngineEntityKey* planets;
 } GameSolarSystem;
 
 struct stardata {

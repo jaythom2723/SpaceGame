@@ -43,7 +43,7 @@ void game_galaxy_map_update(EngineScene* scene, EngineContext* ctx, float deltaT
 	if (ctx->mousebtns[GLFW_MOUSE_BUTTON_LEFT] == ETRUE)
 	{
 		EngineEntity* ent = NULL;
-		for (int i = 0; i < scene->nentities; i++)
+		for (unsigned i = 0; i < scene->nentities; i++)
 		{
 			ent = engineGetEntityScene(ctx, GAME_GALAXY_MAP, i);
 			if (ent == NULL)
@@ -81,7 +81,7 @@ void _setDrawColorFromStarClass(EngineContext* ctx, int index);
 
 void game_galaxy_map_draw(EngineScene* scene, EngineContext* ctx, float deltaTime)
 {
-	for (int i = 0; i < scene->nentities; i++)
+	for (unsigned i = 0; i < scene->nentities; i++)
 	{
 		// TODO: internalize into the engine
 		if (engineGetEntityScene(ctx, GAME_GALAXY_MAP, i) == NULL)

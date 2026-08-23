@@ -120,7 +120,7 @@ EBOOL engineWriteMessage(EngineContext* ctx, const char* message, EngineLoggerMe
 	if (ctx->logfile == NULL)
 		return EFALSE;
 
-	char* typeString = typeStrings[type];
+	const char* typeString = typeStrings[type];
 
 	size_t typeStringLength = strlen(typeString);
 	size_t messageLength = strlen(message);

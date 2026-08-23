@@ -53,13 +53,13 @@ void generateGalaxyStepOne(EngineContext* ctx, GameStar* stars, const EngineText
 		.width = GAME_GALAXY_WIDTH,
 		.height = GAME_GALAXY_HEIGHT,
 		.mask_galaxy = {
-			.bulgeintensity = 0.95,
-			.bulgecenter = 14,
-			.armcurve = 12.5,
-			.arms = 2.0,
-			.armthickness = 10.0,
-			.inradius = -1,
-			.outradius = -1
+			.bulgeintensity = 0.95f,
+			.bulgecenter = 14.f,
+			.armcurve = 5.0f,
+			.arms = 6.0f,
+			.armthickness = 25.f,
+			.inradius = -1.f,
+			.outradius = -1.f
 		}
 	};
 	engineSetNoiseMask(ctx, &mask, key);
@@ -137,8 +137,19 @@ struct stardata* generateGalaxyStepTwo(EngineContext* ctx, GameStar* stars)
 	int numToDestroy = 0;
 	struct stardata* data = _cachePositionAndEntityData(ctx, stars);
 	int* destroy = _checkToDestroy(data, &numToDestroy);
-	assert(data != NULL);
-	assert(destroy != NULL);
+	if (data == NULL) 
+	{
+		engineWriteMessage(ctx, "Failed to cache position and entity data!", ELOG_MSGTYPE_ERROR);
+		engineSetGameState(ctx, GAME_ABORT_FATAL_ERROR_STATE);
+		return NULL;
+	}
+
+	if (destroy == NULL)
+	{
+		engineWriteMessage(ctx, "Failed to get the number of stars to destroy!", ELOG_MSGTYPE_ERROR);
+		engineSetGameState(ctx, GAME_ABORT_FATAL_ERROR_STATE);
+		return NULL;
+	}
 
 	for (int i = 0; i < numToDestroy; i++)
 	{
@@ -158,7 +169,12 @@ struct stardata* generateGalaxyStepTwo(EngineContext* ctx, GameStar* stars)
 	}
 
 	EngineScene* map = engineGetScene(ctx, GAME_GALAXY_MAP);
-	assert(map != NULL);
+	if (map == NULL)
+	{
+		engineWriteMessage(ctx, "Failed to retrieve \"Galaxy Map\" Scene!", ELOG_MSGTYPE_ERROR);
+		engineSetGameState(ctx, GAME_ABORT_FATAL_ERROR_STATE);
+		return NULL;
+	}
 
 	map->nentities -= numToDestroy;
 
@@ -169,7 +185,7 @@ struct stardata* generateGalaxyStepTwo(EngineContext* ctx, GameStar* stars)
 	return data;
 }
 
-static const long maxes[6] = {
+static const double maxes[6] = {
 	GALAXY_GIANT_MAX,
 	GALAXY_SGIANT_MAX,
 	GALAXY_BHOLE_MAX,
@@ -308,7 +324,7 @@ void _stepthree_generateGalacticCore(EngineContext* ctx, GameStar* stars, struct
 
 void generateGalaxyStepThree(EngineContext* ctx, GameStar* stars, struct stardata* data)
 {
-	srand(time(NULL));
+	srand((unsigned)time(NULL));
 
 	// keep track of all stars swapped to a different spectral class
 	int coreIndex = -1;
@@ -319,7 +335,7 @@ void generateGalaxyStepThree(EngineContext* ctx, GameStar* stars, struct stardat
 
 void generateStars(EngineContext* ctx, GameStar* stars, float* noise)
 {
-	srand(time(NULL));
+	srand((unsigned)time(NULL));
 
 	int numStars = 0;
 	int x, y, index;

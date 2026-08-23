@@ -173,7 +173,7 @@ EBOOL engineCreateWindow(EngineContext* ctx, const WindowConfig config)
 	glfwSetMouseButtonCallback(ctx->window, mouse_button_callback);
 	glfwSetCursorPosCallback(ctx->window, cursor_pos_callback);
 
-	engineWriteMessage(ctx, "Initialing OpenGL...", ELOG_MSGTYPE_INFORM);
+	engineWriteMessage(ctx, "Initializing OpenGL...", ELOG_MSGTYPE_INFORM);
 	glfwMakeContextCurrent(ctx->window);
 	if (gladLoadGLLoader((GLADloadproc)glfwGetProcAddress) != ETRUE)
 	{

@@ -3,6 +3,7 @@
 #include "engine_entity.h"
 #include "engine_math.h"
 #include "engine_logger.h"
+#include "engine_shaders.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -28,7 +29,7 @@ void _engine_resetcamera(EngineContext* ctx, float deltaTime)
 		return;
 	}
 	
-	for (int i = 0; i < curscene->nentities; i++)
+	for (unsigned i = 0; i < curscene->nentities; i++)
 	{
 		EngineEntity* ent = &(curscene->entities[i]);
 
@@ -105,9 +106,11 @@ void _engine_update(EngineContext* ctx, float deltaTime)
 		return;
 
 	// emulating the camera movement
-	for (int i = 0; i < curscene->nentities; i++)
+	for (unsigned i = 0; i < curscene->nentities; i++)
 	{
 		EngineEntity* ent = &(curscene->entities[i]);
+
+
 		ent->x += -(ctx->camera->vx);
 		ent->y += -(ctx->camera->vy);
 	}
@@ -182,7 +185,7 @@ void engineDestroyScene(EngineContext* ctx, GameState state)
 	engineWriteMessage(ctx, "Destroying a scene...", ELOG_MSGTYPE_INFORM);
 
 	// loop through entity component lists and make sure they are not null
-	for (int i = 0; i < scene->nentities; i++)
+	for (unsigned i = 0; i < scene->nentities; i++)
 	{
 		if (scene->entities[i].components == NULL)
 			continue;

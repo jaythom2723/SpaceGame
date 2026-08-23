@@ -45,7 +45,7 @@ void game_generate_galaxy_map_init(EngineScene* scene, EngineContext* ctx, float
 	generateGalaxyStepThree(ctx, stars, data);
 
 	EngineScene* map = engineGetScene(ctx, GAME_GALAXY_MAP);
-	for (int i = 0; i < map->nentities; i++) // generate the solar system linkage between galaxy map and solar system map
+	for (unsigned i = 0; i < map->nentities; i++) // generate the solar system linkage between galaxy map and solar system map
 		systems[i].stars = &map->entities[i].key;
 
 	int sums[STAR_CLASS_M + 1] = { 0 };
