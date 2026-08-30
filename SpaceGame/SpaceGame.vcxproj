@@ -47,6 +47,7 @@
     <ClInclude Include="include\engine\utility\engine_logger.h" />
     <ClInclude Include="include\engine\utility\engine_math.h" />
     <ClInclude Include="include\engine\utility\engine_perlin.h" />
+    <ClInclude Include="include\engine\utility\engine_serial.h" />
     <ClInclude Include="include\engine\utility\engine_utils.h" />
     <ClInclude Include="include\game_defs.h" />
     <ClInclude Include="include\generator.h" />
@@ -68,6 +69,7 @@
     <ClCompile Include="src\engine\utility\engine_logger.c" />
     <ClCompile Include="src\engine\utility\engine_math.c" />
     <ClCompile Include="src\engine\utility\engine_perlin.c" />
+    <ClCompile Include="src\engine\utility\engine_serial.c" />
     <ClCompile Include="src\engine\utility\engine_utils.c" />
     <ClCompile Include="src\galaxy_scene.c" />
     <ClCompile Include="src\game.c" />

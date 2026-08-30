@@ -50,9 +50,11 @@ void game_galaxy_map_update(EngineScene* scene, EngineContext* ctx, float deltaT
 			if (ent == NULL)
 				continue;
 
-			float dist = engineGetDistance(ctx->mousex, ent->x * ctx->zoomfac, ctx->mousey, ent->y * ctx->zoomfac);
-			float area = (ent->width * ctx->zoomfac) * (ent->height * ctx->zoomfac);
-			if (dist >= area)
+			float scaledx = ent->x * ctx->zoomfac;
+			float scaledy = ent->y * ctx->zoomfac;
+			float scaledWidth = ent->width * ctx->zoomfac;
+			float scaledHeight = ent->height * ctx->zoomfac;
+			if (engineCheckDistanceToCenter(ctx, ctx->mousex, scaledx, ctx->mousey, scaledy, scaledWidth, scaledHeight) == EFALSE)
 				continue;
 
 			// need to generate a new solar system here!

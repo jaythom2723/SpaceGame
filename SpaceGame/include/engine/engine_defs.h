@@ -40,6 +40,7 @@ typedef int EngineEntityKey;
 typedef unsigned int EngineComponentID;
 
 typedef enum gamestate GameState;
+typedef enum engine_serial_file_type EngineSerialFileType;
 
 typedef struct engine_context EngineContext;
 typedef struct engine_component EngineComponent;
@@ -72,7 +73,11 @@ typedef void (*EngineUIButtonFunc)(EngineUIElement*,EngineContext*,EngineScene*,
 #define ENGINE_IMG_WRITE_ONLY	GL_WRITE_ONLY
 #define ENGINE_RGBA32F			GL_RGBA32F
 
-// offsets the component ptr by the values assigned by the compiler
+enum engine_serial_file_type {
+	ENGINE_GALAXY_MAP_SERIAL_FILE,
+	ENGINE_SOLAR_SYSTEM_SERIAL_FILE
+};
+
 /**
  * \brief Types of components embedded into the engine
  * 

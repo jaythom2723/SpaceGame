@@ -163,6 +163,9 @@
     <ClInclude Include="include\engine\utility\engine_logger.h">
       <Filter>Header Files\engine\utility</Filter>
     </ClInclude>
+    <ClInclude Include="include\engine\utility\engine_serial.h">
+      <Filter>Header Files\engine\utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\engine\entity\engine_component_funcs.c">
@@ -217,6 +220,9 @@
       <Filter>Source Files\game</Filter>
     </ClCompile>
     <ClCompile Include="src\engine\utility\engine_logger.c">
+      <Filter>Source Files\engine\utility</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\utility\engine_serial.c">
       <Filter>Source Files\engine\utility</Filter>
     </ClCompile>
   </ItemGroup>

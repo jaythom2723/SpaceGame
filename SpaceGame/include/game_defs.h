@@ -55,7 +55,6 @@ enum gamestate {
 typedef struct game_star {
 	GameStarClass class;
 	EngineEntityKey entity;
-	int numJumpPoints;
 
 	double mass;
 	double luminosity;			// L = M^3.5

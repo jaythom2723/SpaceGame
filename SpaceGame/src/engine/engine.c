@@ -16,6 +16,10 @@
 static EngineContext* int_ctx = NULL;
 static EngineLinkedList* keylist = NULL;
 
+EngineContext* _engine_get_int_ctx(void) {
+	return int_ctx;
+}
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height);

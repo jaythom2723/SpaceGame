@@ -395,7 +395,6 @@ void _generateStar(GameStar* stars, int index)
 	tmp.lifetime = pow(tmp.mass, STAR_LIFETIME_POWER);
 	tmp.habitableZoneInner = sqrt(tmp.luminosity) * STAR_HABITABLE_INNER_COEFF;
 	tmp.habitableZoneOuter = sqrt(tmp.luminosity) * STAR_HABITABLE_OUTER_COEFF;
-	tmp.numJumpPoints = 0;
 
 	_determineSpectralClass(&tmp);
 
