@@ -9,7 +9,7 @@ bool __ob_util_openfile(FILE** fp, const char* const path, const char* const mod
     if ((*fp) == NULL)
     {
         // TODO: replace with error handler messaage
-        printf("[OBSIDIAN]: Could not locate file: '%s'", path);
+        printf("[OBSIDIAN]: Could not locate file: '%s'\n", path);
         return false;
     }
     return true;
@@ -32,7 +32,7 @@ const char* __ob_util_readfile(const char* const path)
     if (buffer == NULL)
     {
         // TODO: replace with error handler message
-        printf("[OBSIDIAN]: Could not ");
+        printf("[OBSIDIAN]: Could not allocate enough memory for a file!\n");
         return NULL;
     }
 

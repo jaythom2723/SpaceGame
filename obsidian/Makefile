@@ -1,7 +1,7 @@
 CC=gcc
 STD=-std=c99
 CFLAGS=-Wall -Wextra -Werror $(STD)
-LDFLAGS=-lm -lglfw3 -lcglm -lGL -lX11 -lpthread -ldl -lXrandr -lXi
+LDFLAGS=-lglfw3 -lcglm -lGL -lm -lX11 -lpthread -ldl -lXrandr -lXi
 PFLAGS=-Iinclude/
 LPFLAGS=-I../lib/cglm/include/ -I../lib/glfw/include/ -I../lib/glad/include/ -I"../lib/stb-image/include/"
 PFLAGS:=$(PFLAGS) $(LPFLAGS)
@@ -25,4 +25,4 @@ headers: $(HEADERS)
 	cp -r include $(OUTPUT_DIR)
 
 .c.o:
-	$(CC) $(CFLAGS) -c $< $(PFLAGS) -o $@
+	$(CC) $(CFLAGS) -c $(LDFLAGS) $< $(PFLAGS) -o $@

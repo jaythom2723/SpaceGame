@@ -5,7 +5,6 @@
 .PHONY: clean
 
 all: obsidian space-game run
-	clear
 
 run:
 	clear 
