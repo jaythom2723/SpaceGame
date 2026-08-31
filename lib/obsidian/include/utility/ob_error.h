@@ -1,38 +1,61 @@
 #ifndef OB_ERROR_H
 #define OB_ERROR_H
 
+#include <stdint.h>
+
 /*
 File:       0x1XXX
 -Open:      0x10XX
 -Read:      0x11XX
 Memory:     0x2XXX
 Decode:     0x3XXX
+Module:     0x4XXX
 */
 
+#define ERROR_CODES(X) \
+    X(ERR_NONE, "No error") \
+    X(ERR_FILE_NOT_FOUND, "File not found") \
+    X(ERR_FILE_PERMISSION_DENIED, "File access permissions denied") \
+    X(ERR_FILE_PATH_INVALID, "File path invalid") \
+    X(ERR_FILE_OS_ERROR, "File OS error") \
+    X(ERR_OUT_OF_MEMORY, "Out of memory") \
+    X(ERR_FILE_IO, "File IO operation error") \
+    X(ERR_FILE_EOF, "Unexpected EOF character reached") \
+    X(ERR_INVALID_UTF8, "Invalid encoding") \
+    X(ERR_MODULE_INIT, "Failed to initialize Obsidian Module") 
+
+#define SEVERITY_CODES(X) \
+    X(SEV_FATAL, "FATAL") \
+    X(SEV_WARNING, "WARNING") \
+    X(SEV_INFORM, "INFORM") \
+    X(SEV_RECOVER, "RECOVER") \
+    X(SEV_DEBUG, "DEBUG") \
+
+#define CATEGORY_CODES(X) \
+    X(CAT_CORE_SYS, "Obsidian Core Systems") \
+    X(CAT_EXT_SYS, "Obsidian Extensible Systems") \
+    X(CAT_FILESYSTEM, "Filesystem") \
+    X(CAT_MEMORY, "Memory") \
+    X(CAT_DISPLAY, "Display") \
+    X(CAT_GRAPHICS, "Graphics") \
+    X(CAT_WINDOW, "Window") \
+
 enum obsidian_error_code {
-    ERROR_FILE_NOT_FOUND            = 0x1001,
-    ERROR_FILE_PERMISSION_DENIED    = 0x1002,
-    ERROR_FILE_PATH_INVALID         = 0x1003,
-    ERROR_FILE_OS_ERROR             = 0x1004,
-    ERROR_OUT_OF_MEMORY             = 0x2001,
-    ERROR_FILE_IO                   = 0x1101,
-    ERROR_FILE_EOF                  = 0x1102,
-    ERROR_INVALID_UTF8              = 0x3001
+#define X(name, message) name,
+    ERROR_CODES(X)
+#undef X
 };
 
 enum obsidian_error_severity {
-    SEVERITY_FATAL,
-    SEVERITY_WARNING,
-    SEVERITY_INFORM,
-    SEVERITY_RECOVERABLE,
+#define X(name, message) name,
+    SEVERITY_CODES(X)
+#undef X
 };
 
 enum obsidian_error_category {
-    ERROR_CAT_FILESYSTEM,
-    ERROR_CAT_MEMORY,
-    ERROR_CAT_DISPLAY,
-    ERROR_CAT_GRAPHICS,
-    ERROR_CAT_WINDOW,
+#define X(name, message) name,
+    CATEGORY_CODES(X)
+#undef X
 };
 
 struct obsidian_error {
@@ -40,6 +63,8 @@ struct obsidian_error {
     enum obsidian_error_severity severity;
     enum obsidian_error_category category;
     const char* message;
+    const char* file;
+    uint32_t line;
 };
 
 #endif

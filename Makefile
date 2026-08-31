@@ -7,7 +7,6 @@
 all: obsidian space-game run
 
 run:
-	clear 
 	./space-game.exe
 
 obsidian:
