@@ -22,7 +22,7 @@ libobsidian.a: $(SOURCES:.c=.o)
 	ar rcs $(OUTPUT_DIR)/$@ $^
 
 headers: $(HEADERS)
-	cp -r include $(OUTPUT_DIR)/include/obsidian
+	cp -r include $(OUTPUT_DIR)
 
 .c.o:
 	$(CC) $(CFLAGS) -c $< $(PFLAGS) -o $@

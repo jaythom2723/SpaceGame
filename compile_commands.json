@@ -1,0 +1,23 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-std=c99",
+      "-c",
+      "-Iinclude/",
+      "-I../lib/cglm/include/",
+      "-I../lib/glfw/include/",
+      "-I../lib/glad/include/",
+      "-I../lib/stb-image/include/",
+      "-o",
+      "src/utility/ob_logger.o",
+      "src/utility/ob_logger.c"
+    ],
+    "directory": "/home/shyguy/Desktop/SpaceGame/obsidian",
+    "file": "/home/shyguy/Desktop/SpaceGame/obsidian/src/utility/ob_logger.c",
+    "output": "/home/shyguy/Desktop/SpaceGame/obsidian/src/utility/ob_logger.o"
+  }
+]

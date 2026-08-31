@@ -1,6 +1,11 @@
 #include <stdio.h>
 
+#include <obsidian.h>
+
 int main(void) {
-    printf("Hello, World!\n");
+    struct obsidian_context* ctx = NULL;
+    ctx = OBcreateContext();
+    OBdestroyContext(ctx);
+
     return 0;
 }
