@@ -2,10 +2,11 @@
 
 #include <obsidian.h>
 
-int main(void) {
-    struct obsidian_context* ctx = NULL;
-    ctx = OBcreateContext();
-    OBdestroyContext(ctx);
+int main(void) 
+{
+    OBinit();
+
+    OBclose();
 
     return 0;
 }

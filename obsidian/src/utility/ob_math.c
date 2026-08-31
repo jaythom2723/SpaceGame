@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+uint32_t __ob_math_ndgts(uint32_t);
+
 uint32_t __ob_math_ndgts(uint32_t n)
 {
     if (n == 0) return 1;

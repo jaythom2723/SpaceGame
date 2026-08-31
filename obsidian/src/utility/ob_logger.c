@@ -10,9 +10,10 @@
 bool __ob_log_getlogfilename(char**, size_t*);
 bool __ob_log_openlogfile(const char*);
 bool __ob_log_initmodule(void);
+bool __ob_log_closelogfile(void);
 
-extern bool __ob_util_openfile(FILE** fp, const char* const path, const char* const mode);
-extern const char* __ob_util_readfile(const char* path);
+extern bool __ob_util_openfile(FILE**, const char*, const char*);
+extern const char* __ob_util_readfile(const char*);
 
 extern uint32_t __ob_math_ndgts(uint32_t n);
 
@@ -31,7 +32,6 @@ bool __ob_log_initmodule(void)
             logfile_name = NULL;
             return false;            
         }
-
     return true;
 }
 
@@ -94,24 +94,31 @@ bool __ob_log_openlogfile(const char* name)
     return __ob_util_openfile(&logfile, name, "w");
 }
 
-bool OBLOGcloseLogFile(void)
+bool __ob_log_closelogfile(void)
 {
+    if (logfile == NULL)
+        return false;
+    fclose(logfile);
+    logfile = NULL;
+    return true;
+}
+
+bool __ob_log_wheader(void)
+{
+    // TODO: prototype
     return false;
 }
 
-bool OBLOGwriteHeader(void)
+bool __ob_log_wline(enum ob_logger_message_type type, const char* const line)
 {
-    return false;
-}
-
-bool OBLOGwriteLine(enum ob_logger_message_type type, const char* const line)
-{
+    // TODO: prototype
     printf("%d, %s\n", type, line);
     return false;
 }
 
-bool OBLOGwriteFormat(enum ob_logger_message_type type, const char* const line, ...)
+bool ob_log_wlinef(enum ob_logger_message_type type, const char* const line, ...)
 {
+    // TODO: prototype
     printf("%d, %s\n", type, line);
     return false;
 }
