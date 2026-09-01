@@ -1,4 +1,5 @@
 #include "utility/ob_logger.h"
+#include "utility/ob_time.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -11,9 +12,15 @@ bool __ob_log_getlogfilename(char**, size_t*);
 bool __ob_log_openlogfile(const char*);
 bool __ob_log_initmodule(void);
 bool __ob_log_closelogfile(void);
+bool __ob_log_wheader(void);
+bool __ob_log_wline(enum ob_logger_message_type, const char* const);
+bool __ob_log_wsline(const char* const);
+bool __ob_log_wlinef(enum ob_logger_message_type, const char* const, ...);
+bool __ob_log_wslinef(const char* const, ...);
 
 extern bool __ob_util_openfile(FILE**, const char*, const char*);
-extern const char* __ob_util_readfile(const char*);
+extern char* __ob_util_readfile(const char*);
+extern char* __ob_util_dtostr(const uint32_t);
 
 extern uint32_t __ob_math_ndgts(uint32_t n);
 
@@ -37,32 +44,14 @@ bool __ob_log_initmodule(void)
 
 bool __ob_log_getlogfilename(char** buffer, size_t* bufferSize)
 {
-    time_t t = time(NULL);
-    struct tm tm = *localtime(&t);
-
-    uint32_t ydigits, mdigits, ddigits;
-    ydigits = __ob_math_ndgts(tm.tm_year + 1900);
-    mdigits = __ob_math_ndgts(tm.tm_mon + 1);
-    ddigits = __ob_math_ndgts(tm.tm_mday);
-
-    char* ybuf, *mbuf, *dbuf;
-    ybuf = calloc(ydigits + 1, sizeof(char));
-    mbuf = calloc(mdigits + 1, sizeof(char));
-    dbuf = calloc(ddigits + 1, sizeof(char));
-
-    if (ybuf == NULL || mbuf == NULL || dbuf == NULL)
-    {
-        // TODO: error handler message here
-        printf("[OBSIDIAN]: Failed to allocate enough memory!\n");
-        return false;
-    }
-
-    sprintf(ybuf, "%d", tm.tm_year + 1900);
-    sprintf(mbuf, "%d", tm.tm_mon + 1);
-    sprintf(dbuf, "%d", tm.tm_mday);
+    uint32_t year, month, day;
+    OBTIMEgetDayMonthYear(&year, &month, &day);
+    char* ybuf = __ob_util_dtostr(year);
+    char* mbuf = __ob_util_dtostr(month);
+    char* dbuf = __ob_util_dtostr(day);
 
     // new buffer size, allocating buffer
-    (*bufferSize) = ydigits + mdigits + ddigits + strlen(".log") + 3; // +2 for '.' and + 1 for \0
+    (*bufferSize) = strlen(ybuf) + strlen(mbuf) + strlen(dbuf) + strlen(".log") + 3; // +2 for '.' and + 1 for \0
     (*buffer) = calloc(*bufferSize, sizeof(char));
     if (*buffer == NULL)
     {
@@ -109,16 +98,56 @@ bool __ob_log_wheader(void)
     return false;
 }
 
+const char* __translate_logger_message_type(const enum ob_logger_message_type type)
+{
+    switch(type)
+    {
+#define X(name, message) \
+        case name: return message;
+        LOGGER_MESSAGE_TYPES(X)
+#undef X
+
+        default:
+            return "NULL";
+    }
+}
+
 bool __ob_log_wline(enum ob_logger_message_type type, const char* const line)
 {
-    // TODO: prototype
-    printf("%d, %s\n", type, line);
-    return false;
+    if (logfile == NULL)
+        return false;
+    
+    // Timestamp\t|\t[<type>]\t<message>\n
+    uint32_t hours, minutes, seconds;
+    OBTIMEgetTimestamp(&hours, &minutes, &seconds);
+    fprintf(logfile, "%2d:%2d:%02d\t|\t[%s]\t%s\n", hours, minutes, seconds, __translate_logger_message_type(type), line);
+
+    return true;
+}
+
+bool __ob_log_wsline(const char* const line)
+{
+    if (logfile == NULL)
+        return false;
+
+    // Timestamp\t|\t\t<sub-message>\n
+    uint32_t hours, minutes, seconds;
+    OBTIMEgetTimestamp(&hours, &minutes, &seconds);
+    fprintf(logfile, "%2d:%2d:%02d\t|\t\t%s\n", hours, minutes, seconds, line);
+
+    return true;
 }
 
 bool ob_log_wlinef(enum ob_logger_message_type type, const char* const line, ...)
 {
     // TODO: prototype
     printf("%d, %s\n", type, line);
+    return false;
+}
+
+bool __ob_log_wslinef(const char* const line, ...)
+{
+    // TODO: prototype
+    printf("%s\n", line);
     return false;
 }

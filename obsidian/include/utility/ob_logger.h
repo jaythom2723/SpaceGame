@@ -1,10 +1,17 @@
 #ifndef OB_LOGGER_H
 #define OB_LOGGER_H
 
+#define LOGGER_MESSAGE_TYPES(X) \
+    X(LOG_MESSAGE_FATAL, "FATL") \
+    X(LOG_MESSAGE_WARNING, "WARN") \
+    X(LOG_MESSAGE_INFORM, "INFO") \
+    X(LOG_MESSAGE_RECOVER, "RCVR") \
+    X(LOG_MESSAGE_DEBUG, "DBUG") \
+
 enum ob_logger_message_type {
-    OBLOG_MESSAGE_ERROR     = 0x1000,
-    OBLOG_MESSAGE_WARNING   = 0x2000,
-    OBLOG_MESSAGE_INFORM    = 0x4000,
+#define X(name, message) name,
+    LOGGER_MESSAGE_TYPES(X)
+#undef X
 };
 
 #endif

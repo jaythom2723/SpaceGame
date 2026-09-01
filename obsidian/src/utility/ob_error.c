@@ -16,7 +16,7 @@ struct obsidian_error __ob_error_poperror(void);
 static bool __module_init = false;
 static struct obsidian_error* __errors = NULL;
 static struct obsidian_error* __errorptr = NULL;
-static uint32_t __max_errors = 256;
+static const uint32_t __max_errors = 256;
 
 bool __ob_error_initmodule(void)
 {
