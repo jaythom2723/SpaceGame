@@ -22,7 +22,11 @@ Module:     0x4XXX
     X(ERR_FILE_IO, "File IO operation error") \
     X(ERR_FILE_EOF, "Unexpected EOF character reached") \
     X(ERR_INVALID_UTF8, "Invalid encoding") \
-    X(ERR_MODULE_INIT, "Failed to initialize Obsidian Module") 
+    X(ERR_MODULE_INIT, "Failed to initialize Obsidian Module") \
+    X(ERR_GLFW_INIT, "Failed to initialize GLFW") \
+    X(ERR_GLAD_INIT, "Failed to initialize GLAD") \
+    X(ERR_GLFW_ERROR, "GLFW error") \
+    X(ERR_GL_ERROR, "GL error") \
 
 #define SEVERITY_CODES(X) \
     X(SEV_FATAL, "FATAL") \

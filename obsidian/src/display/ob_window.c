@@ -8,6 +8,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
 #define __OB_MAX_INIT_ATTEMPTS 4
 
 static uint32_t __init_attempts = 0;
@@ -61,6 +64,10 @@ bool __ob_wnd_closemodule(void)
     if (window == NULL)
         return false;
 
+    if (window->handle != NULL)
+    {
+        OBWNDdestroyWindow();
+    }
 
     if (window->title != NULL)
     {
@@ -71,6 +78,89 @@ bool __ob_wnd_closemodule(void)
     free(window);
     window = NULL;
     return true;
+}
+
+bool OBWNDcreateWindow(void)
+{
+    if (window == NULL || window->title == NULL || window->width == 0 || window->height == 0)
+    {
+        (void)__ob_error_pusherror(ERR_MODULE_INIT, SEV_WARNING, CAT_WINDOW, "Must initialize the module and set the width, height, and title.", __FILE__, __LINE__);
+        (void)__ob_error_readerror();
+        return false;
+    }
+
+    if (!glfwInit())
+    {
+        (void)__ob_error_pusherror(ERR_GLFW_INIT, SEV_FATAL, CAT_WINDOW, "Failed to initialize GLFW!", __FILE__, __LINE__);
+        (void)__ob_error_readerror();
+        return false;
+    }
+
+    __ob_log_wsline("Obsidian: Window [Core Module]\t|\tGLFW Initialization Successful.");
+
+    // TODO: let the user decide this information.
+            // for now, do this instead for prototyping
+    glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+    glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
+    glfwWindowHint(GLFW_DOUBLEBUFFER, GLFW_TRUE);
+    window->handle = glfwCreateWindow(window->width, window->height, window->title, NULL, NULL);
+    if (window->handle == NULL)
+    {
+        char buffer[1024];
+        glfwGetError((const char**) &buffer);
+        (void)__ob_error_pusherror(ERR_GLFW_ERROR, SEV_FATAL, CAT_WINDOW, buffer, __FILE__, __LINE__);
+        (void)__ob_error_readerror();
+        return false;
+    }
+
+    __ob_log_wsline("Obsidian: Window [Core Module]\t|\tGLFW Window Created Successfully.");
+
+    glfwMakeContextCurrent(window->handle);
+    
+    if (gladLoadGLLoader((GLADloadproc)glfwGetProcAddress) != GLFW_TRUE)
+    {
+        (void)__ob_error_pusherror(ERR_GLAD_INIT, SEV_FATAL, CAT_GRAPHICS, "Failed to initialize OpenGL through GLAD.", __FILE__, __LINE__);
+        (void)__ob_error_readerror();
+        glfwDestroyWindow(window->handle);
+        return false;
+    }
+
+    __ob_log_wsline("Obsidian: Graphics [Core Module]\t|\tGLAD Initialized Successfully.");
+    if (glGetString(GL_VERSION) != NULL)
+        __ob_log_wsline("Obsidian: Graphics [Core Module]\t|\tOpenGL Context Is Current And Valid.");
+
+    glfwShowWindow(window->handle);
+
+    return true;
+}
+
+bool OBWNDdestroyWindow(void)
+{
+    if (window == NULL || window->handle == NULL)
+        return false;
+
+    glfwDestroyWindow(window->handle);
+    window->handle = NULL;
+    return true;
+}
+
+void OBWNDpollEvents(void)
+{
+    if (window == NULL || window->handle == NULL)
+        return;
+
+    glfwPollEvents();
+}
+
+void OBWNDswapBuffers(void)
+{
+    if (window == NULL || window->handle == NULL)
+        return;
+
+    glfwSwapBuffers(window->handle);
 }
 
 bool OBWNDsetTitle(const char* buffer)
@@ -100,6 +190,14 @@ bool OBWNDsetSize(const uint32_t width, const uint32_t height)
     window->height = height;
     
     return true;
+}
+
+bool OBWNDshouldClose(void)
+{
+    if (window == NULL || window->handle == NULL)
+        return true;
+
+    return glfwWindowShouldClose(window->handle);
 }
 
 const char* OBWNDgetTitle(void)

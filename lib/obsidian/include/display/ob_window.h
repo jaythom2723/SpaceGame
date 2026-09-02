@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 struct obsidian_window {
@@ -11,6 +12,12 @@ struct obsidian_window {
     uint32_t width, height;
     GLFWwindow* handle;
 };
+
+bool OBWNDcreateWindow(void);
+bool OBWNDdestroyWindow(void);
+
+void OBWNDpollEvents(void);
+void OBWNDswapBuffers(void);
 
 bool OBWNDsetTitle(const char* buffer);
 bool OBWNDsetSize(const uint32_t width, const uint32_t height);
