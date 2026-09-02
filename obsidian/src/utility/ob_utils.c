@@ -19,8 +19,8 @@ bool __ob_util_openfile(FILE** fp, const char* const path, const char* const mod
     (*fp) = fopen(path, mode);
     if ((*fp) == NULL)
     {
-        // TODO: replace with error handler messaage
-        printf("[OBSIDIAN]: Could not locate file: '%s'", path);
+        (void)__ob_error_pusherror(ERR_FILE_NOT_FOUND, SEV_WARNING, CAT_FILESYSTEM, "Could not find a file", path, 0);
+        (void)__ob_error_readerror();
         return false;
     }
     return true;

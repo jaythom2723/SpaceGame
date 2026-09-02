@@ -1,4 +1,5 @@
 #include "utility/ob_error.h"
+#include "utility/ob_logger.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,6 +14,10 @@ bool __ob_error_pollerrors(void);
 bool __ob_error_readerror(void);
 struct obsidian_error __ob_error_poperror(void);
 
+extern void __ob_log_wline(enum ob_logger_message_type, const char* const);
+extern void __ob_log_wsline(const char* const);
+extern void __ob_log_werror(const struct obsidian_error* const error);
+
 static bool __module_init = false;
 static struct obsidian_error* __errors = NULL;
 static struct obsidian_error* __errorptr = NULL;
@@ -26,7 +31,7 @@ bool __ob_error_initmodule(void)
     __errors = calloc(__max_errors, sizeof(struct obsidian_error));
     if (__errors == NULL)
     {
-        printf("[OBSIDIAN:FATAL] Failed to allocate enough memory for the error handler!\n");
+        printf("[OBSIDIAN:FATAL] Out of memory for the error handler!\n");
         return false;
     }
  
@@ -127,7 +132,7 @@ bool __ob_error_readerror(void)
     printf("\tAt: %s:%d\n", top.file, top.line);
     printf("\tMessage: %s\n", top.message);
 
-    // TODO: propogate to the log file as well
+    __ob_log_werror(&top);
 
     return true;
 }
