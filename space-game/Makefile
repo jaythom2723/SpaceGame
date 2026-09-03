@@ -7,7 +7,7 @@ LPFLAGS=-I../lib/cglm/include/ -I../lib/glfw/include/ -I../lib/glad/include/ -I"
 PFLAGS:=$(PFLAGS) $(LPFLAGS)
 SRCDIRS=src
 SOURCES=$(wildcard $(SRCDIRS)/*.c) $(wildcard $(SRCDIRS)/**/*.c)
-OUTPUT_DIR=..
+OUTPUT_DIR=../build
 
 .PHONY: all clean
 

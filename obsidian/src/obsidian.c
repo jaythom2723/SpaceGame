@@ -24,7 +24,11 @@ extern bool __ob_error_readerror(void);
 extern bool __ob_wnd_initmodule(void);
 extern bool __ob_wnd_closemodule(void);
 
+extern bool __ob_shdr_initmodule(void);
+extern void __ob_shdr_closemodule(void);
+
 void __ob_core_faultbreak(void);
+bool __ob_core_checkfault(void);
 
 #define INIT_CORE_MODULE(func, err) \
     if (!func()) \
@@ -49,7 +53,11 @@ bool OBinit(void)
 
     INIT_CORE_MODULE(__ob_wnd_initmodule, "Failed to initialize Obisidian: Window Core Module");
 
-    __ob_log_wsline("Obsidian: Window [Core Module]\t|\tInitialization Successful...");
+    __ob_log_wsline("Obsidian: Window [Core Module]\t|\tInitialization Successful.");
+
+    INIT_CORE_MODULE(__ob_shdr_initmodule, "Failed to initialize Obsidian: Shader Core Module");
+
+    __ob_log_wsline("Obsidian: Shader [Core Module]\t|\tInitialization Successful.");
 
     return true;
 }
@@ -66,4 +74,9 @@ void __ob_core_faultbreak(void)
     if (__obsidian_fault_break)
         return;
     __obsidian_fault_break = true;
+}
+
+bool __ob_core_checkfault(void)
+{
+    return __obsidian_fault_break;
 }

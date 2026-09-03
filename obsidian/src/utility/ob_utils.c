@@ -48,7 +48,6 @@ char* __ob_util_readfile(const char* const path)
     }
 
     fread(buffer, 1, size, fp);
-    printf("%s\n", buffer);
     return buffer;
 }
 

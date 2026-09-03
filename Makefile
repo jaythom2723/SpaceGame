@@ -7,7 +7,7 @@
 all: obsidian space-game run
 
 run:
-	./space-game.exe
+	cd build && ./space-game.exe
 
 obsidian:
 	make -C obsidian/
