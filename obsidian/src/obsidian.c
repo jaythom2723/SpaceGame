@@ -27,6 +27,9 @@ extern bool __ob_wnd_closemodule(void);
 extern bool __ob_shdr_initmodule(void);
 extern void __ob_shdr_closemodule(void);
 
+extern bool __ob_buf_initmodule(void);
+extern bool __ob_buf_closemodule(void);
+
 void __ob_core_faultbreak(void);
 bool __ob_core_checkfault(void);
 
@@ -59,11 +62,17 @@ bool OBinit(void)
 
     __ob_log_wsline("Obsidian: Shader [Core Module]\t|\tInitialization Successful.");
 
+    INIT_CORE_MODULE(__ob_buf_initmodule, "Failed to initialize Obsidian: Buffers Core Module");
+
+    __ob_log_wsline("Obsidian: Buffers [Core Module]\t|\tInitialization Successful.");
+
     return true;
 }
 
 void OBclose(void)
 {
+    (void)__ob_buf_closemodule();
+    (void)__ob_shdr_closemodule();
     (void)__ob_wnd_closemodule();
     (void)__ob_log_closelogfile();
     (void)__ob_error_closemodule();

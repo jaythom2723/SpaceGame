@@ -62,8 +62,23 @@ bool __ob_shdr_initmodule(void)
 
 void __ob_shdr_closemodule(void)
 {
-    if (__shaders == NULL)
+    if (__shaders == NULL || __programs == NULL)
         return;
+
+    // delete any shaders or programs that haven't already been deleted (woohoo garbage collection)
+    for (int i = 0; i < __OB_MAX_SHADERS; i++)
+    {
+        if (glIsShader(*(__shaders + i)) == GL_FALSE)
+            continue;
+        glDeleteShader(*(__shaders + i));
+    }
+
+    for (int i = 0; i < __OB_MAX_PROGRAMS; i++)
+    {
+        if (glIsProgram(*(__programs + i)) == GL_FALSE)
+            continue;
+        glDeleteProgram(*(__programs + i));
+    }
 
     __programptr = NULL;
     __shaderptr = NULL;
@@ -81,6 +96,7 @@ char* __translate_shader_type(const enum obsidian_shader_type type)
     {
 #define X(name, message) \
         case name: return message;
+        SHADER_TYPES(X)
 #undef X
 
         default:
@@ -105,58 +121,75 @@ obsidian_shader_t OBSHDRcreateShader(const char* path, enum obsidian_shader_type
 {
     if (__shaders == NULL)
     {
-        (void)__ob_error_pusherror(ERR_MODULE_INIT, SEV_WARNING, CAT_GRAPHICS, "Cannot create a shader if the shader module is not initialized...", __FILE__, __LINE__);
+        (void)__ob_error_pusherror(ERR_MODULE_INIT, SEV_WARNING, CAT_GRAPHICS, "Cannot create a shader if the shader module has not been initialized...", __FILE__, __LINE__);
         (void)__ob_error_readerror();
-        return 0;
+        return 0xFF;
     }
 
-    if ((__shaders - __shaderptr) >= __OB_MAX_SHADERS)
-        return 0;
+    uint32_t index = (uint32_t)(__shaderptr - __shaders);
+    if (index >= __OB_MAX_SHADERS)
+        return 0xFF;
 
     __ob_log_wline(LOG_MESSAGE_INFORM, "Attempting to create shader...");
     __ob_log_wsline(__translate_shader_type(type));
     __ob_log_wsline(path);
 
-    __ob_gl_shader_t shader = glCreateShader(__shader_type_to_gl_type(type));
+    GLenum __gl_type = __shader_type_to_gl_type(type);
+    *(__shaderptr) = glCreateShader(__gl_type);
+
     char* source = __ob_util_readfile(path);
     if (source == NULL)
     {
-        (void)__ob_error_pusherror(ERR_MODULE_INIT, SEV_WARNING, CAT_GRAPHICS, "Failed to get shader source.", __FILE__, __LINE__);
+        (void)__ob_error_pusherror(ERR_MODULE_INIT, SEV_WARNING, CAT_GRAPHICS, "Faailed to get shader source.", __FILE__, __LINE__);
         (void)__ob_error_readerror();
-        return 0;
+        return 0xFF;
     }
-    glShaderSource(shader, 1, (const char* const*)&source, NULL);
-    glCompileShader(shader);
-    
-    int success;
-    char infoLog[1024];
-    glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
-    if (success == 0)
-    {
-        glGetShaderInfoLog(shader, 1024, NULL, infoLog);
-        (void)__ob_error_pusherror(ERR_GL_ERROR, SEV_WARNING, CAT_GRAPHICS, infoLog, __FILE__, __LINE__);
-        (void)__ob_error_readerror();
-        return 0;
-    }
-
-    (*__shaderptr) = shader;
-    __shaderptr++;
+    glShaderSource(*__shaderptr, 1, (const char* const*) &source, NULL);
+    glCompileShader(*__shaderptr);
 
     free(source);
     source = NULL;
 
-    return (obsidian_shader_t)(__shaders - (__shaderptr - 1));
+    int success;
+    char infoLog[1024];
+    glGetShaderiv(*__shaderptr, GL_COMPILE_STATUS, &success);
+    if (success == GL_FALSE)
+    {
+        glGetShaderInfoLog(*__shaderptr, 1024, NULL, infoLog);
+        (void)__ob_error_pusherror(ERR_GL_ERROR, SEV_WARNING, CAT_GRAPHICS, infoLog, __FILE__, __LINE__);
+        (void)__ob_error_readerror();
+        return 0xFF;
+    }
+
+    if (glIsShader(*__shaderptr) == GL_FALSE)
+    {
+        (void)__ob_error_pusherror(ERR_GL_ERROR, SEV_WARNING, CAT_GRAPHICS, "Failed to create a shader!", __FILE__, __LINE__);
+        (void)__ob_error_readerror();
+        return 0xFF;
+    }
+
+    __shaderptr++;
+
+    __ob_log_wsline("Shader created successfully.");
+
+    return index;
 }
 
 void OBSHDRdestroyShader(const obsidian_shader_t index)
 {
     __ob_gl_shader_t* shader = __shaders + index;
 
+    __ob_log_wline(LOG_MESSAGE_INFORM, "Attemping to delete shader.");
+
     if (glIsShader(*shader) == GL_FALSE)
         return;
 
     glDeleteShader(*shader);
     (*shader) = 0;
+    
+    __ob_log_wsline("Shader deleted successfully.");
+
+    // TODO: implement a way to move the cursor to this temporary position and then back to the end of the stack(?)
 }
 
 obsidian_program_t OBSHDRcreateProgram(void)
@@ -164,12 +197,17 @@ obsidian_program_t OBSHDRcreateProgram(void)
     if (__shaders == NULL || __programs == NULL)
         return 0;
 
+    __ob_log_wline(LOG_MESSAGE_INFORM, "Attemping to create shader program.");
+
     if ((__programs - __programptr) >= __OB_MAX_PROGRAMS)
         return 0;
 
     (*__programptr) = glCreateProgram();
     __programptr++;
-    return (__programs - (__programptr - 1));
+
+    __ob_log_wsline("Shader program created successfully.");
+
+    return ((__programptr - 1) - __programs);
 }
 
 void OBSHDRdestroyProgram(const obsidian_program_t index)
@@ -181,6 +219,8 @@ void OBSHDRdestroyProgram(const obsidian_program_t index)
     if (glIsProgram(*program) != GL_TRUE)
         return;
     glDeleteProgram(*program);
+
+    __ob_log_wline(LOG_MESSAGE_INFORM, "Deleted a shader program.");
 }
 
 void OBSHDRprogramAttach(const obsidian_program_t index, int n, ...)
@@ -190,20 +230,25 @@ void OBSHDRprogramAttach(const obsidian_program_t index, int n, ...)
         return;
 
     __ob_gl_program_t* program = (__programs + index);
-    if (glIsProgram(*program) == GL_FALSE)
+    if (*program == 0 || glIsProgram(*program) == GL_FALSE)
+    {
+        printf("Not a valid shader program!\n");
         return;
+    }    
 
     va_list args;
     va_start(args, n);
 
     for (int i = 0; i < n; i++)
     {
-        const obsidian_shader_t sindex = va_arg(args, obsidian_shader_t);
-        __ob_gl_shader_t* shader = (__shaders + sindex);
-        if (glIsShader(*shader) != GL_TRUE)
+        obsidian_shader_t sindex = va_arg(args, obsidian_shader_t);
+        __ob_gl_shader_t* shader = __shaders + sindex;
+        if (glIsShader(*shader) == GL_FALSE)
             continue;
         glAttachShader(*program, *shader);
     }
+
+    va_end(args);
 }
 
 bool OBSHDRprogramLink(const obsidian_program_t index)
@@ -211,15 +256,17 @@ bool OBSHDRprogramLink(const obsidian_program_t index)
     if (__programs == NULL || __shaders == NULL)
         return false;
 
+    __ob_log_wline(LOG_MESSAGE_INFORM, "Attempting to link shader program.");
+
     __ob_gl_program_t* program = (__programs + index);
-    if (glIsProgram((*program) == GL_FALSE))
+    if (glIsProgram((*program)) == GL_FALSE)
         return false;
 
     glLinkProgram(*program);
     int success;
     char infoLog[1024];
     glGetProgramiv(*program, GL_LINK_STATUS, &success);
-    if (success == 0)
+    if (success == GL_FALSE)
     {
         glGetProgramInfoLog(*program, 1024, NULL, infoLog);
         (void)__ob_error_pusherror(ERR_GL_ERROR, SEV_WARNING, CAT_GRAPHICS, infoLog, __FILE__, __LINE__);
@@ -227,6 +274,7 @@ bool OBSHDRprogramLink(const obsidian_program_t index)
         return false;
     }
 
+    __ob_log_wsline("Shader program linkage successful!");
     __ob_log_wline(LOG_MESSAGE_WARNING, "Remember to delete linked shaders to free up unused resources!");
 
     return true;
