@@ -1,6 +1,7 @@
 #include <obsidian.h>
 #include <display/ob_window.h>
 #include <graphics/ob_shader.h>
+#include <utility/ob_loader.h>
 
 // float vertices[] = {
 //     0.0f, 1.0f,     0.0f, 1.0f,
@@ -86,6 +87,10 @@ int main(void)
     
     __ob_buf_deleteebo(ebo);
     __ob_buf_deletevbo(vbo);
+    
+    struct obsidian_asset* asset = NULL;
+    (void)OBLDRloadAsset(OB_ASSET_TEXTURE, asset, "test.bmp");
+    OBLDRdestroyAsset(asset);
 
     while (OBWNDshouldClose() == false)
     {
