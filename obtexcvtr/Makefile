@@ -12,4 +12,4 @@ clean:
 	rm -f $(BUILD_DIR)/obtexcvtr.exe
 
 obtexcvtr.exe: $(SOURCES)
-	$(CC) $(CFLAGS) $(PFLAGS) $(DEPEN_X11) $< -o $(BUILD_DIR)/$@
+	$(CC) $(CFLAGS) $(PFLAGS) $(DEPEN_X11) $< $(DEPEN_MATH) -o $(BUILD_DIR)/$@
