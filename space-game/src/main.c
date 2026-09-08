@@ -12,28 +12,34 @@
 // };
 
 float vertices[] = {
-    0.5f, 0.5f,     1.0f, 1.0f,     // top right
-    0.5f, -0.5f,    1.0f, -1.0f,     // bottom right
-    -0.5f, 0.5f,    -1.0f, 1.0f,     // top left
-    0.5f, -0.5f,    1.0f, -1.0f,     // bottom right
-    -0.5f, -0.5f,   -1.0f, -1.0f,     // bottom left
-    -0.5f, 0.5f,    -1.0f, 1.0f,     // top left
+    0.5f, 0.5f, 0.0f,
+    0.5f, -0.5f, 0.0f,
+    -0.5f, -0.5f, 0.0f,
+    -0.5f, 0.5f, 0.0f,
 };
 
 unsigned int indices[] = {
     0, 1, 3,
-    1, 2, 3
+    1, 2, 3,
 };
 
 extern uint32_t __ob_buf_createvbo(void);
 extern bool __ob_buf_deletevbo(uint32_t);
 extern bool __ob_buf_bindvbo(uint32_t);
 extern bool __ob_buf_setvbodata(uint32_t, size_t, const void*, uint32_t);
+extern void __ob_buf_unbindvbo(void);
 
 extern uint32_t __ob_buf_createebo(void);
 extern bool __ob_buf_deleteebo(uint32_t);
 extern bool __ob_buf_bindebo(uint32_t);
 extern bool __ob_buf_setebodata(uint32_t, size_t, const void*, uint32_t);
+extern void __ob_buf_unbindebo(void);
+
+extern uint32_t __ob_buf_createvao(void);
+extern bool __ob_buf_deletevao(uint32_t);
+extern bool __ob_buf_bindvao(uint32_t);
+extern bool __ob_buf_setattribpointer(uint32_t,uint32_t,size_t,void*);
+extern bool __ob_buf_unbindvao(void);
 
 int main(void)
 {
@@ -60,28 +66,35 @@ int main(void)
     // TODO: perhaps make an exposed asset loading system that can create asset prototypes via coordinate files (3D models?)
     uint32_t vao, vbo, ebo;
 
-    glGenVertexArrays(1, &vao);
+    vao = __ob_buf_createvao();
+    if(__ob_buf_bindvao(vao) == false)
+        printf("Error %d!\n", __LINE__);
+
     vbo = __ob_buf_createvbo();
-    ebo = __ob_buf_createebo();
-
-    glBindVertexArray(vao);
-
+    (void)__ob_buf_bindvbo(vbo);
     (void)__ob_buf_setvbodata(vbo, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    ebo = __ob_buf_createebo();
+    (void)__ob_buf_bindebo(ebo);
     (void)__ob_buf_setebodata(ebo, sizeof(indices), indices, GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2*sizeof(float)));
-    glEnableVertexAttribArray(0);
-    glEnableVertexAttribArray(1);
+    __ob_buf_setattribpointer(0, 3, 3 * sizeof(float), (void*)0);
+
+    __ob_buf_unbindvao();
+    __ob_buf_unbindebo();
+    __ob_buf_unbindvbo();
+    
+    __ob_buf_deleteebo(ebo);
+    __ob_buf_deletevbo(vbo);
 
     while (OBWNDshouldClose() == false)
     {
         OBWNDpollEvents();
 
         OBSHDRuseProgram(program);
-        glBindVertexArray(vao);
-        __ob_buf_bindebo(ebo);
+        __ob_buf_bindvao(vao);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        __ob_buf_unbindvao();
 
         OBWNDswapBuffers();
     }

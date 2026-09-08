@@ -28,6 +28,12 @@ bool __ob_buf_bindebo(uint32_t);
 bool __ob_buf_setebodata(uint32_t, size_t, const void*, uint32_t);
 void __ob_buf_unbindebo(void);
 
+uint32_t __ob_buf_createvao(void);
+bool __ob_buf_deletevao(uint32_t);
+bool __ob_buf_bindvao(uint32_t);
+void __ob_buf_setattribpointer(uint32_t,uint32_t,size_t,void*);
+void __ob_buf_unbindvao(void);
+
 extern bool __ob_error_pusherror(enum obsidian_error_code, enum obsidian_error_severity, enum obsidian_error_category, const char*, const char*, const uint32_t);
 extern bool __ob_error_readerror(void);
 
@@ -236,7 +242,7 @@ bool __ob_buf_setebodata(uint32_t index, size_t sbytes, const void* data, uint32
     uint32_t* buffer = (ebos + index);
     if (glIsBuffer(*buffer) == GL_FALSE)
         return false;
-
+    
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *buffer);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sbytes, data, usage);
 
@@ -246,4 +252,62 @@ bool __ob_buf_setebodata(uint32_t index, size_t sbytes, const void* data, uint32
 void __ob_buf_unbindebo(void)
 {
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
+}
+
+/*
+uint32_t __ob_buf_createvao(void);
+bool __ob_buf_deletevao(uint32_t);
+bool __ob_buf_bindvao(uint32_t);
+void __ob_buf_setattribpointer(uint32_t,uint32_t,size_t,void*);
+void __ob_buf_unbindvao(void);
+*/
+
+uint32_t __ob_buf_createvao(void)
+{
+    if (vaos == NULL || vbos == NULL || ebos == NULL)
+        return 0xFF;
+
+    if ((vaoptr - vaos) >= __OB_MAX_VAOS)
+        return 0xFF;
+
+    uint32_t index = (uint32_t)(vaoptr - vaos);
+    glGenVertexArrays(1, vaoptr);
+    glBindVertexArray(*vaoptr);
+    vaoptr++;
+    return index;
+}
+
+bool __ob_buf_deletevao(uint32_t index)
+{
+    if (vaos == NULL || vbos == NULL || ebos == NULL)
+        return false;
+
+    uint32_t* vao = vaos + index;
+    if (glIsVertexArray(*vao) == GL_FALSE)
+        return false;
+    glDeleteVertexArrays(1, vao);
+    return true;
+}
+
+bool __ob_buf_bindvao(uint32_t index)
+{
+    if (vaos == NULL || vbos == NULL || ebos == NULL)
+        return false;
+
+    uint32_t* vao = vaos + index;
+    if (glIsVertexArray(*vao) == GL_FALSE)
+        return false;
+    glBindVertexArray(*vao);
+    return true;
+}
+
+void __ob_buf_setattribpointer(uint32_t index, uint32_t size, size_t stride, void* offset)
+{
+    glVertexAttribPointer(index, size, GL_FLOAT, GL_FALSE, stride, offset);
+    glEnableVertexAttribArray(index);
+}
+
+void __ob_buf_unbindvao(void)
+{
+    glBindVertexArray(0);
 }
