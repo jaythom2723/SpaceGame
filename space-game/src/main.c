@@ -12,10 +12,10 @@
 // };
 
 float vertices[] = {
-    0.5f, 0.5f, 0.0f,
-    0.5f, -0.5f, 0.0f,
-    -0.5f, -0.5f, 0.0f,
-    -0.5f, 0.5f, 0.0f,
+    0.5f, 0.5f, 0.0f,           1.0f, 1.0f,       // top right
+    0.5f, -0.5f, 0.0f,          1.0f, -1.0f,      // bottom right
+    -0.5f, -0.5f, 0.0f,     -1.0f, -1.0f,    // bottom left
+    -0.5f, 0.5f, 0.0f,      -1.0f, 1.0f,     // top left
 };
 
 unsigned int indices[] = {
@@ -62,7 +62,6 @@ int main(void)
     OBSHDRdestroyShader(fragment);
     OBSHDRuseProgram(program);
 
-    // TODO: internalize
     // TODO: perhaps make an exposed asset loading system that can create asset prototypes via coordinate files (3D models?)
     uint32_t vao, vbo, ebo;
 
@@ -78,7 +77,8 @@ int main(void)
     (void)__ob_buf_bindebo(ebo);
     (void)__ob_buf_setebodata(ebo, sizeof(indices), indices, GL_STATIC_DRAW);
 
-    __ob_buf_setattribpointer(0, 3, 3 * sizeof(float), (void*)0);
+    __ob_buf_setattribpointer(0, 3, 5 * sizeof(float), (void*)0);
+    __ob_buf_setattribpointer(1, 2, 5 * sizeof(float), (void*)(3 * sizeof(float)));
 
     __ob_buf_unbindvao();
     __ob_buf_unbindebo();
