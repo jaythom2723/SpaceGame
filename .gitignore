@@ -13,6 +13,7 @@
 *.a
 *.exe
 _cache/
+.cache/
 _archive/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
