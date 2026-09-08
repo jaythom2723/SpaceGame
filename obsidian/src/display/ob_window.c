@@ -89,7 +89,7 @@ bool OBWNDcreateWindow(void)
         return false;
     }
 
-    if (!glfwInit())
+    if (glfwInit() != GLFW_TRUE)
     {
         (void)__ob_error_pusherror(ERR_GLFW_INIT, SEV_FATAL, CAT_WINDOW, "Failed to initialize GLFW!", __FILE__, __LINE__);
         (void)__ob_error_readerror();
@@ -113,6 +113,7 @@ bool OBWNDcreateWindow(void)
         glfwGetError((const char**) &buffer);
         (void)__ob_error_pusherror(ERR_GLFW_ERROR, SEV_FATAL, CAT_WINDOW, buffer, __FILE__, __LINE__);
         (void)__ob_error_readerror();
+        glfwTerminate();
         return false;
     }
 
@@ -125,12 +126,9 @@ bool OBWNDcreateWindow(void)
         (void)__ob_error_pusherror(ERR_GLAD_INIT, SEV_FATAL, CAT_GRAPHICS, "Failed to initialize OpenGL through GLAD.", __FILE__, __LINE__);
         (void)__ob_error_readerror();
         glfwDestroyWindow(window->handle);
+        glfwTerminate();
         return false;
     }
-
-    __ob_log_wsline("Obsidian: Graphics [Core Module]\t|\tGLAD Initialized Successfully.");
-    if (glGetString(GL_VERSION) != NULL)
-        __ob_log_wsline("Obsidian: Graphics [Core Module]\t|\tOpenGL Context Is Current And Valid.");
 
     glfwShowWindow(window->handle);
 

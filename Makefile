@@ -1,3 +1,6 @@
+include make/config.mk
+include make/common.mk
+
 .PHONY: obsidian
 .PHONY: obtexcvtr
 .PHONY: obmdlcvtr
@@ -15,16 +18,16 @@ COLOR_YELLOW=\033[0;33m
 COLOR_END=\033[0m
 
 run:
-	cd build && ./space-game.exe
+	cd build && valgrind --leak-check=full --log-file="../valgrind.log" ./space-game.exe
 
 obsidian:
 	@echo "$(COLOR_GREEN)"
-	make -C obsidian/
+	make -C $(OBSIDIAN_DIR) 2>&1 | tee build.log
 	@echo "$(COLOR_END)"
 
 obtexcvtr:
 	@echo "$(COLOR_RED)"
-	make -C obtexcvtr/
+	make -C $(OBTEXCVTR_DIR) 2>&1 | tee -a build.log
 	@echo "$(COLOR_END)"
 
 obmdlcvtr:
@@ -34,10 +37,12 @@ obmdlcvtr:
 
 space-game:
 	@echo "$(COLOR_BLUE)"
-	make -C space-game/
+	make -C $(CELESTIAL_DIR) 2>&1 | tee -a build.log
 	@echo "$(COLOR_END)"
 
 clean:
-	make -C obsidian/ clean
-	make -C obtexcvtr/ clean
-	make -C space-game/ clean
+	rm -f ./*.log
+	rm -f ./**/*.log
+	make -C $(OBSIDIAN_DIR) clean
+	make -C $(OBTEXCVTR_DIR) clean
+	make -C $(CELESTIAL_DIR) clean

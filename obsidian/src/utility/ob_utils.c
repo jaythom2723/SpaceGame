@@ -48,6 +48,9 @@ char* __ob_util_readfile(const char* const path)
     }
 
     fread(buffer, 1, size, fp);
+
+    fclose(fp);
+
     return buffer;
 }
 

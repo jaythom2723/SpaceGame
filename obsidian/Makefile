@@ -1,14 +1,11 @@
-CC=gcc
-STD=-std=c99
-CFLAGS=-Wall -Wextra -Werror $(STD)
-LDFLAGS=-lglfw3 -lcglm -lGL -lm -lX11 -lpthread -ldl -lXrandr -lXi
-PFLAGS=-Iinclude/
-LPFLAGS=-I../lib/cglm/include/ -I../lib/glfw/include/ -I../lib/glad/include/ -I"../lib/stb-image/include/"
-PFLAGS:=$(PFLAGS) $(LPFLAGS)
-SRCDIRS=src/
-SOURCES=$(wildcard $(SRCDIRS)*.c) $(wildcard $(SRCDIRS)**/*.c)
-OUTPUT_DIR=../lib/obsidian
-HEADERS?=$(wildcard include/*.h) $(wildcard include/**/*.h)
+include ../make/config.mk
+include ../make/common.mk
+include ../make/dependencies.mk
+
+PFLAGS=-I"$(OBSIDIAN_INC_DIR)" -I"$(LIB_CGLM_INC_DIR)" -I"$(LIB_GLFW_INC_DIR)" -I"$(LIB_GLAD_INC_DIR)" -I"$(LIB_STBIMAGE_INC_DIR)"
+SOURCES=$(wildcard $(OBSIDIAN_SRC_DIR)/*.c) $(wildcard $(OBSIDIAN_SRC_DIR)/**/*.c)
+OUTPUT_DIR=$(LIB_OBSIDIAN_DIR)
+HEADERS?=$(wildcard $(LIB_OBSIDIAN_INC_DIR)/*.h) $(wildcard $(LIB_OBSIDIAN_INC_DIR)/**/*.h)
 
 .PHONY: all clean
 all: libobsidian.a headers
@@ -25,4 +22,4 @@ headers: $(HEADERS)
 	cp -r include $(OUTPUT_DIR)
 
 .c.o:
-	$(CC) $(CFLAGS) -c $(LDFLAGS) $< $(PFLAGS) -o $@
+	$(CC) $(CFLAGS) $(PFLAGS) $(DEPEN_X11) -c $< $(DEPEN_OPENGL) $(DEPEN_MATH)  -o $@
