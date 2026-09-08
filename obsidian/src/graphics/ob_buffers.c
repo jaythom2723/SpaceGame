@@ -22,7 +22,7 @@ bool __ob_buf_bindvbo(uint32_t);
 bool __ob_buf_setvbodata(uint32_t, size_t, const void*, uint32_t);
 void __ob_buf_unbindvbo(void);
 
-uint32_t __ob_buf_createebo(void); // TODO: RnD
+uint32_t __ob_buf_createebo(void);
 bool __ob_buf_deleteebo(uint32_t);
 bool __ob_buf_bindebo(uint32_t);
 bool __ob_buf_setebodata(uint32_t, size_t, const void*, uint32_t);
@@ -186,7 +186,7 @@ void __ob_buf_unbindvbo(void)
 }
 
 /*
-uint32_t __ob_buf_createebo(void); // TODO: RnD
+uint32_t __ob_buf_createebo(void);
 bool __ob_buf_deleteebo(uint32_t);
 bool __ob_buf_bindebo(uint32_t);
 bool __ob_buf_setebodata(uint32_t, size_t, const void*, uint32_t);

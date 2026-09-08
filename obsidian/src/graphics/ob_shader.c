@@ -225,7 +225,6 @@ void OBSHDRdestroyProgram(const obsidian_program_t index)
 
 void OBSHDRprogramAttach(const obsidian_program_t index, int n, ...)
 {
-    // TODO: segfault here, rewrite please
     if (__programs == NULL || __shaders == NULL)
         return;
 

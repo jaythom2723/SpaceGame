@@ -1,20 +1,16 @@
-CC=gcc
-STD=-std=c99
-CFLAGS=-Wall -Wextra -Werror $(STD)
-LDFLAGS=-lX11 -lpthread -ldl -lXrandr -lXi -L../lib/obsidian -lobsidian -lm -lglfw3 -lcglm -lGL
-PFLAGS=-Iinclude/
-LPFLAGS=-I../lib/cglm/include/ -I../lib/glfw/include/ -I../lib/glad/include/ -I"../lib/stb-image/include/" -I../lib/obsidian/include/
-PFLAGS:=$(PFLAGS) $(LPFLAGS)
-SRCDIRS=src
-SOURCES=$(wildcard $(SRCDIRS)/*.c) $(wildcard $(SRCDIRS)/**/*.c)
-OUTPUT_DIR=../build
+include ../make/config.mk
+include ../make/common.mk
+include ../make/dependencies.mk
+
+PFLAGS=-I"$(CELESTIAL_INC_DIR)" -I"$(LIB_CGLM_INC_DIR)" -I"$(LIB_GLFW_INC_DIR)" -I"$(LIB_GLAD_INC_DIR)" -I"$(LIB_STBIMAGE_INC_DIR)" -I"$(LIB_OBSIDIAN_INC_DIR)"
+SOURCES=$(wildcard $(CELESTIAL_SRC_DIR)/*.c) $(wildcard $(CELESTIAL_SRC_DIR)/**/*.c)
 
 .PHONY: all clean
 
 all: space-game.exe
 
 space-game.exe: $(SOURCES)
-	$(CC) $(CFLAGS) $^ $(PFLAGS) $(LDFLAGS) -o $(OUTPUT_DIR)/$@
+	$(CC) $(CFLAGS) $(PFLAGS) $(DEPEN_X11) $^ $(DEPEN_OBSIDIAN) $(DEPEN_OPENGL) $(DEPEN_MATH) -o $(BUILD_DIR)/$@
 
 clean:
-	rm -f $(OUTPUT_DIR)/space-game.exe
+	rm -f $(BUILD_DIR)/space-game.exe

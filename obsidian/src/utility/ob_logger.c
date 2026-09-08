@@ -35,16 +35,20 @@ bool __ob_log_initmodule(void)
 {
     char* logfile_name = NULL;
     size_t logfile_namelen = 0;
+    bool ret = true;
+
     if (__ob_log_getlogfilename(&logfile_name, &logfile_namelen))
+    {
         if (!__ob_log_openlogfile(logfile_name))
         {
             (void)__ob_error_pusherror(ERR_FILE_PERMISSION_DENIED, SEV_FATAL, CAT_FILESYSTEM, "Failed to create a log file!", __FILE__, __LINE__);
             (void)__ob_error_readerror();
-            free(logfile_name);
-            logfile_name = NULL;
-            return false;            
+            ret = false;            
         }
-    return true;
+        free(logfile_name);
+        logfile_name = NULL;
+    }
+    return ret;
 }
 
 bool __ob_log_getlogfilename(char** buffer, size_t* bufferSize)

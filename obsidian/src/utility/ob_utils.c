@@ -43,11 +43,14 @@ char* __ob_util_readfile(const char* const path)
     if (buffer == NULL)
     {
         // TODO: replace with error handler message
-        printf("[OBSIDIAN]: Could not ");
+        printf("[OBSIDIAN]: Could not allocate enough memory for a file!\n");
         return NULL;
     }
 
     fread(buffer, 1, size, fp);
+
+    fclose(fp);
+
     return buffer;
 }
 

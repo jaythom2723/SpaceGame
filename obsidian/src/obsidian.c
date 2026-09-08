@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <stdint.h>
 
+#include <GLFW/glfw3.h>
+
 const uint32_t OBSIDIAN_VERSION_MAJOR = 0;
 const uint32_t OBSIDIAN_VERSION_MINOR = 0;
 const uint32_t OBSIDIAN_VERSION_PATCH = 0;
@@ -74,6 +76,7 @@ void OBclose(void)
     (void)__ob_buf_closemodule();
     (void)__ob_shdr_closemodule();
     (void)__ob_wnd_closemodule();
+    glfwTerminate();
     (void)__ob_log_closelogfile();
     (void)__ob_error_closemodule();
 }
