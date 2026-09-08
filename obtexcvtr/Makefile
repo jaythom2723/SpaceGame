@@ -1,17 +1,15 @@
-CC=gcc
-STD=-std=c99
-CFLAGS=-Wall -Wextra -Werror $(STD)
-LDFLAGS=-lm -lX11 -lpthread -ldl -lXrandr -lXi
-PFLAGS=-Iinclude/ -I../lib/stb-image
-SRCDIRS=src/
-SOURCES=$(wildcard $(SRCDIRS)*.c) $(wildcard $(SRCDIRS)**/*.c)
-OUTPUT_DIR=../build
+include ../make/config.mk
+include ../make/common.mk
+include ../make/dependencies.mk
+
+PFLAGS=-I"$(OBTEXCVTR_INC_DIR)" -I"$(LIB_STBIMAGE_INC_DIR)"
+SOURCES=$(wildcard $(OBTEXCVTR_SRC_DIR)/*.c) $(wildcard $(OBTEXCVTR_SRC_DIR)/**/*.c)
 
 .PHONY: all clean
 all: obtexcvtr.exe
 
 clean:
-	rm -f $(OUTPUT_DIR)/obtexcvtr.exe
+	rm -f $(BUILD_DIR)/obtexcvtr.exe
 
 obtexcvtr.exe: $(SOURCES)
-	$(CC) $(CFLAGS) $(PFLAGS) $< $(LDFLAGS) -o $(OUTPUT_DIR)/$@
+	$(CC) $(CFLAGS) $(PFLAGS) $(DEPEN_X11) $< -o $(BUILD_DIR)/$@
