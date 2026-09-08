@@ -12,6 +12,8 @@
 *.o
 *.a
 *.exe
+_cache/
+_archive/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
