@@ -2,7 +2,7 @@ CC=gcc
 STD=-std=c99
 CFLAGS=-Wall -Wextra -Werror $(STD)
 LDFLAGS=-lm -lX11 -lpthread -ldl -lXrandr -lXi
-PFLAGS=-Iinclude/
+PFLAGS=-Iinclude/ -I../lib/stb-image
 SRCDIRS=src/
 SOURCES=$(wildcard $(SRCDIRS)*.c) $(wildcard $(SRCDIRS)**/*.c)
 OUTPUT_DIR=../build
