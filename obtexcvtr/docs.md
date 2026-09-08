@@ -15,5 +15,14 @@ TODO: should transparency be supported?
     -x      delete origin image
     -v      verbose mode
     -l      set log output path
+    -f      input file format
     -q      quiet mode
+```
+
+## Usage
+```bash
+obtexcvtr.exe -f PNG -v -x -o example.obtf example.png -l example.log  # png, verbose mode, delete origin, output specified, log output specified
+obtexcvtr.exe -f JPG -v -x example.jpg -o example.obtf  # jpg/jpeg, verbose mode, delete origin, output specified
+obtexcvtr.exe -f BMP -q example.bmp                     # bump-map, quiet mode
+obtexcvtr.exe -g                                        # for window
 ```
