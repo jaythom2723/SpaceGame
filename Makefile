@@ -13,7 +13,7 @@ COLOR_BLUE=\033[0;34m
 COLOR_END=\033[0m
 
 run:
-	cd build && ./space-game.exe
+	cd build && valgrind --leak-check=full --log-file="../build.log" ./space-game.exe
 
 obsidian:
 	@echo "$(COLOR_GREEN)"
@@ -31,6 +31,8 @@ space-game:
 	@echo "$(COLOR_END)"
 
 clean:
+	rm -f ./*.log
+	rm -f ./**/*.log
 	make -C obsidian/ clean
 	make -C obtexcvtr/ clean
 	make -C space-game/ clean
