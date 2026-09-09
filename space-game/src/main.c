@@ -81,10 +81,9 @@ int main(void)
 
     __ob_buf_setattribpointer(0, 3, 5 * sizeof(float), (void*)0);
     __ob_buf_setattribpointer(1, 2, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-
     
     struct obsidian_asset* asset = NULL;
-    (void)OBLDRloadAsset(OB_ASSET_TEXTURE, &asset, "test.obtf");
+    (void)OBLDRloadAsset(OB_ASSET_TEXTURE, &asset, "res/textures/test.obtf");
 
     OBSHDRuseProgram(program);
     glActiveTexture(GL_TEXTURE0);
