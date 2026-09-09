@@ -290,3 +290,71 @@ void OBSHDRuseProgram(const obsidian_program_t index)
 
     glUseProgram(*program);
 }
+
+#define UNIFORM_GUARD \
+    if (__programs == NULL) return false; \
+    if (glIsProgram(*(__programs + index)) == GL_FALSE) return false; \
+    if (glGetUniformLocation(*(__programs + index), name) < 0) return false;
+
+bool OBSHDRseti(const obsidian_program_t index, const char* name, const int value)
+{
+    UNIFORM_GUARD;
+    glUniform1i(glGetUniformLocation(*(__programs + index), name), value);
+    return true;
+}
+
+bool OBSHDRsetf(const obsidian_program_t index, const char* name, const float value)
+{
+    UNIFORM_GUARD;
+    glUniform1f(glGetUniformLocation(*(__programs + index), name), value);
+    return true;
+}
+
+bool OBSHDRset2f(const obsidian_program_t index, const char* name, const float x, const float y)
+{
+    UNIFORM_GUARD;
+    glUniform2f(glGetUniformLocation(*(__programs + index), name), x, y);
+    return true;
+}
+
+bool OBSHDRset2fv(const obsidian_program_t index, const char* name, const vec2 value)
+{
+    UNIFORM_GUARD;
+    glUniform2fv(glGetUniformLocation(*(__programs + index), name), 1, value);
+    return true;
+}
+
+bool OBSHDRset3f(const obsidian_program_t index, const char* name, const float x, const float y, const float z)
+{
+    UNIFORM_GUARD;
+    glUniform3f(glGetUniformLocation(*(__programs + index), name), x, y, z);
+    return true;
+}
+
+bool OBSHDRset3fv(const obsidian_program_t index, const char* name, const vec3 value)
+{
+    UNIFORM_GUARD;
+    glUniform3fv(glGetUniformLocation(*(__programs + index), name), 1, value);
+    return true;
+}
+
+bool OBSHDRset4f(const obsidian_program_t index, const char* name, const float x, const float y, const float z, const float w)
+{
+    UNIFORM_GUARD;
+    glUniform4f(glGetUniformLocation(*(__programs + index), name), x, y, z, w);
+    return true;
+}
+
+bool OBSHDRset4fv(const obsidian_program_t index, const char* name, const vec4 value)
+{
+    UNIFORM_GUARD;
+    glUniform4fv(glGetUniformLocation(*(__programs + index), name), 1, value);
+    return true;
+}
+
+bool OBSHDRsetmat4f(const obsidian_program_t index, const char* name, const mat4 value)
+{
+    UNIFORM_GUARD;
+    glUniformMatrix4fv(glGetUniformLocation(*(__programs + index), name), 1, GL_FALSE, (const float*) value);
+    return true;
+}

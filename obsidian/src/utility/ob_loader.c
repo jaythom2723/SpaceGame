@@ -18,40 +18,40 @@ extern void __ob_log_wsline(const char* const);
 
 extern char* __ob_util_readfile(const char* const);
 
-static void __ob_loader_texture_load(const struct obsidian_asset* restrict);
+static void __ob_loader_texture_load(struct obsidian_asset* restrict);
 
-bool OBLDRloadAsset(enum obsidian_asset_type type, struct obsidian_asset* restrict asset, const char* const path)
+bool OBLDRloadAsset(enum obsidian_asset_type type, struct obsidian_asset** restrict asset, const char* const path)
 {
-    if (asset != NULL)
+    if ((*asset) != NULL)
     {
         printf("Asset is not NULL\n");
         return false;
     }
 
-    asset = calloc(1, sizeof(struct obsidian_asset));
-    if (asset == NULL)
+    (*asset) = calloc(1, sizeof(struct obsidian_asset));
+    if ((*asset) == NULL)
     {
         (void)__ob_error_pusherror(ERR_OUT_OF_MEMORY, SEV_WARNING, CAT_MEMORY, "Failed to allocate enough memory to load an asset properly.", __FILE__, __LINE__);
         (void)__ob_error_readerror();
         return false;
     }
-    asset->type = type;
-    asset->rdata = __ob_util_readfile(path);
-    if (asset->rdata == NULL)
+    (*asset)->type = type;
+    (*asset)->rdata = __ob_util_readfile(path);
+    if ((*asset)->rdata == NULL)
     {
         (void)__ob_error_pusherror(ERR_FILE_IO, SEV_WARNING, CAT_FILESYSTEM, "Failed to read file contents for an asset.", __FILE__, __LINE__);
         (void)__ob_error_readerror();
-        free(asset);
-        asset = NULL;
+        free((*asset));
+        (*asset) = NULL;
         return false;
     }
 
-    asset->uid = 0; // TODO: implement
+    (*asset)->uid = 0; // TODO: implement
 
     switch(type)
     {
         case OB_ASSET_TEXTURE:
-            __ob_loader_texture_load(asset);
+            __ob_loader_texture_load(*asset);
         break;
         default:
             printf("Unkown or unimplemented\n");
@@ -66,38 +66,39 @@ void OBLDRdestroyAsset(struct obsidian_asset* restrict asset)
     if (asset == NULL)
         return;
 
-    // TODO: free all the other bullshit too
+    switch (asset->type)
+    {
+        case OB_ASSET_TEXTURE:
+            free(asset->texture.pixels);
+            asset->texture.pixels = NULL;
+        break;
+        default: break;
+    }
+
+    free(asset->rdata);
+    asset->rdata = NULL;
 
     free(asset);
     asset = NULL;
 }
 
-void __ob_loader_texture_load(const struct obsidian_asset* restrict asset)
+void __ob_loader_texture_load(struct obsidian_asset* restrict asset)
 {
-    printf("Texture being loaded!\n");
-    uint8_t* pixels;
-    uint32_t width, height, nrChannels;
     uint32_t offset = 0;
 
-    memcpy(&width, asset->rdata, sizeof(int));
+    memcpy((void*)&(asset->texture.width), asset->rdata, sizeof(int));
     offset += sizeof(int);
-    memcpy(&height, asset->rdata + offset, sizeof(int));
+    memcpy((void*)&(asset->texture.height), asset->rdata + offset, sizeof(int));
     offset += sizeof(int);
-    memcpy(&nrChannels, asset->rdata + offset, sizeof(int));
+    memcpy((void*)&(asset->texture.nrChannels), asset->rdata + offset, sizeof(int));
     offset += sizeof(int);
 
-    pixels = calloc(width * height * 4,  sizeof(uint8_t));
-    memcpy(pixels, asset->rdata + offset, width * height * 4 * sizeof(uint8_t));
-
-    for (size_t i = 0; i < 32; i++)
+    asset->texture.pixels = (uint8_t*) calloc(asset->texture.width * asset->texture.height  * 4,  sizeof(uint8_t));
+    if (asset->texture.pixels == NULL)
     {
-        printf("%02x ", *(asset->rdata + i));
+        (void)__ob_error_pusherror(ERR_OUT_OF_MEMORY, SEV_WARNING, CAT_MEMORY, "Failed to allocate enough memory for pixel data.", __FILE__, __LINE__);
+        (void)__ob_error_readerror();
+        return;
     }
-    printf("\n");
-
-    // printf("%dx%d, %d\n", width, height, nrChannels);
-    // printf("%p\n", pixels);
-
-    free(pixels);
-    pixels = NULL;
+    memcpy(asset->texture.pixels, asset->rdata + offset, asset->texture.width * asset->texture.height * 4 * sizeof(uint8_t));
 }

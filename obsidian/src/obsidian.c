@@ -32,6 +32,9 @@ extern void __ob_shdr_closemodule(void);
 extern bool __ob_buf_initmodule(void);
 extern bool __ob_buf_closemodule(void);
 
+extern bool __ob_tex_initmodule(void);
+extern bool __ob_tex_closemodule(void);
+
 void __ob_core_faultbreak(void);
 bool __ob_core_checkfault(void);
 
@@ -68,11 +71,16 @@ bool OBinit(void)
 
     __ob_log_wsline("Obsidian: Buffers [Core Module]\t|\tInitialization Successful.");
 
+    INIT_CORE_MODULE(__ob_tex_initmodule, "Failed to initialize Obsidian: Textures Core Module");
+
+    __ob_log_wsline("Obsidian: Textures [Core Module]\t|\tInitialization Successful.");
+
     return true;
 }
 
 void OBclose(void)
 {
+    (void)__ob_tex_closemodule();
     (void)__ob_buf_closemodule();
     (void)__ob_shdr_closemodule();
     (void)__ob_wnd_closemodule();
