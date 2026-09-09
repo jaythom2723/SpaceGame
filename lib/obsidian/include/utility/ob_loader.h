@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <stdlib.h>
 
 enum obsidian_asset_type {
     OB_ASSET_TEXTURE,
@@ -28,11 +29,19 @@ struct obsidian_asset {
             uint32_t nrChannels;
             uint8_t* pixels;
         } texture;
+
+        struct {
+            uint32_t vaoi;
+            uint32_t vboi;
+            uint32_t eboi;
+            uint32_t texi;
+        } mdlprim;
     };
 
     // TODO: Figure out what to do about model assets?
 };
 
+bool OBLDRcreatePrimitive(struct obsidian_asset** restrict mdlasset, const struct obsidian_asset* restrict texasset, const float* restrict vertices, const size_t vsize, const unsigned int* restrict indices, const size_t isize);
 bool OBLDRloadAsset(enum obsidian_asset_type type, struct obsidian_asset** restrict asset, const char* const path);
 void OBLDRdestroyAsset(struct obsidian_asset* restrict asset);
 
