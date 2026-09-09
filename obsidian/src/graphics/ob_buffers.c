@@ -13,8 +13,17 @@
 #define __OB_MAX_EBOS 0xFF
 #define __OB_MAX_VAOS 0xFF
 
+typedef uint32_t __ob_gl_vbo_t;
+typedef uint32_t __ob_gl_vao_t;
+typedef uint32_t __ob_gl_ebo_t;
+typedef uint32_t ob_vbo_t;
+typedef uint32_t ob_vao_t;
+typedef uint32_t ob_ebo_t;
+
 bool __ob_buf_initmodule(void);
 bool __ob_buf_closemodule(void);
+
+uint32_t* __ob_buf_getbuffer(uint32_t, uint32_t*);
 
 uint32_t __ob_buf_createvbo(void);
 bool __ob_buf_deletevbo(uint32_t);
@@ -40,13 +49,13 @@ extern bool __ob_error_readerror(void);
 extern void __ob_log_wline(enum ob_logger_message_type, const char* const);
 extern void __ob_log_wsline(const char* const);
 
-static uint32_t* vaos = NULL;
-static uint32_t* vbos = NULL;
-static uint32_t* ebos = NULL;
+static __ob_gl_vao_t* vaos = NULL;
+static __ob_gl_vbo_t* vbos = NULL;
+static __ob_gl_ebo_t* ebos = NULL;
 
-static uint32_t* vaoptr = NULL;
-static uint32_t* vboptr = NULL;
-static uint32_t* eboptr = NULL;
+static __ob_gl_vao_t* vaoptr = NULL;
+static __ob_gl_vbo_t* vboptr = NULL;
+static __ob_gl_ebo_t* eboptr = NULL;
 
 bool __ob_buf_initmodule(void)
 {
@@ -117,12 +126,20 @@ bool __ob_buf_closemodule(void)
     return true;
 }
 
-uint32_t __ob_buf_createvbo(void)
+uint32_t* __ob_buf_getbuffer(uint32_t index, uint32_t* arr)
+{
+    uint32_t* buffer = (arr + index);
+    if (glIsBuffer(*buffer) == GL_FALSE)
+        return NULL;
+    return buffer;
+}
+
+ob_vbo_t __ob_buf_createvbo(void)
 {
     if ((vboptr - vbos) >= __OB_MAX_VBOS)
         return 0xFF;
 
-    uint32_t index = (uint32_t)(vboptr - vbos);
+    ob_vbo_t index = (ob_vbo_t)(vboptr - vbos);
     glGenBuffers(1, vboptr);
 
     /*
@@ -138,45 +155,29 @@ uint32_t __ob_buf_createvbo(void)
     return index;
 }
 
-bool __ob_buf_deletevbo(uint32_t i)
+bool __ob_buf_deletevbo(ob_vbo_t i)
 {
-    uint32_t* buffer = (vbos + i);
-    if (glIsBuffer(*buffer) == GL_FALSE)
-    {
-        // TODO: replace with log/error
-        printf("Failed to delete VBO!\n");
+    __ob_gl_vbo_t* buffer = __ob_buf_getbuffer(i, vbos);
+    if (buffer == NULL)
         return false;
-    }
     glDeleteBuffers(1, buffer);
     return true;
 }
 
-bool __ob_buf_bindvbo(uint32_t i)
+bool __ob_buf_bindvbo(ob_vbo_t i)
 {
-    uint32_t* buffer = (vbos + i);
-    if (glIsBuffer(*buffer) == GL_FALSE)
-    {
-        // TODO: replace with log/error
-        printf("Failed to bind buffer!\n");
+    __ob_gl_vbo_t* buffer = __ob_buf_getbuffer(i, vbos);
+    if (buffer == NULL)
         return false;
-    }
     glBindBuffer(GL_ARRAY_BUFFER, *buffer);
     return true;
 }
 
-bool __ob_buf_setvbodata(uint32_t i, size_t sbytes, const void* data, uint32_t usage)
+bool __ob_buf_setvbodata(ob_vbo_t i, size_t sbytes, const void* data, uint32_t usage)
 {
-    uint32_t* buffer = (vbos + i);
-    if (glIsBuffer(*buffer) == GL_FALSE)
-    {
-        // TODO: replace with log/error
-        printf("Failed to set vbo data!\n");
+    if (__ob_buf_bindvbo(i) == false)
         return false;
-    }
-
-    (void)__ob_buf_bindvbo(i);
     glBufferData(GL_ARRAY_BUFFER, sbytes, data, usage);
-
     return true;
 }
 
@@ -193,7 +194,7 @@ bool __ob_buf_setebodata(uint32_t, size_t, const void*, uint32_t);
 void __ob_buf_unbindebo(void);
 */
 
-uint32_t __ob_buf_createebo(void)
+ob_ebo_t __ob_buf_createebo(void)
 {
     if (ebos == NULL || vbos == NULL || vaos == NULL)
         return 0xFF;
@@ -201,19 +202,19 @@ uint32_t __ob_buf_createebo(void)
     if((eboptr - ebos) >= __OB_MAX_EBOS)
         return 0xFF;
 
-    uint32_t index = (uint32_t)(eboptr - ebos);
+    ob_ebo_t index = (ob_ebo_t)(eboptr - ebos);
     glGenBuffers(1, eboptr);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *eboptr);
     eboptr++;
     return index;
 }
 
-bool __ob_buf_deleteebo(uint32_t index)
+bool __ob_buf_deleteebo(ob_ebo_t index)
 {
     if (ebos == NULL || vbos == NULL || vaos == NULL)
         return false;
 
-    uint32_t* buffer = (ebos + index);
+    __ob_gl_ebo_t* buffer = (ebos + index);
     if (glIsBuffer(*buffer) == GL_FALSE)
         return false;
 
@@ -221,12 +222,12 @@ bool __ob_buf_deleteebo(uint32_t index)
     return true;
 }
 
-bool __ob_buf_bindebo(uint32_t index)
+bool __ob_buf_bindebo(ob_ebo_t index)
 {
     if (ebos == NULL || vbos == NULL || vaos == NULL)
         return false;
 
-    uint32_t* buffer = (ebos + index);
+    __ob_gl_ebo_t* buffer = (ebos + index);
     if (glIsBuffer(*buffer) == GL_FALSE)
         return false;
 
@@ -234,12 +235,12 @@ bool __ob_buf_bindebo(uint32_t index)
     return true;
 }
 
-bool __ob_buf_setebodata(uint32_t index, size_t sbytes, const void* data, uint32_t usage)
+bool __ob_buf_setebodata(ob_ebo_t index, size_t sbytes, const void* data, uint32_t usage)
 {
     if (ebos == NULL || vbos == NULL || vaos == NULL)
         return false;
 
-    uint32_t* buffer = (ebos + index);
+    __ob_gl_ebo_t* buffer = (ebos + index);
     if (glIsBuffer(*buffer) == GL_FALSE)
         return false;
     
@@ -262,7 +263,7 @@ void __ob_buf_setattribpointer(uint32_t,uint32_t,size_t,void*);
 void __ob_buf_unbindvao(void);
 */
 
-uint32_t __ob_buf_createvao(void)
+ob_vao_t __ob_buf_createvao(void)
 {
     if (vaos == NULL || vbos == NULL || ebos == NULL)
         return 0xFF;
@@ -277,24 +278,24 @@ uint32_t __ob_buf_createvao(void)
     return index;
 }
 
-bool __ob_buf_deletevao(uint32_t index)
+bool __ob_buf_deletevao(ob_vao_t index)
 {
     if (vaos == NULL || vbos == NULL || ebos == NULL)
         return false;
 
-    uint32_t* vao = vaos + index;
+    __ob_gl_vao_t* vao = vaos + index;
     if (glIsVertexArray(*vao) == GL_FALSE)
         return false;
     glDeleteVertexArrays(1, vao);
     return true;
 }
 
-bool __ob_buf_bindvao(uint32_t index)
+bool __ob_buf_bindvao(ob_vao_t index)
 {
     if (vaos == NULL || vbos == NULL || ebos == NULL)
         return false;
 
-    uint32_t* vao = vaos + index;
+    __ob_gl_vao_t* vao = vaos + index;
     if (glIsVertexArray(*vao) == GL_FALSE)
         return false;
     glBindVertexArray(*vao);

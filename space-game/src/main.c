@@ -7,6 +7,8 @@
 #include <graphics/ob_shader.h>
 #include <utility/ob_loader.h>
 
+#include <cglm/cglm.h>
+
 float vertices[] = {
     0.5f, 0.5f, 0.0f,           1.0f, 1.0f,       // top right
     0.5f, -0.5f, 0.0f,          1.0f, 0.0f,      // bottom right
@@ -49,7 +51,24 @@ int main(void)
     OBLDRloadAsset(OB_ASSET_TEXTURE, &texture, "res/textures/test.obtf");
     OBLDRcreatePrimitive(&primitive_model, texture, vertices, sizeof(vertices), indices, sizeof(indices));
     
+    mat4 projection;
+    glm_ortho(0.0f, 800.0f, 600.0f, 0.0f, -1.0f, 1.0f, projection);
+
+    mat4 model;
+    glm_mat4_identity(model);
+    vec3 pos = { (800.0f/2.0f)-(64.0f/2.0f), (600.0f/2.0f), 0.0f };
+    vec3 size = { 64, 64, 0.0f };
+    float rot = 0.0f;
+    glm_translate(model, pos);
+    glm_translate(model, (vec3) { 0.5f * size[0], 0.5f * size[1], 0.0f });
+    glm_rotate(model, glm_rad(rot), (vec3) { 0.0f, 0.0f, 1.0f });
+    glm_translate(model, (vec3) { -0.5f * size[0], -0.5f * size[1], 0.0f });
+    glm_scale(model, (vec3) { size[0], size[1], 1.0f });
+
+    OBSHDRuseProgram(program);
     OBSHDRseti(program, "OBTex", 0);
+    OBSHDRsetmat4f(program, "projection", projection);
+    OBSHDRsetmat4f(program, "model", model);
 
     while (OBWNDshouldClose() == false)
     {

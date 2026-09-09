@@ -354,7 +354,9 @@ bool OBSHDRset4fv(const obsidian_program_t index, const char* name, const vec4 v
 
 bool OBSHDRsetmat4f(const obsidian_program_t index, const char* name, const mat4 value)
 {
-    UNIFORM_GUARD;
+    if (__programs == NULL) { printf("programs is null\n"); return false; }
+    if (glIsProgram(*(__programs + index)) == GL_FALSE) { printf("shader program invalid\n"); return false; }
+    if (glGetUniformLocation(*(__programs + index), name) < 0) { printf("uniform doesn't exist\n"); return false; }
     glUniformMatrix4fv(glGetUniformLocation(*(__programs + index), name), 1, GL_FALSE, (const float*) value);
     return true;
 }

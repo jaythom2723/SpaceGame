@@ -60,7 +60,7 @@ bool __ob_log_getlogfilename(char** buffer, size_t* bufferSize)
     char* dbuf = __ob_util_dtostr(day);
 
     // new buffer size, allocating buffer
-    (*bufferSize) = strlen(ybuf) + strlen(mbuf) + strlen(dbuf) + strlen(".log") + 3; // +2 for '.' and + 1 for \0
+    (*bufferSize) = strlen("data/logs/") + strlen(ybuf) + strlen(mbuf) + strlen(dbuf) + strlen(".log") + 3; // +2 for '.' and + 1 for \0
     (*buffer) = calloc(*bufferSize, sizeof(char));
     if (*buffer == NULL)
     {
@@ -73,7 +73,8 @@ bool __ob_log_getlogfilename(char** buffer, size_t* bufferSize)
     }
 
     memset(*buffer, 0, *bufferSize);
-    strcpy(*buffer, mbuf);
+    strcpy(*buffer, "data/logs/");
+    strcat(*buffer, mbuf);
     strcat(*buffer, ".");
     strcat(*buffer, dbuf);
     strcat(*buffer, ".");

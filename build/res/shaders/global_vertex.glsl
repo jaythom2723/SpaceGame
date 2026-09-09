@@ -6,9 +6,12 @@ layout (location = 1) in vec2 tPos;
 out vec4 vertexColor;
 out vec2 TexCoord;
 
+uniform mat4 projection;
+uniform mat4 model;
+
 void main()
 {
-    gl_Position = vec4(aPos, 1.0);
+    gl_Position = projection * model * vec4(aPos, 1.0);
     vertexColor = vec4(1.0, 1.0, 1.0, 1.0);
     TexCoord = tPos;
 }
