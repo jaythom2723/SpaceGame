@@ -54,7 +54,12 @@ int main(int argc, char** argv)
         return -2;
     }
 
-    fwrite(data, 1, width * height * 4, fp);
+    printf("%d\n%d\n", width, height);
+
+    fwrite(&width, sizeof(int), 1, fp);
+    fwrite(&height, sizeof(int), 1, fp);
+    fwrite(&nrChannels, sizeof(int), 1, fp);
+    fwrite(data , sizeof(char), width * height * 4, fp);
 
     fclose(fp);
     fp = NULL;
