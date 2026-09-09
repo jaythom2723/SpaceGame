@@ -1,22 +1,17 @@
+#include <stdint.h>
+#include <stdbool.h>
+#include <stdlib.h>
+
 #include <obsidian.h>
 #include <display/ob_window.h>
 #include <graphics/ob_shader.h>
 #include <utility/ob_loader.h>
 
-// float vertices[] = {
-//     0.0f, 1.0f,     0.0f, 1.0f,
-//     1.0f, 0.0f,     1.0f, 0.0f,
-//     0.0f, 0.0f,     0.0f, 0.0f,
-//     0.0f, 1.0f,     0.0f, 1.0f,
-//     1.0f, 1.0f,     1.0f, 1.0f,
-//     1.0f, 0.0f,     1.0f, 0.0f    
-// };
-
 float vertices[] = {
     0.5f, 0.5f, 0.0f,           1.0f, 1.0f,       // top right
-    0.5f, -0.5f, 0.0f,          1.0f, -1.0f,      // bottom right
-    -0.5f, -0.5f, 0.0f,     -1.0f, -1.0f,    // bottom left
-    -0.5f, 0.5f, 0.0f,      -1.0f, 1.0f,     // top left
+    0.5f, -0.5f, 0.0f,          1.0f, 0.0f,      // bottom right
+    -0.5f, -0.5f, 0.0f,     0.0f, 0.0f,    // bottom left
+    -0.5f, 0.5f, 0.0f,      0.0f, 1.0f,     // top left
 };
 
 unsigned int indices[] = {
@@ -42,6 +37,12 @@ extern bool __ob_buf_bindvao(uint32_t);
 extern bool __ob_buf_setattribpointer(uint32_t,uint32_t,size_t,void*);
 extern bool __ob_buf_unbindvao(void);
 
+extern uint32_t __ob_tex_createtex(void);
+extern void __ob_tex_deletetex(uint32_t);
+extern bool __ob_tex_bindtex(uint32_t);
+extern bool __ob_tex_gendata(uint32_t, const struct obsidian_asset*);
+extern void __ob_tex_unbindtex(void);
+
 int main(void)
 {
     OBinit();
@@ -64,7 +65,7 @@ int main(void)
     OBSHDRuseProgram(program);
 
     // TODO: perhaps make an exposed asset loading system that can create asset prototypes via coordinate files (3D models?)
-    uint32_t vao, vbo, ebo;
+    uint32_t vao, vbo, ebo, tex;
 
     vao = __ob_buf_createvao();
     if(__ob_buf_bindvao(vao) == false)
@@ -80,17 +81,23 @@ int main(void)
 
     __ob_buf_setattribpointer(0, 3, 5 * sizeof(float), (void*)0);
     __ob_buf_setattribpointer(1, 2, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    
+    struct obsidian_asset* asset = NULL;
+    (void)OBLDRloadAsset(OB_ASSET_TEXTURE, &asset, "res/textures/test.obtf");
+
+    OBSHDRuseProgram(program);
+    glActiveTexture(GL_TEXTURE0);
+    tex = __ob_tex_createtex();
+    __ob_tex_gendata(tex, asset);
 
     __ob_buf_unbindvao();
     __ob_buf_unbindebo();
     __ob_buf_unbindvbo();
-    
+
     __ob_buf_deleteebo(ebo);
     __ob_buf_deletevbo(vbo);
     
-    struct obsidian_asset* asset = NULL;
-    (void)OBLDRloadAsset(OB_ASSET_TEXTURE, asset, "test.bmp");
-    OBLDRdestroyAsset(asset);
+    OBSHDRseti(program, "OBTex", 0);
 
     while (OBWNDshouldClose() == false)
     {
@@ -104,6 +111,9 @@ int main(void)
         OBWNDswapBuffers();
     }
  
+    __ob_tex_deletetex(tex);
+    OBLDRdestroyAsset(asset);
+
     OBSHDRdestroyProgram(program);
     OBWNDdestroyWindow();
     OBclose();

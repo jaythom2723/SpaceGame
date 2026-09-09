@@ -6,18 +6,58 @@
       "-Wextra",
       "-Werror",
       "-std=c99",
+      "-I/home/shyguy/Desktop/SpaceGame/obsidian/include",
+      "-I/home/shyguy/Desktop/SpaceGame/lib/cglm/include",
+      "-I/home/shyguy/Desktop/SpaceGame/lib/glfw/include",
+      "-I/home/shyguy/Desktop/SpaceGame/lib/glad/include",
+      "-I/home/shyguy/Desktop/SpaceGame/lib/stb-image/include",
       "-c",
-      "-Iinclude/",
-      "-I../lib/cglm/include/",
-      "-I../lib/glfw/include/",
-      "-I../lib/glad/include/",
-      "-I../lib/stb-image/include/",
       "-o",
-      "src/utility/ob_logger.o",
-      "src/utility/ob_logger.c"
+      "/home/shyguy/Desktop/SpaceGame/obsidian/src/utility/ob_loader.o",
+      "/home/shyguy/Desktop/SpaceGame/obsidian/src/utility/ob_loader.c"
     ],
     "directory": "/home/shyguy/Desktop/SpaceGame/obsidian",
-    "file": "/home/shyguy/Desktop/SpaceGame/obsidian/src/utility/ob_logger.c",
-    "output": "/home/shyguy/Desktop/SpaceGame/obsidian/src/utility/ob_logger.o"
+    "file": "/home/shyguy/Desktop/SpaceGame/obsidian/src/utility/ob_loader.c",
+    "output": "/home/shyguy/Desktop/SpaceGame/obsidian/src/utility/ob_loader.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-std=c99",
+      "-I/home/shyguy/Desktop/SpaceGame/obtexcvtr/include",
+      "-I/home/shyguy/Desktop/SpaceGame/lib/stb-image/include",
+      "-o",
+      "/home/shyguy/Desktop/SpaceGame/build/obtexcvtr.exe",
+      "/home/shyguy/Desktop/SpaceGame/obtexcvtr/src/main.c"
+    ],
+    "directory": "/home/shyguy/Desktop/SpaceGame/obtexcvtr",
+    "file": "/home/shyguy/Desktop/SpaceGame/obtexcvtr/src/main.c",
+    "output": "/home/shyguy/Desktop/SpaceGame/build/obtexcvtr.exe"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-std=c99",
+      "-I/home/shyguy/Desktop/SpaceGame/space-game/include",
+      "-I/home/shyguy/Desktop/SpaceGame/lib/cglm/include",
+      "-I/home/shyguy/Desktop/SpaceGame/lib/glfw/include",
+      "-I/home/shyguy/Desktop/SpaceGame/lib/glad/include",
+      "-I/home/shyguy/Desktop/SpaceGame/lib/stb-image/include",
+      "-I/home/shyguy/Desktop/SpaceGame/lib/obsidian/include",
+      "-o",
+      "/home/shyguy/Desktop/SpaceGame/build/space-game.exe",
+      "/home/shyguy/Desktop/SpaceGame/space-game/src/main.c"
+    ],
+    "directory": "/home/shyguy/Desktop/SpaceGame/space-game",
+    "file": "/home/shyguy/Desktop/SpaceGame/space-game/src/main.c",
+    "output": "/home/shyguy/Desktop/SpaceGame/build/space-game.exe"
   }
 ]

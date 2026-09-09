@@ -23,7 +23,6 @@
 // static bool display_help = false;
 static char* input_path = NULL;
 static char* output_path = NULL;
-// static uint32_t bit_depth = DEFAULT_COLOR_BIT_DEPTH;
 
 void __ob_gen_output_path(void);
 void __ob_clone_string(char** restrict dest, const char* restrict src);
@@ -53,8 +52,6 @@ int main(int argc, char** argv)
         printf("Failed to open new file!\n");
         return -2;
     }
-
-    printf("%d\n%d\n", width, height);
 
     fwrite(&width, sizeof(int), 1, fp);
     fwrite(&height, sizeof(int), 1, fp);

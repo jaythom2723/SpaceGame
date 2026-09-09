@@ -33,7 +33,7 @@ struct obsidian_asset {
     // TODO: Figure out what to do about model assets?
 };
 
-bool OBLDRloadAsset(enum obsidian_asset_type type, struct obsidian_asset* restrict asset, const char* const path);
+bool OBLDRloadAsset(enum obsidian_asset_type type, struct obsidian_asset** restrict asset, const char* const path);
 void OBLDRdestroyAsset(struct obsidian_asset* restrict asset);
 
 #endif
