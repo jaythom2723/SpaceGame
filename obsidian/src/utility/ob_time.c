@@ -17,7 +17,7 @@ void OBTIMEgetTimestamp(uint32_t* hours, uint32_t* minutes, uint32_t* seconds)
     time_t t = time(NULL);
     struct tm tm = *gmtime(&t);
 
-    (*hours) = tm.tm_hour % 24;
+    (*hours) = tm.tm_hour % 12;
     (*minutes) = tm.tm_min;
     (*seconds) = tm.tm_sec;
 }

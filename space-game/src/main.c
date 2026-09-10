@@ -6,6 +6,7 @@
 #include <display/ob_window.h>
 #include <graphics/ob_shader.h>
 #include <utility/ob_loader.h>
+#include <assets/ob_asset.h>
 
 #include <cglm/cglm.h>
 
@@ -23,6 +24,7 @@ unsigned int indices[] = {
 
 extern bool __ob_buf_bindvao(uint32_t);
 extern bool __ob_buf_unbindvao(void);
+extern bool __ob_tex_bindtex(uint32_t);
 
 int main(void)
 {
@@ -49,14 +51,14 @@ int main(void)
     struct obsidian_asset* texture = NULL;
 
     OBLDRloadAsset(OB_ASSET_TEXTURE, &texture, "res/textures/test.obtf");
-    OBLDRcreatePrimitive(&primitive_model, texture, vertices, sizeof(vertices), indices, sizeof(indices));
+    OBASTcreatePrimitiveModel(&primitive_model, vertices, sizeof(vertices), indices, sizeof(indices));
     
     mat4 projection;
     glm_ortho(0.0f, 800.0f, 600.0f, 0.0f, -1.0f, 1.0f, projection);
 
     mat4 model;
     glm_mat4_identity(model);
-    vec3 pos = { (800.0f/2.0f)-(64.0f/2.0f), (600.0f/2.0f), 0.0f };
+    vec3 pos = { (800.0f/2.0f)-(64.0f/2.0f), (600.0f/2.0f)-(64.0f/2.0f), 0.0f };
     vec3 size = { 64, 64, 0.0f };
     float rot = 0.0f;
     glm_translate(model, pos);
@@ -70,20 +72,25 @@ int main(void)
     OBSHDRsetmat4f(program, "projection", projection);
     OBSHDRsetmat4f(program, "model", model);
 
+    glViewport(0, 0, 800, 600);
+
     while (OBWNDshouldClose() == false)
     {
         OBWNDpollEvents();
 
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
         OBSHDRuseProgram(program);
         __ob_buf_bindvao(primitive_model->mdlprim.vaoi);
+        __ob_tex_bindtex(texture->texture.texi);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         __ob_buf_unbindvao();
 
         OBWNDswapBuffers();
     }
  
-    OBLDRdestroyAsset(primitive_model);
-    OBLDRdestroyAsset(texture);
+    OBASTdestroyAsset(primitive_model);
+    OBASTdestroyAsset(texture);
 
     OBSHDRdestroyProgram(program);
     OBWNDdestroyWindow();
