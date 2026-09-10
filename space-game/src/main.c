@@ -7,6 +7,7 @@
 #include <graphics/ob_shader.h>
 #include <utility/ob_loader.h>
 #include <assets/ob_asset.h>
+#include <ecs/ecs.h>
 
 #include <cglm/cglm.h>
 
@@ -53,6 +54,14 @@ int main(void)
     OBLDRloadAsset(OB_ASSET_TEXTURE, &texture, "res/textures/test.obtf");
     OBASTcreatePrimitiveModel(&primitive_model, vertices, sizeof(vertices), indices, sizeof(indices));
     
+    float test[] = {
+        -10.0f, -50.0f
+    };
+    uint32_t ent = OBECScreateEntity();
+    if(OBECSaddComponent(ent, 1, test, sizeof(test)) == false)
+        printf("ah shit\n");
+    // OBECSdestroyEntity(&ent);
+
     mat4 projection;
     glm_ortho(0.0f, 800.0f, 600.0f, 0.0f, -1.0f, 1.0f, projection);
 

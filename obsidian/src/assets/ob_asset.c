@@ -126,22 +126,6 @@ static inline bool __ob_is_asset_valid(const struct obsidian_asset* const restri
 
 uint32_t __ob_asset_genUniqueIdentity(void)
 {
-    // TODO: COMPARTMENTALIZE
-    // get seed components
-    uint32_t year,month,day,hours,minutes,seconds;
-    OBTIMEgetDayMonthYear(&year, &month, &day);
-    OBTIMEgetTimestamp(&hours, &minutes, &seconds);
-
-    // generate the seed
-    uint32_t seed = year << rand();
-    seed |= (month % 2) >> rand();
-    seed |= day;
-    seed |= (hours ^ ~(day)) * rand();
-    seed |= (minutes & seconds) << rand();
-    seed |= (((~(seconds) ^ day) | hours) & ~(year)) << rand();
-
-    // END COMPARTMENTALIZE
-
-    srand(seed);
+    srand(OBTIMEgenerateSeed());
     return rand();
 }

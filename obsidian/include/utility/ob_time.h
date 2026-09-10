@@ -5,5 +5,6 @@
 
 void OBTIMEgetDayMonthYear(uint32_t* year, uint32_t* month, uint32_t* day);
 void OBTIMEgetTimestamp(uint32_t* hours, uint32_t* minutes, uint32_t* seconds);
+uint32_t OBTIMEgenerateSeed(void);
 
 #endif
