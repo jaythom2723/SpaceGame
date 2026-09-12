@@ -66,7 +66,6 @@ bool __ob_ecs_closemodule(void)
 {
     if (__ob_ents == NULL || __ob_cpools == NULL)
         return false;
-
     for (int i = 0; i < __OB_MAX_POOLS; i++)
     {
         if (__ob_cpools[i].components != NULL)
@@ -162,26 +161,29 @@ void OBECSdestroyEntity(ob_entity_t* ent)
 
 bool OBECSaddComponent(const ob_entity_t ent, const ob_comptype_t type, void* data, size_t dsize)
 {
+    if (__ob_ents == NULL || __ob_cpools == NULL)
+        return false;
+
     // FIXME: data loss issue revolving around void* data usage.
     struct obsidian_component comp = { 0 };
     comp.data = malloc(dsize);
-    printf("%lu\n", dsize);
     if (comp.data == NULL) return false;
     memcpy(comp.data, data, dsize);
     comp.size = dsize;
     comp.uid = __ob_util_genUniqueIdentity(__ob_cpools, __ob_cpoolptr);
     comp.type = type;
+    printf("%d\n", comp.uid);
 
     // TODO: Dry
     // TODO: Sorting algorirthm
     for (int i = 0; i < __OB_MAX_POOLS; i++)
     {
         struct __ob_componentpool pool = __ob_cpools[i];
-        if (pool.components == NULL || pool.count >= pool.cap)
-            break;
-
-        if (pool.parent != ent)
+        if (pool.components == NULL || pool.count >= pool.cap || pool.parent != ent)
             continue;
+
+        if (pool.cptr != (pool.components + pool.count) && pool.cptr->data != NULL)
+            pool.cptr = pool.components + (pool.count+1);
 
         memcpy(pool.cptr, &comp, sizeof(struct obsidian_component));
 
@@ -196,15 +198,55 @@ bool OBECSaddComponent(const ob_entity_t ent, const ob_comptype_t type, void* da
     return false;
 }
 
-// bool OBECSremoveComponent(const ob_entity_t ent, const ob_comptype_t type)
-// {
-//     return false;
-// }
+bool OBECSremoveComponent(const ob_entity_t ent, const ob_comptype_t type)
+{
+    if (__ob_ents == NULL || __ob_cpools == NULL)
+        return false;
 
-// bool OBECShasComponent(const ob_entity_t ent, const ob_comptype_t type)
-// {
-//     return false;
-// }
+    // TODO: dry
+    for (int i = 0; i < __OB_MAX_POOLS; i++)
+    {
+        struct __ob_componentpool pool = __ob_cpools[i];
+        if (pool.components == NULL || pool.count <= 0 || pool.parent != ent)
+            continue;
+
+        for (int j = 0; j < OB_MAX_COMPONENTS; j++)
+            if (pool.components[j].type == type)
+            {
+                free(pool.components[j].data);
+                pool.components[j].data = NULL;
+                pool.components[j] = (struct obsidian_component) {0};
+                pool.count--;
+                pool.cptr = pool.components + j;
+                break;
+            }
+        
+        memcpy(__ob_cpools + i, &pool, sizeof(struct __ob_componentpool));
+        return true;
+    }
+
+    return false;
+}
+
+bool OBECShasComponent(const ob_entity_t ent, const ob_comptype_t type)
+{
+    if (__ob_ents == NULL || __ob_cpools == NULL)
+        return false;
+
+    // TODO: dry
+    for (int i = 0; i < __OB_MAX_POOLS; i++)
+    {
+        struct __ob_componentpool pool = __ob_cpools[i];
+        if (pool.components == NULL || pool.count <= 0 || pool.parent != ent)
+            continue;
+
+        for (int j = 0; j < OB_MAX_COMPONENTS; j++)
+            if (pool.components[j].type == type)
+                return true;
+    }
+
+    return false;
+}
 
 ob_entity_t* __ob_ecs_getmodent(const ob_entity_t* ent)
 {
@@ -215,4 +257,45 @@ ob_entity_t* __ob_ecs_getmodent(const ob_entity_t* ent)
             return (__ob_ents + i);
     }
     return NULL;
+}
+
+const void* OBECSgetComponentData(const ob_entity_t ent, const ob_comptype_t type)
+{
+    if (__ob_ents == NULL || __ob_cpools == NULL)
+        return NULL;
+
+    // TODO: dry
+    for (int i = 0; i < __OB_MAX_POOLS; i++)
+    {
+        struct __ob_componentpool pool = __ob_cpools[i];
+        if (pool.components == NULL || pool.count <= 0 || pool.parent != ent)
+            continue;
+
+        for (int j = 0; j < OB_MAX_COMPONENTS; j++)
+            if (pool.components[j].type == type)
+                return pool.components[j].data;
+    }
+
+    return NULL;
+}
+
+bool OBECSsetComponentData(const ob_entity_t ent, const ob_comptype_t type, const void* data, const size_t dsize)
+{
+    if (__ob_ents == NULL || __ob_cpools == NULL)
+        return NULL;
+
+    for (int i = 0; i < __OB_MAX_POOLS; i++)
+    {
+        struct __ob_componentpool pool = __ob_cpools[i];
+        if (pool.components == NULL || pool.count <= 0 || pool.parent != ent)
+            continue;
+        for (int j = 0; j < OB_MAX_COMPONENTS; j++)
+            if (pool.components[j].type == type)
+            {
+                memcpy(((__ob_cpools + i)->components + j)->data, data, dsize);
+                return true;
+            }
+    }
+
+    return false;
 }

@@ -53,23 +53,36 @@ int main(void)
 
     OBLDRloadAsset(OB_ASSET_TEXTURE, &texture, "res/textures/test.obtf");
     OBASTcreatePrimitiveModel(&primitive_model, vertices, sizeof(vertices), indices, sizeof(indices));
+
+    ob_entity_t ent = OBECScreateEntity();
+
+    vec3 pos = { (800.0f/2.0f)-(64.0f/2.0f), (600.0f/2.0f)-(64.0f/2.0f), 0.0f };
+    vec3 size = { 64.f, 64.f, 0.0f };
+    float rot = 0.0f;
+
+    OBECSaddComponent(ent, OB_TEXTURE_COMPONENT, texture, sizeof(*texture));
+    OBECSaddComponent(ent, OB_MODEL_COMPONENT, primitive_model, sizeof(*primitive_model));
+    OBECSaddComponent(ent, OB_POSITION_COMPONENT, pos, sizeof(pos));
+    OBECSaddComponent(ent, OB_SCALE_COMPONENT, size, sizeof(size));
+    OBECSaddComponent(ent, OB_ROTATION_COMPONENT, &rot, sizeof(rot));
+
+    const struct obsidian_asset* ttex = OBECSgetComponentData(ent, OB_TEXTURE_COMPONENT);
     
-    float test[] = {
-        -10.0f, -50.0f
-    };
-    uint32_t ent = OBECScreateEntity();
-    if(OBECSaddComponent(ent, 1, test, sizeof(test)) == false)
-        printf("ah shit\n");
-    // OBECSdestroyEntity(&ent);
+    printf("%d\n", ttex->texture.width);
+    
+    printf("%d\n", OBECShasComponent(ent, OB_TEXTURE_COMPONENT));
+    printf("%d\n", OBECShasComponent(ent, OB_MODEL_COMPONENT));
+    printf("%d\n", OBECShasComponent(ent,OB_POSITION_COMPONENT));
+    printf("%d\n", OBECShasComponent(ent, OB_SCALE_COMPONENT));
+    printf("%d\n", OBECShasComponent(ent, OB_ROTATION_COMPONENT));
+
+    OBECSdestroyEntity(&ent);
 
     mat4 projection;
     glm_ortho(0.0f, 800.0f, 600.0f, 0.0f, -1.0f, 1.0f, projection);
 
     mat4 model;
     glm_mat4_identity(model);
-    vec3 pos = { (800.0f/2.0f)-(64.0f/2.0f), (600.0f/2.0f)-(64.0f/2.0f), 0.0f };
-    vec3 size = { 64, 64, 0.0f };
-    float rot = 0.0f;
     glm_translate(model, pos);
     glm_translate(model, (vec3) { 0.5f * size[0], 0.5f * size[1], 0.0f });
     glm_rotate(model, glm_rad(rot), (vec3) { 0.0f, 0.0f, 1.0f });
