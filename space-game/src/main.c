@@ -24,10 +24,6 @@ unsigned int indices[] = {
     1, 2, 3,
 };
 
-extern bool __ob_buf_bindvao(uint32_t);
-extern bool __ob_buf_unbindvao(void);
-extern bool __ob_tex_bindtex(uint32_t);
-
 int main(void)
 {
     OBinit();

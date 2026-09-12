@@ -47,6 +47,7 @@ void OBRNDRdrawEntity(const ob_entity_t entity)
     glActiveTexture(GL_TEXTURE0);
     __ob_buf_bindvao(model->mdlprim.vaoi);
     __ob_tex_bindtex(texture->texture.texi);
+    // TODO: don't hardcode param #2
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     __ob_buf_unbindvao();
     __ob_tex_unbindtex();
