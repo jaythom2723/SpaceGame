@@ -1,5 +1,5 @@
-#ifndef ECS_H
-#define ECS_H
+#ifndef OB_ECS_H
+#define OB_ECS_H
 
 #include <stdint.h>
 #include <stdbool.h>

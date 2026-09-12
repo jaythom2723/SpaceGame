@@ -5,9 +5,10 @@
 #include <obsidian.h>
 #include <display/ob_window.h>
 #include <graphics/ob_shader.h>
+#include <graphics/ob_render.h>
 #include <utility/ob_loader.h>
 #include <assets/ob_asset.h>
-#include <ecs/ecs.h>
+#include <ecs/ob_ecs.h>
 
 #include <cglm/cglm.h>
 
@@ -66,33 +67,11 @@ int main(void)
     OBECSaddComponent(ent, OB_SCALE_COMPONENT, size, sizeof(size));
     OBECSaddComponent(ent, OB_ROTATION_COMPONENT, &rot, sizeof(rot));
 
-    const struct obsidian_asset* ttex = OBECSgetComponentData(ent, OB_TEXTURE_COMPONENT);
-    
-    printf("%d\n", ttex->texture.width);
-    
-    printf("%d\n", OBECShasComponent(ent, OB_TEXTURE_COMPONENT));
-    printf("%d\n", OBECShasComponent(ent, OB_MODEL_COMPONENT));
-    printf("%d\n", OBECShasComponent(ent,OB_POSITION_COMPONENT));
-    printf("%d\n", OBECShasComponent(ent, OB_SCALE_COMPONENT));
-    printf("%d\n", OBECShasComponent(ent, OB_ROTATION_COMPONENT));
-
-    OBECSdestroyEntity(&ent);
-
     mat4 projection;
     glm_ortho(0.0f, 800.0f, 600.0f, 0.0f, -1.0f, 1.0f, projection);
 
-    mat4 model;
-    glm_mat4_identity(model);
-    glm_translate(model, pos);
-    glm_translate(model, (vec3) { 0.5f * size[0], 0.5f * size[1], 0.0f });
-    glm_rotate(model, glm_rad(rot), (vec3) { 0.0f, 0.0f, 1.0f });
-    glm_translate(model, (vec3) { -0.5f * size[0], -0.5f * size[1], 0.0f });
-    glm_scale(model, (vec3) { size[0], size[1], 1.0f });
-
-    OBSHDRuseProgram(program);
     OBSHDRseti(program, "OBTex", 0);
     OBSHDRsetmat4f(program, "projection", projection);
-    OBSHDRsetmat4f(program, "model", model);
 
     glViewport(0, 0, 800, 600);
 
@@ -102,14 +81,12 @@ int main(void)
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        OBSHDRuseProgram(program);
-        __ob_buf_bindvao(primitive_model->mdlprim.vaoi);
-        __ob_tex_bindtex(texture->texture.texi);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-        __ob_buf_unbindvao();
+        OBRNDRdrawEntity(ent);
 
         OBWNDswapBuffers();
     }
+    
+    OBECSdestroyEntity(&ent);
  
     OBASTdestroyAsset(primitive_model);
     OBASTdestroyAsset(texture);
