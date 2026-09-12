@@ -5,8 +5,10 @@
 #include <obsidian.h>
 #include <display/ob_window.h>
 #include <graphics/ob_shader.h>
+#include <graphics/ob_render.h>
 #include <utility/ob_loader.h>
 #include <assets/ob_asset.h>
+#include <ecs/ob_ecs.h>
 
 #include <cglm/cglm.h>
 
@@ -21,10 +23,6 @@ unsigned int indices[] = {
     0, 1, 3,
     1, 2, 3,
 };
-
-extern bool __ob_buf_bindvao(uint32_t);
-extern bool __ob_buf_unbindvao(void);
-extern bool __ob_tex_bindtex(uint32_t);
 
 int main(void)
 {
@@ -52,25 +50,24 @@ int main(void)
 
     OBLDRloadAsset(OB_ASSET_TEXTURE, &texture, "res/textures/test.obtf");
     OBASTcreatePrimitiveModel(&primitive_model, vertices, sizeof(vertices), indices, sizeof(indices));
-    
+
+    ob_entity_t ent = OBECScreateEntity();
+
+    vec3 pos = { (800.0f/2.0f)-(64.0f/2.0f), (600.0f/2.0f)-(64.0f/2.0f), 0.0f };
+    vec3 size = { 64.f, 64.f, 0.0f };
+    float rot = 0.0f;
+
+    OBECSaddComponent(ent, OB_TEXTURE_COMPONENT, texture, sizeof(*texture));
+    OBECSaddComponent(ent, OB_MODEL_COMPONENT, primitive_model, sizeof(*primitive_model));
+    OBECSaddComponent(ent, OB_POSITION_COMPONENT, pos, sizeof(pos));
+    OBECSaddComponent(ent, OB_SCALE_COMPONENT, size, sizeof(size));
+    OBECSaddComponent(ent, OB_ROTATION_COMPONENT, &rot, sizeof(rot));
+
     mat4 projection;
     glm_ortho(0.0f, 800.0f, 600.0f, 0.0f, -1.0f, 1.0f, projection);
 
-    mat4 model;
-    glm_mat4_identity(model);
-    vec3 pos = { (800.0f/2.0f)-(64.0f/2.0f), (600.0f/2.0f)-(64.0f/2.0f), 0.0f };
-    vec3 size = { 64, 64, 0.0f };
-    float rot = 0.0f;
-    glm_translate(model, pos);
-    glm_translate(model, (vec3) { 0.5f * size[0], 0.5f * size[1], 0.0f });
-    glm_rotate(model, glm_rad(rot), (vec3) { 0.0f, 0.0f, 1.0f });
-    glm_translate(model, (vec3) { -0.5f * size[0], -0.5f * size[1], 0.0f });
-    glm_scale(model, (vec3) { size[0], size[1], 1.0f });
-
-    OBSHDRuseProgram(program);
     OBSHDRseti(program, "OBTex", 0);
     OBSHDRsetmat4f(program, "projection", projection);
-    OBSHDRsetmat4f(program, "model", model);
 
     glViewport(0, 0, 800, 600);
 
@@ -80,14 +77,12 @@ int main(void)
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        OBSHDRuseProgram(program);
-        __ob_buf_bindvao(primitive_model->mdlprim.vaoi);
-        __ob_tex_bindtex(texture->texture.texi);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-        __ob_buf_unbindvao();
+        OBRNDRdrawEntity(ent);
 
         OBWNDswapBuffers();
     }
+    
+    OBECSdestroyEntity(&ent);
  
     OBASTdestroyAsset(primitive_model);
     OBASTdestroyAsset(texture);

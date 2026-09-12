@@ -1,6 +1,9 @@
 #include "utility/ob_time.h"
 
 #include <time.h>
+#include <stdio.h>
+
+#define __OB_SEED_OFFSET 16777712u
 
 void OBTIMEgetDayMonthYear(uint32_t* year, uint32_t* month, uint32_t* day)
 {
@@ -20,4 +23,9 @@ void OBTIMEgetTimestamp(uint32_t* hours, uint32_t* minutes, uint32_t* seconds)
     (*hours) = tm.tm_hour % 12;
     (*minutes) = tm.tm_min;
     (*seconds) = tm.tm_sec;
+}
+
+uint32_t OBTIMEgenerateSeed(void)
+{
+    return time(NULL);
 }

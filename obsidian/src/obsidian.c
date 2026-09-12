@@ -35,6 +35,9 @@ extern bool __ob_buf_closemodule(void);
 extern bool __ob_tex_initmodule(void);
 extern bool __ob_tex_closemodule(void);
 
+extern bool __ob_ecs_initmodule(void);
+extern bool __ob_ecs_closemodule(void);
+
 void __ob_core_faultbreak(void);
 bool __ob_core_checkfault(void);
 
@@ -54,32 +57,37 @@ bool OBinit(void)
         return false;
     }
 
-    INIT_CORE_MODULE(__ob_log_initmodule, "Failed to initialize Obisidian: Logger Core Module");
+    INIT_CORE_MODULE(__ob_log_initmodule, "Failed to initialize Obisidian: Logger Core Module.");
 
     __ob_log_wline(LOG_MESSAGE_INFORM, "Successfully initialized Obsidian: Error and Obsidian: Logger...");
     __ob_log_wsline("Initializing Obsidian Core Systems...");
 
-    INIT_CORE_MODULE(__ob_wnd_initmodule, "Failed to initialize Obisidian: Window Core Module");
+    INIT_CORE_MODULE(__ob_wnd_initmodule, "Failed to initialize Obisidian: Window Core Module.");
 
     __ob_log_wsline("Obsidian: Window [Core Module]\t|\tInitialization Successful.");
 
-    INIT_CORE_MODULE(__ob_shdr_initmodule, "Failed to initialize Obsidian: Shader Core Module");
+    INIT_CORE_MODULE(__ob_shdr_initmodule, "Failed to initialize Obsidian: Shader Core Module.");
 
     __ob_log_wsline("Obsidian: Shader [Core Module]\t|\tInitialization Successful.");
 
-    INIT_CORE_MODULE(__ob_buf_initmodule, "Failed to initialize Obsidian: Buffers Core Module");
+    INIT_CORE_MODULE(__ob_buf_initmodule, "Failed to initialize Obsidian: Buffers Core Module.");
 
     __ob_log_wsline("Obsidian: Buffers [Core Module]\t|\tInitialization Successful.");
 
-    INIT_CORE_MODULE(__ob_tex_initmodule, "Failed to initialize Obsidian: Textures Core Module");
+    INIT_CORE_MODULE(__ob_tex_initmodule, "Failed to initialize Obsidian: Textures Core Module.");
 
     __ob_log_wsline("Obsidian: Textures [Core Module]\t|\tInitialization Successful.");
+
+    INIT_CORE_MODULE(__ob_ecs_initmodule, "Failed to initialize Obsidian: Entity-Component System (ECS) Core Module.");
+
+    __ob_log_wsline("Obsidian: ECS [Core Module]\t|\tInitializatiion Successful.");
 
     return true;
 }
 
 void OBclose(void)
 {
+    (void)__ob_ecs_closemodule();
     (void)__ob_tex_closemodule();
     (void)__ob_buf_closemodule();
     (void)__ob_shdr_closemodule();

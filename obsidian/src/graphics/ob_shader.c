@@ -140,7 +140,7 @@ obsidian_shader_t OBSHDRcreateShader(const char* path, enum obsidian_shader_type
     char* source = __ob_util_readfile(path);
     if (source == NULL)
     {
-        (void)__ob_error_pusherror(ERR_MODULE_INIT, SEV_WARNING, CAT_GRAPHICS, "Faailed to get shader source.", __FILE__, __LINE__);
+        (void)__ob_error_pusherror(ERR_MODULE_INIT, SEV_WARNING, CAT_GRAPHICS, "Failed to get shader source.", __FILE__, __LINE__);
         (void)__ob_error_readerror();
         return 0xFF;
     }
