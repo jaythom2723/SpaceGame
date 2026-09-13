@@ -291,65 +291,51 @@ void OBSHDRuseProgram(const obsidian_program_t index)
     glUseProgram(*program);
 }
 
-bool OBSHDRinvoke(const obsidian_program_t program, const uint32_t width, const uint32_t height, void** data, const size_t dsize)
-{
-    if (__programs == NULL || __shaders == NULL)
-        return false;
+// bool OBSHDRinvoke(const obsidian_program_t program, const uint32_t width, const uint32_t height, void** data, const size_t dsize)
+// {
+//     // TODO: prototype
+//     return false;
+// }
 
-    // TODO: don't do this here, hence "tmp"
-    // TODO: also REUSE the noise texture!
-    OBSHDRuseProgram(program);
-
-    uint32_t tmp;
-    glGenTextures(1, &tmp);
-    glBindTexture(GL_TEXTURE_2D, tmp);
-    glTexStorage2D(GL_TEXTURE_2D, 1, GL_R32F, width, height);
-    glBindImageTexture(0, tmp, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_R32F);
-
-    glDispatchCompute(width / 8, height / 8, 1);
-    glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
-
-    (*data) = malloc(dsize);
-    if (*data == NULL)
-    {
-        (void)__ob_error_pusherror(ERR_OUT_OF_MEMORY, SEV_WARNING, CAT_MEMORY, "Failed to allocate enough memory for a compute shader call.", __FILE__, __LINE__);
-        (void)__ob_error_readerror();
-        glBindImageTexture(0, 0, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_R32F);
-        glBindTexture(GL_TEXTURE_2D, 0);
-        glDeleteTextures(1, &tmp);
-        return false;
-    }
-
-    memset(*data, 0, dsize);
-    glGetTexImage(GL_TEXTURE_2D, 0, GL_RED, GL_FLOAT, *data);
-
-    glBindImageTexture(0, 0, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_R32F);
-    glBindTexture(GL_TEXTURE_2D, 0);
-    glDeleteTextures(1, &tmp);
-
-    return true;
-}
-
-// bool OBSHDRinvoke(const uint32_t width, const uint32_t height, void** data, const size_t dsize, const uint32_t ssbo)
+// // TODO: this needs to be a better designed function
+// bool OBSHDRinvoke(const obsidian_program_t program, const uint32_t width, const uint32_t height, void** data, const size_t dsize)
 // {
 //     if (__programs == NULL || __shaders == NULL)
 //         return false;
 
-//     glDispatchCompute(width / 8, height / 8, 1);
-//     glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT | GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
-//     glBindBuffer(GL_SHADER_STORAGE_BARRIER_BIT, ssbo);
+//     // TODO: don't do this here, hence "tmp"
+//     // TODO: also REUSE the noise texture!
+//     OBSHDRuseProgram(program);
 
-//     (*data) = calloc(width * height, dsize);
+//     OBSHDRseti(program, "imageWidth", width);
+//     OBSHDRseti(program, "imageHeight", height);
+
+//     uint32_t tmp;
+//     glGenTextures(1, &tmp);
+//     glBindTexture(GL_TEXTURE_2D, tmp);
+//     glTexStorage2D(GL_TEXTURE_2D, 1, GL_R32F, width, height);
+//     glBindImageTexture(0, tmp, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_R32F);
+
+//     glDispatchCompute(width / 8, height / 8, 1);
+//     glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
+
+//     (*data) = malloc(dsize);
 //     if (*data == NULL)
 //     {
-//         (void)__ob_error_pusherror(ERR_OUT_OF_MEMORY, SEV_WARNING, CAT_MEMORY, "Failed to allocate enough memory to invoke a compute shader.", __FILE__, __LINE__);
+//         (void)__ob_error_pusherror(ERR_OUT_OF_MEMORY, SEV_WARNING, CAT_MEMORY, "Failed to allocate enough memory for a compute shader call.", __FILE__, __LINE__);
 //         (void)__ob_error_readerror();
+//         glBindImageTexture(0, 0, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_R32F);
+//         glBindTexture(GL_TEXTURE_2D, 0);
+//         glDeleteTextures(1, &tmp);
 //         return false;
 //     }
 
-//     void* tmp = glMapBuffer(GL_SHADER_STORAGE_BUFFER, GL_READ_ONLY);
-//     memcpy(*data, tmp, width * height * dsize);
-//     tmp = NULL;
+//     memset(*data, 0, dsize);
+//     glGetTexImage(GL_TEXTURE_2D, 0, GL_RED, GL_FLOAT, *data);
+
+//     glBindImageTexture(0, 0, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_R32F);
+//     glBindTexture(GL_TEXTURE_2D, 0);
+//     glDeleteTextures(1, &tmp);
 
 //     return true;
 // }

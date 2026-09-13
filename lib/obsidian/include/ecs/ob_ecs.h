@@ -12,6 +12,7 @@ enum obsidian_component_type {
     OB_POSITION_COMPONENT,
     OB_SCALE_COMPONENT,
     OB_ROTATION_COMPONENT,
+    OB_TAG_COMPONENT
 };
 
 typedef uint32_t ob_entity_t;

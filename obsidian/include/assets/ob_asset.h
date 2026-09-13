@@ -43,6 +43,7 @@ struct obsidian_asset {
 };
 
 bool OBASTcreatePrimitiveModel(struct obsidian_asset** asset, const float* vertices, const size_t vsize, const unsigned int* indices, const size_t isize);
+bool OBASTcreatePrimitiveTexture(struct obsidian_asset** asset, const uint32_t width, const uint32_t height, const void* data, const size_t dsize);
 void OBASTdestroyAsset(struct obsidian_asset* asset);
 
 #endif

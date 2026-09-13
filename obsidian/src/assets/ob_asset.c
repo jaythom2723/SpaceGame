@@ -34,6 +34,7 @@ extern bool __ob_buf_setvbodata(uint32_t, size_t, const void*, uint32_t);
 extern bool __ob_buf_bindebo(uint32_t);
 extern bool __ob_buf_setebodata(uint32_t, size_t, const void*, uint32_t);
 extern bool __ob_buf_bindvao(uint32_t);
+extern bool __ob_tex_bindtex(uint32_t);
 extern bool __ob_tex_gendata(uint32_t, const struct obsidian_asset*);
 
 extern void __ob_buf_unbindvao(void);
@@ -72,6 +73,35 @@ bool OBASTcreatePrimitiveModel(struct obsidian_asset** asset, const float* verti
     __ob_buf_setattribpointer(0, 3, 5 * sizeof(float), (void*)0);
     __ob_buf_setattribpointer(1, 2, 5 * sizeof(float), (void*)(3 * sizeof(float)));
 
+    return true;
+}
+
+bool OBASTcreatePrimitiveTexture(struct obsidian_asset** asset, const uint32_t width, const uint32_t height, const void* data, const size_t dsize)
+{
+    (*asset) = __ob_create_new_asset();
+    if (!__ob_is_asset_valid(*asset)) return false;
+
+    (*asset)->type = OB_ASSET_TEXTURE;
+    (*asset)->uid = 0;
+    (*asset)->rdata = NULL;
+
+    (*asset)->texture.width = width;
+    (*asset)->texture.height = height;
+    (*asset)->texture.nrChannels = 4;
+    (*asset)->texture.pixels = calloc(width * height * 4, sizeof(uint8_t));
+    if ((*asset)->texture.pixels == NULL)
+    {
+        (void)__ob_error_pusherror(ERR_OUT_OF_MEMORY, SEV_WARNING, CAT_MEMORY, "Failed to allocate enough memory to create a primitive texture.", __FILE__, __LINE__);
+        (void)__ob_error_readerror();
+        return false;
+    }
+    memcpy((*asset)->texture.pixels, data, dsize);
+
+    glActiveTexture(GL_TEXTURE0);
+    (*asset)->texture.texi = __ob_tex_createtex();
+    (void)__ob_tex_bindtex((*asset)->texture.texi);
+    (void)__ob_tex_gendata((*asset)->texture.texi, *asset);
+    
     return true;
 }
 

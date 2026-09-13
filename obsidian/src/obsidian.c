@@ -1,8 +1,11 @@
 #include "obsidian.h"
 #include "utility/ob_error.h"
 #include "utility/ob_logger.h"
+#include "display/ob_window.h"
+#include "graphics/ob_shader.h"
 
 #include <stdio.h>
+#include <stdbool.h>
 #include <stdint.h>
 
 #include <GLFW/glfw3.h>
@@ -38,13 +41,27 @@ extern bool __ob_tex_closemodule(void);
 extern bool __ob_ecs_initmodule(void);
 extern bool __ob_ecs_closemodule(void);
 
+extern bool __ob_ext_perlin_init(void);
+extern bool __ob_ext_perlin_close(void);
+
 void __ob_core_faultbreak(void);
 bool __ob_core_checkfault(void);
+
+static bool __obsidian_initialized = false;
+static enum obsidian_extension __extensions = 0;
 
 #define INIT_CORE_MODULE(func, err) \
     if (!func()) \
     { \
         (void) __ob_error_pusherror(ERR_MODULE_INIT, SEV_FATAL, CAT_CORE_SYS, err, __FILE__, __LINE__); \
+        (void) __ob_error_readerror(); \
+        return false; \
+    }
+
+#define INIT_EXT_MODULE(func, err) \
+    if (!func()) \
+    { \
+        (void) __ob_error_pusherror(ERR_MODULE_INIT, SEV_WARNING, CAT_EXT_SYS, err, __FILE__, __LINE__); \
         (void) __ob_error_readerror(); \
         return false; \
     }
@@ -82,11 +99,60 @@ bool OBinit(void)
 
     __ob_log_wsline("Obsidian: ECS [Core Module]\t|\tInitializatiion Successful.");
 
+    __obsidian_initialized = true;
+
+    return true;
+}
+
+bool OBbootstrap(uint32_t* program, const char* title, const uint32_t width, const uint32_t height)
+{
+    if (!__obsidian_initialized)
+    {
+        printf("Cannot bootstrap the engine without first initializing it!\n");
+        return false;
+    }
+
+    OBWNDsetTitle(title);
+    OBWNDsetSize(width, height);
+    OBWNDcreateWindow();
+
+    obsidian_shader_t vertex, fragment;
+    vertex = OBSHDRcreateShader("res/shaders/global_vertex.glsl", OBSHDR_VERTEX_SHADER);
+    fragment = OBSHDRcreateShader("res/shaders/global_fragment.glsl", OBSHDR_FRAGMENT_SHADER);
+    (*program) = OBSHDRcreateProgram();
+
+    OBSHDRprogramAttach(*program, 2, vertex, fragment);
+    if(!OBSHDRprogramLink(*program)) return false;
+
+    OBSHDRdestroyShader(vertex);
+    OBSHDRdestroyShader(fragment);
+
+    OBSHDRuseProgram(*program);
+    mat4 projection;
+    glm_ortho(0.0f, 800.0f, 600.0f, 0.0f, -1.0f, 1.0f, projection);
+
+    OBSHDRseti(*program, "OBTex", 0);
+    OBSHDRsetmat4f(*program, "projection", projection);
+
+    return true;
+}
+
+bool OBinitExtension(enum obsidian_extension exts)
+{
+    if ((exts & OB_EXT_PERLIN_NOISE) == OB_EXT_PERLIN_NOISE)
+    {
+        INIT_EXT_MODULE(__ob_ext_perlin_init, "Failed to initialize Obsidian Perlin Noise: Extension.");
+        __extensions |= OB_EXT_PERLIN_NOISE;
+    }
+
     return true;
 }
 
 void OBclose(void)
 {
+    if ((__extensions & OB_EXT_PERLIN_NOISE) == OB_EXT_PERLIN_NOISE)
+        (void)__ob_ext_perlin_close();
+
     (void)__ob_ecs_closemodule();
     (void)__ob_tex_closemodule();
     (void)__ob_buf_closemodule();
