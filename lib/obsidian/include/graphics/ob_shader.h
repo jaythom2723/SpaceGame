@@ -31,6 +31,10 @@ void OBSHDRprogramAttach(const obsidian_program_t, int n, ...);
 bool OBSHDRprogramLink(const obsidian_program_t);
 void OBSHDRuseProgram(const obsidian_program_t);
 
+bool OBSHDRinvoke(const obsidian_program_t program, const uint32_t width, const uint32_t height, void** data, const size_t dsize);
+
+// bool OBSHDRinvoke(const uint32_t width, const uint32_t height, void** data, const size_t dsize, const uint32_t ssbo);
+
 bool OBSHDRseti(const obsidian_program_t, const char* name, const int value);
 bool OBSHDRsetf(const obsidian_program_t, const char* name, const float value);
 bool OBSHDRset2f(const obsidian_program_t, const char* name, const float x, const float y);

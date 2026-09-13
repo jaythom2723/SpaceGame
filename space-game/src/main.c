@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include <stdbool.h>
+#include <assert.h>
 #include <stdlib.h>
 
 #include <obsidian.h>
@@ -24,6 +25,8 @@ unsigned int indices[] = {
     1, 2, 3,
 };
 
+ob_entity_t* entities = NULL;
+
 int main(void)
 {
     OBinit();
@@ -32,12 +35,14 @@ int main(void)
     OBWNDsetSize(800, 600);
     OBWNDcreateWindow();
 
-    obsidian_shader_t vertex, fragment;
-    obsidian_program_t program;
+    obsidian_shader_t vertex, fragment, perlin;
+    obsidian_program_t program, noiseProgram;
 
     vertex = OBSHDRcreateShader("res/shaders/global_vertex.glsl", OBSHDR_VERTEX_SHADER);
     fragment = OBSHDRcreateShader("res/shaders/global_fragment.glsl", OBSHDR_FRAGMENT_SHADER);
+    perlin = OBSHDRcreateShader("res/shaders/perlin_noise.glsl", OBSHDR_COMPUTE_SHADER);
     program = OBSHDRcreateProgram();
+    noiseProgram = OBSHDRcreateProgram();
 
     OBSHDRprogramAttach(program, 2, vertex, fragment);
     OBSHDRprogramLink(program);
@@ -45,23 +50,15 @@ int main(void)
     OBSHDRdestroyShader(fragment);
     OBSHDRuseProgram(program);
 
+    OBSHDRprogramAttach(noiseProgram, 1, perlin);
+    OBSHDRprogramLink(noiseProgram);
+    OBSHDRdestroyShader(perlin);
+
     struct obsidian_asset* primitive_model = NULL;
     struct obsidian_asset* texture = NULL;
 
     OBLDRloadAsset(OB_ASSET_TEXTURE, &texture, "res/textures/test.obtf");
     OBASTcreatePrimitiveModel(&primitive_model, vertices, sizeof(vertices), indices, sizeof(indices));
-
-    ob_entity_t ent = OBECScreateEntity();
-
-    vec3 pos = { (800.0f/2.0f)-(64.0f/2.0f), (600.0f/2.0f)-(64.0f/2.0f), 0.0f };
-    vec3 size = { 64.f, 64.f, 0.0f };
-    float rot = 0.0f;
-
-    OBECSaddComponent(ent, OB_TEXTURE_COMPONENT, texture, sizeof(*texture));
-    OBECSaddComponent(ent, OB_MODEL_COMPONENT, primitive_model, sizeof(*primitive_model));
-    OBECSaddComponent(ent, OB_POSITION_COMPONENT, pos, sizeof(pos));
-    OBECSaddComponent(ent, OB_SCALE_COMPONENT, size, sizeof(size));
-    OBECSaddComponent(ent, OB_ROTATION_COMPONENT, &rot, sizeof(rot));
 
     mat4 projection;
     glm_ortho(0.0f, 800.0f, 600.0f, 0.0f, -1.0f, 1.0f, projection);
@@ -71,19 +68,26 @@ int main(void)
 
     glViewport(0, 0, 800, 600);
 
+    // TODO: optimize this so it doesn't use 6,400,000 invokations.
+    float* noise = NULL;
+    OBSHDRinvoke(noiseProgram, 8000, 8000, (void*)&noise, 8000 * 8000 * sizeof(float));
+
+    free(noise);
+    noise = NULL;
+
     while (OBWNDshouldClose() == false)
     {
         OBWNDpollEvents();
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        OBRNDRdrawEntity(ent);
+        OBSHDRuseProgram(program);
 
         OBWNDswapBuffers();
     }
     
-    OBECSdestroyEntity(&ent);
- 
+    OBSHDRdestroyShader(perlin);
+
     OBASTdestroyAsset(primitive_model);
     OBASTdestroyAsset(texture);
 
