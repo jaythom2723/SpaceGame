@@ -27,6 +27,7 @@ Module:     0x4XXX
     X(ERR_GLAD_INIT, "Failed to initialize GLAD") \
     X(ERR_GLFW_ERROR, "GLFW error") \
     X(ERR_GL_ERROR, "GL error") \
+    X(ERR_CMPSHDR_ERROR, "Compute Shader error") \
 
 #define SEVERITY_CODES(X) \
     X(SEV_FATAL, "FATAL") \
@@ -42,6 +43,7 @@ Module:     0x4XXX
     X(CAT_MEMORY, "Memory") \
     X(CAT_DISPLAY, "Display") \
     X(CAT_GRAPHICS, "Graphics") \
+    X(CAT_SHADERS, "Shaders") \
     X(CAT_WINDOW, "Window") \
 
 enum obsidian_error_code {

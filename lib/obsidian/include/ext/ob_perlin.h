@@ -1,6 +1,8 @@
 #ifndef OB_EXT_PERLIN_H
 #define OB_EXT_PERLIN_H
 
+#include "assets/ob_asset.h"
+
 #include <stdint.h>
 #include <stdbool.h>
 #include <stdlib.h>
@@ -11,6 +13,12 @@
 void OBEXTperlinSetWidth(const uint32_t value);
 void OBEXTperlinSetHeight(const uint32_t value);
 void OBEXTperlinSetSize(const uint32_t width, const uint32_t height);
-bool OBEXTperlinInvoke(void** data, const size_t dsize);
+
+float* OBEXTperlinInvoke(void);
+
+
+
+// bool OBEXTperlinInvoke(void** data, const size_t dsize);
+// struct obsidian_asset* OBEXTperlinInvokeAsset(void);
 
 #endif

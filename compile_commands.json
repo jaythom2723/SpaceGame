@@ -2,6 +2,27 @@
   {
     "arguments": [
       "/usr/bin/gcc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-std=c99",
+      "-I/home/shyguy/Desktop/SpaceGame/obsidian/include",
+      "-I/home/shyguy/Desktop/SpaceGame/lib/cglm/include",
+      "-I/home/shyguy/Desktop/SpaceGame/lib/glfw/include",
+      "-I/home/shyguy/Desktop/SpaceGame/lib/glad/include",
+      "-I/home/shyguy/Desktop/SpaceGame/lib/stb-image/include",
+      "-c",
+      "-o",
+      "/home/shyguy/Desktop/SpaceGame/obsidian/src/ext/ob_perlin.o",
+      "/home/shyguy/Desktop/SpaceGame/obsidian/src/ext/ob_perlin.c"
+    ],
+    "directory": "/home/shyguy/Desktop/SpaceGame/obsidian",
+    "file": "/home/shyguy/Desktop/SpaceGame/obsidian/src/ext/ob_perlin.c",
+    "output": "/home/shyguy/Desktop/SpaceGame/obsidian/src/ext/ob_perlin.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
       "-c",
       "-Wall",
       "-Wextra",
