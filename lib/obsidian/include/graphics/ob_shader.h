@@ -36,6 +36,7 @@ bool OBSHDRinvoke(const obsidian_program_t program, const uint32_t width, const 
 // bool OBSHDRinvoke(const uint32_t width, const uint32_t height, void** data, const size_t dsize, const uint32_t ssbo);
 
 bool OBSHDRseti(const obsidian_program_t, const char* name, const int value);
+bool OBSHDRsetui(const obsidian_program_t, const char* name, const uint32_t value);
 bool OBSHDRsetf(const obsidian_program_t, const char* name, const float value);
 bool OBSHDRset2f(const obsidian_program_t, const char* name, const float x, const float y);
 bool OBSHDRset2fv(const obsidian_program_t, const char* name, const vec2 value);

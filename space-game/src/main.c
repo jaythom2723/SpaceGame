@@ -31,51 +31,37 @@ unsigned int indices[] = {
 ob_entity_t* entities = NULL;
 obsidian_program_t program;
 
-#define PERLIN_NOISE_WIDTH 1000
+#define PERLIN_NOISE_WIDTH 800
 #define PERLIN_NOISE_HEIGHT PERLIN_NOISE_WIDTH
 
 int main(void)
 {
     OBinit();
-    OBbootstrap(&program, "Test Window", 800, 600);
+    OBbootstrap(&program, "Project: Celestial", 800, 600);
     OBinitExtension(OB_EXT_PERLIN_NOISE);
-
-    OBEXTperlinSetSize(PERLIN_NOISE_WIDTH, PERLIN_NOISE_HEIGHT);
-    float* noise = OBEXTperlinInvoke();
-
-    printf("1 to 100\n");
-    for (int i = 0; i < PERLIN_NOISE_WIDTH * PERLIN_NOISE_HEIGHT; i++)
-    {
-        printf("[%d] %.02f\n", i, noise[i]);
-    }
-
-    free(noise);
-    noise = NULL;
 
     glViewport(0, 0, 800, 600);
 
     struct obsidian_asset* tex;
     struct obsidian_asset* mdl;
-
-    // welp....
+    OBEXTperlinSetFrequency(25);
+    OBEXTperlinSetSize(PERLIN_NOISE_WIDTH, PERLIN_NOISE_HEIGHT);
+    struct obsidian_asset* perlin = OBEXTperlinInvokeAsset();
 
     OBASTcreatePrimitiveModel(&mdl, vertices, sizeof(vertices), indices, sizeof(indices));
     OBLDRloadAsset(OB_ASSET_TEXTURE, &tex, "res/textures/test.obtf");
     
-
     ob_entity_t ent = OBECScreateEntity();
 
-    vec3 pos = { (800.0f/2.0f)-(64.0f/2.0f), (600.0f/2.0f)-(64.0f/2.0f), 1.0f };
-    vec3 scale = { 64.0f, 64.0f, 1.0f };
+    vec3 pos = { 0.0f, 0.0f, 1.0f };
+    vec3 scale = { PERLIN_NOISE_WIDTH, PERLIN_NOISE_HEIGHT, 1.0f };
     float rot = 0.0f;
 
-    OBECSaddComponent(ent, OB_TEXTURE_COMPONENT, tex, sizeof(*tex));
+    OBECSaddComponent(ent, OB_TEXTURE_COMPONENT, perlin, sizeof(*perlin));
     OBECSaddComponent(ent, OB_MODEL_COMPONENT, mdl, sizeof(*mdl));
     OBECSaddComponent(ent, OB_POSITION_COMPONENT, pos, sizeof(pos));
     OBECSaddComponent(ent, OB_SCALE_COMPONENT, scale, sizeof(scale));
     OBECSaddComponent(ent, OB_ROTATION_COMPONENT, &rot, sizeof(rot));
-
-    // So that's what it's been doing and I have ZERO clue why. Don't we just love it!
 
     while (OBWNDshouldClose() == false)
     {
@@ -93,6 +79,7 @@ int main(void)
 
     OBASTdestroyAsset(mdl);
     OBASTdestroyAsset(tex);
+    OBASTdestroyAsset(perlin);
 
     OBSHDRdestroyProgram(program);
     OBWNDdestroyWindow();

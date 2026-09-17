@@ -199,15 +199,17 @@ obsidian_program_t OBSHDRcreateProgram(void)
 
     __ob_log_wline(LOG_MESSAGE_INFORM, "Attemping to create shader program.");
 
-    if ((__programs - __programptr) >= __OB_MAX_PROGRAMS)
+    if ((__programptr - __programs) >= __OB_MAX_PROGRAMS)
         return 0;
 
     (*__programptr) = glCreateProgram();
+    if (glIsProgram(*__programptr) != GL_TRUE)
+        return 0;
     __programptr++;
 
     __ob_log_wsline("Shader program created successfully.");
 
-    return ((__programptr - 1) - __programs);
+    return (obsidian_program_t)((__programptr - __programs) - 1);
 }
 
 void OBSHDRdestroyProgram(const obsidian_program_t index)
@@ -217,7 +219,10 @@ void OBSHDRdestroyProgram(const obsidian_program_t index)
 
     __ob_gl_program_t* program = __programs + index;
     if (glIsProgram(*program) != GL_TRUE)
+    {
+        printf("Trying to destroy something that's not a shader program!\n");
         return;
+    }
     glDeleteProgram(*program);
 
     __ob_log_wline(LOG_MESSAGE_INFORM, "Deleted a shader program.");
@@ -291,55 +296,6 @@ void OBSHDRuseProgram(const obsidian_program_t index)
     glUseProgram(*program);
 }
 
-// bool OBSHDRinvoke(const obsidian_program_t program, const uint32_t width, const uint32_t height, void** data, const size_t dsize)
-// {
-//     // TODO: prototype
-//     return false;
-// }
-
-// // TODO: this needs to be a better designed function
-// bool OBSHDRinvoke(const obsidian_program_t program, const uint32_t width, const uint32_t height, void** data, const size_t dsize)
-// {
-//     if (__programs == NULL || __shaders == NULL)
-//         return false;
-
-//     // TODO: don't do this here, hence "tmp"
-//     // TODO: also REUSE the noise texture!
-//     OBSHDRuseProgram(program);
-
-//     OBSHDRseti(program, "imageWidth", width);
-//     OBSHDRseti(program, "imageHeight", height);
-
-//     uint32_t tmp;
-//     glGenTextures(1, &tmp);
-//     glBindTexture(GL_TEXTURE_2D, tmp);
-//     glTexStorage2D(GL_TEXTURE_2D, 1, GL_R32F, width, height);
-//     glBindImageTexture(0, tmp, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_R32F);
-
-//     glDispatchCompute(width / 8, height / 8, 1);
-//     glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
-
-//     (*data) = malloc(dsize);
-//     if (*data == NULL)
-//     {
-//         (void)__ob_error_pusherror(ERR_OUT_OF_MEMORY, SEV_WARNING, CAT_MEMORY, "Failed to allocate enough memory for a compute shader call.", __FILE__, __LINE__);
-//         (void)__ob_error_readerror();
-//         glBindImageTexture(0, 0, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_R32F);
-//         glBindTexture(GL_TEXTURE_2D, 0);
-//         glDeleteTextures(1, &tmp);
-//         return false;
-//     }
-
-//     memset(*data, 0, dsize);
-//     glGetTexImage(GL_TEXTURE_2D, 0, GL_RED, GL_FLOAT, *data);
-
-//     glBindImageTexture(0, 0, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_R32F);
-//     glBindTexture(GL_TEXTURE_2D, 0);
-//     glDeleteTextures(1, &tmp);
-
-//     return true;
-// }
-
 #define UNIFORM_GUARD \
     if (__programs == NULL) return false; \
     if (glIsProgram(*(__programs + index)) == GL_FALSE) return false; \
@@ -349,6 +305,13 @@ bool OBSHDRseti(const obsidian_program_t index, const char* name, const int valu
 {
     UNIFORM_GUARD;
     glUniform1i(glGetUniformLocation(*(__programs + index), name), value);
+    return true;
+}
+
+bool OBSHDRsetui(const obsidian_program_t index, const char* name, const uint32_t value)
+{
+    UNIFORM_GUARD;
+    glUniform1ui(glGetUniformLocation(*(__programs + index), name), value);
     return true;
 }
 

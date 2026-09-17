@@ -142,6 +142,7 @@ bool OBinitExtension(enum obsidian_extension exts)
     if ((exts & OB_EXT_PERLIN_NOISE) == OB_EXT_PERLIN_NOISE)
     {
         INIT_EXT_MODULE(__ob_ext_perlin_init, "Failed to initialize Obsidian Perlin Noise: Extension.");
+        __ob_log_wline(LOG_MESSAGE_INFORM, "Initialized Perlin Noise: Obsidian Extension.");
         __extensions |= OB_EXT_PERLIN_NOISE;
     }
 

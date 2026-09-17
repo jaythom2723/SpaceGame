@@ -112,6 +112,7 @@ void OBASTdestroyAsset(struct obsidian_asset* restrict asset)
     switch (asset->type)
     {
         case OB_ASSET_TEXTURE:
+            __ob_tex_unbindtex();
             __ob_tex_deletetex(asset->texture.texi);
             free(asset->texture.pixels);
             asset->texture.pixels = NULL;

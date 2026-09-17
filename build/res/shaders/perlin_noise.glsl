@@ -4,58 +4,82 @@ layout (local_size_x=8, local_size_y=8, local_size_z=1) in;
 
 uniform uint imageWidth;
 uniform uint imageHeight;
+uniform uint noiseFrequency;
 layout (r32f, binding=0) uniform image2D noise;
-// layout (std460, binding=1) buffer gradients
-// {
-//     vec2 data[][];
-// };
 
 float rand(vec2 st)
 {
     return fract(sin(dot(st, vec2(12.9898, 78.233))) * 43758.5453123);
 }
 
-vec2 getRandomUnitLengthVector(vec2 ucoord)
+vec2 getRandomUnitLengthVector(vec2 v)
 {
-    float angle = rand(ucoord) * 2.0 * 3.14159;
-    vec2 v = vec2(cos(angle), sin(angle));
-    float length = sqrt(pow(v.x, 2) + pow(v.y, 2));
-    return vec2(v.x / length, v.y / length);
+    float angle = rand(v) * 2.0 * 3.14159265359;
+    vec2 ret = vec2(cos(angle), sin(angle));
+    float length = sqrt(ret.x * ret.x + ret.y * ret.y);
+    return vec2(ret.x / length, ret.y / length);
+}
+
+vec2 interpolation(vec2 cell)
+{
+    // linear = cell
+    // cubic = cell * cell * (3.0 - 2.0 * cell)
+    // quintic = cell * cell * cell * (cell * (cell * 6.0 - 15.0) + 10.0)
+    // cosine = (1.0 - cos(3.14159265359 * cell)) / 2.0
+    // cubic polynomial = cell * cell * (2.0 - cell)
+    // exponential-ish curve = cell * cell * cell * cell (cell to the N power)
+    
+    vec2 cubic      = cell * cell * (3.0 - 2.0 * cell);
+    vec2 quintic    = cell * cell * cell * (cell * (cell * 6.0 - 15.0) + 10.0);
+    vec2 cosine     = (1.0 - cos(3.14159265359 * cell)) / 2.0;
+    vec2 polynomial = cell * cell * (2.0 - cell);
+
+    vec2 result =
+            cubic       * 0.15
+          + quintic     * 0.45
+          + cosine      * 0.25
+          + polynomial  * 0.15;
+
+    return result;
 }
 
 void main()
 {
     uvec2 ucoord = gl_GlobalInvocationID.xy;
-    vec2 noiseCoord = ucoord / 1000.0; // TODO: don't hardcode this value
-    vec2 cellPos = fract(noiseCoord);
-    uint index = ucoord.y * imageWidth + ucoord.x;
+    vec2 ncoord = vec2(ucoord) / noiseFrequency;
+    vec2 cell = fract(ncoord);
 
-    vec2 topLeft = vec2(floor(noiseCoord));
-    vec2 topRight = topLeft + vec2(1, 0);
-    vec2 botLeft = topLeft + vec2(0, 1);
-    vec2 botRight = topLeft + vec2(1, 1);
+    // corner positions
+    vec2 topl = floor(ncoord);
+    vec2 topr = floor(topl + vec2(1.0, 0.0));
+    vec2 botl = floor(topl + vec2(0.0, 1.0));
+    vec2 botr = floor(topl + vec2(1.0, 1.0));
 
-    vec2 gradTopLeft = getRandomUnitLengthVector(topLeft);
-    vec2 gradTopRight = getRandomUnitLengthVector(topRight);
-    vec2 gradBotLeft = getRandomUnitLengthVector(botLeft);
-    vec2 gradBotRight = getRandomUnitLengthVector(botRight);
+    // gradient vectors
+    vec2 gA = getRandomUnitLengthVector(topl);   // Top Left
+    vec2 gB = getRandomUnitLengthVector(topr);   // Top Right
+    vec2 gC = getRandomUnitLengthVector(botl);   // Bottom Left
+    vec2 gD = getRandomUnitLengthVector(botr);   // Bottom Right
 
-    vec2 offTopLeft = gradTopLeft - topLeft;
-    vec2 offTopRight = gradTopRight - topRight;
-    vec2 offBotLeft = gradBotLeft - botLeft;
-    vec2 offBotRight = gradBotRight - botRight;
+    // offsets
+    vec2 oA = ncoord - topl;
+    vec2 oB = ncoord - topr;
+    vec2 oC = ncoord - botl;
+    vec2 oD = ncoord - botr;
 
-    float dotTopLeft = dot(gradTopLeft, offTopLeft);
-    float dotTopRight = dot(gradTopRight, offTopRight);
-    float dotBotLeft = dot(gradBotLeft, offBotLeft);
-    float dotBotRight = dot(gradBotRight, offBotRight);
+    // dots
+    float dA = dot(gA, oA);
+    float dB = dot(gB, oB);
+    float dC = dot(gC, oC);
+    float dD = dot(gD, oD);
 
-    float sx = smoothstep(0.0, 1.0, cellPos.x);
-    float sy = smoothstep(0.0, 1.0, cellPos.y);
+    // interpolation
+    vec2 u = interpolation(cell);
 
-    float top = mix(dotTopLeft, dotTopRight, sx);
-    float bot = mix(dotBotLeft, dotBotRight, sx);
-    float value = mix(top, bot, sy);
+    float top = mix(dA, dB, u.x);
+    float bot = mix(dC, dD, u.x);
+    float value = mix(top, bot, u.y);
 
-    imageStore(noise, ivec2(ucoord), vec4(value, 0.0, 0.0, 1.0));
+    // value storing
+    imageStore(noise, ivec2(ucoord), vec4(value, 0.0, 0.0, 0.0));
 }
