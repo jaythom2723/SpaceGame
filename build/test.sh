@@ -3,4 +3,5 @@
 cd ..
 make obtexcvtr
 cd ./build
-./obtexcvtr.exe test.bmp
+./obtexcvtr.exe
+# ./obtexcvtr.exe test.bmp

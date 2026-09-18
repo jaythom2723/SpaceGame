@@ -7,6 +7,8 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb-image/stb_image.h>
 
+#include <gtk-4.0/gtk/gtk.h>
+
 #define DEPTH_RGBA                  32
 #define DEPTH_RGB                   24
 #define DEPTH_RGBA16                16
@@ -28,48 +30,88 @@ void __ob_gen_output_path(void);
 void __ob_clone_string(char** restrict dest, const char* restrict src);
 void __ob_process_clargs(int argc, char** argv);
 
+static void
+print_hello (GtkWidget* widget,
+             gpointer data)
+{
+    g_print("Hello World!\n");
+    printf("%p\n%p\n", widget, data);
+}
+
+static void
+activate (GtkApplication* app,
+          gpointer        user_data)
+{
+    GtkWidget* window;
+    GtkWidget* button;
+
+    window = gtk_application_window_new(app);
+    gtk_window_set_title(GTK_WINDOW(window), "hello");
+    gtk_window_set_default_size(GTK_WINDOW(window), 200, 200);
+    
+    button = gtk_button_new_with_label("Hello World!");
+    gtk_widget_set_halign(button, GTK_ALIGN_CENTER);
+    gtk_widget_set_valign(button, GTK_ALIGN_CENTER);
+    g_signal_connect(button, "clicked", G_CALLBACK(print_hello), NULL);
+    gtk_window_set_child(GTK_WINDOW(window), button);
+    
+    gtk_window_present(GTK_WINDOW(window));
+
+    printf("%p\n", user_data);
+}
+
 int main(int argc, char** argv)
 {
-    argv++;
-    argc--;
+    GtkApplication* app;
+    int status;
 
-    __ob_process_clargs(argc, argv);
+    app = gtk_application_new("org.gtk.example", G_APPLICATION_DEFAULT_FLAGS);
+    g_signal_connect(app, "activate", G_CALLBACK(activate), NULL);
+    status = g_application_run(G_APPLICATION(app), argc, argv);
+    g_object_unref(app);
 
-    int width, height, nrChannels;
-    unsigned char* data = stbi_load(input_path, &width, &height, &nrChannels, 4);
-    if (data == NULL)
-    {
-        printf("Could not find file!\n");
-        return -1;
-    }
+    return status;
 
-    if (output_path == NULL)
-        __ob_gen_output_path();
+    // argv++;
+    // argc--;
 
-    FILE* fp = fopen(output_path, "wb");
-    if (fp == NULL)
-    {
-        printf("Failed to open new file!\n");
-        return -2;
-    }
+    // __ob_process_clargs(argc, argv);
 
-    fwrite(&width, sizeof(int), 1, fp);
-    fwrite(&height, sizeof(int), 1, fp);
-    fwrite(&nrChannels, sizeof(int), 1, fp);
-    fwrite(data , sizeof(char), width * height * 4, fp);
+    // int width, height, nrChannels;
+    // unsigned char* data = stbi_load(input_path, &width, &height, &nrChannels, 4);
+    // if (data == NULL)
+    // {
+    //     printf("Could not find file!\n");
+    //     return -1;
+    // }
 
-    fclose(fp);
-    fp = NULL;
+    // if (output_path == NULL)
+    //     __ob_gen_output_path();
 
-    stbi_image_free(data);
+    // FILE* fp = fopen(output_path, "wb");
+    // if (fp == NULL)
+    // {
+    //     printf("Failed to open new file!\n");
+    //     return -2;
+    // }
 
-    free(output_path);
-    free(input_path);
+    // fwrite(&width, sizeof(int), 1, fp);
+    // fwrite(&height, sizeof(int), 1, fp);
+    // fwrite(&nrChannels, sizeof(int), 1, fp);
+    // fwrite(data , sizeof(char), width * height * 4, fp);
 
-    output_path = NULL;
-    input_path = NULL;
+    // fclose(fp);
+    // fp = NULL;
 
-    return 0;
+    // stbi_image_free(data);
+
+    // free(output_path);
+    // free(input_path);
+
+    // output_path = NULL;
+    // input_path = NULL;
+
+    // return 0;
 }
 
 void __ob_gen_output_path(void)
@@ -112,4 +154,4 @@ void __ob_process_clargs(int argc, char** argv)
             __ob_clone_string(&input_path, arg);
         }
     }
-}
+} 
