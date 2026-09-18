@@ -44,7 +44,8 @@ int main(void)
 
     struct obsidian_asset* tex;
     struct obsidian_asset* mdl;
-    OBEXTperlinSetFrequency(25);
+    OBEXTperlinSetNumLayers(10);
+    OBEXTperlinSetFrequency(20);
     OBEXTperlinSetSize(PERLIN_NOISE_WIDTH, PERLIN_NOISE_HEIGHT);
     struct obsidian_asset* perlin = OBEXTperlinInvokeAsset();
 

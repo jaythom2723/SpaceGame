@@ -5,6 +5,7 @@ layout (local_size_x=8, local_size_y=8, local_size_z=1) in;
 uniform uint imageWidth;
 uniform uint imageHeight;
 uniform uint noiseFrequency;
+uniform uint noiseNumLayers;
 layout (r32f, binding=0) uniform image2D noise;
 
 float rand(vec2 st)
@@ -45,41 +46,59 @@ vec2 interpolation(vec2 cell)
 
 void main()
 {
+    uint nlayers = noiseNumLayers;
+    if (nlayers > 10) nlayers = 10;
+    if (nlayers <= 0) nlayers = 1;
+
     uvec2 ucoord = gl_GlobalInvocationID.xy;
-    vec2 ncoord = vec2(ucoord) / noiseFrequency;
-    vec2 cell = fract(ncoord);
+    float values[10];
+    float layerFreqs[10];
 
-    // corner positions
-    vec2 topl = floor(ncoord);
-    vec2 topr = floor(topl + vec2(1.0, 0.0));
-    vec2 botl = floor(topl + vec2(0.0, 1.0));
-    vec2 botr = floor(topl + vec2(1.0, 1.0));
+    // make sure to do every layer!
+    for (uint layer = 0; layer < nlayers; layer++)
+    {
+        float layerFreq = noiseFrequency / (layer+1)*(layer+1);
+        layerFreqs[layer] = layerFreq;
+        vec2 ncoord = vec2(ucoord) / layerFreq;
+        vec2 cell = fract(ncoord);
 
-    // gradient vectors
-    vec2 gA = getRandomUnitLengthVector(topl);   // Top Left
-    vec2 gB = getRandomUnitLengthVector(topr);   // Top Right
-    vec2 gC = getRandomUnitLengthVector(botl);   // Bottom Left
-    vec2 gD = getRandomUnitLengthVector(botr);   // Bottom Right
+        // corner positions
+        vec2 topl = floor(ncoord);
+        vec2 topr = floor(topl + vec2(1.0, 0.0));
+        vec2 botl = floor(topl + vec2(0.0, 1.0));
+        vec2 botr = floor(topl + vec2(1.0, 1.0));
 
-    // offsets
-    vec2 oA = ncoord - topl;
-    vec2 oB = ncoord - topr;
-    vec2 oC = ncoord - botl;
-    vec2 oD = ncoord - botr;
+        // gradient vectors
+        vec2 gA = getRandomUnitLengthVector(topl);
+        vec2 gB = getRandomUnitLengthVector(topr);
+        vec2 gC = getRandomUnitLengthVector(botl);
+        vec2 gD = getRandomUnitLengthVector(botr);
 
-    // dots
-    float dA = dot(gA, oA);
-    float dB = dot(gB, oB);
-    float dC = dot(gC, oC);
-    float dD = dot(gD, oD);
+        // offsets
+        vec2 oA = ncoord - topl;
+        vec2 oB = ncoord - topr;
+        vec2 oC = ncoord - botl;
+        vec2 oD = ncoord - botr;
 
-    // interpolation
-    vec2 u = interpolation(cell);
+        // dots
+        float dA = dot(gA, oA);
+        float dB = dot(gB, oB);
+        float dC = dot(gC, oC);
+        float dD = dot(gD, oD);
 
-    float top = mix(dA, dB, u.x);
-    float bot = mix(dC, dD, u.x);
-    float value = mix(top, bot, u.y);
+        // interpolation
+        vec2 u = interpolation(cell);
 
-    // value storing
+        float top = mix(dA, dB, u.x);
+        float bot = mix(dC, dD, u.x);
+        values[layer] = mix(top, bot, u.y);
+    }
+
+    float value = 0.0;
+    for (int i = 0; i < nlayers; i++)
+    {
+        value += values[i] * (layerFreqs[i] / 100);
+    }
+
     imageStore(noise, ivec2(ucoord), vec4(value, 0.0, 0.0, 0.0));
 }

@@ -20,7 +20,7 @@ extern bool __ob_error_readerror(void);
 extern bool __ob_log_wline(enum ob_logger_message_type, const char* const);
 extern bool __ob_log_wsline(const char* const);
 
-static uint32_t __width, __height, __resolution, __frequency;
+static uint32_t __width, __height, __resolution, __frequency, __nlayers;
 static obsidian_program_t __program;
 static uint32_t __texid;
 
@@ -65,6 +65,13 @@ void OBEXTperlinSetFrequency(const uint32_t value)
     __frequency = value;
 }
 
+void OBEXTperlinSetNumLayers(const uint32_t value)
+{
+    if (!__init)
+        return;
+    __nlayers = value;
+}
+
 float* OBEXTperlinInvoke(void)
 {
     if (!__init)
@@ -74,6 +81,7 @@ float* OBEXTperlinInvoke(void)
     OBSHDRsetui(__program, "imageWidth", __width);
     OBSHDRsetui(__program, "imageHeight", __height);
     OBSHDRsetui(__program, "noiseFrequency", __frequency);
+    OBSHDRsetui(__program, "noiseNumLayers", __nlayers);
     
     glBindTexture(GL_TEXTURE_2D, __texid);
     glTexStorage2D(GL_TEXTURE_2D, 1, GL_R32F, __width, __height);

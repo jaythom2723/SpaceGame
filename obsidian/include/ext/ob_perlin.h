@@ -14,6 +14,7 @@ void OBEXTperlinSetHeight(const uint32_t value);
 void OBEXTperlinSetSize(const uint32_t width, const uint32_t height);
 void OBEXTperlinSetResolution(const uint32_t value);
 void OBEXTperlinSetFrequency(const uint32_t value);
+void OBEXTperlinSetNumLayers(const uint32_t value);
 
 float* OBEXTperlinInvoke(void);
 struct obsidian_asset* OBEXTperlinInvokeAsset(void);
