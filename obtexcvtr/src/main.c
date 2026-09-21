@@ -9,6 +9,8 @@
 
 #include <gtk-4.0/gtk/gtk.h>
 
+#include "gui.h"
+
 #define DEPTH_RGBA                  32
 #define DEPTH_RGB                   24
 #define DEPTH_RGBA16                16
@@ -30,37 +32,33 @@ void __ob_gen_output_path(void);
 void __ob_clone_string(char** restrict dest, const char* restrict src);
 void __ob_process_clargs(int argc, char** argv);
 
-static void
-print_hello (GtkWidget* widget,
-             gpointer data)
-{
-    g_print("Hello World!\n");
-    printf("%p\n%p\n", widget, data);
-}
+#define __OB_PADDING 16
+#define __OB_WNDWIDTH 1280
+#define __OB_WNDHEIGHT 720
 
-static void
+static void 
 activate (GtkApplication* app,
           gpointer        user_data)
 {
-    GtkWidget* window;
-    GtkWidget* button;
+    struct obgtk_window window;
+    struct obgtk_details details;
+    struct obgtk_output output;
+    struct obgtk_preview preview;
+    struct obgtk_hexdump hexdump;
 
-    window = gtk_application_window_new(app);
-    gtk_window_set_title(GTK_WINDOW(window), "hello");
-    gtk_window_set_default_size(GTK_WINDOW(window), 200, 200);
-    
-    button = gtk_button_new_with_label("Hello World!");
-    gtk_widget_set_halign(button, GTK_ALIGN_CENTER);
-    gtk_widget_set_valign(button, GTK_ALIGN_CENTER);
-    g_signal_connect(button, "clicked", G_CALLBACK(print_hello), NULL);
-    gtk_window_set_child(GTK_WINDOW(window), button);
-    
-    gtk_window_present(GTK_WINDOW(window));
+    OBGTKcreateNewWindow(&window, app, "Hello, World!", 1280, 720);
+    OBGTKcreateDetailsPane(&details);
+    OBGTKcreateOutputPane(&output);
+    OBGTKcreatePreviewPane(&preview);
+    OBGTKcreateHexdumpPane(&hexdump);
+    OBGTKpack(&window, &details, &output, &preview, &hexdump);
 
     printf("%p\n", user_data);
 }
 
-int main(int argc, char** argv)
+int 
+main (int argc, 
+      char** argv)
 {
     GtkApplication* app;
     int status;
@@ -71,7 +69,7 @@ int main(int argc, char** argv)
     g_object_unref(app);
 
     return status;
-
+}
     // argv++;
     // argc--;
 
@@ -112,7 +110,6 @@ int main(int argc, char** argv)
     // input_path = NULL;
 
     // return 0;
-}
 
 void __ob_gen_output_path(void)
 {
