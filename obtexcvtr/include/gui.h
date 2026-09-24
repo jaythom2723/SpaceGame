@@ -55,5 +55,6 @@ void OBGTKpack(const struct obgtk_window* restrict window,
                const struct obgtk_output* restrict output,
                const struct obgtk_preview* restrict preview,
                const struct obgtk_hexdump* restrict hexdump);
+void OBGTKupdateWindowOpen(GFile* file);
 
 #endif

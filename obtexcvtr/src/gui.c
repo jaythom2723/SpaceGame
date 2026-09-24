@@ -37,13 +37,18 @@ void __ob_gtk_detailsmetadatapack(struct obgtk_details* restrict details)
 
 void __ob_gtk_detailsfileiopane(struct obgtk_details* restrict details)
 {
+    extern void fopenbtn_click(void);
+    extern void fclosebtn_click(void);
+
     details->fileio.root = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, __OB_PADDING - 12);
     details->fileio.fopenbtn = gtk_button_new();
     gtk_button_set_label(GTK_BUTTON(details->fileio.fopenbtn), "Open File");
     gtk_widget_set_hexpand(details->fileio.fopenbtn, 1);
+    g_signal_connect(details->fileio.fopenbtn, "clicked", fopenbtn_click, NULL);
     details->fileio.fclosebtn = gtk_button_new();
     gtk_button_set_label(GTK_BUTTON(details->fileio.fclosebtn), "Close File");
     gtk_widget_set_hexpand(details->fileio.fclosebtn, 1);
+    g_signal_connect(details->fileio.fclosebtn, "clicked", fclosebtn_click, NULL);
 
     gtk_box_append(GTK_BOX(details->fileio.root), details->fileio.fopenbtn);
     gtk_box_append(GTK_BOX(details->fileio.root), details->fileio.fclosebtn);
@@ -55,8 +60,8 @@ void OBGTKcreateDetailsPane(struct obgtk_details* restrict details)
     details->layout = gtk_box_new(GTK_ORIENTATION_VERTICAL, __OB_PADDING);
     __ob_gtk_detailsmetadatapane(details);
     __ob_gtk_detailsfileiopane(details);
-    __ob_gtk_detailsmetadatapack(details);
 
+    __ob_gtk_detailsmetadatapack(details);
     gtk_box_append(GTK_BOX(details->layout), details->metadata.root);
     gtk_box_append(GTK_BOX(details->layout), details->fileio.root);
 
@@ -122,4 +127,16 @@ void OBGTKpack(const struct obgtk_window* restrict window,
     gtk_window_set_child(GTK_WINDOW(window->root), window->horlayout);
 
     gtk_window_present(GTK_WINDOW(window->root));
+}
+
+void OBGTKupdateWindowOpen(GFile* file)
+{
+    const char* path = g_file_get_path(file);
+    char* basename = g_file_get_basename(file);
+
+    printf("%s\n%s\n", path, basename);
+
+    // TODO: update the UI ig
+
+    // TODO: time to setup OpenGL stuff :D
 }

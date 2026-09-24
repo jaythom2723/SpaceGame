@@ -36,16 +36,19 @@ void __ob_process_clargs(int argc, char** argv);
 #define __OB_WNDWIDTH 1280
 #define __OB_WNDHEIGHT 720
 
+GFile* file;
+struct obgtk_window window;
+struct obgtk_details details;
+struct obgtk_output output;
+struct obgtk_preview preview;
+struct obgtk_hexdump hexdump;
+
+GtkApplication* _app;
+
 static void 
 activate (GtkApplication* app,
           gpointer        user_data)
 {
-    struct obgtk_window window;
-    struct obgtk_details details;
-    struct obgtk_output output;
-    struct obgtk_preview preview;
-    struct obgtk_hexdump hexdump;
-
     OBGTKcreateNewWindow(&window, app, "Hello, World!", 1280, 720);
     OBGTKcreateDetailsPane(&details);
     OBGTKcreateOutputPane(&output);
@@ -60,13 +63,12 @@ int
 main (int argc, 
       char** argv)
 {
-    GtkApplication* app;
     int status;
 
-    app = gtk_application_new("org.gtk.example", G_APPLICATION_DEFAULT_FLAGS);
-    g_signal_connect(app, "activate", G_CALLBACK(activate), NULL);
-    status = g_application_run(G_APPLICATION(app), argc, argv);
-    g_object_unref(app);
+    _app = gtk_application_new("org.gtk.example", G_APPLICATION_DEFAULT_FLAGS);
+    g_signal_connect(_app, "activate", G_CALLBACK(activate), NULL);
+    status = g_application_run(G_APPLICATION(_app), argc, argv);
+    g_object_unref(_app);
 
     return status;
 }
