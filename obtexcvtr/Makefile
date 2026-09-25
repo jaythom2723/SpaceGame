@@ -2,7 +2,7 @@ include ../make/config.mk
 include ../make/common.mk
 include ../make/dependencies.mk
 
-PFLAGS=-I"$(OBTEXCVTR_INC_DIR)" -I"$(LIB_STBIMAGE_INC_DIR)"
+PFLAGS=-I"$(OBTEXCVTR_INC_DIR)" -I"$(LIB_GLAD_INC_DIR)" -I"$(LIB_STBIMAGE_INC_DIR)"
 SOURCES=$(wildcard $(OBTEXCVTR_SRC_DIR)/*.c) $(wildcard $(OBTEXCVTR_SRC_DIR)/**/*.c)
 
 .PHONY: all clean
@@ -12,4 +12,4 @@ clean:
 	rm -f $(BUILD_DIR)/obtexcvtr.exe
 
 obtexcvtr.exe: $(SOURCES)
-	$(CC) $(CFLAGS) $(PFLAGS) $(DEPEN_X11) $^ $(DEPEN_MATH) $(DEPEN_GTK4) -o $(BUILD_DIR)/$@
+	$(CC) $(CFLAGS) $(PFLAGS) $(DEPEN_X11) $^ $(DEPEN_MATH) $(DEPEN_OPENGL) $(DEPEN_GTK4) -o $(BUILD_DIR)/$@
