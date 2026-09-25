@@ -12,4 +12,4 @@ clean:
 	rm -f $(BUILD_DIR)/obtexcvtr.exe
 
 obtexcvtr.exe: $(SOURCES)
-	$(CC) $(CFLAGS) $(PFLAGS) $(DEPEN_X11) $^ $(DEPEN_MATH) $(DEPEN_OPENGL) $(DEPEN_GTK4) -o $(BUILD_DIR)/$@
+	$(CC) $(CFLAGS) $(PFLAGS) $(DEPEN_X11) $(DEPEN_OPENGL) $^ $(DEPEN_MATH) $(DEPEN_GTK4) -o $(BUILD_DIR)/$@

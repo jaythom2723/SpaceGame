@@ -94,14 +94,7 @@ void OBGTKcreatePreviewPane(struct obgtk_preview* restrict preview)
 {
     preview->root = gtk_frame_new("Preview");
     preview->glview = gtk_gl_area_new();
-    gtk_gl_area_set_required_version(GTK_GL_AREA(preview->glview), 4, 6);
-    gtk_gl_area_make_current(GTK_GL_AREA(preview->glview));
-    if (gtk_gl_area_get_error(GTK_GL_AREA(preview->glview)) != NULL)
-    {
-        printf("Failed to create GL context!\n");
-        return;
-    }
-        g_signal_connect(preview->glview, "realize", G_CALLBACK(OBGLonGLAreaRealize), NULL);
+    g_signal_connect(preview->glview, "realize", G_CALLBACK(OBGLonGLAreaRealize), NULL);
     g_signal_connect(preview->glview, "render", G_CALLBACK(OBGLglAreaRender), NULL);
 
     gtk_widget_set_valign(preview->glview, GTK_ALIGN_START);
