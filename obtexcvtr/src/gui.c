@@ -2,6 +2,8 @@
 #include "obgl.h"
 #include "gtk/gtk.h"
 
+#include <glad/glad.h>
+
 #define __OB_PADDING 16
 #define __OB_WNDWIDTH 1280
 #define __OB_WNDHEIGHT 720
