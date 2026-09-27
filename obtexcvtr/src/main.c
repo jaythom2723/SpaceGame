@@ -4,9 +4,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#define STB_IMAGE_IMPLEMENTATION
-#include <stb-image/stb_image.h>
-
 #include <gtk-4.0/gtk/gtk.h>
 
 #include "gui.h"
@@ -37,6 +34,9 @@ void __ob_process_clargs(int argc, char** argv);
 #define __OB_WNDHEIGHT 720
 
 GFile* file;
+GFileInfo* finfo;
+int width, height, nrChannels;
+uint8_t* data;
 struct obgtk_window window;
 struct obgtk_details details;
 struct obgtk_output output;

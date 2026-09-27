@@ -1,8 +1,7 @@
 #include "gui.h"
+#include "glib.h"
 #include "obgl.h"
 #include "gtk/gtk.h"
-
-#include <glad/glad.h>
 
 #define __OB_PADDING 16
 #define __OB_WNDWIDTH 1280
@@ -135,12 +134,20 @@ void OBGTKpack(const struct obgtk_window* restrict window,
 
 void OBGTKupdateWindowOpen(GFile* file)
 {
-    const char* path = g_file_get_path(file);
+    if (file == NULL)
+        return;
+
+    extern struct obgtk_details details;
+    extern struct obgtk_hexdump hexdump;
+    extern GFileInfo* finfo;
+    extern uint8_t* data;
+
     char* basename = g_file_get_basename(file);
+    char* fname = strtok(basename, ".");
+    char* fext = strtok(NULL, ".");
 
-    printf("%s\n%s\n", path, basename);
-
-    // TODO: update the UI ig
-
-    // TODO: time to setup OpenGL stuff :D
+    gtk_label_set_text(GTK_LABEL(hexdump.hexlabel), (const char*)data);
+    gtk_label_set_text(GTK_LABEL(details.metadata.fnamelabel), fname);
+    gtk_label_set_text(GTK_LABEL(details.metadata.fextlabel), fext);
+    // gtk_label_set_text(GTK_LABEL(details.metadata.fchnlabel), );
 }

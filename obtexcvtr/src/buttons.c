@@ -2,10 +2,18 @@
 #include "gui.h"
 
 #include <stdio.h>
+#include <stdint.h>
 
 #include <gtk-4.0/gtk/gtk.h>
 
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb-image/stb_image.h>
+
 extern GFile* file;
+extern GFileInfo* finfo;
+extern int width;
+extern int height;
+extern int nrChannels;
 extern struct obgtk_window window;
 
 void file_open_dialog_close(GObject* source_object,
@@ -29,14 +37,17 @@ void file_open_dialog_close(GObject* source_object,
         g_error_free(error);
         return;
     }
+    finfo = g_file_query_info(file, "standard::*", G_FILE_QUERY_INFO_NONE, NULL, NULL);
 
+    data = stbi_load(g_file_get_path(file), &width, &height, &nrChannels, 4);
     OBGTKupdateWindowOpen(file);
 
     printf("%p", data);
 
     g_object_unref(file);
-
 }
+
+// TODO: prototype fclosebtn functionality
 
 void fopenbtn_click(void)
 {

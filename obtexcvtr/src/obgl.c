@@ -16,15 +16,16 @@
 
 extern struct obgtk_preview preview;
 
-static float vertices[] = {
-    1.0f, 1.0f, 0.0f, 1.0f, 1.0f,
-    1.0f, -1.0f, 0.0f, 1.0f, 0.0f,
-    -1.0f, -1.0f, 0.0f, 0.0f, 0.0f,
-    -1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+float vertices[] = {
+    0.5f, 0.5f, 0.0f,           1.0f, 1.0f,       // top right
+    0.5f, -0.5f, 0.0f,          1.0f, 0.0f,      // bottom right
+    -0.5f, -0.5f, 0.0f,     0.0f, 0.0f,    // bottom left
+    -0.5f, 0.5f, 0.0f,      0.0f, 1.0f,     // top left
 };
-static int indices[] = {
+
+unsigned int indices[] = {
     0, 1, 3,
-    1, 2, 3
+    1, 2, 3,
 };
 static unsigned int vbo, vao, ebo;
 static int vert, frag, shader;
@@ -73,6 +74,11 @@ void OBGLonGLAreaRealize(GtkGLArea* self)
     }
 
     __ob_init_gl();
+
+    int width, height;
+    width = gtk_widget_get_width(GTK_WIDGET(self));
+    height = gtk_widget_get_height(GTK_WIDGET(self));
+    glViewport(0, 0, width, height);
 
     bool v = __compile_shader(&vert, (const char* const*)&vertSource, GL_VERTEX_SHADER);
     if (!v)
@@ -138,7 +144,7 @@ void OBGLonGLAreaRealize(GtkGLArea* self)
 gboolean OBGLglAreaRender(GtkGLArea* area, GdkGLContext* context)
 {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     GLint screen_fb = 0;
     glGetIntegerv(GL_FRAMEBUFFER_BINDING, &screen_fb);
