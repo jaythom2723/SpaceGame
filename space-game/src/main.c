@@ -11,6 +11,7 @@
 #include <assets/ob_asset.h>
 #include <ecs/ob_ecs.h>
 #include <ext/ob_perlin.h>
+#include <ext/ob_noise_mask.h>
 
 #include <cglm/cglm.h>
 
@@ -38,19 +39,25 @@ int main(void)
 {
     OBinit();
     OBbootstrap(&program, "Project: Celestial", 800, 600);
-    OBinitExtension(OB_EXT_PERLIN_NOISE);
+    OBinitExtension(OB_EXT_PERLIN_NOISE | OB_EXT_NOISE_MASK);
 
     glViewport(0, 0, 800, 600);
 
-    struct obsidian_asset* tex;
     struct obsidian_asset* mdl;
     OBEXTperlinSetNumLayers(10);
     OBEXTperlinSetFrequency(20);
     OBEXTperlinSetSize(PERLIN_NOISE_WIDTH, PERLIN_NOISE_HEIGHT);
     struct obsidian_asset* perlin = OBEXTperlinInvokeAsset();
 
+    OBEXTnoiseMaskSetSize(PERLIN_NOISE_WIDTH, PERLIN_NOISE_HEIGHT);
+    OBEXTnoiseMaskSetGalaxyCenter(0.5f, 0.5f);
+    OBEXTnoiseMaskSetGalaxyRadius(0.42f);
+    OBEXTnoiseMaskSetSpiralArmCount(4.0f);
+    OBEXTnoiseMaskSetSpiralArmTightness(2.0f);
+    OBEXTnoiseMaskSetSpiralArmWidth(0.5f);
+    struct obsidian_asset* mask = OBEXTnoiseMaskInvokeAsset();
+
     OBASTcreatePrimitiveModel(&mdl, vertices, sizeof(vertices), indices, sizeof(indices));
-    OBLDRloadAsset(OB_ASSET_TEXTURE, &tex, "res/textures/test.obtf");
     
     ob_entity_t ent = OBECScreateEntity();
 
@@ -58,7 +65,7 @@ int main(void)
     vec3 scale = { PERLIN_NOISE_WIDTH, PERLIN_NOISE_HEIGHT, 1.0f };
     float rot = 0.0f;
 
-    OBECSaddComponent(ent, OB_TEXTURE_COMPONENT, perlin, sizeof(*perlin));
+    OBECSaddComponent(ent, OB_TEXTURE_COMPONENT, mask, sizeof(*mask));
     OBECSaddComponent(ent, OB_MODEL_COMPONENT, mdl, sizeof(*mdl));
     OBECSaddComponent(ent, OB_POSITION_COMPONENT, pos, sizeof(pos));
     OBECSaddComponent(ent, OB_SCALE_COMPONENT, scale, sizeof(scale));
@@ -79,7 +86,6 @@ int main(void)
     OBECSdestroyEntity(&ent);
 
     OBASTdestroyAsset(mdl);
-    OBASTdestroyAsset(tex);
     OBASTdestroyAsset(perlin);
 
     OBSHDRdestroyProgram(program);

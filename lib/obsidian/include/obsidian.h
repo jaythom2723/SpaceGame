@@ -6,6 +6,7 @@
 
 enum obsidian_extension {
     OB_EXT_PERLIN_NOISE = 0x0001,
+    OB_EXT_NOISE_MASK   = 0x0002,
 };
 
 bool OBinit(void);

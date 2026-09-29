@@ -44,6 +44,9 @@ extern bool __ob_ecs_closemodule(void);
 extern bool __ob_ext_perlin_init(void);
 extern bool __ob_ext_perlin_close(void);
 
+extern bool __ob_ext_noise_mask_init(void);
+extern bool __ob_ext_noise_mask_close(void);
+
 void __ob_core_faultbreak(void);
 bool __ob_core_checkfault(void);
 
@@ -146,6 +149,13 @@ bool OBinitExtension(enum obsidian_extension exts)
         __extensions |= OB_EXT_PERLIN_NOISE;
     }
 
+    if ((exts & OB_EXT_NOISE_MASK) == OB_EXT_NOISE_MASK)
+    {
+        INIT_EXT_MODULE(__ob_ext_noise_mask_init, "Failed to initialize Obsidian Noise Mask: Extension.");
+        __ob_log_wline(LOG_MESSAGE_INFORM, "Initialized Noise Mask: Obsidian Extension.");
+        __extensions |= OB_EXT_NOISE_MASK;
+    }
+
     return true;
 }
 
@@ -153,6 +163,9 @@ void OBclose(void)
 {
     if ((__extensions & OB_EXT_PERLIN_NOISE) == OB_EXT_PERLIN_NOISE)
         (void)__ob_ext_perlin_close();
+
+    if ((__extensions & OB_EXT_NOISE_MASK) == OB_EXT_NOISE_MASK)
+        (void)__ob_ext_noise_mask_close();
 
     (void)__ob_ecs_closemodule();
     (void)__ob_tex_closemodule();
